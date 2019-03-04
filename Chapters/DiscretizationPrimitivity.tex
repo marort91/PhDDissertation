@@ -1,0 +1,348 @@
+\chapter{Discretization and Primitivity of the Criticality Eigenvalue Problems For One-Dimensional Slab Geometry}
+
+%\label{AppA}
+\label{Discrete}
+
+\section{Discretization of the Alpha-Eigenvalue and $k$-Effective Eigenvalue Equations}
+
+We begin with the alpha-eigenvalue transport equation in one-dimensional slab geometry with isotropic scattering. Discretization of the $k$-eigenvalue transport equation follows a similar procedure. The spatial domain is the interval $[a,b]$ in $x$, $\mu$ is the angle cosine in $[-1,1]$, the energy variable is $E \in [0, \infty)$, and the equations for the angular flux $\psi(x, \mu, E)$ are given by
+\begin{multline}
+\bigg [ \mu \frac{\partial}{\partial x} + \frac{\alpha}{v(E)} + \sigma(x,E) \bigg ] \psi(x,\mu,E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,E') \int_{-1}^{1} \diff \mu' \psi(x,\mu',E) \\ + \frac{1}{2} \int_{0}^{\infty} \diff E' \sigma_{s}(x, E' \rightarrow E) \int_{-1}^{1} \diff \mu' \psi(x,\mu',E).
+\label{eq:1DAlpha}
+\end{multline}
+We assume vacuum Dirichlet conditions
+\begin{align*}
+	\psi(a, \mu, E) &=0, \quad 0 < \mu \leq 1, \\
+        \psi(b, \mu, E) &=0, \quad -1 \leq \mu < 0.
+\end{align*}
+We begin by discretizing Eq.~\ref{eq:1DAlpha} in energy using the \textit{multigroup} approximation. We restrict the energy $E$ to a finite interval and partition the interval into groups:
+\begin{equation*}
+	E_{max} = E_{0} > E_{1} > \dots > E_{G} = E_{min}.
+\end{equation*}
+The eigenvalue equation is then averaged over each group $E_{g} < E < E_{g-1}$ and the cross sections are approximated by a flux-weighted average over each energy group. In the spatial dimension, we introduce a spatial grid
+\begin{equation*}
+	a \equiv x_{0} < \dots < x_{i+1} < x_{i} < \dots < x_{M} \equiv b,
+\end{equation*}
+and let $\Delta x_{i} = x_{i} - x_{i-1}$. We refer to the $x_{i}$ as nodes and function values at the nodes are called nodal values. We assume that $\sigma_{g}$ and $\sigma_{s,g,g'}$, the total and scattering cross sections for energy group $g$, are constant on the zone $x_{i-1} < x < x_{i}$ and denote these values by $\sigma_{g,i}$ and $\sigma_{s,g,g',i}$. We use a discrete ordinates collocation of Eq.~\ref{eq:1DAlpha} at an even number of Gauss points $\mu_{\ell}$ with
+\begin{equation*}
+	-1 < \mu_{1} < \dots < \mu_{L/2} < 0 < \mu_{L/2+1} < \dots < \mu_{L} < 1, 
+\end{equation*}
+and $\mu_{L+1-\ell} = - \mu_{\ell}$. The integrals in angle in Eq.~\ref{eq:1DAlpha} are then approximated by
+\begin{equation*}
+	\frac{1}{2} \int_{-1}^{1} \diff \mu \, \psi_{g}(x, \mu) \approx \sum_{\ell=1}^{L} w_{\ell} \psi_{g}(x, \mu_{\ell}).
+\end{equation*}
+Using diamond differencing in the spatial dimension \cite{lewis_computational_1984}, we obtain the fully discretized set of equations for the eigenvalue problems
+\begin{multline}
+	\mu_{\ell} \frac{ \psi_{g,\ell,i} - \psi_{g, \ell, i-1}}{\Delta x_{i}} + \frac{\alpha}{v_{g}} \frac{\psi_{g,\ell,i} + \psi_{g, \ell, i-1}}{2} + \sigma_{g,i} \frac{\psi_{g,\ell,i} + \psi_{g, \ell, i-1}}{2} \\ = \frac{\chi_{g}}{2} \sum_{g'=1}^{G} \frac{\nu_{g}\sigma_{f,g',i}}{2} \sum_{\ell' = 1}^{L} w_{\ell'} \psi_{g',\ell',i} + \sum_{g'=1}^{G} \frac{\sigma_{s,g,g',i}}{2} \sum_{\ell' = 1}^{L} w_{\ell'} \psi_{g',\ell',i},
+\label{eq:AlphaSlab}
+\end{multline}
+for $g = 1, \dots, G$, $i = 1, \dots, M$, and $\ell = 1, \dots, L$. The discretized boundary conditions are given by
+\begin{align*}
+\psi_{g,\ell,M} &= 0 \text{ for } \ell = 1, \dots, L/2,  \\
+\psi_{g,\ell,0} &= 0 \text{ for } \ell = L/2+1, \dots, L.
+\end{align*}
+Using cell-centered flux values, it follows that Eq.~\ref{eq:AlphaSlab} is a system of $GLM$ equations for $GLM$ unknowns. 
+
+%\subsection{The Diamond Difference Operator Matrix Form}
+
+To write Eq.~\ref{eq:AlphaSlab} in matrix form, we define the angular flux vector for a single energy group $g$ as
+\begin{equation*}
+\Psi_{g} \equiv 
+\begin{pmatrix}
+\Psi_{g,1} \\
+\vdots \\
+\Psi_{g,L}
+\end{pmatrix} \in \mathbf{R}^{L(M+1)} \quad \text{ with } \quad
+\Psi_{g, \ell} \equiv 
+\begin{pmatrix}
+\Psi_{g,\ell,0} \\
+\vdots \\
+\Psi_{g,L,M}
+\end{pmatrix} \in \mathbf{R}^{M+1}.
+\end{equation*}
+To write the matrix form of the diamond difference discretized operator $\mu_{\ell} \partial/\partial x + 1/v_{g} + \sigma_{g}$, we define the block diagonal matrix
+\begin{equation*}
+\bar{S} \equiv \text{diag}(S_{1}, \dots, S_{L}) \in \mathbf{R}^{LM \times L(M+1)}
+\end{equation*}
+with
+\begin{equation*}
+S_{\ell} = S = \frac{1}{2}
+\setlength\arraycolsep{2pt}
+\begin{pmatrix}
+1 & 1 & & \\
+& \ddots & \ddots & \\
+& & 1 & 1
+\end{pmatrix} \in \mathbf{R}^{M \times (M+1)},
+\end{equation*}
+for all $\ell$. The matrix $S$ interpolates nodal vectors into zone-centered vectors by averaging the nodal values. Now we define the total cross section and inverse velocity matrices for energy group $g$ as
+\begin{equation*}
+	\Sigma_{g}  \equiv \text{diag}(\sigma_{g,1},\dots,\sigma_{g,M}) \in \mathbf{R}^{M \times M},
+\end{equation*}
+\begin{equation*}
+	V^{-1}_{g}  \equiv \text{diag}(1/v_{g,1},\dots,1/v_{g,M}) \in \mathbf{R}^{M \times M}.
+\end{equation*}
+We define the following matrices to describe the discretized derivative term
+\begin{equation*}
+	\Delta x \equiv \text{diag}(\Delta x_{1}, \dots, \Delta x_{M}) \in \mathbf{R}^{M \times M}
+\end{equation*}
+and
+\begin{equation*}
+D \equiv
+\setlength\arraycolsep{2pt}
+\begin{pmatrix}
+-1 & 1 & & \\
+& \ddots & \ddots & \\
+& & -1 & 1
+\end{pmatrix} \in \mathbf{R}^{M \times (M+1)}.
+\end{equation*}
+Boundary values are isolated by defining the row vector
+\begin{equation*}
+	B_{\ell} \equiv \begin{cases}
+				e_{M}^{T} \quad \text{ if } \ell \leq L/2, \\
+				e_{0}^{T} \quad \text{ if } \ell > L/2
+                              \end{cases} \in \mathbf{R}^{M+1},
+\end{equation*}
+where the indices on the standard basis vectors $e_{\ell}$ are from 0 to $M$. Finally, we define the matrices $Z$ and $Z_{b}$ as
+\begin{equation*}
+	Z \equiv \begin{pmatrix}
+			I_{M} \\
+			0
+		     \end{pmatrix} \in \mathbf{R}^{(M+1) \times M} \quad \text{ and } \quad
+	Z_{b} \equiv  e_{M}.
+\end{equation*}
+We can now define the matrix form of the diamond difference representation of  $\mu_{\ell} \partial/\partial x + \alpha/v_{g} + \sigma_{g}$ as 
+\begin{equation*}
+	H_{g} + \alpha V^{-1}_{g} \equiv \text{diag}(H_{g,1}, \dots, H_{g,L}) + \alpha \text{ diag}(V^{-1}_{g,1}, \dots, V^{-1}_{g,L}) \in \mathbf{R}^{L(M+1)},
+\end{equation*}
+where
+\begin{equation*}
+	H_{g,\ell} + \alpha V^{-1}_{g,\ell} \equiv Z(\mu_{\ell}\Delta x^{-1}D + \Sigma_{g}S_{\ell}) + Z_{b}B_{\ell} + \alpha ZV_{g}^{-1}S_{\ell}.
+\end{equation*}
+It can be shown that $H_{g} + \alpha V^{-1}_{g}$ is nonsingular for the diamond difference method if $\alpha$ is not too negative.
+
+%\subsection{The Discrete Ordinates Method Matrix Form, the Scattering Matrix, and the Fission Matrix}
+We use the \textit{Kronecker (tensor) product} to simplify the matrix forms of the discrete ordinates and scattering operators. For matrices $A \in \mathbf{R}^{m \times n}$ and $B \in \mathbf{R}^{k \times l}$, the Kronecker product of $A$ and $B$ is the $mk \times nl$ matrix denoted by
+\begin{equation*}
+	A \otimes B \equiv \begin{pmatrix}
+					a_{11}B & \dots & a_{1n}B \\
+					\vdots & \ddots & \vdots \\
+					a_{m1}B & \dots & a_{mn}B
+				    \end{pmatrix},
+\end{equation*}
+where $ A = (a_{ij})$. 
+%We list various properties of the Kronecker product that will be used in this section: 
+%\begin{itemize}%[noitemsep, topsep=0pt]
+%	\item If $A$ and $B$ are nonsingular, then $A \otimes B$ is nonsingular with $(A \otimes B)^{-1} = A^{-1} \otimes B^{-1}$.
+%	\item $(A \otimes B)^{T} = A^{T} \otimes B^{T}$.
+%	\item Given matrices $A, B, C,$ and $D$, $(A \otimes B) \cdot (C \otimes D)$, as long as the matrix multiplication is valid.
+%	\item $(A + B) \otimes C = A \otimes C + B \otimes C$.
+%	\item $A \otimes (B + C) = A \otimes B + A \otimes C$.
+%\end{itemize}
+We define discretized representations of angular flux moment operators. The matrices operate on zone-centered vectors and are in $\mathbf{R}^{M \times LM}$. We define the matrix
+\begin{equation*}
+	L_{n} \equiv (l_{n}W) \otimes I_{M},
+\end{equation*}
+where $l_{n} \equiv (P_{n}(\mu_{1}), P_{n}(\mu_{2}), \dots, P_{n}(\mu_{L}))$ are the Legendre polynomials and the quadrature weights are given by$\quad W \equiv \text{diag}(w_{1}, \dots, w_{L})$.
+If the vector $\Psi_{g}$ approximates $\psi_{g}(x, \mu)$, then $L_{n}\Psi_{g}$ approximates taking the n$^{th}$ moment of the angular flux $\phi_{g,n}(x)$. We also define the matrix
+\begin{equation*}
+	L_{n}^{+} \equiv (2n+1)l_{n}^{T} \otimes I_{M} \in \mathbf{R}^{LM \times M}.
+\end{equation*}
+If a vector $\Phi$ approximates $\phi(x)$, then $L_{n}^{+}\Psi$ will approximate $P_{n}(\mu)\phi(x)$. We define the grouped matrices for $N_{s}$ moments as
+\begin{equation*}
+L^{N} = \begin{pmatrix}
+		L_{0} \\
+		\vdots \\
+		L_{N}
+	     \end{pmatrix} \quad \text{ and } \quad
+L^{N,+} = (L_{0}^{+}, \dots, L_{N}^{+}).
+\end{equation*}
+We can define the scattering and fission matrices as
+\begin{equation*}
+	\Sigma_{s,g,g',n} \equiv \text{diag}(\sigma_{s,g,g',n,1}, \dots, \sigma_{s,g,g',n,M}) \in \mathbf{R}^{M \times M}
+\end{equation*}
+and
+\begin{equation*}
+	\Sigma_{f,g,g',n} \equiv \text{diag}(\chi_{g}\nu\sigma_{f,g',n,1}, \dots, \chi_{g}\nu\sigma_{f,g',n,M}) \in \mathbf{R}^{M \times M}.
+\end{equation*}
+We now define matrices that inject zone-centered vectors into nodal vector space and vice versa. We define the matrices
+\begin{equation*}
+\bar{\Sigma}_{g} \equiv I_{L} \otimes \Sigma_{g} \in \mathbf{R}^{LM \times LM},
+\end{equation*}
+\begin{equation*}
+\bar{V^{-1}}_{g} \equiv I_{L} \otimes V^{-1}_{g} \in \mathbf{R}^{LM \times LM},
+\end{equation*}
+\begin{equation*}
+	\bar{Z} = I_{L} \otimes Z \in \mathbf{R}^{L(M+1) \times LM},
+\end{equation*}
+\begin{equation*}
+	\bar{Z}_{B} = I_{L} \otimes Z_{b} \in \mathbf{R}^{L(M+1) \times L},
+\end{equation*}
+\begin{equation*}
+	B = \text{diag}(B_{1}, \dots, B_{L}) \in \mathbf{R}^{L \times L(M+1)},
+\end{equation*}
+and
+\begin{equation*}
+	C = \text{diag}(\mu_{1}\Delta x^{-1}D, \dots, \mu_{L} \Delta x^{-1}D) \in \mathbf{R}^{LM \times L(M+1)}.
+\end{equation*}
+Using the above matrices, we can write the matrix $H_{g} + V^{-1}_{g}$ as
+\begin{multline*}
+H_{g} + V^{-1}_{g} \equiv \text{diag}(H_{g,1}, \dots, H_{g,L}) + \text{diag}(V^{-1}_{g,1}, \dots, V^{-1}_{g,L}) \\ = \bar{Z}(C + \bar{\Sigma}_{g}\bar{S}) + \bar{Z}_{B}B + \bar{Z}\bar{V}^{-1}\bar{S}.
+\end{multline*}
+The discretized multigroup eigenvalue equations can then be written in the matrix form as
+\begin{equation*}
+	H_{g} \Psi_{g} + \alpha V^{-1}_{g}\Psi_{g} = \bar{Z} \sum_{g'=1}^{G} \sum_{n=0}^{N_{s}} L_{n}^{+}\Sigma_{s,g,g',n}L_{n}\bar{S}\Psi_{g'}  +  \bar{Z} \sum_{g'=1}^{G} \sum_{n=0}^{N_{s}} L_{n}^{+}\Sigma_{f,g,g',n}L_{n}\bar{S}\Psi_{g'}, 
+	\label{eq:AlphaMGg}
+\end{equation*}
+Finally, we can write the multigroup discretized eigenvalue equations if we define the matrices
+\begin{equation*}
+	\mathbf{\Psi} \equiv \begin{pmatrix}
+					\Psi_{1} \\
+					\Psi_{2} \\
+					\vdots \\
+					\Psi_{G}
+				       \end{pmatrix}, \quad
+	\mathbf{\Sigma_{s}} \equiv \begin{pmatrix}
+					\Sigma_{s, 11}^{N_{s}} & \dots & \Sigma_{s,1G}^{N_{s}} \\
+					\vdots & \ddots & \vdots \\
+					\Sigma_{s, G1}^{N_{s}} & \dots & \Sigma_{s,GG}^{N_{s}}
+					\end{pmatrix}, \quad 
+	\mathbf{\Sigma_{f}} \equiv \begin{pmatrix}
+					\Sigma_{f, 11}^{N_{s}} & \dots & \Sigma_{f,1G}^{N_{s}} \\
+					\vdots & \ddots & \vdots \\
+					\Sigma_{f, G1}^{N_{s}} & \dots & \Sigma_{f,GG}^{N_{s}}
+					\end{pmatrix},
+\end{equation*}
+where 
+\begin{equation*}
+\Sigma_{s,gg'}^{N_{s}} \equiv \text{diag}(\Sigma_{s,g,g',0}, \dots, \Sigma_{s,g,g',N_{s}})
+\end{equation*}
+and
+\begin{equation*}
+\Sigma_{f,gg'}^{N_{s}} \equiv \text{diag}(\Sigma_{f,g,g',0}, \dots, \Sigma_{f,g,g',N_{s}}).
+\end{equation*}
+Defining the following matrices $\mathbf{S} \equiv I_{G} \otimes \bar{S}$, $\mathbf{Z} \equiv I_{G} \otimes \bar{Z}$, $\mathbf{H} + \mathbf{V}^{-1} \equiv \text{diag}(H_{1} + V^{-1}_{1}, H_{2} + V^{-1}_{2}, \dots, H_{G} + V^{-1}_{G})$, $\mathbf{L}^{+} \equiv I_{G} \otimes L^{N_{s},+}$, $\mathbf{L} \equiv I_{G} \otimes L^{N_{s}}$, then Eq.~\ref{eq:AlphaMGg} can be written as
+\begin{equation}
+	\mathbf{H}\mathbf{\Psi} + \alpha \mathbf{V}^{-1}\mathbf{\Psi} = \mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} \mathbf{\Psi} + \mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L} \mathbf{\Psi}.
+	\label{AlphaMG}
+\end{equation}
+Similarly, the discretized $k$-eigenvalue problem can be written as
+\begin{equation}
+	\mathbf{H}\mathbf{\Psi}  = \mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} \mathbf{\Psi} + \frac{1}{k}\mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L} \mathbf{\Psi}.
+	\label{kMG}
+\end{equation}
+
+\section{Primitivity of the Discretized Eigenvalue Equations}
+
+Assuming isotropic fission and scattering, we show by example that the matrix $\mathbf{A}(\alpha)$ is a primitive matrix. A primitive matrix is a matrix $\mathbf{B} \geq 0$ for which there exists some $n$ such that $\mathbf{B}^{n} > 0$ \cite{horn_matrix_2012}.  Consider a two energy group problem with discrete ordinates $S_{2}$ angular quadrature from \cite{lewis_computational_1984} and two spatial cells ($G, L, M = 2$). The scattering matrix is then
+\begin{multline*}
+	\mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} = \begin{pmatrix}
+											L^{0,+} & 0 \\
+											0 & L^{0,+}
+										     \end{pmatrix}
+										     \begin{pmatrix}
+											\Sigma_{s,11}^{0} & \Sigma_{s,12}^{0} \\
+											\Sigma_{s,21}^{0} & \Sigma_{s,22}^{0}
+										     \end{pmatrix}
+										     \begin{pmatrix}
+											L^{0} & 0 \\
+											0 & L^{0}
+										     \end{pmatrix} \\= 
+											\begin{pmatrix}
+											L^{0,+}\Sigma_{s,11}^{0}L^{0} & L^{0,+}\Sigma_{s,12}^{0}L^{0} \\
+											L^{0,+}\Sigma_{s,21}^{0}L^{0} & L^{+,0}\Sigma_{s,22}^{0}L^{0}
+										     \end{pmatrix}.
+\end{multline*}
+Each block matrix can be written as
+\begin{multline*}
+	L^{0,+}  \Sigma_{s,11}^{0} L = (\ell_{0}^{T} \otimes I_{M})\Sigma_{s,11,0} (\ell_{0} W \otimes I_{M}) \\ = 
+	\begin{pmatrix}
+		1 & 0 \\
+		0 & 1 \\
+		1 & 0 \\
+		0 & 1
+	\end{pmatrix}
+	\begin{pmatrix}
+		\sigma_{s,1,1,0,1} & 0 \\
+		0 & \sigma_{s,1,1,0,2}
+	\end{pmatrix}
+	\begin{pmatrix}
+		1/2 & 0 & 1/2 & 0 \\
+		0 & 1/2 & 0 & 1/2
+	\end{pmatrix} \\ =
+	\begin{pmatrix}
+		\frac{1}{2} \sigma_{s,1,1,0,1} & 0 & \frac{1}{2} \sigma_{s,1,1,0,1} & 0 \\
+		0 & \frac{1}{2} \sigma_{s,1,1,0,2} & 0 & \frac{1}{2} \sigma_{s,1,1,0,2}  \\
+		\frac{1}{2} \sigma_{s,1,1,0,1} & 0 & \frac{1}{2} \sigma_{s,1,1,0,1} & 0 \\
+		0 & \frac{1}{2} \sigma_{s,1,1,0,2} & 0 & \frac{1}{2} \sigma_{s,1,1,0,2}
+	\end{pmatrix}.
+\end{multline*}
+Similarly, for $L^{0,+}  \Sigma_{f,11}^{0} L$ we have
+\begin{equation*}
+L^{0,+}  \Sigma_{f,11}^{0} L = 
+		\begin{pmatrix}
+			\frac{1}{2} \chi_{1}\nu\sigma_{f,1,1} & 0 & \chi_{1}\frac{1}{2} \nu\sigma_{f,1,1} & 0 \\
+			0 & \frac{1}{2} \chi_{1}\nu\sigma_{f,1,2} & 0 & \frac{1}{2} \chi_{1}\nu\sigma_{f,1,2}  \\
+			\frac{1}{2} \chi_{1}\nu\sigma_{f,1,1} & 0 & \frac{1}{2} \chi_{1}\nu\sigma_{f,1,1} & 0 \\
+			0 & \frac{1}{2} \chi_{1}\nu\sigma_{f,1,2} & 0 & \frac{1}{2}\chi_{1} \nu\sigma_{f,1,2}
+	\end{pmatrix}.
+\end{equation*}
+
+For our model problem, $\mathbf{H}^{-1} \geq 0$ and has the form \cite{greenbaum1997iterative}
+\begin{equation*}
+	\mathbf{H}^{-1} = \begin{pmatrix}
+  \begin{pmatrix}
+  x & 0 \\
+  x & x
+  \end{pmatrix} & \bigzero & \bigzero & \bigzero \\
+  \bigzero & 
+  \begin{pmatrix}
+  x & x \\
+  0 & x
+  \end{pmatrix} & \bigzero & \bigzero \\
+  \bigzero & \bigzero & \begin{pmatrix}
+  x & 0 \\
+  x & x
+  \end{pmatrix} & \bigzero \\
+  \bigzero & \bigzero & \bigzero & \begin{pmatrix}
+  x & x \\
+  0 & x
+  \end{pmatrix}
+\end{pmatrix},
+\end{equation*}
+and $\mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ has the form
+\begin{equation*}
+\mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L} = \frac{1}{2}
+	\begin{pmatrix}
+		\chi_{1} \nu \sigma_{f,1} I_{L} & \chi_{1}\nu \sigma_{f,1} I_{L}& \chi_{1}\nu \sigma_{f,2} I_{L} & \chi_{1} \nu \sigma_{f,2} I_{L} \\
+		\chi_{1}\nu \sigma_{f,1} I_{L} & \chi_{1}\nu \sigma_{f,1} I_{L}& \chi_{1}\nu \sigma_{f,2} I_{L} & \chi_{1}\nu \sigma_{f,2} I_{L} \\
+		\chi_{2}\nu \sigma_{f,1} I_{L} & \chi_{2}\nu \sigma_{f,1} I_{L}& \chi_{2}\nu \sigma_{f,2} I_{L} & \chi_{2}\nu \sigma_{f,2} I_{L} \\
+		\chi_{2}\nu \sigma_{f,1} I_{L} & \chi_{2}\nu \sigma_{f,1} I_{L}& \chi_{2}\nu \sigma_{f,2} I_{L} & \chi_{2}\nu \sigma_{f,2} I_{L}
+	\end{pmatrix}.
+\end{equation*}
+Therefore, the matrix $\mathbf{H}^{-1}\mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ has the form
+\begin{equation*}
+	\mathbf{H}^{-1}\mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L} = \begin{pmatrix}
+		\LTx & \LTx & \LTx & \LTx \\
+		\UTx & \UTx & \UTx & \UTx \\
+		\LTx & \LTx & \LTx & \LTx \\
+		\UTx & \UTx & \UTx & \UTx
+	\end{pmatrix},
+\end{equation*}
+where $I_{L}$ is the identity matrix of size $L$. It follows that each block of the matrix $(\mathbf{H}^{-1}\mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L})^{2}$ is
+\begin{equation*}
+	\begin{pmatrix}
+		x & 0 \\ x & x
+	\end{pmatrix}
+\begin{pmatrix}
+		x & x \\ 0 & x
+	\end{pmatrix} =
+\begin{pmatrix}
+		x^2 & x^2 \\ x^2 & x^{2}
+	\end{pmatrix} > 0 \text{ because }
+\begin{pmatrix}
+	\chi_{1} \nu\sigma_{f,1} & \chi_{1}\nu\sigma_{f,2} \\ \chi_{2}\nu\sigma_{f,1} & \chi_{2}\nu\sigma_{f,2}
+	\end{pmatrix} > 0
+\end{equation*}
+and $\mathbf{H}^{-1} \geq 0$. Therefore, $\mathbf{H}^{-1}\mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ is primitive and it follows that $\mathbf{A}(\alpha)$ is primitive since $\mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} \geq 0$. When the system is subcritical, $\alpha < 0$ and the matrix $\mathbf{A}(\alpha)$ is primitive. For supercritical systems, $\alpha > 0$ and there is an upper limit $\alpha_{\text{max}}$ such that the matrix $\mathbf{A}(\alpha)$ remains primitive. For $k$-effective eigenvalue problems, $k$ is always positive and therefore the matrix $\mathbf{T}(k)$ is primitive.
+%There are other eigenvalue problems useful for various applications \cite{ronen_comparison_1976}, however 
+

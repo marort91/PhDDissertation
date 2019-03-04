@@ -1,0 +1,164 @@
+%% thesis.tex 2014/04/11
+%
+% Based on sample files of unknown authorship.
+%
+% The Current Maintainer of this work is Paul Vojta.
+
+\documentclass{ucbthesis}
+\usepackage[backend=bibtex]{biblatex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[]{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{alphabeta}
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{mathtools}
+
+\usepackage{booktabs}
+\usepackage[svgnames,table]{xcolor}
+\usepackage{pgfplots}
+\usepackage[tableposition=above]{caption}
+\usepackage{pifont}
+
+\usepackage{subcaption}
+
+\usetikzlibrary{shapes.misc}
+\tikzset{cross/.style={cross out, draw=black, minimum size=2*(#1-3.0\pgflinewidth), inner sep=0pt, outer sep=0pt},
+%default radius will be 1pt. 
+cross/.default={1pt}}
+
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{2}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+%\newcommand{\diff}{\mathop{}\!d}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\newcommand{\bigzero}{\mbox{\normalfont\Large\bfseries 0}}
+
+\newcommand{\LTx}{\begin{pmatrix} x & 0 \\ x & x \end{pmatrix}}
+\newcommand{\UTx}{\begin{pmatrix} x & x \\ 0 & x \end{pmatrix}}
+
+\newcommand*\CHECK{\ding{51}}
+
+% To compile this file, run "latex thesis", then "biber thesis"
+% (or "bibtex thesis", if the output from latex asks for that instead),
+% and then "latex thesis" (without the quotes in each case).
+
+% Double spacing, if you want it.  Do not use for the final copy.
+% \def\dsp{\def\baselinestretch{2.0}\large\normalsize}
+% \dsp
+
+% If the Grad. Division insists that the first paragraph of a section
+% be indented (like the others), then include this line:
+% \usepackage{indentfirst}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proof}{Proof}
+\newtheorem{definition}{Definition}
+
+\bibliography{Bibliography/EigProbsNeutronTransport}
+
+\hyphenation{mar-gin-al-ia}
+\hyphenation{bra-va-do}
+
+\newcommand{\diff}{\mathop{}\!d}
+
+\begin{document}
+
+% Declarations for Front Matter
+
+\title{Title to be Announced Later}
+\author{Mario I. Ortega}
+\degreesemester{Spring}
+\degreeyear{2019}
+\degree{Doctor of Philosophy}
+\chair{Professor Rachel N. Slaybaugh}
+\othermembers{Professor Jasmina Vujic \\
+Professor Per Persson \\
+Dr. Peter N. Brown}
+\numberofmembers{4}
+% Previous degrees are no longer to be listed on the title page.
+% \prevdegrees{B.A. (University of Northern South Dakota at Hoople) 1978 \\
+%   M.S. (Ed's School of Quantum Mechanics and Muffler Repair) 1989}
+\field{Nuclear Engineering}
+% Designated Emphasis -- this is optional, and rare
+% \emphasis{Colloidal Telemetry}
+% This is optional, and rare
+% \jointinstitution{University of Western Maryland}
+% This is optional
+\campus{Berkeley}
+
+% For a masters thesis, replace the above \documentclass line with
+% \documentclass[masters]{ucbthesis}
+% This affects the title and approval pages, which by default calls this
+% document a "dissertation", not a "thesis".
+
+\maketitle
+% Delete (or comment out) the \approvalpage line for the final version.
+\approvalpage
+\copyrightpage
+
+\include{Chapters/Abstract}
+
+\begin{frontmatter}
+
+\begin{dedication}
+\null\vfil
+\begin{center}
+To Ossie Bernosky\\\vspace{12pt}
+And exposition? Of go. No upstairs do fingering. Or obstructive, or purposeful.
+In the glitter. For so talented. Which is confines cocoa accomplished.
+Masterpiece as devoted. My primal the narcotic. For cine? To by recollection
+bleeding. That calf are infant. In clause. Be a popularly. A as midnight
+transcript alike. Washable an acre. To canned, silence in foreign.
+\end{center}
+\vfil\null
+\end{dedication}
+
+% You can delete the \clearpage lines if you don't want these to start on
+% separate pages.
+
+\tableofcontents
+\clearpage
+\listoffigures
+\clearpage
+\listoftables
+
+\begin{acknowledgements}
+Bovinely invasive brag; cerulean forebearance.
+Washable an acre. To canned, silence in foreign.
+Be a popularly. A as midnight transcript alike.
+To by recollection bleeding. That calf are infant. In clause.
+Buckaroo loquaciousness?  Aristotelian!
+Masterpiece as devoted. My primal the narcotic. For cine?
+In the glitter. For so talented. Which is confines cocoa accomplished.
+Or obstructive, or purposeful.
+And exposition? Of go. No upstairs do fingering.
+
+\end{acknowledgements}
+
+\end{frontmatter}
+
+\pagestyle{headings}
+
+% (Optional) \part{First Part}
+
+\include{Chapters/Introduction}
+\include{Chapters/Background}
+\include{Chapters/DiscretizationPrimitivity}
+\include{Chapters/DeriveRQFP}
+\include{Chapters/InfiniteMediumEigenvalues}
+\include{Chapters/SlabEigenvalue}
+\include{Chapters/AndersonAccceleration.tex}
+
+% \appendix
+% \chapter{More Monticello Candidates}
+
+\printbibliography
+
+\end{document}

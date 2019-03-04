@@ -1,0 +1,24 @@
+\begin{tikzpicture}
+    \begin{scope}[thick,font=\scriptsize]
+    
+    \fill[fill=black!20] (-4.5,-3) rectangle (-3.5,3);
+    \fill[fill=black!30] (-3.5,-3) rectangle (-2.5,3);
+    \fill[fill=black!40] (-2.5,-3) rectangle (2.5,3);
+        \fill[fill=black!30] (2.5,-3) rectangle (3.5,3);
+            \fill[fill=black!20] (3.5,-3) rectangle (4.5,3);
+    
+    \draw [dashed] (-4.5,-3) -- (-4.5,3) {};
+    \draw [dashed] (-3.5,-3) -- (-3.5,3) {};
+    \draw [dashed] (-2.5,-3) -- (-2.5,3) {};
+    \draw [dashed] (2.5,-3) -- (2.5,3) {};
+   \draw [dashed] (3.5,-3) -- (3.5,3) {};
+   \draw [dashed] (4.5,-3) -- (4.5,3) {};
+   
+   \draw node at (-4,0) {\Large \rotatebox[origin=c]{90}{Fuel}};
+   \draw node at (-3,0) {\Large \rotatebox[origin=c]{90}{Moderator}};  
+   \draw node at (-0,0) {\Large \rotatebox[origin=c]{90}{Absorber}};
+   \draw node at (3,0) {\Large \rotatebox[origin=c]{90}{Moderator}};
+   \draw node at (4,0) {\Large \rotatebox[origin=c]{90}{Fuel}};  
+
+    \end{scope}
+\end{tikzpicture}
