@@ -13,3 +13,152 @@
 	\label{fig:ThreeRegionProblem}
 	\caption{Heterogeneous Slab Benchmark Problem Domain \cite{kornreich_timeeigenvalue_2005}}
 \end{figure}
+
+\begin{table}[]
+    \centering
+    \caption{Homogeneous Purely Scattering Slab Cross Sections (cm$^{-1}$)}
+\label{table:Betzler}
+    \begin{tabular}{*4c}
+        \toprule
+	$\sigma$ & $\nu \sigma_{f}$ & $\sigma_{s}$  & $v$ [cm/s] \\ 
+        \midrule
+	1.0 & 0.0 & 1.0 & 1.0 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table*}
+\centering\ra{1.3}
+\caption{Comparison of RQFP- and GFM-calculated alpha-eigenvalues for a homogeneous scattering slab}
+\begin{tabular}{@{}cccc@{}}\toprule
+& \multicolumn{3}{c}{Alpha-Eigenvalue/Percent Relative Error} \\
+\cmidrule{2-4} $\Delta$ & RQFP & GFM & \% Relative Error \\
+\midrule
+%$\Delta$\\
+1 & $-6.08420 \times 10^{-1}$ & $-6.08072 \times 10^{-1}$ & 0.057189 \\ 
+5 & $-8.10966 \times 10^{-2}$ & $-8.10933 \times 10^{-2}$ & 0.004113 \\ 
+10 & $-2.53506 \times 10^{-2}$ & $-2.53500 \times 10^{-2}$ & 0.002349 \\ 
+20 & $-7.18015 \times 10^{-3}$ & $-7.17962 \times 10^{-3}$ & 0.007358 \\ 
+25 & $-4.71736 \times 10^{-3}$ & $-4.71722 \times 10^{-3}$ & 0.002966 \\ 
+\bottomrule
+\multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
+\end{tabular}
+\end{table*}
+
+\begin{table}[]
+    \centering
+    \caption{Homogeneous Multiplying Slab Cross Sections (cm$^{-1}$)}
+\label{table:Betzler}
+    \begin{tabular}{*5c}
+        \toprule
+	$\sigma$ & $\nu \sigma_{f}$ & $\sigma_{s}$ & $v$ [cm/s] \\ 
+        \midrule
+	1.0 & 0.25 & 0.9 & 1.0 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table*}
+\centering\ra{1.3}
+\caption{Comparison of RQFP- and GFM-calculated alpha-eigenvalues for a homogeneous scattering multiplying slab}
+\begin{tabular}{@{}cccc@{}}\toprule
+& \multicolumn{3}{c}{Alpha-Eigenvalue/Percent Relative Error} \\
+\cmidrule{2-4} $\Delta$ & RQFP & GFM & \% Relative Error \\
+\midrule
+%$\Delta$\\
+0.25 & $-1.15480 \times 10^{0}$ & $-9.90300 \times 10^{-1}$ & 16.611352 \\ 
+0.30 & $-1.06633 \times 10^{0}$ & $-9.74300 \times 10^{-1}$ & 9.446240 \\ 
+0.35 & $-9.98584 \times 10^{-1}$ & $-9.49350 \times 10^{-1}$ & 5.186069 \\ 
+0.40 & $-9.42114 \times 10^{-1}$ & $-9.17000 \times 10^{-1}$ & 2.738758 \\ 
+0.45 & $-8.91833 \times 10^{-1}$ & $-8.79460 \times 10^{-1}$ & 1.406940 \\ 
+0.50 & $-8.44920 \times 10^{-1}$ & $-8.38790 \times 10^{-1}$ & 0.730822 \\ 
+0.75 & $-6.34756 \times 10^{-1}$ & $-6.34060 \times 10^{-1}$ & 0.109818 \\ 
+1 & $-4.69398 \times 10^{-1}$ & $-4.69160 \times 10^{-1}$ & 0.050762 \\ 
+2 & $-1.36335 \times 10^{-1}$ & $-1.36310 \times 10^{-1}$ & 0.018335 \\ 
+3 & $-1.39888 \times 10^{-2}$ & $-1.39790 \times 10^{-2}$ & 0.070397 \\ 
+4 & $4.36998 \times 10^{-2}$ & $4.37050 \times 10^{-2}$ & 0.011811 \\ 
+5 & $7.54667 \times 10^{-2}$ & $7.54690 \times 10^{-2}$ & 0.003096 \\ 
+6 & $9.48296 \times 10^{-2}$ & $9.48310 \times 10^{-2}$ & 0.001470 \\ 
+7 & $1.07508 \times 10^{-1}$ & $1.07510 \times 10^{-1}$ & 0.002137 \\ 
+8 & $1.16263 \times 10^{-1}$ & $1.16260 \times 10^{-1}$ & 0.002344 \\ 
+9 & $1.22563 \times 10^{-1}$ & $1.22560 \times 10^{-1}$ & 0.002390 \\ 
+10 & $1.27248 \times 10^{-1}$ & $1.27250 \times 10^{-1}$ & 0.001492 \\ 
+15 & $1.39126 \times 10^{-1}$ & $1.39130 \times 10^{-1}$ & 0.002605 \\ 
+20 & $1.43649 \times 10^{-1}$ & $1.43650 \times 10^{-1}$ & 0.000663 \\ 
+30 & $1.47066 \times 10^{-1}$ & $1.47070 \times 10^{-1}$ & 0.002483 \\ 
+40 & $1.48317 \times 10^{-1}$ & $1.48320 \times 10^{-1}$ & 0.001982 \\ 
+50 & $1.48910 \times 10^{-1}$ & $1.48910 \times 10^{-1}$ & 0.000004 \\ 
+\bottomrule
+\multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
+\end{tabular}
+\end{table*}
+
+\begin{table*}
+\centering\ra{1.3}
+\caption{Comparison of RQFP- and DANT/PARTISN-calculated alpha-eigenvalues for a multi-region scattering slab}
+\begin{tabular}{@{}lccc@{}}\toprule
+& \multicolumn{3}{c}{Alpha-Eigenvalue/Percent Relative Error} \\
+\cmidrule{2-4} Grain Size & RQFP & DANT/PARTISN & \% Relative Error \\
+\midrule
+5 (2 slabs) & $-5.51528 \times 10^{-1}$ & $-5.50813 \times 10^{-1}$ & 0.129782 \\ 
+2.5 (4 slabs) & $-7.03144 \times 10^{-1}$ & $-7.03134 \times 10^{-1}$ & 0.001470 \\ 
+1 (10 slabs) & $-7.48808 \times 10^{-1}$ & $-7.48793 \times 10^{-1}$ & 0.001942 \\ 
+0.5 (20 slabs) & $-7.57221 \times 10^{-1}$ & $-7.57199 \times 10^{-1}$ & 0.002882 \\ 
+0 (homogeneous) & $-7.63513 \times 10^{-1}$ & $-7.63507 \times 10^{-1}$ & 0.000848 \\ 
+\bottomrule
+\multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
+\end{tabular}
+\end{table*}
+
+\begin{table*}
+\centering\ra{1.3}
+\caption{Comparison of RQFP- and GFM-calculated alpha-eigenvalues for a multi-region scattering slab}
+\begin{tabular}{@{}lccc@{}}\toprule
+& \multicolumn{3}{c}{Alpha-Eigenvalue/Percent Relative Error} \\
+\cmidrule{2-4} Grain Size & RQFP & GFM & \% Relative Error \\
+\midrule
+5 (2 slabs) & $-5.51528 \times 10^{-1}$ & $-5.50812 \times 10^{-1}$ & 0.129964 \\ 
+2.5 (4 slabs) & $-7.03144 \times 10^{-1}$ & $-7.03133 \times 10^{-1}$ & 0.001612 \\ 
+1 (10 slabs) & $-7.48808 \times 10^{-1}$ & $-7.48792 \times 10^{-1}$ & 0.002075 \\ 
+0.5 (20 slabs) & $-7.57221 \times 10^{-1}$ & $-7.57198 \times 10^{-1}$ & 0.003014 \\ 
+0 (homogeneous) & $-7.63513 \times 10^{-1}$ & $-7.63507 \times 10^{-1}$ & 0.000848 \\ 
+\bottomrule
+\multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
+\end{tabular}
+\end{table*}
+
+\begin{table*}
+\centering\ra{1.3}
+\caption{Comparison of RQFP- and DE-calculated alpha-eigenvalues for a multi-region scattering slab}
+\begin{tabular}{@{}lccc@{}}\toprule
+& \multicolumn{3}{c}{Alpha-Eigenvalue/Percent Relative Error} \\
+\cmidrule{2-4} Grain Size & RQFP & DE & \% Relative Error \\
+\midrule
+5 (2 slabs) & $-5.51528 \times 10^{-1}$ & $-5.51429 \times 10^{-1}$ & 0.017928 \\ 
+2.5 (4 slabs)  & $-7.03144 \times 10^{-1}$ & $-7.03578 \times 10^{-1}$ & 0.061637 \\ 
+1 (10 slabs) & $-7.48808 \times 10^{-1}$ & $-7.49672 \times 10^{-1}$ & 0.115312 \\ 
+0.5 (20 slabs) & $-7.57221 \times 10^{-1}$ & $-7.58893 \times 10^{-1}$ & 0.220345 \\ 
+0 (homogeneous) & $-7.63513 \times 10^{-1}$ & $-7.63640 \times 10^{-1}$ & 0.016569 \\ 
+\bottomrule
+\multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
+\end{tabular}
+\end{table*}
+
+%\begin{table*}
+%\centering\ra{1.3}
+%\begin{tabular}{@{}rrrr@{}}\toprule
+%
+%& \multicolumn{3}{c}{$w = 8$} \\
+%\cmidrule{2-4} & $t=0$ & $t=1$ & $t=2$ \\
+%\midrule$dir=1$\\
+%$c$ & 0.0790 & 0.1692 & 0.2945 \\
+%$c$ &  -0.8651& 50.0476& 5.9384 \\
+%$c$ & 124.2756& -50.9612& -14.2721 \\
+%$dir=0$\\
+%$c$ & 0.0357& 1.2473& 0.2119 \\
+%$c$ & -17.9048& -37.1111& 8.8591 \\
+%$c$ & 105.5518& 232.1160& -94.7351\\
+%\bottomrule
+%\end{tabular}
+%\caption{Caption}
+%\end{table*}
