@@ -1,22 +1,25 @@
 \chapter{Eigenvalues of Slabs}
 
-\begin{figure}
-	\centering
-	\input{Figures/SlabEigenvalue/HeterogSlab.tex}
-	\label{fig:HeteroSlabDomain}
-	\caption{Heterogeneous Slab Benchmark Problem Domain \cite{kornreich_timeeigenvalue_2005}}
-\end{figure}
+In this chapter we verify the correctness and examine the performance of the Rayleigh quotient fixed point methods for one-dimensional media such as slabs and one-dimensional spheres. In slab geometry, the phase space of the neutron transport equation is simplified with only one position variable $x$ and one angular variable $\mu$ defined as the $x$-direction cosine. For slab geometry, the alpha- and $k$-effective eigenvalue neutron transport equations are given by Eqn.~\ref{eq:1DAlphaSlab} and Eqn.~\ref{eq:1DkSlab}, respectively:
 
-\begin{figure}
-	\centering
-	\input{Figures/SlabEigenvalue/LatticeSlab.tex}
-	\label{fig:ThreeRegionProblem}
-	\caption{Heterogeneous Slab Benchmark Problem Domain \cite{kornreich_timeeigenvalue_2005}}
-\end{figure}
+\begin{multline}
+\bigg [ \mu \frac{\partial}{\partial x} + \frac{\alpha}{v(E)} + \sigma(x,E) \bigg ] \psi(x,\mu,E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,E') \int_{-1}^{1} \diff \mu' \psi(x,\mu',E) \\ + \frac{1}{2} \int_{0}^{\infty} \diff E' \sigma_{s}(x, E' \rightarrow E) \int_{-1}^{1} \diff \mu' \psi(x,\mu',E),
+\label{eq:1DAlphaSlab}
+\end{multline}
+\begin{multline}
+\bigg [ \mu \frac{\partial}{\partial x}  + \sigma(x,E) \bigg ] \psi(x,\mu,E) \\ = \frac{1}{k} \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,E') \int_{-1}^{1} \diff \mu' \psi(x,\mu',E) \\ + \frac{1}{2} \int_{0}^{\infty} \diff E' \sigma_{s}(x, E' \rightarrow E) \int_{-1}^{1} \diff \mu' \psi(x,\mu',E).
+\label{eq:1DkSlab}
+\end{multline}
 
-\begin{table}[]
+Various homogeneous and heterogeneous slab geometry problems with vacuum boundary conditions were modeled in ARDRA. These slab media problems consist of multiplying and non-multiplying materials with thicknesses $\Delta$. Alpha- and $k$-effective eigenvalues were calculated and the number of transport sweeps compared to various methods such as the critical search method and the power method. To verify the correctness of the Rayleigh quotient fixed point method, the method was compared to various methods such as Green's Function Method (GFM) and Direct Evaluation (DE) and compared to other discrete ordinate neutron transport codes such as PARTISN/DANT.
+
+\section{One-Speed Verification}
+
+For five one-speed non-multiplying slabs, calculated alpha-eigenvalues were benchmarked to the GFM \cite{kornreich_timeeigenvalue_2005}, described in Section~\ref{sec:CalcAlpha}. For these sets of problems, the neutron speed was set to $v = 1$ cm/s and the total cross section set to unity $\sigma = 1$ cm$^{-1}$. The slabs were purely scattering (Table~\ref{table:Betzler}). Problem thicknesses $\Delta$ were in mean free paths (mfps).
+
+\begin{table}[H]
     \centering
-    \caption{Homogeneous Purely Scattering Slab Cross Sections (cm$^{-1}$)}
+    \caption{Non-Multiplying Homogeneous Slab Cross Sections (cm$^{-1}$)}
 \label{table:Betzler}
     \begin{tabular}{*4c}
         \toprule
@@ -26,6 +29,90 @@
         \bottomrule
     \end{tabular}
 \end{table}
+
+For multiplying media, 22 one-speed slabs of varying thickness $\Delta$, the Rayleigh quotient fixed point calculated alpha-eigenvalues were benchmarked to the GFM. The total cross section was set to unity and the slab neutron multiplication set to $\nu \sigma_{f} = 0.25$. The scattering cross section was set to $\sigma_{s} = 0.9$ cm$^{-1}$ (Table~\ref{table:Betzler2}).
+
+\begin{table}[H]
+    \centering
+    \caption{Multiplying Homogeneous Slab Cross Sections (cm$^{-1}$)}
+\label{table:Betzler2}
+    \begin{tabular}{*5c}
+        \toprule
+	$\sigma$ & $\nu \sigma_{f}$ & $\sigma_{s}$ & $v$ [cm/s] \\ 
+        \midrule
+	1.0 & 0.25 & 0.9 & 1.0 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Five one-speed heterogeneous slab problems consisting of two materials were examined and the Rayleigh quotient fixed point calculated alpha-eigenvalues compared to the GFM, direct evaluation (DE) \cite{modak_simple_2003}, and DANT/PARTISN \cite{alcouffe2005partisn}. With a fixed maximum medium width, material slabs of thickness $\Delta$ with cross sections as seen in Table~\ref{table:BetzlerHetero} were alternated until reaching the maximum fixed width. The impact of material widths on the alpha-eigenvalue was examined for this non-multiplying medium.
+
+\begin{table}[H]
+    \centering
+    \caption{Non-Multiplying Heterogeneous Slab Material Cross Sections (cm$^{-1}$)}
+\label{table:BetzlerHetero}
+    \begin{tabular}{*6c}
+        \toprule
+	Material & $\sigma$ & $\nu \sigma_{f}$ & $\sigma_{s}$ & $v_{g}$ [cm/s] \\ 
+        \midrule
+	1 & 10.0 & 0.0 & 10.0 & 1.0 \\
+	2 & 10.0 & 0.0 & 9.0 & 1.0 \\ 
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Multiplying Heterogeneous Slab Material Cross Sections (cm$^{-1}$)}
+\label{table:BetzlerHeteroMult}
+    \begin{tabular}{*6c}
+        \toprule
+	Material & $\sigma$ & $\nu \sigma_{f}$ & $\sigma_{s}$ & $v_{g}$ [cm/s] \\ 
+        \midrule
+	1 & 1.0 & 0.6 & 0.9 & 1.0 \\
+	2 & 1.0 & 0.3 & 0.2 & 1.0 \\ 
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Four one-speed five region slab problems consisting of fuel, moderator, and absorber materials were examined and the Rayleigh quotient fixed point method alpha-eigenvalue compared to the GFM. The alpha-eigenvalue was calculated for different fuel width thicknesses with the fuel having $\nu \sigma_{f} = 0.3$ or 0.7. Cross sections for the three materials are seen in Table~\ref{table:BetzlerFive}.
+
+\begin{table}[H]
+    \centering
+    \caption{Five Region Slab Material Cross Sections (cm$^{-1}$)}
+\label{table:BetzlerFive}
+    \begin{tabular}{*6c}
+        \toprule
+	Material & $\sigma$ & $\nu \sigma_{f}$ & $\sigma_{s}$ & $v_{g}$ [cm/s] \\ 
+        \midrule
+	Fuel & 1.0 & 0.3/0.7 & 0.8 & 1.0 \\
+	Moderator & 1.0 & 0.0 & 0.8 & 1.0 \\ 
+	Absorber & 1.0 & 0.0 & 0.1 & 1.0 \\ 
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Non-Multiplying Homogeneous Slab}
+
+\subsection{Multiplying Homogeneous Slab}
+
+\subsection{Heterogeneous Media}
+
+\begin{figure}[H]
+	\centering
+	\input{Figures/SlabEigenvalue/HeterogSlab.tex}
+	\label{fig:HeteroSlabDomain}
+	\caption{Heterogeneous Slab Benchmark Problem Domain \cite{kornreich_timeeigenvalue_2005}}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\input{Figures/SlabEigenvalue/LatticeSlab.tex}
+	\label{fig:ThreeRegionProblem}
+	\caption{Heterogeneous Slab Benchmark Problem Domain \cite{kornreich_timeeigenvalue_2005}}
+\end{figure}
+
+
 
 \begin{table*}
 \centering\ra{1.3}
@@ -45,18 +132,7 @@
 \end{tabular}
 \end{table*}
 
-\begin{table}[]
-    \centering
-    \caption{Homogeneous Multiplying Slab Cross Sections (cm$^{-1}$)}
-\label{table:Betzler}
-    \begin{tabular}{*5c}
-        \toprule
-	$\sigma$ & $\nu \sigma_{f}$ & $\sigma_{s}$ & $v$ [cm/s] \\ 
-        \midrule
-	1.0 & 0.25 & 0.9 & 1.0 \\
-        \bottomrule
-    \end{tabular}
-\end{table}
+
 
 \begin{table*}
 \centering\ra{1.3}
