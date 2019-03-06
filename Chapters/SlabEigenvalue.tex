@@ -11,7 +11,7 @@ In this chapter we verify the correctness and examine the performance of the Ray
 \label{eq:1DkSlab}
 \end{multline}
 
-Various homogeneous and heterogeneous slab geometry problems with vacuum boundary conditions were modeled in ARDRA. These slab media problems consist of multiplying and non-multiplying materials with thicknesses $\Delta$. Alpha- and $k$-effective eigenvalues were calculated and the number of transport sweeps compared to various methods such as the critical search method and the power method. To verify the correctness of the Rayleigh quotient fixed point method, the method was compared to various methods such as Green's Function Method (GFM) and Direct Evaluation (DE) and compared to other discrete ordinate neutron transport codes such as PARTISN/DANT.
+Various homogeneous and heterogeneous slab geometry problems with vacuum boundary conditions were modeled in ARDRA. These slab media problems consist of multiplying and non-multiplying materials with thicknesses $\Delta$. Alpha- and $k$-effective eigenvalues were calculated and the number of transport sweeps compared to various methods such as the critical search method and the power method. To verify the correctness of the Rayleigh quotient fixed point method (RQFP), the method was compared to various methods such as Green's Function Method (GFM) and Direct Evaluation (DE) and compared to other discrete ordinate neutron transport codes such as PARTISN/DANT.
 
 \section{One-Speed Verification}
 
@@ -30,7 +30,7 @@ For five one-speed non-multiplying slabs, calculated alpha-eigenvalues were benc
     \end{tabular}
 \end{table}
 
-For multiplying media, 22 one-speed slabs of varying thickness $\Delta$, the Rayleigh quotient fixed point calculated alpha-eigenvalues were benchmarked to the GFM. The total cross section was set to unity and the slab neutron multiplication set to $\nu \sigma_{f} = 0.25$. The scattering cross section was set to $\sigma_{s} = 0.9$ cm$^{-1}$ (Table~\ref{table:Betzler2}).
+For multiplying media, 22 one-speed slabs of varying thickness $\Delta$ were examined and the Rayleigh quotient fixed point calculated alpha-eigenvalues were benchmarked to the GFM. The total cross section was set to unity and the slab neutron multiplication set to $\nu \sigma_{f} = 0.25$. The scattering cross section was set to $\sigma_{s} = 0.9$ cm$^{-1}$ (Table~\ref{table:Betzler2}).
 
 \begin{table}[H]
     \centering
@@ -60,6 +60,8 @@ Five one-speed heterogeneous slab problems consisting of two materials were exam
         \bottomrule
     \end{tabular}
 \end{table}
+
+A two-region multiplying slab was examined with material properties as seen in Table~\ref{table:BetzlerHeteroMult}. The problem consisted of a 1.5 mfp region on the right and a 1.0 mfp region to the left. Both materials were multiplying and the system was supercritical \cite{kornreich_greens_1997}.
 
 \begin{table}[H]
     \centering
@@ -93,30 +95,12 @@ Four one-speed five region slab problems consisting of fuel, moderator, and abso
 \end{table}
 
 \subsection{Non-Multiplying Homogeneous Slab}
+For the one-speed, purely-scattering, homogeneous slabs of thicknesses $\Delta = 1.0$ to $\Delta = 25.0$ mfp with cross sections shown in Table~\ref{table:Betzler}, the Rayleigh quotient fixed point method showed good agreement with the GFM (Table~\ref{table:CompHomogScatt}). For $M = 500$ cells and $L = 64$ angular quadrature points, the subcritical alpha-eigenvalues matched within less than 0.1\% relative error. The greatest discrepancy between the two methods was for $\Delta = 1.0$ mfp. As the slab thickness gets smaller, the existence of a dominant alpha-eigenvalue is not assured and we begin to see this behavior. As the slab thickness increases, the number of transport sweeps necessary to converge the alpha-eigenvalue to a tolerance of $10^{-12}$ increases. However, the relative error between RQFP and the GFM decreases. 
 
-\subsection{Multiplying Homogeneous Slab}
-
-\subsection{Heterogeneous Media}
-
-\begin{figure}[H]
-	\centering
-	\input{Figures/SlabEigenvalue/HeterogSlab.tex}
-	\label{fig:HeteroSlabDomain}
-	\caption{Heterogeneous Slab Benchmark Problem Domain \cite{kornreich_timeeigenvalue_2005}}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\input{Figures/SlabEigenvalue/LatticeSlab.tex}
-	\label{fig:ThreeRegionProblem}
-	\caption{Heterogeneous Slab Benchmark Problem Domain \cite{kornreich_timeeigenvalue_2005}}
-\end{figure}
-
-
-
-\begin{table*}
+\begin{table*}[t]
 \centering\ra{1.3}
 \caption{Comparison of RQFP- and GFM-calculated alpha-eigenvalues for a homogeneous scattering slab}
+\label{table:CompHomogScatt}
 \begin{tabular}{@{}cccc@{}}\toprule
 & \multicolumn{3}{c}{Alpha-Eigenvalue/Percent Relative Error} \\
 \cmidrule{2-4} $\Delta$ & RQFP & GFM & \% Relative Error \\
@@ -132,11 +116,15 @@ Four one-speed five region slab problems consisting of fuel, moderator, and abso
 \end{tabular}
 \end{table*}
 
+\subsection{Multiplying Homogeneous Slab}
 
+For the material cross sections shown in Table~\ref{table:Betzler2}, one-speed homogeneous multiplying slabs of thicknesses of thickness $\Delta = 1.0$ to $\Delta = 50.0$ mfp showed good agreement between RQFP and the GFM with the exception of thin slabs. For thin slabs of up to width $\Delta = 1.0$ mfp, percent relative error was substantial. This is caused by the difficulty of numerically determining the alpha-eigenvalues for thin slabs. If the slab is thin enough, the existence of an alpha-eigenvalue is not assured. As the slab thickness increase, agreement was substantially better (Table~\ref{table:CompHomogMult}). 
 
-\begin{table*}
+For supercritical systems, the RQFP was compared to the critical search method (Table~\ref{table:CompMultSweeps}). The RQFP method substantially outperformed the critical search method in all cases. As the system became more supercritical, the number of transport sweeps necessary to converge increased for both methods. For the most supercritical slab ($\Delta = 50.0$ mfp), the number of sweeps necessary for the RQFP method to converge was less than the number of transport sweeps necessary for critical search to converge for the $\Delta = 4.0$ mfp case. Since the RQFP method requires no intermediate $k$-effective eigenvalue calculations, the method substantially reduced the number of transport sweeps necessary as there was no need to do multiple $k$-effective eigenvalue calculations to bracket the alpha-eigenvalue.
+\begin{table*}[t]
 \centering\ra{1.3}
 \caption{Comparison of RQFP- and GFM-calculated alpha-eigenvalues for a homogeneous scattering multiplying slab}
+\label{table:CompHomogMult}
 \begin{tabular}{@{}cccc@{}}\toprule
 & \multicolumn{3}{c}{Alpha-Eigenvalue/Percent Relative Error} \\
 \cmidrule{2-4} $\Delta$ & RQFP & GFM & \% Relative Error \\
@@ -168,6 +156,75 @@ Four one-speed five region slab problems consisting of fuel, moderator, and abso
 \multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
 \end{tabular}
 \end{table*}
+
+\begin{table*}[t]
+\centering\ra{1.3}
+\caption{Comparison of RQFP and Critical Search Sweeps for Homogeneous Multiplying Slabs}
+\label{table:CompMultSweeps}
+\begin{tabular}{@{}cccccc@{}}\toprule
+& \multicolumn{2}{c}{Transport Sweeps} & & \multicolumn{2}{c}{Transport Sweeps} \\
+\cmidrule{2-3} \cmidrule{5-6} $\Delta$ & RQFP & Critical Search &  \Delta & RQFP & Critical Search\\
+\midrule
+%$\Delta$\\
+4 & 56 & 21044 & 10 & 166 & 78002\\ 
+%5 & 70 & 33036 \\ 
+%6 & 85 & 44655 \\ 
+%7 & 103 & 55242 \\
+%8 & 122 & 63851 \\
+%9 & 143 & 71181 \\
+%10 & 166 & 78002 \\
+%15 & 308 & 89627 \\
+%20 & 495 & 97267 \\
+%30 & 1002 & 98087 \\ 
+%40 & 1682 & 106055 \\ 
+%50 & 2530 & 113189 \\
+%4 & 56 & 21044 \\ 
+%5 & 70 & 33036 \\ 
+%6 & 85 & 44655 \\ 
+%7 & 103 & 55242 \\
+%8 & 122 & 63851 \\
+%9 & 143 & 71181 \\
+%10 & 166 & 78002 \\
+%15 & 308 & 89627 \\
+%20 & 495 & 97267 \\
+%30 & 1002 & 98087 \\ 
+%40 & 1682 & 106055 \\ 
+%50 & 2530 & 113189 \\ 
+\bottomrule
+\multicolumn{6}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
+\end{tabular}
+\end{table*}
+
+\subsection{Heterogeneous Media}
+
+\begin{figure}[H]
+	\centering
+	\input{Figures/SlabEigenvalue/HeterogSlab.tex}
+	\label{fig:HeteroSlabDomain}
+	\caption{Heterogeneous Slab Benchmark Problem Domain \cite{kornreich_timeeigenvalue_2005}}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\input{Figures/SlabEigenvalue/LatticeSlab.tex}
+	\label{fig:ThreeRegionProblem}
+	\caption{Heterogeneous Slab Benchmark Problem Domain \cite{kornreich_timeeigenvalue_2005}}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\input{Figures/SlabEigenvalue/TwoRegionMultiply.tex}
+	\label{fig:TwoRegionMultiply}
+	\caption{Scalar Flux Results for Two-Region Multiplying Slab}
+\end{figure}
+
+
+
+
+
+
+
+
 
 \begin{table*}
 \centering\ra{1.3}
