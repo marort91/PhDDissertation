@@ -56,7 +56,8 @@ Five one-speed heterogeneous slab problems consisting of two materials were exam
 	Material & $\sigma$ & $\nu \sigma_{f}$ & $\sigma_{s}$ & $v_{g}$ [cm/s] \\ 
         \midrule
 	1 & 10.0 & 0.0 & 10.0 & 1.0 \\
-	2 & 10.0 & 0.0 & 9.0 & 1.0 \\ 
+	2 & 10.0 & 0.0 & 9.0 & 1.0 \\
+	Homogeneous & 10.0 & 0.0 & 9.5 & 1.0 \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -163,33 +164,15 @@ For supercritical systems, the RQFP was compared to the critical search method (
 \label{table:CompMultSweeps}
 \begin{tabular}{@{}cccccc@{}}\toprule
 & \multicolumn{2}{c}{Transport Sweeps} & & \multicolumn{2}{c}{Transport Sweeps} \\
-\cmidrule{2-3} \cmidrule{5-6} $\Delta$ & RQFP & Critical Search &  \Delta & RQFP & Critical Search\\
+\cmidrule{2-3} \cmidrule{5-6} $\Delta$ & RQFP & Critical Search \quad &  \Delta & RQFP & Critical Search\\
 \midrule
 %$\Delta$\\
 4 & 56 & 21044 & 10 & 166 & 78002\\ 
-%5 & 70 & 33036 \\ 
-%6 & 85 & 44655 \\ 
-%7 & 103 & 55242 \\
-%8 & 122 & 63851 \\
-%9 & 143 & 71181 \\
-%10 & 166 & 78002 \\
-%15 & 308 & 89627 \\
-%20 & 495 & 97267 \\
-%30 & 1002 & 98087 \\ 
-%40 & 1682 & 106055 \\ 
-%50 & 2530 & 113189 \\
-%4 & 56 & 21044 \\ 
-%5 & 70 & 33036 \\ 
-%6 & 85 & 44655 \\ 
-%7 & 103 & 55242 \\
-%8 & 122 & 63851 \\
-%9 & 143 & 71181 \\
-%10 & 166 & 78002 \\
-%15 & 308 & 89627 \\
-%20 & 495 & 97267 \\
-%30 & 1002 & 98087 \\ 
-%40 & 1682 & 106055 \\ 
-%50 & 2530 & 113189 \\ 
+5 & 70 & 33036 & 15 & 308 & 89627 \\
+6 & 85 & 44655 & 20 & 495 & 97267 \\
+7 & 103 & 55242 & 30 & 1002 & 98087 \\ 
+8 & 122 & 63851 & 40 & 1682 & 106055 \\ 
+9 & 143 & 71181 & 50 & 2530 & 113189 \\
 \bottomrule
 \multicolumn{6}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
 \end{tabular}
@@ -197,14 +180,16 @@ For supercritical systems, the RQFP was compared to the critical search method (
 
 \subsection{Heterogeneous Media}
 
-\begin{figure}[H]
+\begin{figure}[t]
 	\centering
 	\input{Figures/SlabEigenvalue/HeterogSlab.tex}
 	\label{fig:HeteroSlabDomain}
 	\caption{Heterogeneous Slab Benchmark Problem Domain \cite{kornreich_timeeigenvalue_2005}}
 \end{figure}
 
-\begin{figure}[H]
+\textbf{Problem 6.1.3.1-Non-multiplying Heterogeneous Slab} For the subcritical heterogeneous medium shown in Figure~\ref{fig:HeteroSlabDomain}, five problems were constructed by varying the grain sizes of alternating slabs consisting of materials with the cross sections shown in Table~\ref{table:BetzlerHeteroMult}. The maximum width of the domain was fixed at 10.0 mfp. Grain sizes of 0.5, 1, 2.5, and 5 mfp were examined and their alpha-eigenvalue calculated by the RQFP method and compared to the GFM. One last case consisting of a homogenized material was considered. In all cases, the RQFP method showed good agreement with the GFM with percent relative error within 0.15\%.
+
+\begin{figure}[t]
 	\centering
 	\input{Figures/SlabEigenvalue/LatticeSlab.tex}
 	\label{fig:ThreeRegionProblem}
@@ -218,8 +203,12 @@ For supercritical systems, the RQFP was compared to the critical search method (
 	\caption{Scalar Flux Results for Two-Region Multiplying Slab}
 \end{figure}
 
-
-
+\begin{figure}[t]
+	\centering
+	\input{Figures/SlabEigenvalue/HeterogMultSlab.tex}
+	\label{fig:HeteroSlabMult}
+	\caption{Heterogeneous Multiplying Slab Benchmark Problem Domain \cite{kornreich_greens_1997}}
+\end{figure}
 
 
 
