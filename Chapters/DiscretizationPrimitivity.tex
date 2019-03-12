@@ -1,4 +1,105 @@
-\chapter{Discretization and Primitivity of the Criticality Eigenvalue Problems For One-Dimensional Slab Geometry}
+\chapter{Discretization and Primitivity of the Neutron Transport Criticality Eigenvalue Problems}
+
+In this section we describe the discretization of the neutron transport criticality eigenvalue equations for three-dimensional Cartesian geometry. For the one-dimensional slab geometry discretized alpha-eigenvalue problem, we show by example the fixed point matrix is primitive. A similar result can be shown for the two-dimensional and three-dimensional Cartesian discretized eigenvalue equations.
+
+\section{Discretization of the Alpha-Eigenvalue and $k$-Effective Eigenvalue Equations}
+
+We begin with the linear alpha-eigenvalue neutron transport equation in a three-dimensional box geometry with scattering. The spatial domain is the box $\mathcal{D} \equiv \{\vec{r} = (x, y, z) \, \vert \, a_{x} \leq x \leq b_{x}, a_{y} \leq y \leq b_{y}, \text{ and } a_{z} \leq z \leq b_{z} \},$ the direction variable is $\hat{\Omega} \in \mathcal{S}^{2}$, the unit sphere in $\mathbb{R}^{3}$, the energy variable is $E \in (0, \infty)$, and the equation for the angular flux $\psi(\vec{r}, \hat{\Omega}, E)$ is given by
+
+\begin{multline}
+	\bigg [ \frac{\alpha}{v(E)} + \hat{\Omega} \cdot \nabla + \sigma(\vec{r},E) \bigg ] \psi(\vec{r},\hat{\Omega},E) \\ = \int_{0}^{\infty} \diff E' \, \int_{4\pi} \diff \hat{\Omega} \, \sigma_{s}(\vec{r},E'\rightarrow E,\hat{\Omega}' \cdot \hat{\Omega}) \psi(\vec{r},\hat{\Omega}',E') \\ + \int_{0}^{\infty} \diff E' \, \nu(E') \chi(E'\rightarrow E) \sigma_{f}(\vec{r},E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(\vec{r},\hat{\Omega}',E'), 
+	\label{eq:Alpha3DNeutronTransport}
+\end{multline}
+where
+\begin{equation}
+	\nabla \psi \equiv \bigg (\frac{\partial \psi}{\partial x}, \frac{\partial \psi}{\partial y}, \frac{\partial \psi}{\partial z} \bigg ),
+\end{equation}
+and
+\begin{equation}
+	 \int_{4\pi} \diff \hat{\Omega} = 1.
+\end{equation}
+
+Boundary conditions must be specified to make Eq.~\ref{eq:Alpha3DNeutronTransport} well-posed. Various boundary conditions can be specified such as a reflecting condition on a face or a Dirichlet condition where an incident flux is specified on a face. We consider vacuum boundary conditions in this dissertation, a special case of the Dirichlet boundary condition where no incident flux is imposed:
+
+\begin{equation}
+	\psi(\vec{r},\hat{\Omega},E) = 0 \text{ for all } \vec{r} \in \partial \mathcal{D} \text{ and } \hat{\Omega} \in \mathcal{S}^{2} \text{ with } \vec{n}(\vec{r}) \cdot \hat{\Omega} < 0,
+\end{equation}
+where $\vec{n}(\vec{r})$ is the outward pointing unit normal at $\vec{r} \in \partial \mathcal{D}$.
+
+We begin by discretizing Eq.~\ref{eq:Alpha3DNeutronTransport} in energy using the \textit{multigroup} approximation. We restrict the energy $E$ to a finite interval and partition the interval into groups:
+\begin{equation*}
+	E_{max} = E_{0} > E_{1} > \dots > E_{G} = E_{min}.
+\end{equation*}
+The eigenvalue equation is then averaged over each group $E_{g} < E < E_{g-1}$ and the cross sections are approximated by a flux-weighted average over each energy group to yield the following semi-discretization of Eq.~\ref{eq:Alpha3DNeutronTransport}:
+\begin{multline}
+	\bigg [ \frac{\alpha}{v_{g}} + \hat{\Omega} \cdot \nabla + \sigma_{g}(\vec{r}) \bigg ] \psi_{g}(\vec{r},\hat{\Omega}) = \sum_{g'=1}^{G} \int_{4\pi} \diff \hat{\Omega} \, \sigma_{s,g,g'}(\vec{r},\hat{\Omega}' \cdot \hat{\Omega}) \psi_{g'}(\vec{r},\hat{\Omega}') \\ + \sum_{g'=1}^{G} \, \nu_{g'} \chi_{g'} \sigma_{f,g'}(\vec{r}) \int_{4\pi} \diff \hat{\Omega}' \, \psi_{g'}(\vec{r},\hat{\Omega}'), 
+	\label{eq:Alpha3DMG}
+\end{multline}
+for $g = 1, \dots, G$, where
+\begin{equation}
+	\psi_{g}(\vec{r},\hat{\Omega}) \equiv \int_{g} \diff E \, \psi(\vec{r},\hat{\Omega},E),
+\end{equation}
+with
+\begin{equation}
+	\int_{g} \diff E \, = \int_{E_{g}}^{E_{g-1}} \diff E.
+\end{equation}
+
+For each flux $\psi_{g}(\vec{r},\hat{\Omega})$, the flux is expanded in surface harmonics according to
+\begin{equation}
+	\psi_{g}(\vec{r},\hat{\Omega}) = \sum_{n=0}^{\infty} \sum_{m=-n}^{\infty} \phi_{g,n,m}(\vec{r}) Y_{n}^{m}(\hat{\Omega}),
+\end{equation}
+where $Y_{n}^{m}(\hat{\Omega})$ is a surface harmonic defined as
+\begin{equation}
+	Y_{n}^{m}(\hat{\Omega}) = a_{n}^{m} P_{n}^{\abs{m}}(\xi) \tau_{m}(\varphi),
+\end{equation}
+\begin{equation}
+\hat{\Omega} = (\sin \theta \cos \varphi, \sin \theta \sin \varphi, \cos \theta),
+\end{equation}
+\begin{equation}
+	\tau_{m}(\varphi) = \begin{cases}
+					\cos m\varphi, \quad \text{if } m \geq 0, \\
+					\sin \abs{m} \varphi \quad \text{if } m < 0,
+				      \end{cases}
+\end{equation}
+and $P_{n}^{\abs{m}}$ is an \textit{associated Legendre polynomial}. The constants $a_{n}^{m}$ are defined by
+\begin{equation}
+	a_{n}^{m} = \bigg [ \frac{2(2n+1)(n-\abs{m})!}{(1+\delta_{m0})(n + \abs{m})!} \bigg ]^{1/2}.
+\end{equation}
+where $\delta_{n,n'}$ is the \textit{Kronecker delta}. The $(n,m)^{\text{th}}$ moment of $\psi(\vec{r}, \hat{\Omega})$, $\phi_{n}^{m}$ is given by
+\begin{equation}
+	\phi_{n}^{m}(\vec{r}) = \int_{4\pi} \diff \hat{\Omega} \, \psi(\vec{r},\hat{\Omega}) Y_{n}^{m}(\hat{\Omega}).
+\end{equation}
+From the properties of the surface harmonics, we have
+\begin{equation}
+	\int_{4\pi} \diff \hat{\Omega} \, Y_{n}^{m}(\hat{\Omega}) Y_{n'}^{m'}(\hat{\Omega}) = \delta_{n,n'} \delta_{m,m'}, \text{for all } n, n' = 0, 1, \dots, \abs{m} \leq \abs{n}, \abs{m'} \leq \abs{n'}.
+\end{equation}
+The scattering integral can be then be written in the form
+\begin{equation}
+	\int_{4\pi} \diff \hat{\Omega} \, \sigma_{s,g,g'}(\vec{r},\hat{\Omega}' \cdot \hat{\Omega}) \psi_{g'}(\vec{r},\hat{\Omega}') = \sum_{n=0}^{\infty} \sigma_{s,g,g',n}(\vec{r}) \sum_{m=-n}^{n} \phi_{g',n,m}(\vec{r})Y_{n}^{m}(\hat{\Omega}),
+	\label{eq:ScattInt}
+\end{equation}
+where
+\begin{equation}
+	\sigma_{s,g,g',n}(\vec{r}) \equiv \frac{1}{2} \int_{-1}^{1} \diff \mu_{0} \, \sigma_{s,g,g'}(\vec{r},\mu_{0}) P_{n}(\mu_{0}),
+\end{equation}
+and $\mu_{0}$ is the cosine of the scattering angle. The infinite series in Eq.~\ref{eq:ScattInt} is truncated to a finite number of terms $N_{s}$, where $N_{s}$ is the maximum value for $n$. The multigroup equations can then be written as
+\begin{multline}
+	\bigg [ \frac{\alpha}{v_{g}} + \hat{\Omega} \cdot \nabla + \sigma_{g}(\vec{r}) \bigg ] \psi_{g}(\vec{r},\hat{\Omega}) = \sum_{g'=1}^{G} \sum_{n=0}^{N_{s}} \sigma_{s,g,g',n}(\vec{r}) \sum_{m=-n}^{n} \phi_{g',n,m}(\vec{r}) Y_{n}^{m}(\hat{\Omega}) \\ + \sum_{g'=1}^{G} \, \nu_{g'} \chi_{g'} \sigma_{f,g'}(\vec{r}) \phi_{g',0,0}(\vec{r}), 
+	\label{eq:Alpha3DMGSPH}
+\end{multline}
+for $g = 1, \dots, G$.
+
+%\begin{figure}
+%	\centering
+%	\resizebox{1.0\textwidth}{!}{
+%	\centering
+%\input{Figures/DiscretizationPrimitivity/ThreeDimensionalDomain.tex}
+%	}
+%	\caption{Three Dimensional Box Domain}
+%	\label{fig:3DBox}
+%\end{figure}
+
+\section{Discretization and Primitivity of the Criticality Eigenvalue Problems For One-Dimensional Slab Geometry}
 
 %\label{AppA}
 \label{Discrete}

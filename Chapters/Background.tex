@@ -4,7 +4,7 @@
 
 Neutron transport is the study of the motion and interactions of neutrons in matter. Neutrons interact with the nuclei of matter and can be absorbed, scattered, or induce fission, depending on the properties of the matter. Neutrons can also leak through a boundary, having passed through matter without being absorbed. Absorption of a neutron leads to one less neutron in the system. The scattering of a neutron does not remove the neutron from the system but rather changes its energy and direction. If a neutron causes fission, it is lost. However, the fission of nuclei lead to the production of neutrons in the system. This accounting of the number of neutrons present in a system at a time leads to the fundamental equation of neutron transport, the linear Boltzmann transport equation:
 \begin{multline}
-	\bigg [ \frac{1}{v(E)} \frac{\partial}{\partial t} + \hat{\Omega} \cdot \nabla + \sigma(\vec{r},E) \bigg ] \psi(\vec{r},\hat{\Omega},E,t) \\ = \int \diff E' \, \int \diff \hat{\Omega} \, \sigma_{s}(\vec{r},E'\rightarrow E,\hat{\Omega}' \cdot \hat{\Omega}) \psi(\vec{r},\hat{\Omega}',E',t) \\ + \int \diff E' \, \nu(E') \chi(E'\rightarrow E) \sigma_{f}(\vec{r},E') \int \diff \hat{\Omega}' \, \psi(\vec{r},\hat{\Omega}',E',t), 
+	\bigg [ \frac{1}{v(E)} \frac{\partial}{\partial t} + \hat{\Omega} \cdot \nabla + \sigma(\vec{r},E) \bigg ] \psi(\vec{r},\hat{\Omega},E,t) \\ = \int_{0}^{\infty} \diff E' \, \int_{4\pi} \diff \hat{\Omega} \, \sigma_{s}(\vec{r},E'\rightarrow E,\hat{\Omega}' \cdot \hat{\Omega}) \psi(\vec{r},\hat{\Omega}',E',t) \\ + \int_{0}^{\infty} \diff E' \, \nu(E') \chi(E'\rightarrow E) \sigma_{f}(\vec{r},E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(\vec{r},\hat{\Omega}',E',t), 
 	\label{eq:NeutronTransport}
 \end{multline}
 where the quantities are located at direction $\vec{r}$, traveling in direction $\hat{\Omega}$, and at energy $E$, and $\sigma$, $\sigma_{s}$, $\sigma_{f}$, and $v$ are the total, scattering, fission macroscopic cross sections and neutron velocity, respectively. $\chi(E'\rightarrow E)$ is the fission spectrum and specifies the energy distribution of neutrons born from fission and $\nu(E)$ is the average number of neutrons emitted in fission when the neutron causing fission has energy $E$. The angular flux, denoted by $\psi(\vec{r},\hat{\Omega},E)$ gives the number of neutrons per unit length squared per steradian per energy and is the unknown distribution we are looking to solve for. The linear Boltzmann transport equation is used in solving many problems in nuclear engineering \cite{duderstadt_nuclear_1976}. We refer to the linear Boltzmann transport equation as the neutron transport equation for the rest of this disseration.
@@ -475,6 +475,43 @@ Let $\mathbf{A} \ge \mathbf{0}$ be a primitive $n \times n$ matrix. Then,
 		\item $\rho(\mathbf{A})$ is a simple eigenvalue of $\mathbf{A}$.
 	\end{enumerate}
 \end{theorem}
+
+\subsection{Kronecker (Tensor) Product}
+
+Throughout this dissertation we use the \textit{Kronecker (tensor) product} to simplify various matrix operations and forms required to discretize the neutron transport eigenvalue equations. We review some of the properties \cite{horn_topics_1994} of this product in this section. 
+
+For matrices $\mathbf{A} \in \mathbb{R}^{m \times n}$ and $\mathbf{B} \in \mathbb{R}^{k \times l}$, the Kronecker product of $\mathbf{A}$ and $\mathbf{B}$ is the $mk \times nl$ matrix denoted by
+\begin{equation}
+	\mathbf{A} \otimes \mathbf{B} \equiv \begin{pmatrix}
+					a_{11}\mathbf{B} & \dots & a_{1n}\mathbf{B} \\
+					\vdots & \ddots & \vdots \\
+					a_{m1}\mathbf{B} & \dots & a_{mn}\mathbf{B}
+				    \end{pmatrix},
+\end{equation}
+where $\mathbf{A} = (a_{ij})$. More explicitly:
+
+\begin{equation}
+	\mathbf{A} \otimes \mathbf{B} = \begin{pmatrix}
+					a_{11}b_{11} & a_{11} b_{12} & \cdots & a_{11}b_{1l} & \cdots & \cdots & a_{1n}b_{11} & a_{1n} b_{12} & \cdots & a_{1n}b_{1l} \\
+					a_{11}b_{21} & a_{11} b_{22} & \cdots & a_{11}b_{2l} & \cdots & \cdots & a_{1n}b_{21} & a_{1n} b_{22} & \cdots & a_{1n}b_{2l} \\
+					\vdots & \vdots & \ddots & \vdots & & & \vdots & \vdots & \ddots & \vdots \\
+					a_{11}b_{k1} & a_{11} b_{k2} & \cdots & a_{11}b_{kl} & \cdots & \cdots & a_{1n}b_{k1} & a_{1n} b_{k2} & \cdots & a_{1n}b_{kl} \\
+					\vdots & \vdots & & \vdots & \ddots & & \vdots & \vdots & & \vdots \\
+					\vdots & \vdots & & \vdots & & \ddots  & \vdots & \vdots & & \vdots \\
+					a_{m1}b_{11} & a_{m1} b_{12} & \cdots & a_{m1}b_{1l} & \cdots & \cdots & a_{mn}b_{11} & a_{mn} b_{12} & \cdots & a_{mn}b_{1l} \\
+					a_{m1}b_{21} & a_{m1} b_{22} & \cdots & a_{m1}b_{2l} & \cdots & \cdots & a_{mn}b_{21} & a_{mn} b_{22} & \cdots & a_{mn}b_{2l} \\
+					\vdots & \vdots & \ddots & \vdots & & & \vdots & \vdots & \ddots & \vdots \\
+					a_{m1}b_{k1} & a_{m1} b_{k2} & \cdots & a_{m1}b_{kl} & \cdots & \cdots & a_{mn}b_{k1} & a_{mn} b_{k2} & \cdots & a_{mn}b_{kl} \\		
+			      \end{pmatrix}.
+\end{equation}
+Kronecker products have various interesting properties. We list the ones relevant to this dissertation:
+\begin{itemize}
+	\item If $\mathbf{A}$ and $\mathbf{B}$ are nonsingular, then $\mathbf{A} \otimes \mathbf{B}$ is nonsingular with $(\mathbf{A} \otimes \mathbf{B})^{-1} = \mathbf{A}^{-1} \otimes \mathbf{B}^{-1},$
+	\item $(\mathbf{A} \otimes \mathbf{B})^{T} = \mathbf{A}^{T} \otimes \mathbf{B}^{T},$
+	\item Given matrices $\mathbf{A}$, $\mathbf{B}$, $\mathbf{C}$, and $\mathbf{D}$, $(\mathbf{A} \otimes \mathbf{B}) \cdot (\mathbf{C} \otimes \mathbf{D}) = \mathbf{AC} \otimes \mathbf{BD},$ as long as both sides of the equation make sense,
+	\item $(\mathbf{A} + \mathbf{B}) \otimes \mathbf{C} = \mathbf{A} \otimes \mathbf{C} + \mathbf{B} \otimes \mathbf{C}$, and
+	\item $\mathbf{A} \otimes (\mathbf{B} + \mathbf{C}) = \mathbf{A} \otimes \mathbf{B} + \mathbf{A} \otimes \mathbf{C}.$
+\end{itemize}
 
 \section{Review of Fixed Point Iteration}
 
