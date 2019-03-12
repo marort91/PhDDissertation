@@ -1,8 +1,6 @@
 \chapter{Discretization and Primitivity of the Neutron Transport Criticality Eigenvalue Problems}
 
-In this section we describe the discretization of the neutron transport criticality eigenvalue equations for three-dimensional Cartesian geometry. For the one-dimensional slab geometry discretized alpha-eigenvalue problem, we show by example the fixed point matrix is primitive. A similar result can be shown for the two-dimensional and three-dimensional Cartesian discretized eigenvalue equations.
-
-\section{Discretization of the Alpha-Eigenvalue and $k$-Effective Eigenvalue Equations}
+In this section we describe the discretization of the neutron transport criticality eigenvalue equations for three-dimensional Cartesian geometry. First, we derive semi-discretized forms of the eigenvalue equations by applying the \textit{multigroup} in energy approximation and a spherical harmonics expansion for the scattering integral. We then discretize the spatial and angular variables using step differencing and the discrete ordinates approach. Finally, we write down the discretized matrix forms of the criticality eigenvalue equations for three-dimensional Cartesian geometry. For the one-dimensional slab geometry discretized alpha-eigenvalue problem, we show by example the fixed point matrix is primitive. A similar result can be shown for the two-dimensional and three-dimensional Cartesian discretized eigenvalue equations.
 
 We begin with the linear alpha-eigenvalue neutron transport equation in a three-dimensional box geometry with scattering. The spatial domain is the box $\mathcal{D} \equiv \{\vec{r} = (x, y, z) \, \vert \, a_{x} \leq x \leq b_{x}, a_{y} \leq y \leq b_{y}, \text{ and } a_{z} \leq z \leq b_{z} \},$ the direction variable is $\hat{\Omega} \in \mathcal{S}^{2}$, the unit sphere in $\mathbb{R}^{3}$, the energy variable is $E \in (0, \infty)$, and the equation for the angular flux $\psi(\vec{r}, \hat{\Omega}, E)$ is given by
 
@@ -25,6 +23,10 @@ Boundary conditions must be specified to make Eq.~\ref{eq:Alpha3DNeutronTranspor
 	\psi(\vec{r},\hat{\Omega},E) = 0 \text{ for all } \vec{r} \in \partial \mathcal{D} \text{ and } \hat{\Omega} \in \mathcal{S}^{2} \text{ with } \vec{n}(\vec{r}) \cdot \hat{\Omega} < 0,
 \end{equation}
 where $\vec{n}(\vec{r})$ is the outward pointing unit normal at $\vec{r} \in \partial \mathcal{D}$.
+
+\section{Discretization of the Alpha-Eigenvalue and $k$-Effective Eigenvalue Equations}
+
+\subsection{The Multigroup in Energy and Spherical Harmonics Expansion of the Scattering Integral}
 
 We begin by discretizing Eq.~\ref{eq:Alpha3DNeutronTransport} in energy using the \textit{multigroup} approximation. We restrict the energy $E$ to a finite interval and partition the interval into groups:
 \begin{equation*}
@@ -82,12 +84,127 @@ where
 \begin{equation}
 	\sigma_{s,g,g',n}(\vec{r}) \equiv \frac{1}{2} \int_{-1}^{1} \diff \mu_{0} \, \sigma_{s,g,g'}(\vec{r},\mu_{0}) P_{n}(\mu_{0}),
 \end{equation}
-and $\mu_{0}$ is the cosine of the scattering angle. The infinite series in Eq.~\ref{eq:ScattInt} is truncated to a finite number of terms $N_{s}$, where $N_{s}$ is the maximum value for $n$. The multigroup equations can then be written as
+and $\mu_{0}$ is the cosine of the scattering angle. The infinite series in Eq.~\ref{eq:ScattInt} is truncated to a finite number of terms $N_{s}$, where $N_{s}$ is the maximum value for $n$. The multigroup equations with isotropic fission can then be written as
 \begin{multline}
 	\bigg [ \frac{\alpha}{v_{g}} + \hat{\Omega} \cdot \nabla + \sigma_{g}(\vec{r}) \bigg ] \psi_{g}(\vec{r},\hat{\Omega}) = \sum_{g'=1}^{G} \sum_{n=0}^{N_{s}} \sigma_{s,g,g',n}(\vec{r}) \sum_{m=-n}^{n} \phi_{g',n,m}(\vec{r}) Y_{n}^{m}(\hat{\Omega}) \\ + \sum_{g'=1}^{G} \, \nu_{g'} \chi_{g'} \sigma_{f,g'}(\vec{r}) \phi_{g',0,0}(\vec{r}), 
 	\label{eq:Alpha3DMGSPH}
 \end{multline}
 for $g = 1, \dots, G$.
+
+\section{Step Differencing and Discrete Ordinates in Angle}
+
+We continue the discretization of Eq~.\ref{eq:Alpha3DMGSPH} by using a Step differencing method for the spatial variable $\vec{r}$. We start with the three-dimensional mono-energetic alpha-eigenvalue equation for group $g$ with scattering and fission source $f$:
+
+\begin{equation}
+\begin{cases}
+	\frac{\alpha}{v} \psi + \hat{\Omega} \cdot \nabla \psi + \sigma \psi = f \text{ in } \mathcal{D} \\
+	\psi(\vec{r}) = 0 \text{ for all } \vec{r} \in \partial \mathcal{D} \text { with } \vec{n}(\vec{r}) \cdot \hat{\Omega} < 0.
+\end{cases}
+\end{equation}
+We discretize the domain $\mathcal{D}$ into zones and define
+\begin{equation}
+	\Delta x_{i} = x_{i} - x_{i-1} \text{ for } i = 1, \dots, M,
+\end{equation}
+\begin{equation}
+	\Delta y_{i} = y_{j} - y_{j-1} \text{ for } j = 1, \dots, J,
+\end{equation}
+\begin{equation}
+	\Delta z_{i} = z_{k} - z_{k-1} \text{ for } k = 1, \dots, K.
+\end{equation}
+We define the nodes $r_{ijk} = (x_{i}, y_{j}, z_{k})$ and the zone volume $\Delta r_{ijk} = \Delta x_{i} \Delta y_{j} \Delta z_{k}$. The function values at the set of nodes, $\{r_{ijk}\}$ are called \textit{nodal values}. We assume that $\sigma$ and $f$ have constant values, denoted as $\sigma_{ijk}$ and $f_{ijk}$ respectively, on each \textit{zone} defined as
+\begin{equation}
+	\mathcal{Z}_{ijk} \equiv \{ r \vert x_{i-1} < x < x_{i}, y_{j-1} < y < y_{j}, z_{k-1} < z < z_{k} \}.
+\end{equation}
+We define $\psi_{ijk}$ to denote the approximation to $\psi(r_{ijk})$, the true solution at the point $r_{ijk}$. For a direction in the positive orthant, $\hat{\Omega} = (\mu, \eta, \xi) > 0$, the Step differencing equation for the zone $\mathcal{Z}_{ijk}$ is
+\begin{equation}
+	\frac{\alpha}{v} \psi_{ijk} + \mu \frac{\psi_{ijk} - \psi_{i-1,jk}}{\Delta x_{i}} + \eta \frac{\psi_{ijk} - \psi{i,j-1,k}}{\Delta y_{j}} + \xi \frac{\psi_{ijk} - \psi{ij,k-1}}{\Delta z_{k}} + \sigma_{ijk} \psi_{ijk} = f_{ijk}.
+	\label{eq:Step3D}
+\end{equation}
+For Eq.~\ref{eq:Step3D}, we have $(M+1)(J+1)(K+1)$ unknowns $\psi_{ijk}$. There are $MJK$ zonal equations with $JM + JK + M + J + K + 1$ boundary equations.
+
+To write the discretized system in matrix form, we define the discrete angular flux vector
+\begin{equation}
+\Psi \in \mathbb{R}^{(M+1)(J+1)(K+1)},
+\end{equation}
+defined for all nodes ordered by $i$ first, then $j$, and finally $k$. We define the diagonal matrices
+\begin{equation}
+	\Delta x \equiv \text{diag}(\Delta x_{1}, \dots, \Delta x_{M}),
+\end{equation}
+\begin{equation}
+	\Delta y \equiv \text{diag}(\Delta y_{1}, \dots, \Delta y_{J}),
+\end{equation}
+\begin{equation}
+	\Delta z \equiv \text{diag}(\Delta z_{1}, \dots, \Delta z_{K}),
+\end{equation}
+and the matrices expressing the discretized spatial derivatives 
+\begin{equation}
+	D_{M} \in \mathbb{R}^{M \times (M+1)} \equiv \begin{pmatrix}
+				-1 & 1 & &  \\
+				& \ddots & \ddots  & \\
+				& & -1 & 1
+		             \end{pmatrix},
+	S_{M,+} \in \mathbb{R}^{M \times (M+1)} \equiv \begin{pmatrix}
+				0 & 1 & &  \\
+				& \ddots & \ddots  & \\
+				& & 0 & 1
+				\end{pmatrix},
+\end{equation}
+\begin{equation}
+	D_{J} \in \mathbb{R}^{J \times (J+1)} \equiv \begin{pmatrix}
+				-1 & 1 & &  \\
+				& \ddots & \ddots  & \\
+				& & -1 & 1
+		             \end{pmatrix},
+	S_{J,+} \in \mathbb{R}^{J \times (J+1)} \equiv \begin{pmatrix}
+				0 & 1 & &  \\
+				& \ddots & \ddots  & \\
+				& & 0 & 1
+				\end{pmatrix},
+\end{equation}
+\begin{equation}
+	D_{K} \in \mathbb{R}^{K \times (K+1)} \equiv \begin{pmatrix}
+				-1 & 1 & &  \\
+				& \ddots & \ddots  & \\
+				& & -1 & 1
+		             \end{pmatrix},
+	S_{K,+} \in \mathbb{R}^{K \times (K+1)} \equiv \begin{pmatrix}
+				0 & 1 & &  \\
+				& \ddots & \ddots  & \\
+				& & 0 & 1
+				\end{pmatrix}.
+\end{equation}
+Define the total cross section matrix as
+\begin{equation}
+	\Sigma \equiv \text{diag}(\sigma_{111}, \dots, \sigma_{MJK}).
+\end{equation}
+The matrices describing the spatial derivatives with respect to a spatial variable $C_{x}, C_{y},$ and $C_{z}$ are defined by
+\begin{equation}
+	C_{x} \equiv S_{K,+} \otimes S_{J,+} \otimes \Delta x^{-1} D_{M},
+\end{equation}
+\begin{equation}
+	C_{y} \equiv S_{K,+} \otimes \Delta y^{-1} D_{J} \otimes S_{M,+},
+\end{equation}
+\begin{equation}
+	C_{z} \equiv \Delta z^{-1} D_{K} \otimes S_{J,+} \otimes S_{M,+},
+\end{equation}
+while the matrix associate the correct total cross section to each cell is defined as
+\begin{equation}
+	S \equiv S_{K,+} \otimes S_{J,+} \otimes S_{M,+}.
+\end{equation}
+With these matrices defined, we can write the $MJK$ zone-centered equations for the unknown vector $\Psi$ as
+\begin{equation}
+	(C + \Sigma S) \Psi = F,
+\end{equation}
+where
+\begin{equation}
+	C \equiv \mu C_{x} + \eta C_{y} + \xi C_{z},
+\end{equation}
+and 
+\begin{equation}
+F \equiv (f_{ijk}) \in \mathbb{R}^{MJK}.
+\end{equation}
+
+%Boundary conditions
 
 %\begin{figure}
 %	\centering
@@ -104,7 +221,7 @@ for $g = 1, \dots, G$.
 %\label{AppA}
 \label{Discrete}
 
-\section{Discretization of the Alpha-Eigenvalue and $k$-Effective Eigenvalue Equations}
+%\section{Discretization of the Alpha-Eigenvalue and $k$-Effective Eigenvalue Equations}
 
 We begin with the alpha-eigenvalue transport equation in one-dimensional slab geometry with isotropic scattering. Discretization of the $k$-eigenvalue transport equation follows a similar procedure. The spatial domain is the interval $[a,b]$ in $x$, $\mu$ is the angle cosine in $[-1,1]$, the energy variable is $E \in [0, \infty)$, and the equations for the angular flux $\psi(x, \mu, E)$ are given by
 \begin{multline}
