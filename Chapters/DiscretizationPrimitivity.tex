@@ -26,15 +26,17 @@ where $\vec{n}(\vec{r})$ is the outward pointing unit normal at $\vec{r} \in \pa
 
 \section{Discretization of the Alpha-Eigenvalue and $k$-Effective Eigenvalue Equations}
 
-\subsection{The Multigroup in Energy and Spherical Harmonics Expansion of the Scattering Integral}
+\subsection{The Multigroup in Energy Discretization and Spherical Harmonics Expansion of the Angular Flux}
 
-We begin by discretizing Eq.~\ref{eq:Alpha3DNeutronTransport} in energy using the \textit{multigroup} approximation. We restrict the energy $E$ to a finite interval and partition the interval into groups:
+\subsubsection{The Multigroup in Energy Approximation}
+
+We begin by discretizing Eq.~\ref{eq:Alpha3DNeutronTransport} in energy using the \textit{multigroup} approximation \cite{duderstadt_nuclear_1976}. We restrict the energy $E$ to a finite interval and partition the interval into groups:
 \begin{equation*}
 	E_{max} = E_{0} > E_{1} > \dots > E_{G} = E_{min}.
 \end{equation*}
 The eigenvalue equation is then averaged over each group $E_{g} < E < E_{g-1}$ and the cross sections are approximated by a flux-weighted average over each energy group to yield the following semi-discretization of Eq.~\ref{eq:Alpha3DNeutronTransport}:
 \begin{multline}
-	\bigg [ \frac{\alpha}{v_{g}} + \hat{\Omega} \cdot \nabla + \sigma_{g}(\vec{r}) \bigg ] \psi_{g}(\vec{r},\hat{\Omega}) = \sum_{g'=1}^{G} \int_{4\pi} \diff \hat{\Omega} \, \sigma_{s,g,g'}(\vec{r},\hat{\Omega}' \cdot \hat{\Omega}) \psi_{g'}(\vec{r},\hat{\Omega}') \\ + \sum_{g'=1}^{G} \, \nu_{g'} \chi_{g'} \sigma_{f,g'}(\vec{r}) \int_{4\pi} \diff \hat{\Omega}' \, \psi_{g'}(\vec{r},\hat{\Omega}'), 
+	\bigg [ \frac{\alpha}{v_{g}} + \hat{\Omega} \cdot \nabla + \sigma_{g}(\vec{r}) \bigg ] \psi_{g}(\vec{r},\hat{\Omega}) = \sum_{g'=1}^{G} \int_{4\pi} \diff \hat{\Omega} \, \sigma_{s,g,g'}(\vec{r},\hat{\Omega}' \cdot \hat{\Omega}) \psi_{g'}(\vec{r},\hat{\Omega}') \\ + \chi_{g} \sum_{g'=1}^{G} \, \nu_{g'} \sigma_{f,g'}(\vec{r}) \int_{4\pi} \diff \hat{\Omega}' \, \psi_{g'}(\vec{r},\hat{\Omega}'), 
 	\label{eq:Alpha3DMG}
 \end{multline}
 for $g = 1, \dots, G$, where
@@ -45,6 +47,8 @@ with
 \begin{equation}
 	\int_{g} \diff E \, = \int_{E_{g}}^{E_{g-1}} \diff E.
 \end{equation}
+
+\subsubsection{The Spherical Harmonics Expansion of the Angular Flux}
 
 For each flux $\psi_{g}(\vec{r},\hat{\Omega})$, the flux is expanded in surface harmonics according to
 \begin{equation}
@@ -84,22 +88,25 @@ where
 \begin{equation}
 	\sigma_{s,g,g',n}(\vec{r}) \equiv \frac{1}{2} \int_{-1}^{1} \diff \mu_{0} \, \sigma_{s,g,g'}(\vec{r},\mu_{0}) P_{n}(\mu_{0}),
 \end{equation}
-and $\mu_{0}$ is the cosine of the scattering angle. The infinite series in Eq.~\ref{eq:ScattInt} is truncated to a finite number of terms $N_{s}$, where $N_{s}$ is the maximum value for $n$. The multigroup equations with isotropic fission can then be written as
+and $\mu_{0}$ is the cosine of the scattering angle. The infinite series in Eq.~\ref{eq:ScattInt} is truncated to a finite number of terms $N_{s}$, where $N_{s}$ is the maximum value for $n$. The fission integral can be written similarly. The multigroup equations can then be written as
 \begin{multline}
-	\bigg [ \frac{\alpha}{v_{g}} + \hat{\Omega} \cdot \nabla + \sigma_{g}(\vec{r}) \bigg ] \psi_{g}(\vec{r},\hat{\Omega}) = \sum_{g'=1}^{G} \sum_{n=0}^{N_{s}} \sigma_{s,g,g',n}(\vec{r}) \sum_{m=-n}^{n} \phi_{g',n,m}(\vec{r}) Y_{n}^{m}(\hat{\Omega}) \\ + \sum_{g'=1}^{G} \, \nu_{g'} \chi_{g'} \sigma_{f,g'}(\vec{r}) \phi_{g',0,0}(\vec{r}), 
+	\bigg [ \frac{\alpha}{v_{g}} + \hat{\Omega} \cdot \nabla + \sigma_{g}(\vec{r}) \bigg ] \psi_{g}(\vec{r},\hat{\Omega}) = \sum_{g'=1}^{G} \sum_{n=0}^{N_{s}} \sigma_{s,g,g',n}(\vec{r}) \sum_{m=-n}^{n} \phi_{g',n,m}(\vec{r}) Y_{n}^{m}(\hat{\Omega}) \\ + \chi_{g} \sum_{g'=1}^{G} \sum_{n=0}^{N_{s}} \nu_{g'} \sigma_{f,g',n}(\vec{r}) \sum_{m=-n}^{n} \phi_{g',n,m}(\vec{r}) Y_{n}^{m}(\hat{\Omega}), 
 	\label{eq:Alpha3DMGSPH}
 \end{multline}
 for $g = 1, \dots, G$.
 
-\section{Step Differencing and Discrete Ordinates in Angle}
+\subsection{Step Differencing and Discrete Ordinates in Angle}
 
-We continue the discretization of Eq~.\ref{eq:Alpha3DMGSPH} by using a Step differencing method for the spatial variable $\vec{r}$. We start with the three-dimensional mono-energetic alpha-eigenvalue equation for group $g$ with scattering and fission source $f$:
+\subsubsection{Step Differencing}
+
+We continue the discretization of Eq~.\ref{eq:Alpha3DMGSPH} by using a Step differencing method \cite{lewis_computational_1984} for the spatial variable $\vec{r}$. We start with the three-dimensional mono-energetic alpha-eigenvalue equation for group $g$ with scattering and fission source $f$:
 
 \begin{equation}
 \begin{cases}
 	\frac{\alpha}{v} \psi + \hat{\Omega} \cdot \nabla \psi + \sigma \psi = f \text{ in } \mathcal{D} \\
 	\psi(\vec{r}) = 0 \text{ for all } \vec{r} \in \partial \mathcal{D} \text { with } \vec{n}(\vec{r}) \cdot \hat{\Omega} < 0.
 \end{cases}
+\label{eq:ContG}
 \end{equation}
 We discretize the domain $\mathcal{D}$ into zones and define
 \begin{equation}
@@ -117,7 +124,7 @@ We define the nodes $r_{ijk} = (x_{i}, y_{j}, z_{k})$ and the zone volume $\Delt
 \end{equation}
 We define $\psi_{ijk}$ to denote the approximation to $\psi(r_{ijk})$, the true solution at the point $r_{ijk}$. For a direction in the positive orthant, $\hat{\Omega} = (\mu, \eta, \xi) > 0$, the Step differencing equation for the zone $\mathcal{Z}_{ijk}$ is
 \begin{equation}
-	\frac{\alpha}{v} \psi_{ijk} + \mu \frac{\psi_{ijk} - \psi_{i-1,jk}}{\Delta x_{i}} + \eta \frac{\psi_{ijk} - \psi{i,j-1,k}}{\Delta y_{j}} + \xi \frac{\psi_{ijk} - \psi{ij,k-1}}{\Delta z_{k}} + \sigma_{ijk} \psi_{ijk} = f_{ijk}.
+	\frac{\alpha}{v} \psi_{ijk} + \mu \frac{\psi_{ijk} - \psi_{i-1,jk}}{\Delta x_{i}} + \eta \frac{\psi_{ijk} - \psi_{i,j-1,k}}{\Delta y_{j}} + \xi \frac{\psi_{ijk} - \psi_{ij,k-1}}{\Delta z_{k}} + \sigma_{ijk} \psi_{ijk} = f_{ijk}.
 	\label{eq:Step3D}
 \end{equation}
 For Eq.~\ref{eq:Step3D}, we have $(M+1)(J+1)(K+1)$ unknowns $\psi_{ijk}$. There are $MJK$ zonal equations with $JM + JK + M + J + K + 1$ boundary equations.
@@ -173,7 +180,7 @@ and the matrices expressing the discretized spatial derivatives
 				& & 0 & 1
 				\end{pmatrix}.
 \end{equation}
-Define the total cross section matrix as
+We define the total cross section matrix as
 \begin{equation}
 	\Sigma \equiv \text{diag}(\sigma_{111}, \dots, \sigma_{MJK}).
 \end{equation}
@@ -187,13 +194,14 @@ The matrices describing the spatial derivatives with respect to a spatial variab
 \begin{equation}
 	C_{z} \equiv \Delta z^{-1} D_{K} \otimes S_{J,+} \otimes S_{M,+},
 \end{equation}
-while the matrix associate the correct total cross section to each cell is defined as
+while the matrix associating the correct total cross section to each cell is defined as
 \begin{equation}
 	S \equiv S_{K,+} \otimes S_{J,+} \otimes S_{M,+}.
 \end{equation}
 With these matrices defined, we can write the $MJK$ zone-centered equations for the unknown vector $\Psi$ as
 \begin{equation}
 	(C + \Sigma S) \Psi = F,
+	\label{eq:Disc}
 \end{equation}
 where
 \begin{equation}
@@ -204,7 +212,62 @@ and
 F \equiv (f_{ijk}) \in \mathbb{R}^{MJK}.
 \end{equation}
 
-%Boundary conditions
+Boundary values are isolated by noting that for a positive direction vector $\hat{\Omega}$, $\psi$ satisfies the Dirichlet condition for all $\vec{r} = r_{0jk}, r_{i0k},$ or $r_{ij0}$. These locations correspond to one of the three faces with coordinate $x = x_{0}, y_{0},$ or $z_{0}$ of the box. For a positive direction vector $\hat{\Omega}$, we define the vector $\Psi_{B}$ with length equal to the length of $\Psi$. The vector $\Psi_{B}$ is nonzero at all indices corresponding to boundary points where there is some incoming angular flux. The discrete boundary conditions can be written
+\begin{equation}
+	E_{000}(\Psi - \Psi_{B}) = 0,
+\end{equation}
+where we define $E_{000}$ as
+\begin{equation}
+	E_{000} = \begin{pmatrix}
+				e_{0K}^{T} \otimes I_{J+1} \otimes I_{M+1} \\
+				(0,I_{K}) \otimes e_{0J}^{T} \otimes I_{M+1} \\
+				(0,I_{K}) \otimes (0,I_{J}) \otimes e_{0M}^{T}
+			\end{pmatrix},
+\end{equation}
+where the vectors $e_{0J}$ and $e_{0K}$ are unit vectors. There are different $E$ matrices for other directions. For three-dimensional Cartesian geometry, there are eight different matrices, $E_{ijk}$, corresponding to boundary points $i=0,M$, $j=0,L$, and $k = 0,K$.
+
+Equation~\ref{eq:Disc} is the discretized equation for quadrature point $\hat{\Omega}$ and energy group $g$. We generalize for multiple quadrature points and energy groups by introducing the indices $\ell$ and $g$, where $\ell$ is the index of quadrature point $\hat{\Omega} = \hat{\Omega}_{\ell}$ and $g$ is the energy group index.The vectors $\Psi$ and $\Psi_{B}$ and matrix $C$ of Eq.~\ref{eq:Disc} become $\Psi_{g,\ell}$, $\Psi_{B,g,\ell}$, and $C_{\ell}$.
+
+We define the matrices $Z$ and $Z_{b}$ by
+\begin{equation}
+	Z \equiv \begin{pmatrix}
+				I_{MJK} \\
+				0
+		      \end{pmatrix} \in \mathbb{R}^{(M+1)(J+1)(K+1) \times MJK}
+\end{equation}
+and
+\begin{equation}
+	Z_{b} \equiv \begin{pmatrix}
+				0 \\
+				I_{(M+1)(J+1)(K+1) - MJK}
+		      \end{pmatrix} \in \mathbb{R}^{(M+1)(J+1)(K+1) \times (M+1)(J+1)(K+1) - MJK}.
+\end{equation}
+The matrices $Z$ and $Z_{b}$ inject zone-centered vectors into the nodal vector space. We note the following properties:
+\begin{equation}
+	Z^{T} Z = I_{MJK},
+\end{equation}
+\begin{equation}
+	Z_{b}^{T} Z_{b} = I_{(M+1)(J+1)(K+1) - MJK},
+\end{equation}
+and
+\begin{equation}
+	Z^{T} Z_{b} = 0.
+\end{equation}
+Then the matrix representation of Eq.~\ref{eq:ContG} for energy group $g$ and direction $\ell$ can be written as
+\begin{equation}
+	H_{g,\ell} \Psi_{g,\ell} = Z F_{g,\ell} + Z_{b} B_{\ell} \Psi_{B,g,\ell},
+\end{equation}
+where
+\begin{equation}
+	H_{g,\ell} \equiv Z(C_{\ell} + \Sigma_{g} S) + Z_{b} B_{\ell},
+\end{equation}
+with $B_{\ell} = E_{ijk}$ for the appropriate choice of $i, j,$ and $k$ and $C_{\ell}$ is defined as
+\begin{equation}
+	C_{\ell} \equiv \mu_{\ell} C_{x} + \eta_{\ell} C_{y} + \xi_{\ell} C_{z}.
+\end{equation}
+The matrix $H_{g,\ell}$ operates on nodal vectors.
+
+\subsubsection{The Discrete Ordinates Method}
 
 %\begin{figure}
 %	\centering
