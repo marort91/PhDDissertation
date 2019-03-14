@@ -77,7 +77,7 @@ where $\delta_{n,n'}$ is the \textit{Kronecker delta}. The $(n,m)^{\text{th}}$ m
 \end{equation}
 From the properties of the surface harmonics, we have
 \begin{equation}
-	\int_{4\pi} \diff \hat{\Omega} \, Y_{n}^{m}(\hat{\Omega}) Y_{n'}^{m'}(\hat{\Omega}) = \delta_{n,n'} \delta_{m,m'}, \text{for all } n, n' = 0, 1, \dots, \abs{m} \leq \abs{n}, \abs{m'} \leq \abs{n'}.
+	\int_{4\pi} \diff \hat{\Omega} \, Y_{n}^{m}(\hat{\Omega}) Y_{n'}^{m'}(\hat{\Omega}) = \delta_{n,n'} \delta_{m,m'}, \text{ for all } n, n' = 0, 1, \dots, \abs{m} \leq \abs{n}, \abs{m'} \leq \abs{n'}.
 \end{equation}
 The scattering integral can be then be written in the form
 \begin{equation}
@@ -110,13 +110,13 @@ We continue the discretization of Eq~.\ref{eq:Alpha3DMGSPH} by using a Step diff
 \end{equation}
 We discretize the domain $\mathcal{D}$ into zones and define
 \begin{equation}
-	\Delta x_{i} = x_{i} - x_{i-1} \text{ for } i = 1, \dots, M,
+	\Delta x_{i} = x_{i} - x_{i-1}, \text{ for } i = 1, \dots, M,
 \end{equation}
 \begin{equation}
-	\Delta y_{i} = y_{j} - y_{j-1} \text{ for } j = 1, \dots, J,
+	\Delta y_{i} = y_{j} - y_{j-1}, \text{ for } j = 1, \dots, J,
 \end{equation}
 \begin{equation}
-	\Delta z_{i} = z_{k} - z_{k-1} \text{ for } k = 1, \dots, K.
+	\Delta z_{i} = z_{k} - z_{k-1}, \text{ for } k = 1, \dots, K.
 \end{equation}
 We define the nodes $r_{ijk} = (x_{i}, y_{j}, z_{k})$ and the zone volume $\Delta r_{ijk} = \Delta x_{i} \Delta y_{j} \Delta z_{k}$. The function values at the set of nodes, $\{r_{ijk}\}$ are called \textit{nodal values}. We assume that $\sigma$ and $f$ have constant values, denoted as $\sigma_{ijk}$ and $f_{ijk}$ respectively, on each \textit{zone} defined as
 \begin{equation}
@@ -265,10 +265,89 @@ with $B_{\ell} = E_{ijk}$ for the appropriate choice of $i, j,$ and $k$ and $C_{
 \begin{equation}
 	C_{\ell} \equiv \mu_{\ell} C_{x} + \eta_{\ell} C_{y} + \xi_{\ell} C_{z}.
 \end{equation}
-The matrix $H_{g,\ell}$ operates on nodal vectors.
+The matrix $H_{g,\ell}$ operates on nodal vectors. We define the angular quadrature scheme in the next section.
 
 \subsubsection{The Discrete Ordinates Method}
 
+To integrate functions on the unit sphere, we consider symmetric quadrature rules of the form \cite{carlson1965transport}:
+\begin{equation}
+	\int_{4\pi} \diff \hat{\Omega} \, \psi(\hat{\Omega}) \approx \sum_{\ell = 1}^{L} w_{\ell} \psi(\hat{\Omega}_{\ell}),
+\end{equation}
+where $\hat{\Omega} \equiv (\mu_{\ell}, \eta_{\ell}, \xi_{\ell})$, for all $\ell = 1, \dots, L,$ with $L = \nu(\nu+2)$ and $\nu$ is the number of direction cosines ($\nu = 2, 4, 6, \dots$). It is assumed that $w_{\ell} > 0$ for all $\ell$. We note that
+\begin{equation}
+\sum_{\ell = 1}^{L} w_{\ell} = 1,
+\end{equation}
+since
+\begin{equation}
+\quad \int_{4\pi} \diff \hat{\Omega} \, = 1.
+\end{equation}
+The symmetry requirement is met using symmetry through the origin. Namely, if $\hat{\Omega}_{\ell}$ is a quadrature point with corresponding weight, $w_{\ell}$, then $-\hat{\Omega}_{\ell}$ is also a quadrature point. Letting $\ell^{-}$ denote the index, we can write $\hat{\Omega}_{-\ell} = -\hat{\Omega}_{\ell}$. It is also true that $w_{-\ell} = w_{\ell}$ \cite{carlson1965transport}.
+
+We define discretized representations of angular flux moment operators in Eq.~\ref{eq:ContG}. These operators operate on zone-centered vectors and are easily seen to be given by $MJK \times LMJK$ size matrices
+\begin{equation}
+	L_{n,m} \equiv (l_{n,m}W) \otimes I_{MJK},
+\end{equation}
+where
+\begin{equation}
+	l_{n,m} \equiv \big (Y_{n}^{m}(\hat{\Omega}_{1}), Y_{n}^{m}(\hat{\Omega}_{2}), \dots, Y_{n}^{m}(\hat{\Omega}_{L}) \big ),
+\end{equation}
+and
+\begin{equation}
+	W \equiv \text{diag}(w_{1}, w_{2}, \dots, w_{L}).
+\end{equation}
+If the vector $\Psi_{g}$ approximates $\psi_{g}(\vec{r}, \hat{\Omega})$, then $L_{n,m} \Psi_{g}$ approximates the (n,m)$^{\text{th}}$ moment of $\psi_{g}(\vec{r},\hat{\Omega})$, $\phi_{g,n,m}(\vec{r})$. Similarly, we define $LMJK \times MJK$ size matrices
+\begin{equation}
+	L^{+}_{n,m} \equiv l^{T}_{n,m} \otimes I_{MJK}.
+\end{equation} 
+If a vector $\Phi$ approximates $\phi(\vec{r})$, then $L^{+}_{n,m} \Phi$ approximates $Y_{n}^{m}(\hat{\Omega}) \phi(\vec{r})$. We define the grouped matrices $L_{n}$ and $L^{+}_{n}$, where
+\begin{equation}
+	L_{n} = \begin{pmatrix}
+			L_{n,-n} \\
+			\vdots \\
+			L_{n,n}
+		    \end{pmatrix} \text{ and }
+	L^{+}_{n} = \begin{pmatrix}
+		    	L^{+}_{n,-n}, \dots, L^{+}_{n,n},
+		    \end{pmatrix}
+\end{equation}
+and the further grouped block matrices
+\begin{equation}
+	L^{N} = \begin{pmatrix}
+			L_{0} \\
+			\vdots \\
+			L_{N}
+		    \end{pmatrix} \text{ and }
+	L^{N,+} = \begin{pmatrix}
+				L^{+}_{0}, \dots, L^{+}_{N}
+			\end{pmatrix}.
+\end{equation}
+Given $N = N_{s}$, the number of terms in the scattering kernel, it is assumed that the symmetric quadrature rule is such that the spherical harmonics of order $N_{s}$ and less satisfy
+\begin{equation}
+	\sum_{\ell = 1}^{L} Y_{n}^{m}(\hat{\Omega}_{\ell}) Y_{n'}^{m'}(\hat{\Omega}_{\ell}) = \delta_{n,n'} \delta_{m,m'}, \text{ for all } 0 \leq n, n' \leq N_{s}, \abs{m} \leq n, \abs{m'} \leq n'.
+\end{equation}
+In matrix form, this can be written more compactly as
+\begin{equation}
+	L^{N_{s}} L^{N_{s},+} = I_{(N_{s}+1)^{2}} \otimes I_{MJK}.
+\end{equation}
+
+For boundary terms, we define the block diagonal matrices $B$ and $C$ by
+\begin{equation}
+	B \equiv \text{diag}(B_{1}, B_{2}, \dots, B_{L})
+\end{equation}
+and
+\begin{equation}
+	C \equiv \text{diag}(C_{1}, C_{2}, \dots, C_{L}).
+\end{equation}
+The scattering kernel matrix is defined by letting
+\begin{equation}
+	\Sigma_{s,g,g',n} \equiv I_{2n+1} \otimes \hat{\Sigma}_{s,g,g',n},
+\end{equation}
+where
+\begin{equation}
+	\hat{\Sigma}_{s,g,g',n} \equiv \text{diag}(\sigma_{s,g,g',n,111}, \dots, \sigma_{s,g,g',n,MJK}), \quad n = 0,1, \dots.
+\end{equation}
+The fission matrix is defined by letting
+%Start here...
 %\begin{figure}
 %	\centering
 %	\resizebox{1.0\textwidth}{!}{
