@@ -1,3 +1,32 @@
 \chapter{The Rayleigh Quotient Fixed Point Method}
-
 \label{ch3}
+
+In this chapter we derive the Rayleigh Quotient Fixed Point (RQFP) method for alpha- and $k$-effective eigenvalue problems. We begin with the matrix form of the eigenvalue equations and proceed to develop a fixed point method for the angular flux eigenvector. Since the eigenvector corresponds to the alpha- or $k$-effective eigenvalue, we require an update for the eigenvalue at each iteration. We derive an eigenvalue update that is optimal in the least squares sense by relating the alpha- or $k$-effective eigenvalue to the dominant eigenvalue of a primitive matrix (see Section~\ref{sec:LinAlg}. This primitive matrix serves as the fixed point function to determine the solution of the eigenvalue problem. Since the dominant eigenvalue of a primitive matrix corresponds to the only positive eigenvector of the matrix, this eigenvector also solves the discretized criticality eigenvalue neutron transport problem. We end this chapter with a discussion of the primitivity of the discretized alpha- and $k$-effective eigenvalue matrix equations.
+
+\section{Derivation of the Rayleigh Quotient Fixed Point Method for Alpha-Eigenvalue Problems}
+
+We begin with the discretized alpha-eigenvalue matrix equation:
+\begin{equation}
+	\big ( \alpha \mathbf{V}^{-1} + \mathbf{H} \big ) \mathbf{\Psi} = \mathbf{Z} \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \mathbf{S} \mathbf{\Psi}.
+	\label{eq:AlphaMatrixRQ}
+\end{equation}
+Solution of Eqn.~\ref{eq:AlphaMatrixRQ} consists of finding the eigenpair ($\alpha,\mathbf{\Psi}$) that satisfies the equation with $\alpha$ a real number and the vector $\mathbf{\Psi}$ positive. We write a fixed point equation for Eqn.~\ref{eq:AlphaMatrixRQ} in the form
+\begin{equation}
+	\mathbf{\Psi} = \mathbf{H}^{-1} \big ( -\alpha \mathbf{V}^{-1} + \mathbf{Z} \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \mathbf{S} \big ) \mathbf{\Psi} \equiv \mathbf{A}(\alpha) \mathbf{\Psi}.
+	\label{eq:AlphaRQFP}
+\end{equation}
+For all subcritical and critical systems, the righthand side of Eqn.~\ref{eq:AlphaRQFP} is nonnegative since for isotropic scattering the scattering matrix is nonnegative. For supercritical systems, there is an $\alpha_{\text{max}}$ such that the righthand side is still nonnegative. Various fixed point equations can be written for the angular flux eigenvector $\mathbf{\Psi}$. However, this form was selected as it only requires the inversion of the matrix $\mathbf{H}$. In standard neutron transport codes \cite{hanebutte_ardra_1999} \cite{alcouffe2005partisn}, the matrix $\mathbf{H}$ is inverted without being formed by sweeping across the domain in space and angle. The updated eigenvector iterate is obtained by the action of the inverted operator on the source. By writing the fixed point in this way, the Rayleigh quotient fixed point method can be implemented easily in production neutron transport codes.
+
+We define an iterative method to find the fixed point (see Section~\ref{}) of Eqn.~\ref{eq:AlphaRQFP} as
+\begin{equation}
+	\mathbf{\Psi}^{(i+1}) = \mathbf{A}(\alpha^{(i)}) \mathbf{\Psi}^{(i)}.
+\end{equation}
+From some initial positive starting vector $\mathbf{\Psi}^{(0)}$, the subsequent eigenvector iterate is determined by the action of inversion of the matrix $\mathbf{H}$ on the scattering and fission source adjusted by the alpha-eigenvalue. At each iteration, an update for the eigenvalue is required. Given the solution to Eqn.~\ref{AlphaMatrixRQ}, eigenpair ($\alpha_{*}, \mathbf{\Psi}_{*}$), it is immediately obvious that
+\begin{equation}
+	\mathbf{\Psi}_{*} =  \mathbf{A}(\alpha_{*}) \mathbf{\Psi}_{*}
+\end{equation}
+is also an eigenvalue problem for the fixed matrix $\mathbf{A}(\alpha_{*})$ with eigenvector $\mathbf{\Psi}_{*}$ and eigenvalue one.
+% Primitivity, dominant eigenvalue, etc.
+we can write the iterative fixed point 
+
+\section{Derivation of the Rayleigh Quotient Fixed Point Method for $k$-Effective Problems}
