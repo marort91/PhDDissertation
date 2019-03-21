@@ -1,7 +1,7 @@
 \chapter{The Rayleigh Quotient Fixed Point Method}
 \label{ch3}
 
-In this chapter we derive the Rayleigh Quotient Fixed Point (RQFP) method for alpha- and $k$-effective eigenvalue problems. We begin with the matrix form of the eigenvalue equations and proceed to develop a fixed point method for the angular flux eigenvector. Since the eigenvector corresponds to the alpha- or $k$-effective eigenvalue, we require an update for the eigenvalue at each iteration. We derive an eigenvalue update that is optimal in the least squares sense by relating the alpha- or $k$-effective eigenvalue to the dominant eigenvalue of a primitive matrix (see Section~\ref{sec:LinAlg}. This primitive matrix serves as the fixed point function to determine the solution of the eigenvalue problem. Since the dominant eigenvalue of a primitive matrix corresponds to the only positive eigenvector of the matrix, this eigenvector also solves the discretized criticality eigenvalue neutron transport problem. We end this chapter with a discussion of the primitivity of the discretized alpha- and $k$-effective eigenvalue matrix equations.
+In this chapter we derive the Rayleigh Quotient Fixed Point (RQFP) method for alpha- and $k$-effective eigenvalue problems. We begin with the matrix form of the eigenvalue equations and proceed to develop a fixed point method for the angular flux eigenvector. Since the eigenvector corresponds to the alpha- or $k$-effective eigenvalue, we require an update for the eigenvalue at each iteration. We derive an eigenvalue update that is optimal in the least squares sense by relating the alpha- or $k$-effective eigenvalue to the dominant eigenvalue of a primitive matrix (see Section~\ref{sec:LinAlg}). This primitive matrix serves as the fixed point function to determine the solution of the eigenvalue problem. Since the dominant eigenvalue of a primitive matrix corresponds to the only positive eigenvector of the matrix, this eigenvector also solves the discretized criticality eigenvalue neutron transport problem. We end this chapter with a discussion of the primitivity of the discretized alpha- and $k$-effective eigenvalue matrix equations.
 
 \section{Derivation of the Rayleigh Quotient Fixed Point Method for Alpha-Eigenvalue Problems}
 
@@ -21,12 +21,29 @@ We define an iterative method to find the fixed point (see Section~\ref{}) of Eq
 \begin{equation}
 	\mathbf{\Psi}^{(i+1}) = \mathbf{A}(\alpha^{(i)}) \mathbf{\Psi}^{(i)}.
 \end{equation}
-From some initial positive starting vector $\mathbf{\Psi}^{(0)}$, the subsequent eigenvector iterate is determined by the action of inversion of the matrix $\mathbf{H}$ on the scattering and fission source adjusted by the alpha-eigenvalue. At each iteration, an update for the eigenvalue is required. Given the solution to Eqn.~\ref{AlphaMatrixRQ}, eigenpair ($\alpha_{*}, \mathbf{\Psi}_{*}$), it is immediately obvious that
+From some initial positive starting vector $\mathbf{\Psi}^{(0)}$, the subsequent eigenvector iterate is determined by the action of inversion of the matrix $\mathbf{H}$ on the scattering and fission source adjusted by the alpha-eigenvalue. At each iteration, an update for the eigenvalue is required. A natural choice of update is that the eigenvalue be a function of the eigenvector iterate. Given the solution to Eqn.~\ref{AlphaMatrixRQ}, eigenpair ($\alpha_{*}, \mathbf{\Psi}_{*}$), it is immediately obvious that
 \begin{equation}
 	\mathbf{\Psi}_{*} =  \mathbf{A}(\alpha_{*}) \mathbf{\Psi}_{*}
 \end{equation}
 is also an eigenvalue problem for the fixed matrix $\mathbf{A}(\alpha_{*})$ with eigenvector $\mathbf{\Psi}_{*}$ and eigenvalue one.
+
+If the matrix $\mathbf{A}(\alpha)$ is a primitive matrix, it follows from the Perron-Froebenius Theorem for Primitive Matrices that there is only one unique positive eigenvector of $\mathbf{A}(\alpha)$ corresponding to the dominant eigenvalue. This fact allows us to derive an update for the alpha-eigenvalue at each iteration.
+
+If $(\mathbf{\Psi}_{*}, \lambda)$ is an eigenpair of the matrix $\mathbf{A}(\alpha_{*})$, then
+\begin{equation}
+\norm{\mathbf{A}(\alpha_{*}) \mathbf{\Psi} - \lambda \mathbf{\Psi}}_{2}^{2} = 0.
+\end{equation}
+However, suppose $\hat{\mathbf{\Psi}}$ is an approximate eigenvector and seek to find the best approximate eigenvalue $\hat{\lambda}$ such that
+\begin{equation}
+\hat{\lambda} = \argmin_{\mu} \norm{\mathbf{A}(\hat{\alpha}) \hat{\mathbf{\Psi}} - \mu \hat{\mathbf{\Psi}}}_{2}^{2}. 
+\end{equation}
+This is a linear least squares problem in the variable $\mu$. It is found that \cite{horn_matrix_2012}
+\begin{equation}
+	\hat{\lambda} = \frac{\hat{\mathbf{\Psi}}^{T} \mathbf{A}(\hat{\alpha}) \hat{\mathbf{\Psi}}}{\hat{\mathbf{\Psi}}^{T} \hat{\mathbf{\Psi}}},
+\end{equation}
+the Rayleigh quotient, minimizes the residual in the least square sense.
+
 % Primitivity, dominant eigenvalue, etc.
-we can write the iterative fixed point 
+
 
 \section{Derivation of the Rayleigh Quotient Fixed Point Method for $k$-Effective Problems}
