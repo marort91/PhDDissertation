@@ -186,7 +186,7 @@ We define the total cross section matrix as
 \end{equation}
 and the inverse neutron velocity matrix as 
 \begin{equation}
-	V^{-1} \equiv \text{diag}(1/v_{111}, \dots, 1/v_{MJK}),
+	V^{-1} \equiv \text{diag}(1/v_{111}, \dots, 1/v_{MJK}).
 \end{equation}
 The matrices describing the spatial derivatives with respect to a spatial variable $C_{x}, C_{y},$ and $C_{z}$ are defined by
 \begin{equation}
@@ -393,12 +393,12 @@ along with the matrix $V^{-1}_{g}$
 \begin{equation}
 	V^{-1}_{g} \equiv \text{diag}(V^{-1}_{g,1}, V^{-1}_{g,2}, \dots, V^{-1}_{g,L}) = \bar{Z} \bar{V}^{-1} \bar{S}.
 \end{equation}
-The matrices $\bar{Z}$ and $\bar{Z}_{B}$ are necessary since $H_{g}$ operates on nodal vectors while the matrices $\Sigma_{s,g,g',n}$ and $\Sigma_{f,g,g',n}$ operate on zone-centered vectors. Assuming only $N_{s} + 1$ terms in the scattering operator, then the complete discretization of Eqn.~\ref{eq:ContG} can be written as
+The matrices $\bar{Z}$ and $\bar{Z}_{B}$ are necessary since $H_{g}$ operates on nodal vectors while the matrices $\Sigma_{s,g,g',n}$ and $\Sigma_{f,g,g',n}$ operate on zone-centered vectors. Assuming only $N_{s} + 1$ terms in the scattering operator, then the complete discretization of Eq.~\ref{eq:ContG} can be written as
 \begin{multline}
 \big ( \alpha V^{-1}_{g} + H_{g} \big ) \Psi_{g} = \bar{Z} \sum_{g'=1}^{G} \sum_{n=0}^{N_{s}} L_{n}^{+} \Sigma_{s,g,g',n} L_{n} \bar{S} \Psi_{g'} \\ + \bar{Z}\sum_{g'=1}^{G} \sum_{n=0}^{N_{s}} L_{n}^{+} \Sigma_{f,g,g',n} L_{n} \bar{S} \Psi_{g'}, g = 1, \dots, G.
 \end{multline}
 
-Finally, we can write the fully discretized in space, angle, and energy matrix equation analog of Eqn.~\ref{eq:Alpha3DNeutronTransport}. We first define the complex multigroup scattering and fission matrices
+Finally, we can write the fully discretized in space, angle, and energy matrix equation analog of Eq.~\ref{eq:Alpha3DNeutronTransport}. We first define the complex multigroup scattering and fission matrices
 \begin{equation}
 	\mathbf{\Sigma_{s}} \equiv \begin{pmatrix}
 							\Sigma_{s,11}^{N_{s}} & \dots & \Sigma_{s,1G}^{N_{s}} \\
@@ -450,7 +450,7 @@ and
 \begin{equation}
 	\mathbf{V}^{-1} \equiv \text{diag} \big ( V^{-1}_{1}, V^{-1}_{2}, \dots, V^{-1}_{G} \big ).
 \end{equation}
-With these matrices defined, we can write Eqn.~\ref{eq:Alpha3DNeutronTransport} as the matrix equation
+With these matrices defined, we can write Eq.~\ref{eq:Alpha3DNeutronTransport} as the matrix equation
 \begin{equation}
 	\big ( \alpha \mathbf{V}^{-1} + \mathbf{H} \big ) \mathbf{\Psi} = \mathbf{Z} \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \mathbf{S} \mathbf{\Psi},
 	\label{eq:AlphaMatrix}
@@ -466,7 +466,7 @@ where the angular flux vector, $\mathbf{\Psi}$, is defined as
 \end{equation}
 Equation~\ref{eq:AlphaMatrix} is the discretized alpha-eigenvalue neutron transport problem in matrix form for the node-centered angular flux. Similarly, the $k$-effective eigenvalue problem can be written as 
 \begin{equation}
-	\mathbf{H} \mathbf{\Psi} = \mathbf{Z} \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \frac{1}{k}\mathbf{\Sigma_{f}} \big ) \mathbf{L} \mathbf{S} \mathbf{\Psi}.
+	\mathbf{H} \mathbf{\Psi} = \mathbf{Z} \mathbf{L}^{+} \bigg ( \mathbf{\Sigma_{s}} + \frac{1}{k}\mathbf{\Sigma_{f}} \bigg ) \mathbf{L} \mathbf{S} \mathbf{\Psi}.
 	\label{eq:kMatrix}
 \end{equation}
 
@@ -474,16 +474,81 @@ Equations~\ref{eq:AlphaMatrix} and \ref{eq:kMatrix} are eigenvalue equations for
 \begin{lemma}
 For all $\ell = 1, 2, \dots, L$,
 	\begin{equation}
-		B_{\ell}(ZS + Z_{b}B_{\ell})^{-1}Z = 0 \cdot I_{MJK} \text{ and } S(ZS + Z_{b}B_{\ell})^{-1}Z = I_{MJK}.
+		B_{\ell}(ZS + Z_{b}B_{\ell})^{-1}Z = 0 \cdot I_{MJK} \text{ and } S(ZS + Z_{b}B_{\ell})^{-1}Z = I_{MJK}. \\
+		\label{eq:HzAssertion}
 	\end{equation}
+	\label{lemma:Hz}
 \end{lemma}
 \begin{proof}
+	The matrix $ZS + Z_{b}B_{\ell}$ is nonsingular for all $\ell = 1, 2, \dots, L.$ \cite{brown_linear_1995}. Therefore,
+	\begin{equation}
+		I_{MJK} = ZS(ZS + Z_{b}B_{\ell})^{-1} + Z_{b}B_{\ell}(ZS + Z_{b}B_{\ell})^{-1}.
+		\label{eq:HzLemma}
+	\end{equation}
+	Multiplying by $Z_{b}^{T}$ and using the fact $Z^{T}Z_{b} = 0$ gives
+	\begin{equation}
+		Z_{b}^{T} = B_{\ell}(ZS + Z_{b}B_{\ell})^{-1}.
+	\end{equation}
+	Multiplying on the right by $Z$ gives the first assertion in Eq.~\ref{eq:HzAssertion}. Using the fact $Z^{T}Z = I_{MJK}$ and $Z^{T}Z_{b} = 0$, multiplying Eq.~\ref{eq:HzLemma} on the left by $Z^{T}$ gives
+	\begin{equation}
+		Z^{T} = S(ZS + Z_{b}B_{\ell})^{-1}.
+	\end{equation}
+	Multiplying on the right by $Z$ gives the second assertion in Eq.~\ref{eq:HzAssertion}.
 \end{proof}
 
+Given a zone-centered angular flux vector $\mathbf{\Psi_{z}}$, the nodal angular flux vector $\mathbf{\Psi}$ defined by
+\begin{equation}
+	\Psi_{g,\ell} \equiv (ZS + Z_{b}B_{\ell})^{-1}Z \Psi_{z,g,\ell} \text{ for all } g = 1, 2, \dots, G \text{ and } \ell = 1, 2, \dots, L,
+\end{equation}
+satisfies $B_{\ell} \Psi_{g,\ell} = 0$ and $S \Psi_{g,\ell} = \Psi_{z,g,\ell}$ for all $g$ and $\ell$. Defining the matrices
+\begin{equation}
+	\mathbf{C} \equiv I_{G} \otimes C,
+\end{equation}
+\begin{equation}
+	\mathbf{B} \equiv I_{G} \otimes B,
+\end{equation}
+\begin{equation}
+	\mathbf{Z_{B}} \equiv I_{G} \otimes \bar{Z}_{B},
+\end{equation}
+and
+\begin{equation}
+	\mathbf{\Sigma} \equiv \text{diag}(\bar{\Sigma}_{1}, \bar{\Sigma}_{2}, \dots, \bar{\Sigma}_{G}),
+\end{equation}
+then $\mathbf{H}$ and $\mathbf{V}^{-1}$ can be rewritten as
+\begin{equation}
+	\mathbf{H} = \mathbf{Z}(\mathbf{C} + \mathbf{\Sigma S}) + \mathbf{Z_{B} B},
+\end{equation}
+and
+\begin{equation}
+	\mathbf{V}^{-1} = \mathbf{Z}\mathbf{V}^{-1} \mathbf{S}.
+\end{equation}
+For the nodal-centered angular flux $\mathbf{\Psi}$, we have from Lemma~\ref{lemma:Hz} that
+\begin{equation}
+	\mathbf{\Psi} = (\mathbf{ZS} + \mathbf{Z_{B}B})^{-1}\mathbf{Z}\mathbf{\Psi_{z}}.
+	\label{eq:PsiPsiz}
+\end{equation}
+Substituting Eq.~\ref{eq:PsiPsiz} into Eq.~\ref{eq:AlphaMatrix} and \ref{eq:kMatrix} and multiplying on the left by $\mathbf{Z}^{T}$ gives
+\begin{equation}
+	\big ( \alpha \mathbf{V_{z}}^{-1} + \mathbf{H_{z}} \big ) \mathbf{\Psi_{z}} = \mathbf{L}^{+}( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}}) \mathbf{L} \mathbf{\Psi_{z}},
+	\label{eq:AlphaZ}
+\end{equation}
+and
+\begin{equation}
+	\mathbf{H_{z}} \mathbf{\Psi_{z}} = \mathbf{L}^{+} \bigg ( \mathbf{\Sigma_{s}} + \frac{1}{k}\mathbf{\Sigma_{f}} \bigg ) \mathbf{L} \mathbf{\Psi_{z}},
+	\label{eq:kZ}
+\end{equation}
+where
+\begin{equation}
+	\mathbf{H_{z}} \equiv \mathbf{C}(\mathbf{ZS} + \mathbf{Z_{B}B})^{-1}\mathbf{Z} + \mathbf{\Sigma},
+\end{equation}
+and
+\begin{equation}
+	\mathbf{V_{z}}^{-1} \equiv \mathbf{V}^{-1} \mathbf{S} (\mathbf{ZS} + \mathbf{Z_{B}B})^{-1}\mathbf{Z}.
+\end{equation}
+
+We consider Eqns.~\ref{eq:AlphaZ} and \ref{eq:kZ} in the derivation of the Rayleigh quotient fixed point method.
+
 % Cell-centered angular flux unknown
-
-
-We consider Eqns.~\ref{eq:AlphaMatrix} and \ref{eq:kMatrix} in the derivation of the Rayleigh quotient fixed point method.
 
 %Start here...
 %\begin{figure}
@@ -495,8 +560,6 @@ We consider Eqns.~\ref{eq:AlphaMatrix} and \ref{eq:kMatrix} in the derivation of
 %	\caption{Three Dimensional Box Domain}
 %	\label{fig:3DBox}
 %\end{figure}
-
-
 
 \section{Primitivity of the Discretized Eigenvalue Equations}
 
@@ -564,9 +627,9 @@ L^{0,+}  \Sigma_{f,11}^{0} L =
 	\end{pmatrix}.
 \end{equation}
 
-For our model problem, $\mathbf{H}^{-1} \geq 0$ and has the form \cite{greenbaum1997iterative}
+For our model problem, $\mathbf{H_{z}}^{-1} \geq 0$ and has the form \cite{greenbaum1997iterative}
 \begin{equation}
-	\mathbf{H}^{-1} = \begin{pmatrix}
+	\mathbf{H_{z}}^{-1} = \begin{pmatrix}
   \begin{pmatrix}
   x & 0 \\
   x & x
@@ -586,9 +649,9 @@ For our model problem, $\mathbf{H}^{-1} \geq 0$ and has the form \cite{greenbaum
   \end{pmatrix}
 \end{pmatrix},
 \end{equation}
-and $\mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ has the form
+and $\mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ has the form
 \begin{equation}
-\mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L} = \frac{1}{2}
+\mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L} = \frac{1}{2}
 	\begin{pmatrix}
 		\chi_{1} \nu \sigma_{f,1} I_{L} & \chi_{1}\nu \sigma_{f,1} I_{L}& \chi_{1}\nu \sigma_{f,2} I_{L} & \chi_{1} \nu \sigma_{f,2} I_{L} \\
 		\chi_{1}\nu \sigma_{f,1} I_{L} & \chi_{1}\nu \sigma_{f,1} I_{L}& \chi_{1}\nu \sigma_{f,2} I_{L} & \chi_{1}\nu \sigma_{f,2} I_{L} \\
@@ -596,16 +659,16 @@ and $\mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ has the form
 		\chi_{2}\nu \sigma_{f,1} I_{L} & \chi_{2}\nu \sigma_{f,1} I_{L}& \chi_{2}\nu \sigma_{f,2} I_{L} & \chi_{2}\nu \sigma_{f,2} I_{L}
 	\end{pmatrix}.
 \end{equation}
-Therefore, the matrix $\mathbf{H}^{-1}\mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ has the form
+Therefore, the matrix $\mathbf{H_{z}}^{-1} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ has the form
 \begin{equation}
-	\mathbf{H}^{-1}\mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L} = \begin{pmatrix}
+	\mathbf{H_{z}}^{-1} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L} = \begin{pmatrix}
 		\LTx & \LTx & \LTx & \LTx \\
 		\UTx & \UTx & \UTx & \UTx \\
 		\LTx & \LTx & \LTx & \LTx \\
 		\UTx & \UTx & \UTx & \UTx
 	\end{pmatrix},
 \end{equation}
-where $I_{L}$ is the identity matrix of size $L$. It follows that each block of the matrix $(\mathbf{H}^{-1}\mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L})^{2}$ is
+where $I_{L}$ is the identity matrix of size $L$. It follows that each block of the matrix $(\mathbf{H_{z}}^{-1}\mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L})^{2}$ is
 \begin{equation}
 	\begin{pmatrix}
 		x & 0 \\ x & x
@@ -620,6 +683,6 @@ where $I_{L}$ is the identity matrix of size $L$. It follows that each block of 
 	\chi_{1} \nu\sigma_{f,1} & \chi_{1}\nu\sigma_{f,2} \\ \chi_{2}\nu\sigma_{f,1} & \chi_{2}\nu\sigma_{f,2}
 	\end{pmatrix} > 0
 \end{equation}
-and $\mathbf{H}^{-1} \geq 0$. Therefore, $\mathbf{H}^{-1}\mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ is primitive and it follows that $\mathbf{A}(\alpha)$ is primitive since $\mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} \geq 0$. When the system is subcritical, $\alpha < 0$ and the matrix $\mathbf{A}(\alpha)$ is primitive. For supercritical systems, $\alpha > 0$ and there is an upper limit $\alpha_{\text{max}}$ such that the matrix $\mathbf{A}(\alpha)$ remains primitive. For $k$-effective eigenvalue problems, $k$ is always positive and therefore the matrix $\mathbf{T}(k)$ is primitive.
+and $\mathbf{H_{z}}^{-1} \geq 0$. Therefore, $\mathbf{H_{z}}^{-1} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ is primitive and it follows that $\mathbf{A}(\alpha)$ is primitive since $\mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} \geq 0$. When the system is subcritical, $\alpha < 0$ and the matrix $\mathbf{A}(\alpha)$ is primitive. For supercritical systems, $\alpha > 0$ and there is an upper limit $\alpha_{\text{max}}$ such that the matrix $\mathbf{A}(\alpha)$ remains primitive. For $k$-effective eigenvalue problems, $k$ is always positive and therefore the matrix $\mathbf{T}(k)$ is primitive.
 %There are other eigenvalue problems useful for various applications \cite{ronen_comparison_1976}, however 
 
