@@ -7,41 +7,45 @@ In this chapter we derive the Rayleigh Quotient Fixed Point (RQFP) method for al
 
 We begin with the discretized alpha-eigenvalue matrix equation:
 \begin{equation}
-	\big ( \alpha \mathbf{V}^{-1} + \mathbf{H} \big ) \mathbf{\Psi} = \mathbf{Z} \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \mathbf{S} \mathbf{\Psi}.
+	\big ( \alpha \mathbf{V_{z}}^{-1} + \mathbf{H_{z}} \big ) \mathbf{\Psi_{z}} = \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \mathbf{\Psi_{z}}.
 	\label{eq:AlphaMatrixRQ}
 \end{equation}
 Solution of Eqn.~\ref{eq:AlphaMatrixRQ} consists of finding the eigenpair ($\alpha,\mathbf{\Psi}$) that satisfies the equation with $\alpha$ a real number and the vector $\mathbf{\Psi}$ positive. We write a fixed point equation for Eqn.~\ref{eq:AlphaMatrixRQ} in the form
 \begin{equation}
-	\mathbf{\Psi} = \mathbf{H}^{-1} \big ( -\alpha \mathbf{V}^{-1} + \mathbf{Z} \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \mathbf{S} \big ) \mathbf{\Psi} \equiv \mathbf{A}(\alpha) \mathbf{\Psi}.
+	\mathbf{\Psi_{z}} = \mathbf{H_{z}}^{-1} \big ( -\alpha \mathbf{V_{z}}^{-1} + \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \big ) \mathbf{\Psi} \equiv \mathbf{A}(\alpha) \mathbf{\Psi_{z}}.
 	\label{eq:AlphaRQFP}
 \end{equation}
-For all subcritical and critical systems, the righthand side of Eqn.~\ref{eq:AlphaRQFP} is nonnegative since for isotropic scattering the scattering matrix is nonnegative. For supercritical systems, there is an $\alpha_{\text{max}}$ such that the righthand side is still nonnegative. Various fixed point equations can be written for the angular flux eigenvector $\mathbf{\Psi}$. However, this form was selected as it only requires the inversion of the matrix $\mathbf{H}$. In standard neutron transport codes \cite{hanebutte_ardra_1999} \cite{alcouffe2005partisn}, the matrix $\mathbf{H}$ is inverted without being formed by sweeping across the domain in space and angle. The updated eigenvector iterate is obtained by the action of the inverted operator on the source. By writing the fixed point in this way, the Rayleigh quotient fixed point method can be implemented easily in production neutron transport codes.
+For all subcritical and critical systems, the righthand side of Eqn.~\ref{eq:AlphaRQFP} is nonnegative since for isotropic scattering the scattering matrix is nonnegative. For supercritical systems, there is an $\alpha_{\text{max}}$ such that the righthand side is still nonnegative. Various fixed point equations can be written for the angular flux eigenvector $\mathbf{\Psi_{z}}$. However, this form was selected as it only requires the inversion of the matrix $\mathbf{H_{z}}$. In standard neutron transport codes \cite{hanebutte_ardra_1999} \cite{alcouffe2005partisn}, the matrix $\mathbf{H_{z}}$ is inverted without being formed by sweeping across the domain in space and angle. The updated eigenvector iterate is obtained by the action of the inverted operator on the source. By writing the fixed point in this way, the Rayleigh quotient fixed point method can be implemented easily in production neutron transport codes.
 
 We define an iterative method to find the fixed point (see Section~\ref{}) of Eqn.~\ref{eq:AlphaRQFP} as
 \begin{equation}
-	\mathbf{\Psi}^{(i+1}) = \mathbf{A}(\alpha^{(i)}) \mathbf{\Psi}^{(i)}.
+	\mathbf{\Psi_{z}}^{(i+1)} = \mathbf{A}(\alpha^{(i)}) \mathbf{\Psi_{z}}^{(i)}.
 \end{equation}
-From some initial positive starting vector $\mathbf{\Psi}^{(0)}$, the subsequent eigenvector iterate is determined by the action of inversion of the matrix $\mathbf{H}$ on the scattering and fission source adjusted by the alpha-eigenvalue. At each iteration, an update for the eigenvalue is required. A natural choice of update is that the eigenvalue be a function of the eigenvector iterate. Given the solution to Eqn.~\ref{AlphaMatrixRQ}, eigenpair ($\alpha_{*}, \mathbf{\Psi}_{*}$), it is immediately obvious that
+From some initial positive starting vector $\mathbf{\Psi_{z}}^{(0)}$, the subsequent eigenvector iterate is determined by the action of inversion of the matrix $\mathbf{H_{z}}$ on the scattering and fission source adjusted by the alpha-eigenvalue. At each iteration, an update for the eigenvalue is required. A natural choice of update is that the eigenvalue be a function of the eigenvector iterate. Given the solution to Eqn.~\ref{AlphaMatrixRQ}, eigenpair ($\alpha_{*}, \mathbf{\Psi_{z}^{*}}$), it is immediately obvious that
 \begin{equation}
-	\mathbf{\Psi}_{*} =  \mathbf{A}(\alpha_{*}) \mathbf{\Psi}_{*}
+	\mathbf{\Psi_{z}^{*}} =  \mathbf{A}(\alpha_{*}) \mathbf{\Psi_{z}^{*}}
 \end{equation}
-is also an eigenvalue problem for the fixed matrix $\mathbf{A}(\alpha_{*})$ with eigenvector $\mathbf{\Psi}_{*}$ and eigenvalue one.
+is also an eigenvalue problem for the fixed matrix $\mathbf{A}(\alpha_{*})$ with eigenvector $\mathbf{\Psi_{z}}^{*}$ and eigenvalue one.
 
 If the matrix $\mathbf{A}(\alpha)$ is a primitive matrix, it follows from the Perron-Froebenius Theorem for Primitive Matrices that there is only one unique positive eigenvector of $\mathbf{A}(\alpha)$ corresponding to the dominant eigenvalue. This fact allows us to derive an update for the alpha-eigenvalue at each iteration.
 
-If $(\mathbf{\Psi}_{*}, \lambda)$ is an eigenpair of the matrix $\mathbf{A}(\alpha_{*})$, then
+If $(\mathbf{\Psi_{z}^{*}}, \lambda)$ is an eigenpair of the matrix $\mathbf{A}(\alpha_{*})$, then
 \begin{equation}
-\norm{\mathbf{A}(\alpha_{*}) \mathbf{\Psi} - \lambda \mathbf{\Psi}}_{2}^{2} = 0.
+\norm{\mathbf{A}(\alpha_{*}) \mathbf{\Psi_{z}^{*}} - \lambda \mathbf{\Psi_{z}^{*}}}_{2}^{2} = 0.
 \end{equation}
-However, suppose $\hat{\mathbf{\Psi}}$ is an approximate eigenvector and seek to find the best approximate eigenvalue $\hat{\lambda}$ such that
+However, suppose $\mathbf{\Psi}_{(i)}$ is an approximate eigenvector and seek to find the best approximate eigenvalue $\hat{\lambda}$ such that
 \begin{equation}
-\hat{\lambda} = \argmin_{\mu} \norm{\mathbf{A}(\hat{\alpha}) \hat{\mathbf{\Psi}} - \mu \hat{\mathbf{\Psi}}}_{2}^{2}. 
+\hat{\lambda} = \argmin_{\mu} \norm{\mathbf{A}\big (\alpha_{(i)} \big ) \mathbf{\Psi}_{(i)} - \mu \mathbf{\Psi}_{(i)}}_{2}^{2}. 
 \end{equation}
 This is a linear least squares problem in the variable $\mu$. It is found that \cite{horn_matrix_2012}
 \begin{equation}
-	\hat{\lambda} = \frac{\hat{\mathbf{\Psi}}^{T} \mathbf{A}(\hat{\alpha}) \hat{\mathbf{\Psi}}}{\hat{\mathbf{\Psi}}^{T} \hat{\mathbf{\Psi}}},
+	\hat{\lambda} = \frac{\mathbf{\Psi}^{T}_{(i)} \mathbf{A}\big (\alpha_{(i)} \big ) \mathbf{\Psi}_{(i)}}{\mathbf{\Psi}^{T}_{(i)} \mathbf{\Psi}_{(i)}},
 \end{equation}
-the Rayleigh quotient, minimizes the residual in the least square sense.
+the Rayleigh quotient, minimizes the residual in the least squares sense. Setting the Rayleigh quotient to one and solving for the approximate alpha-eigenvalue $\alpha_{(i)}$, we obtain the alpha-eigenvalue update for an approximate eigenvector $\mathbf{\Psi}_{(i)}$
+\begin{equation}
+	\alpha_{(i)} = \frac{ \mathbf{\Psi}^{T}_{(i)} \mathbf{H}^{-1}_{\mathbf{z}} \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \mathbf{\Psi}_{(i)}}{  \mathbf{\Psi}^{T}_{(i)} \mathbf{H}^{-1}_{\mathbf{z}} \mathbf{V}^{-1}_{\mathbf{z}}  \mathbf{\Psi}_{(i)}} 
+%	\hat{\alpha} = \frac{\mathbf{\Psi}}{}
+\end{equation}
 
 % Primitivity, dominant eigenvalue, etc.
 
