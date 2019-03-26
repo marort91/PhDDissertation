@@ -529,7 +529,7 @@ For the nodal-centered angular flux $\mathbf{\Psi}$, we have from Lemma~\ref{lem
 \end{equation}
 Substituting Eq.~\ref{eq:PsiPsiz} into Eq.~\ref{eq:AlphaMatrix} and \ref{eq:kMatrix} and multiplying on the left by $\mathbf{Z}^{T}$ gives
 \begin{equation}
-	\big ( \alpha \mathbf{V_{z}}^{-1} + \mathbf{H_{z}} \big ) \mathbf{\Psi_{z}} = \mathbf{L}^{+}( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}}) \mathbf{L} \mathbf{\Psi_{z}},
+	\big ( \alpha \mathbf{V}_\mathbf{z}^{-1} + \mathbf{H_{z}} \big ) \mathbf{\Psi_{z}} = \mathbf{L}^{+}( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}}) \mathbf{L} \mathbf{\Psi_{z}},
 	\label{eq:AlphaZ}
 \end{equation}
 and
@@ -543,7 +543,7 @@ where
 \end{equation}
 and
 \begin{equation}
-	\mathbf{V_{z}}^{-1} \equiv \mathbf{V}^{-1} \mathbf{S} (\mathbf{ZS} + \mathbf{Z_{B}B})^{-1}\mathbf{Z}.
+	\mathbf{V}_{\mathbf{z}}^{-1} \equiv \mathbf{V}^{-1} \mathbf{S} (\mathbf{ZS} + \mathbf{Z_{B}B})^{-1}\mathbf{Z}.
 \end{equation}
 
 We consider Eqns.~\ref{eq:AlphaZ} and \ref{eq:kZ} in the derivation of the Rayleigh quotient fixed point method.
@@ -627,9 +627,9 @@ L^{0,+}  \Sigma_{f,11}^{0} L =
 	\end{pmatrix}.
 \end{equation}
 
-For our model problem, $\mathbf{H_{z}}^{-1} \geq 0$ and has the form \cite{greenbaum1997iterative}
+For our model problem, $\mathbf{H_{z}^{-1}} \geq 0$ and has the form \cite{greenbaum1997iterative}
 \begin{equation}
-	\mathbf{H_{z}}^{-1} = \begin{pmatrix}
+	\mathbf{H_{z}^{-1}} = \begin{pmatrix}
   \begin{pmatrix}
   x & 0 \\
   x & x
@@ -659,16 +659,16 @@ and $\mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ has the form
 		\chi_{2}\nu \sigma_{f,1} I_{L} & \chi_{2}\nu \sigma_{f,1} I_{L}& \chi_{2}\nu \sigma_{f,2} I_{L} & \chi_{2}\nu \sigma_{f,2} I_{L}
 	\end{pmatrix}.
 \end{equation}
-Therefore, the matrix $\mathbf{H_{z}}^{-1} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ has the form
+Therefore, the matrix $\mathbf{H_{z}^{-1}} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ has the form
 \begin{equation}
-	\mathbf{H_{z}}^{-1} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L} = \begin{pmatrix}
+	\mathbf{H_{z}^{-1}} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L} = \begin{pmatrix}
 		\LTx & \LTx & \LTx & \LTx \\
 		\UTx & \UTx & \UTx & \UTx \\
 		\LTx & \LTx & \LTx & \LTx \\
 		\UTx & \UTx & \UTx & \UTx
 	\end{pmatrix},
 \end{equation}
-where $I_{L}$ is the identity matrix of size $L$. It follows that each block of the matrix $(\mathbf{H_{z}}^{-1}\mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L})^{2}$ is
+where $I_{L}$ is the identity matrix of size $L$. It follows that each block of the matrix $(\mathbf{H_{z}^{-1}}\mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L})^{2}$ is
 \begin{equation}
 	\begin{pmatrix}
 		x & 0 \\ x & x
@@ -683,6 +683,6 @@ where $I_{L}$ is the identity matrix of size $L$. It follows that each block of 
 	\chi_{1} \nu\sigma_{f,1} & \chi_{1}\nu\sigma_{f,2} \\ \chi_{2}\nu\sigma_{f,1} & \chi_{2}\nu\sigma_{f,2}
 	\end{pmatrix} > 0
 \end{equation}
-and $\mathbf{H_{z}}^{-1} \geq 0$. Therefore, $\mathbf{H_{z}}^{-1} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ is primitive and it follows that $\mathbf{A}(\alpha)$ is primitive since $\mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} \geq 0$. When the system is subcritical, $\alpha < 0$ and the matrix $\mathbf{A}(\alpha)$ is primitive. For supercritical systems, $\alpha > 0$ and there is an upper limit $\alpha_{\text{max}}$ such that the matrix $\mathbf{A}(\alpha)$ remains primitive. For $k$-effective eigenvalue problems, $k$ is always positive and therefore the matrix $\mathbf{T}(k)$ is primitive.
+and $\mathbf{H_{z}^{-1}} \geq 0$. Therefore, $\mathbf{H_{z}^{-1}} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ is primitive and it follows that $\mathbf{A}(\alpha)$ is primitive since $\mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} \geq 0$. When the system is subcritical, $\alpha < 0$ and the matrix $\mathbf{A}(\alpha)$ is primitive. For supercritical systems, $\alpha > 0$ and there is an upper limit $\alpha_{\text{max}}$ such that the matrix $\mathbf{A}(\alpha)$ remains primitive. For $k$-effective eigenvalue problems, $k$ is always positive and therefore the matrix $\mathbf{T}(k)$ is primitive.
 %There are other eigenvalue problems useful for various applications \cite{ronen_comparison_1976}, however 
 
