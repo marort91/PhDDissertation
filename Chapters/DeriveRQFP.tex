@@ -150,7 +150,7 @@ Once again, we search for the eigenpair $(k, \mathbf{\Psi})$ that satisfies Eq.~
 	\mathbf{\Psi_{z}} = \mathbf{H}^{-1}_{\mathbf{z}} \bigg [ \mathbf{L}^{+} \bigg ( \mathbf{\Sigma_{s}} + \frac{1}{k} \mathbf{\Sigma_{f}} \bigg ) \mathbf{L} \bigg ] \mathbf{\Psi} \equiv \mathbf{T}(k) \mathbf{\Psi_{z}}.
 	\label{eq:kRQFP}
 \end{equation}
-For all systems, the righthand side of Eq.~\ref{eq:kRQFP} is nonnegative for isotropic scattering and $k$ is nonnegative \cite{warsa}. The fixed point form is selected to only require the inversion of the matrix $\mathbf{H}_{\mathbf{z}}$.
+For all systems, the righthand side of Eq.~\ref{eq:kRQFP} is nonnegative for isotropic scattering and $k$ is nonnegative \cite{warsa_krylov_2004}. The fixed point form is selected to only require the inversion of the matrix $\mathbf{H}_{\mathbf{z}}$.
 We define an iterative method to find the fixed point of Eq.~\ref{eq:kRQFP} as
 \begin{equation}
 	\mathbf{\Psi_{z}}^{(i+1)} = \mathbf{T}(k^{(i)}) \mathbf{\Psi_{z}}^{(i)}.
@@ -175,11 +175,14 @@ This is, once again, a linear least squares problem in the variable $\mu$. From 
 minimizes the residual in the least square sense. Setting the Rayleigh quotient to one and solving for the $k$-effective eigenvalue $k_{(i)}$, we obtain the $k$-effective eigenvalue update for eigenvector iterate $\mathbf{\Psi}_{(i)}$
 \begin{equation}
 	k_{(i)} = \frac{\mathbf{\Psi}^{T}_{(i)} \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{L} \mathbf{\Sigma_{f}} \mathbf{L}^{+} \mathbf{\Psi}_{(i)}}{\mathbf{\Psi}^{T}_{(i)}\mathbf{\Psi}_{(i)} - \mathbf{\Psi}^{T}_{(i)} \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{L} \mathbf{\Sigma_{s}} \mathbf{L}^{+} \mathbf{\Psi}_{(i)}}.
+	\label{eq:TwoSweepkUpdate}
 \end{equation}
+
+Given Eq.~\ref{eq:TwoSweepkUpdate}, we introduce Algorithm~\ref{algo:kTwo}, an iterative scheme to determine the $k$-effective eigenvalue and its corresponding eigenvector. The eigenvalue update is optimal in the least squares sense.
 
 \begin{algorithm}[t]
 	\caption{Rayleigh Quotient Fixed Point Method for the $k$-Effective Eigenvalue Problem}
-	\label{algo:alpha}
+	\label{algo:kTwo}
 	\begin{algorithmic}
 		\WHILE{$\text{residual} > \text{tolerance}$}
 		\STATE{ 
@@ -201,3 +204,62 @@ minimizes the residual in the least square sense. Setting the Rayleigh quotient 
 		\ENDWHILE
 	\end{algorithmic}
 \end{algorithm}
+
+For each iteration of Algorithm~\ref{algo:kTwo}, two transport sweeps are required to determine the transported fission and scattering terms. To require only one transport sweep, we rewrite Eq.~\ref{eq:TwoSweepkUpdate} as
+\begin{equation}
+	k_{(i)} = \frac{\mathbf{\Psi}^{T}_{(i)} \mathbf{L} \mathbf{\Sigma_{f}} \mathbf{L}^{+} \mathbf{\Psi}_{(i)}}{\mathbf{\Psi}^{T}_{(i)}\mathbf{H}_{\mathbf{z}} \mathbf{\Psi}_{(i)} - \mathbf{\Psi}^{T}_{(i)} \mathbf{L} \mathbf{\Sigma_{s}} \mathbf{L}^{+} \mathbf{\Psi}_{(i)}}.
+	\label{eq:HkUpdate}
+\end{equation}
+Using the fact that
+\begin{equation}
+\mathbf{H_{z}} \mathbf{\Psi}_{(i)} =  \bigg [ \mathbf{L}^{+} \bigg ( \mathbf{\Sigma_{s}} + \frac{1}{k}\mathbf{\Sigma_{f}} \bigg ) \mathbf{L} \bigg ] \mathbf{\Psi}_{(i-1)} \equiv \mathbf{q}_{(i-1)},
+\end{equation}
+we can write the update, Eq.~\ref{eq:HkUpdate} as
+\begin{equation}
+	k_{(i)} = \frac{\mathbf{\Psi}^{T}_{(i)} \mathbf{L} \mathbf{\Sigma_{f}} \mathbf{L}^{+} \mathbf{\Psi}_{(i)}}{\mathbf{\Psi}^{T}_{(i)}\mathbf{q}_{(i-1)} - \mathbf{\Psi}^{T}_{(i)} \mathbf{L} \mathbf{\Sigma_{s}} \mathbf{L}^{+} \mathbf{\Psi}_{(i)}}.
+	\label{eq:HkUpdate}
+\end{equation}
+We introduce Algorithm~\ref{algo:kOne}, a one-sweep variant of Algorithm~\ref{algo:kTwo}. For the initial iteration, $k_{(0)} = 1$. Algorithm~\ref{algo:kOne} requires only one transport sweep per iteration of the method. However, it requires three vectors to store the angular flux and fission and scattering sources. For some angular flux iterates, it has been observed that the $k$-effective eigenvalue iterate can be negative for some iterations. However, in practice, this has not prevented convergence of the method to a positive eigenvalue.
+\begin{algorithm}[t]
+	\caption{One-Sweep Rayleigh Quotient Fixed Point Method for the $k$-Effective Eigenvalue Problem}
+	\label{algo:kOne}
+	\begin{algorithmic}
+		\WHILE{$\text{residual} > \text{tolerance}$}
+		\IF{$i = 0$}
+		\STATE{
+		\begin{equation*}
+		\mathbf{q}_{(i)} =  \big [ \mathbf{L}^{+}  \big ( \mathbf{\Sigma_{s}}  + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \big ]\mathbf{\Psi}_{(i)}
+		\end{equation*}
+		}
+		\STATE{
+		\begin{equation*}
+				\mathbf{\Psi}_{(i+1)} = \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{q}_{(i)}
+		\end{equation*}
+		}
+		\ELSE
+		\STATE{ 
+			\begin{equation*}
+	k_{(i)} = \frac{\mathbf{\Psi}^{T}_{(i)} \mathbf{L} \mathbf{\Sigma_{f}} \mathbf{L}^{+} \mathbf{\Psi}_{(i)}}{\mathbf{\Psi}^{T}_{(i)}\mathbf{q}_{(i-1)} - \mathbf{\Psi}^{T}_{(i)} \mathbf{L} \mathbf{\Sigma_{s}} \mathbf{L}^{+} \mathbf{\Psi}_{(i)}}.
+\end{equation*}
+		}
+\STATE{
+		\begin{equation*}
+		\mathbf{q}_{(i)} =  \bigg [ \mathbf{L}^{+}  \bigg ( \mathbf{\Sigma_{s}}  + \frac{1}{k_{(i)}}\mathbf{\Sigma_{f}} \bigg ) \mathbf{L} \bigg ]\mathbf{\Psi}_{(i)}
+		\end{equation*}
+		}
+		\STATE{
+		\begin{equation*}
+				\mathbf{\Psi}_{(i+1)} = \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{q}_{(i)}
+		\end{equation*}
+		}
+		\ENDIF
+				\STATE{
+
+			\begin{equation*}
+				\text{residual} = \frac{\norm{\mathbf{\Psi}_{(i+1)} - \mathbf{\Psi}_{(i)}}_{2}}{\norm{\mathbf{\Psi}_{(i+1)}}_{2}}
+			\end{equation*}
+		}
+		\ENDWHILE
+	\end{algorithmic}
+\end{algorithm}
+

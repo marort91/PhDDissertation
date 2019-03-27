@@ -12,7 +12,16 @@ In this section we describe the performance of the Rayleigh quotient methods for
 
 A set of infinite medium supercritical problems were selected from the \textit{Analytical Benchmark Test Set for Criticality Code Verification} \cite{sood2003analytical} to test the Rayleigh quotient fixed point method for both alpha-eigenvalue and $k$-effective eigenvalue problems. These problems were selected as they contained cross sections of commonly used fissile isotopes in nuclear engineering applications such as plutonium-239 and uranium-235. The reference eigenvalues for these problems can be seen in Table~\ref{table:InfMed}. For one-speed problems, the velocity was set to $1$ cm/s unless otherwise noted.
 
-For the supercritical one-speed criticality benchmark problems, the alpha-eigenvalue Rayleigh quotient fixed point method performed substantially better than the critical search method, reducing the number of transport sweeps by a factor of 10-20 (Table~\ref{table:alph}). Due to the critical search method requiring at least two $k$-effective eigenvalue calculations to bracket the alpha-eigenvalue, the number of sweeps increases rapidly. Since there is no need for any intermediate calculations, the Rayleigh quotient fixed point method can calculate the eigenvalue/eigenvector pair directly drastically reducing the number of total sweeps necessary. The Rayleigh quotient method is able to calculate the substantially supercritical eigenvalues easily.
+For the supercritical one-speed criticality benchmark problems, the alpha-eigenvalue Rayleigh quotient fixed point method performed substantially better than the critical search method, reducing the number of transport sweeps by a factor of 10-20 (Table~\ref{table:alph}). Due to the critical search method requiring at least two $k$-effective eigenvalue calculations to bracket the alpha-eigenvalue, the number of sweeps increases rapidly. The computation expense of one iteration of the RQFP method is the same as one iteration of the $k$-effective eigenvalue calculation. During the $k$-effective eigenvalue calculation, the alpha-eigenvalue iterate is held constant. Since there is no need for any intermediate calculations, the Rayleigh quotient fixed point method can calculate the eigenvalue/eigenvector pair directly, avoiding this drawback of the critical search method and drastically reducing the number of total sweeps necessary. Convergence behavior of the alpha-eigenvalue RQFP for an infinite medium problem can be seen in Figure~\ref{fig:AlphaInfConv}. For these very supercritical systems, the Rayleigh quotient fixed point method was able to calculate the supercritical alpha-eigenvalues without issue.
+
+\begin{figure}[]
+	\centering
+	\resizebox{!}{0.5\textheight}{
+		\input{alphainf.tex}
+	}
+	\caption{Convergence of Rayleigh Quotient Fixed Point and Critical Search Methods for Plutonium Infinite Medium Problem}
+	\label{fig:AlphaInfConv}
+\end{figure}
 
 The Rayleigh quotient $k$-effective reduces the number of sweeps by a factor of three (Table~\ref{table:k}) as compared to the power method with the fission source norm update. In these particular problems, all cells contain fissile material and the angular flux is exactly equal to the fission source within some constant. The rapid convergence of the angular flux by the Rayleigh quotient fixed point method as compared to the power method with fission source norm update results in a substantial reduction in the number of transport sweeps necessary to converge the eigenvector/eigenvalue.
 
@@ -301,15 +310,7 @@ Both the Rayleigh quotient fixed point and power method were able to converge th
     }
 \end{table}
 
-\begin{figure}[H]
-	\centering
-	%\begin{subfigure}{\textwidth}
-	\resizebox{!}{0.5\textheight}{
-		\input{alphainf.tex}
-	}
-	\caption{Convergence of Rayleigh Quotient Fixed Point and Critical Search Methods for Plutonium Infinite Medium Problem}
-	%}
-\end{figure}
+
 
 
 
@@ -403,23 +404,23 @@ Transport sweep comparisons for infinite medium and finite medium alpha-eigenval
     \end{subtable}
 \end{table}
 
-\begin{figure}[]
-	\centering
-	\begin{subfigure}{\textwidth}
-	\resizebox{\textwidth}{0.45\textheight}{
-		\input{alphainf.tex}
-	}
-	\end{subfigure}
-	\begin{subfigure}{\textwidth}
-	\centering
-	\resizebox{\textwidth}{0.45\textheight}{
-		\input{alpha1.tex}
-	}
-	\end{subfigure}
-	\caption{Alpha-Eigenvalue Method Convergence Comparison for Two Problems (Infinite-Medium Supercritical and Finite-Medium Critical)}
+%\begin{figure}[]
+%	\centering
+%	\begin{subfigure}{\textwidth}
+%	\resizebox{\textwidth}{0.45\textheight}{
+%		\input{alphainf.tex}
+%	}
+%	\end{subfigure}
+%	\begin{subfigure}{\textwidth}
+%	\centering
+%	\resizebox{\textwidth}{0.45\textheight}{
+%		\input{alpha1.tex}
+%	}
+%	\end{subfigure}
+%	\caption{Alpha-Eigenvalue Method Convergence Comparison for Two Problems (Infinite-Medium Supercritical and Finite-Medium Critical)}
 	%\caption{\bf Method Comparison of Eigenvalue Relative Change/Eigenvector Residual for Infinite-Medium Supercritical and Critical Alpha-Eigenvalue Problems}
-	\label{fig:aRes}
-\end{figure}
+%	\label{fig:aRes}
+%\end{figure}
 
 \section{Results for $k$-Effective Eigenvalue Problems}
 Transport sweep comparisons for infinite medium and finite medium $k$-effective systems can be seen in Table \ref{table:k}. The residual as a function of sweeps can be seen for two infinite medium benchmark problems in Figure \ref{fig:kRes}. The Rayleigh quotient method performs well for infinite medium cases, reducing the number of transport sweeps necessary to convergence by a factor of approximately three. While the convergence of the method is linear, it appears in practice to have a lower asymptotic constant coefficient than the power method as seen in Figure \ref{fig:kRes}. The Rayleigh quotient takes a similar amount of sweeps for finite medium problems as compared to the standard power method for slab geometry problems. In some cases, the Rayleigh quotient performs worse than the power method. These problems are heterogenous media or spherical problems. It is believed that this due to the problems not meeting the assumptions made in deriving the method.
