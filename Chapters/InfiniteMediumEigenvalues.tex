@@ -12,26 +12,11 @@ In this section we describe the performance of the Rayleigh quotient methods for
 
 A set of infinite medium supercritical problems were selected from the \textit{Analytical Benchmark Test Set for Criticality Code Verification} \cite{sood2003analytical} to test the Rayleigh quotient fixed point method for both alpha-eigenvalue and $k$-effective eigenvalue problems. These problems were selected as they contained cross sections of commonly used fissile isotopes in nuclear engineering applications such as plutonium-239 and uranium-235. The reference eigenvalues for these problems can be seen in Table~\ref{table:InfMed}. For one-speed problems, the velocity was set to $1$ cm/s unless otherwise noted.
 
-For the supercritical one-speed criticality benchmark problems, the alpha-eigenvalue Rayleigh quotient fixed point method performed substantially better than the critical search method, reducing the number of transport sweeps by a factor of 10-20 (Table~\ref{table:alph}). Due to the critical search method requiring at least two $k$-effective eigenvalue calculations to bracket the alpha-eigenvalue, the number of sweeps increases rapidly. The computation expense of one iteration of the RQFP method is the same as one iteration of the $k$-effective eigenvalue calculation. During the $k$-effective eigenvalue calculation, the alpha-eigenvalue iterate is held constant. Since there is no need for any intermediate calculations, the Rayleigh quotient fixed point method can calculate the eigenvalue/eigenvector pair directly, avoiding this drawback of the critical search method and drastically reducing the number of total sweeps necessary. Convergence behavior of the alpha-eigenvalue RQFP for an infinite medium problem can be seen in Figure~\ref{fig:AlphaInfConv}. For these very supercritical systems, the Rayleigh quotient fixed point method was able to calculate the supercritical alpha-eigenvalues without issue.
-
-\begin{figure}[]
-	\centering
-	\resizebox{!}{0.5\textheight}{
-		\input{alphainf.tex}
-	}
-	\caption{Convergence of Rayleigh Quotient Fixed Point and Critical Search Methods for Plutonium Infinite Medium Problem}
-	\label{fig:AlphaInfConv}
-\end{figure}
-
-The Rayleigh quotient $k$-effective reduces the number of sweeps by a factor of three (Table~\ref{table:k}) as compared to the power method with the fission source norm update. In these particular problems, all cells contain fissile material and the angular flux is exactly equal to the fission source within some constant. The rapid convergence of the angular flux by the Rayleigh quotient fixed point method as compared to the power method with fission source norm update results in a substantial reduction in the number of transport sweeps necessary to converge the eigenvector/eigenvalue.
-
-\begin{table}[H]
+\begin{table}[t]
     \centering
     \caption{Reference Eigenvalues for Infinite Medium Problems in \cite{sood2003analytical}}
 \label{table:InfMed}
-    %\rowcolors{5}{}{gray!10}
     \scalebox{1.00}{
-    %\scalebox{0.95}{
     \begin{tabular}{*3c}
         \toprule
         & \multicolumn{2}{c}{Eigenvalues} \\
@@ -50,13 +35,71 @@ The Rayleigh quotient $k$-effective reduces the number of sweeps by a factor of 
     }
 \end{table}
 
-\begin{table}[]
+For the supercritical one-speed criticality benchmark problems, the alpha-eigenvalue Rayleigh quotient fixed point method performed substantially better than the critical search method, reducing the number of transport sweeps by a factor of 10-20 (Table~\ref{table:alph}). Due to the critical search method requiring at least two $k$-effective eigenvalue calculations to bracket the alpha-eigenvalue, the number of sweeps increases rapidly. The computation expense of one iteration of the RQFP method is the same as one iteration of the $k$-effective eigenvalue calculation. During the $k$-effective eigenvalue calculation, the alpha-eigenvalue iterate is held constant. Since there is no need for any intermediate calculations, the Rayleigh quotient fixed point method can calculate the eigenvalue/eigenvector pair directly, avoiding this drawback of the critical search method and drastically reducing the number of total sweeps necessary. Convergence behavior of the alpha-eigenvalue RQFP for an infinite medium problem can be seen in Figure~\ref{fig:AlphaInfConv}. For these very supercritical systems, the Rayleigh quotient fixed point method was able to calculate the supercritical alpha-eigenvalues without issue.
+
+\begin{figure}[t]
+	\centering
+	\resizebox{!}{0.5\textheight}{
+		\input{alphainf.tex}
+	}
+	\caption{Convergence of Rayleigh Quotient Fixed Point and Critical Search Methods for Plutonium Infinite Medium Problem}
+	\label{fig:AlphaInfConv}
+\end{figure}
+
+The RQFP for the $k$-effective eigenvalue reduces the number of sweeps by a factor of three (Table~\ref{table:k}) as compared to the power method with the fission source norm update. In these particular problems, all cells contain fissile material and the angular flux is exactly equal to the fission source to some constant. The rapid convergence of the angular flux by the Rayleigh quotient fixed point method as compared to the power method with fission source norm update results in a substantial reduction in the number of transport sweeps necessary to converge the eigenvector/eigenvalue. While the convergence of the method is linear, it appears in practice to have a lower asymptotic constant coefficient than the power method as seen in Figure \ref{fig:kRes}.
+
+\begin{figure}[t]
+	\centering
+	\resizebox{!}{0.5\textheight}{
+		\input{kinfPu.tex}
+	}
+	\caption{Eigenvector Residual as a Function of Sweeps for Two Infinite Medium $k$-Effective Eigenvalue Problems}
+	\label{fig:kRes}
+\end{figure}
+
+%\begin{table}[!htb]
+%    \caption{Sweep Comparisons for Infinite Medium Problems in \cite{sood2003analytical}}
+%    \begin{subtable}{.5\linewidth}
+%      \centering
+%        \caption{Alpha-Eigenvalue}
+%        \begin{tabular}{*3c}
+%        Problem ID & RQFP & Critical Search \\    
+%        \midrule
+%        PUa-1-0-IN & 33 & 432 \\
+%        PUb-1-0-IN & 21 & 391   \\
+%	Ua-1-0-IN & 24 & 472\\
+%	Ub-1-0-IN & 24 & 464 \\
+%	Uc-1-0-IN & 24 & 474 \\
+%	Ud-1-0-IN & 24 & 472\\
+%        \bottomrule
+%	%& &
+%    \end{tabular}
+%    \end{subtable}%
+%    \begin{subtable}{.5\linewidth}
+%      \centering
+%        \caption{$k$-Effective Eigenvalue}
+%        \begin{tabular}{*2c}
+%        RQFP & Power Method\\    
+%        \midrule
+%	41 & 111 \\
+%	34 & 96   \\
+%        29 & 130\\
+%	30 & 132 \\
+%	27 & 131 \\
+%	33 & 131\\
+%        \bottomrule
+%	\end{tabular}
+%    \end{subtable} 
+%\end{table}
+
+
+\begin{table}[t]
     \centering
     \caption{Alpha-Eigenvalue Sweep Comparison for Infinite Medium Problems in \cite{sood2003analytical}}
     \label{table:alph}
     \centering
     \begin{tabular}{*3c}
-        Problem ID & RQFP & CSM \\    
+        Problem ID & RQFP & Critical Search \\    
         \midrule
         PUa-1-0-IN & 33 & 432 \\
         PUb-1-0-IN & 21 & 391   \\
@@ -71,7 +114,7 @@ The Rayleigh quotient $k$-effective reduces the number of sweeps by a factor of 
 \end{table}
 
 %Insert Infinite Medium Table Here.
-\begin{table}[]
+\begin{table}[t]
     \centering
     \caption{$k$-Effective Eigenvalue Sweep Comparison for Infinite Medium Problems in \cite{sood2003analytical}}
 \label{table:k}
@@ -83,7 +126,7 @@ The Rayleigh quotient $k$-effective reduces the number of sweeps by a factor of 
 %        \toprule
   %      & \multicolumn{2}{c}{Sweeps} \\
     %    \cmidrule(lr){2-3}
-        Problem ID & RQFP & PM \\    
+        Problem ID & RQFP & Power Method: Fission Norm\\    
 %        ID   & Quotient & Update  \\
         \midrule
         PUa-1-0-IN & 41 & 111 \\
@@ -97,6 +140,7 @@ The Rayleigh quotient $k$-effective reduces the number of sweeps by a factor of 
     \end{tabular}
 \end{table}
 
+\clearpage
 \section{Infinite Medium Multigroup Problems}
 
 \subsection{Infinite Medium Subcritical/Critical Problems}
@@ -164,6 +208,7 @@ For alpha-eigenvalue problems, the Rayleigh quotient fixed point method is able 
 2.70	&	0.90	&	-0.26222 &	72 & 51 & 77 & * \\
 3.00	&	1.00	&	0.00000  &	72 & 52 & 91 & * \\
         \bottomrule
+	\multicolumn{2}{c}*Did Not Converge & & & & &
     \end{tabular}
     }
 \end{table}
@@ -310,188 +355,39 @@ Both the Rayleigh quotient fixed point and power method were able to converge th
     }
 \end{table}
 
-
-
-
-
 \label{sec:Res}
 
+\section{Conclusion}
 
-\begin{table}[H]
-    \centering
-    \caption{\textbf{Criticality Benchmark Problem List and Properties} \cite{sood2003analytical}}
-\label{table:probs}
-    %\rowcolors{5}{}{gray!10}
-    \scalebox{1.00}{
-    %\scalebox{0.95}{
-    \begin{tabular}{*7c}
-        \toprule
-        & \multicolumn{6}{c}{Problem Properties} \\
-        \cmidrule(lr){2-7}
-        Problem & 1D  & 1D & Infinite & Reflected & Reference & Reference \\    
-        ID   & Slab & Spherical     & Medium & BC & $k_{\text{eff}}$  & $\alpha$ \\
-        \midrule
-        PUa-1-0-IN &        &  & \CHECK   & &  2.612903    \\
-        PUa-1-0-SL & \CHECK        &        &  &  &  1.00 \\
-        PUb-1-0-IN &        &  & \CHECK  & & 2.290323 \\
-        PUa-H2O(1)-1-0-SL & \CHECK &  &   & \CHECK & 1.00     \\
-        PUa-H2O(0.5)-1-0-SL & \CHECK & & & \CHECK & 1.00    \\
-        PUb-1-0-SL & \CHECK &        & &  & 1.00 \\
-        PUb-1-0-SP &  & \CHECK & &  & 1.00 \\
-        Ua-1-0-SL & \CHECK & & & & 1.00 \\
-	Ua-1-0-IN & & & \CHECK & & 2.25 \\
-	Ub-1-0-IN & & & \CHECK & & 2.330917 \\
-	Uc-1-0-IN & & & \CHECK & & 2.256083 \\
-	Ud-1-0-IN & & & \CHECK & & 2.232667 \\
-        \bottomrule
-    \end{tabular}
-    }
-\end{table}
+The RQFP method for alpha- and $k$-effective eigenvalues performs well for infinite medium problems, reducing in certain cases the number of iterations up to a factor of twenty. For the alpha-eigenvalue RQFP method, the method is able to converge subcritical systems without issue. For a certain class of problems with unphysical cross sections, the alpha-eigenvalue RQFP method fails to converge. This failure to converge is caused by the structure of the alpha-eigenvalue spectrum. However, these problems are special cases with unphysical data such as unit velocity in all energy groups. For this reason, we believe the alpha-eigenvalue RQFP method is robust for all infinite-medium problems of interest. The RQFP method for $k$-effective eigenvalue calculations performed better or similar to the power method with a fission norm update for the eigenvalue. For problems where only the number of neutrons emitted in fission was varied, the RQFP method took a similar number of iterations to converge for all problems, no matter the criticality of the system. This suggests that the method's convergence is determined by the eigenvector shape rather than the eigenvalue.
 
-\section{Results for Alpha-Eigenvalue Problems}
-Transport sweep comparisons for infinite medium and finite medium alpha-eigenvalue systems can be seen in Table \ref{table:alph}. The residual and relative change in the alpha-eigenvalue as a function of sweeps for an infinite medium and finite medium problem can be seen in Figure \ref{fig:aRes} for the Rayleigh quotient and critical search methods. In all cases the Rayleigh quotient method outperformed the critical search method. For infinite medium problems, the Rayleigh quotient method reduced the number of transport sweeps necessary for convergence by a factor of 20. The critical search uses multiple $k$-effective calculations to obtain the alpha-eigenvalue of the system while the Rayleigh quotient directly calculates the alpha-eigenvalue substantially reducing the number of sweeps necessary for convergence. The critical search method can fail if the system is slightly subcritical or supercritical and in various benchmark problems, the method was unable to converge for the alpha-eigenvalue as seen in Table \ref{table:alph}. Given the fixed point nature of the method, the Rayleigh quotient method however, was able to converge all problems. The Rayleigh quotient method performed well for reflected slab, spherical geometry, heterogeneous media, and anisotropic scattering problems, in all circumstances outperforming critical search. Given these results, it is believed that the Rayleigh quotient would be effective on two-dimensional and three-dimensional problems with some degree of anisotropic scattering as long as the system remains primitive.
-%The Rayleigh quotient method also has monotonically decreasing or increasing eigenvalue iterates for subcritical or supercritical systems, respectively. 
-
-
-\begin{table}[]
-    \centering
-    \caption{\textbf{Alpha-Eigenvalue Sweep Comparisons}}
-    \label{table:alph}
-    \begin{subtable}{\linewidth}
-    \subcaption{Infinite Medium Problems}
-    %\rowcolors{6}{}{gray!10}
-    %\scalebox{0.95}{
-    \centering
-    \begin{tabular}{*3c}
-        \toprule
-        & \multicolumn{2}{c}{Sweeps} \\
-        \cmidrule(lr){2-3}
-        Problem ID & Rayleigh Quotient & Critical Search Method\\    
-        \midrule
-        PUa-1-0-IN & 33 & 432 \\
-        PUb-1-0-IN & 21 & 391   \\
-	Ua-1-0-IN & 24 & 472\\
-	Ub-1-0-IN & 24 & 464 \\
-	Uc-1-0-IN & 24 & 474 \\
-	Ud-1-0-IN & 24 & 472\\
-        \bottomrule
-	%& &
-    \end{tabular}
-    %}
-    \end{subtable} \\
-    \centering
-    \begin{subtable}{\linewidth}
-    %\rowcolors{5}{}{gray!10}
-    \subcaption{Finite Medium Problems}
-    %\scalebox{0.95}{
-    \centering
-    \begin{tabular}{*3c}
-        \toprule
-        & \multicolumn{2}{c}{Sweeps} \\
-        \cmidrule(lr){2-3}
-        Problem ID & Rayleigh Quotient & Critical Search Method \\    
-        \midrule
-        PUa-1-0-SL & 26 & 64 \\
-	\small PUa-H2O(1)-1-0-SL & 37 & *      \\
-	\small PUa-H2O(0.5)-1-0-SL & 23 & *    \\
-	PUb-1-0-SL & 24 & * \\
-        PUb-1-0-SP & 37 & 105 \\
-	Ua-1-0-SL & 27 & * \\
-        \bottomrule
-	* Did Not Converge & &
-    \end{tabular}
-    %}
-    \end{subtable}
-\end{table}
-
-%\begin{figure}[]
-%	\centering
-%	\begin{subfigure}{\textwidth}
-%	\resizebox{\textwidth}{0.45\textheight}{
-%		\input{alphainf.tex}
-%	}
-%	\end{subfigure}
-%	\begin{subfigure}{\textwidth}
-%	\centering
-%	\resizebox{\textwidth}{0.45\textheight}{
-%		\input{alpha1.tex}
-%	}
-%	\end{subfigure}
-%	\caption{Alpha-Eigenvalue Method Convergence Comparison for Two Problems (Infinite-Medium Supercritical and Finite-Medium Critical)}
-	%\caption{\bf Method Comparison of Eigenvalue Relative Change/Eigenvector Residual for Infinite-Medium Supercritical and Critical Alpha-Eigenvalue Problems}
-%	\label{fig:aRes}
-%\end{figure}
-
-\section{Results for $k$-Effective Eigenvalue Problems}
-Transport sweep comparisons for infinite medium and finite medium $k$-effective systems can be seen in Table \ref{table:k}. The residual as a function of sweeps can be seen for two infinite medium benchmark problems in Figure \ref{fig:kRes}. The Rayleigh quotient method performs well for infinite medium cases, reducing the number of transport sweeps necessary to convergence by a factor of approximately three. While the convergence of the method is linear, it appears in practice to have a lower asymptotic constant coefficient than the power method as seen in Figure \ref{fig:kRes}. The Rayleigh quotient takes a similar amount of sweeps for finite medium problems as compared to the standard power method for slab geometry problems. In some cases, the Rayleigh quotient performs worse than the power method. These problems are heterogenous media or spherical problems. It is believed that this due to the problems not meeting the assumptions made in deriving the method.
-
-\begin{figure}[]
-	\centering
-	%\resizebox{\textwidth}{0.45\textheight}{
-	\resizebox{!}{0.45\textheight}{
-		\input{kinfPu.tex}
-	}
-	\caption{Eigenvector Residual as a Function of Sweeps for Two Infinite Medium $k$-Effective Eigenvalue Problems}
-	\label{fig:kRes}
-\end{figure}
-
-%\vspace*{\floatsep}%
-
-%\begin{table}[]
- %   \centering
-   % \caption{\textbf{$k$-Effective Sweep Comparison}}
-%\label{table:k}
-%\parbox{0.45\linewidth}{
-%\begin{subtable}{\linewidth}
-%	\begin{centering}
- %   \subcaption{Infinite Medium Problems}
-   % \end{centering}
-    %\rowcolors{5}{}{gray!10}
-    %\scalebox{0.95}{
-    %\centering
-    %\begin{tabular}{*3c}
-      %  \toprule
-        %& \multicolumn{2}{c}{Sweeps} \\
-        %\cmidrule(lr){2-3}
-        %Problem ID & Rayleigh Quotient & Fission Norm Update \\    
-%        ID   & Quotient & Update  \\
-        %\midrule
-        %PUa-1-0-IN & 41 & 111 \\
-        %PUb-1-0-IN & 34 & 96   \\
-	%Ua-1-0-IN & 29 & 130\\
-	%Ub-1-0-IN & 30 & 132 \\
-	%Uc-1-0-IN & 27 & 131 \\
-	%Ud-1-0-IN & 33 & 131\\
-        %\bottomrule
-    %\end{tabular}
-    %}
-%\end{subtable} \\
-%\centering
-%\begin{subtable}{\linewidth}
- %   \begin{centering}
-   % \subcaption{\centering{Finite Medium Problems}}
-    %\end{centering}
-%    \rowcolors{5}{}{gray!10}
- %   \scalebox{0.95}{
- 	%\centering
-%    \begin{tabular}{*3c}
- %       \toprule
- %       & \multicolumn{2}{c}{Sweeps} \\
- %       \cmidrule(lr){2-3}
- %       Problem ID & Rayleigh Quotient & Fission Norm Update \\    
-%        ID   & Quotient & Update  \\
+%\begin{table}[H]
+%    \centering
+%    \caption{\textbf{Criticality Benchmark Problem List and Properties} \cite{sood2003analytical}}
+%\label{table:probs}
+%    %\rowcolors{5}{}{gray!10}
+%    \scalebox{1.00}{
+%    %\scalebox{0.95}{
+%    \begin{tabular}{*7c}
+%        \toprule
+%        & \multicolumn{6}{c}{Problem Properties} \\
+%        \cmidrule(lr){2-7}
+%        Problem & 1D  & 1D & Infinite & Reflected & Reference & Reference \\    
+%        ID   & Slab & Spherical     & Medium & BC & $k_{\text{eff}}$  & $\alpha$ \\
 %        \midrule
-%        PUa-1-0-SL & 26 & 25 \\
- %       \small PUa-H2O(1)-1-0-SL & 44 & 33      \\
- %       \small PUa-H2O(0.5)-1-0-SL & 27 & 22    \\
- %       PUb-1-0-SL & 28 & 26 \\
-%        PUb-1-0-SP & 57 & 51 \\
-%        Ua-1-0-SL & 31 & 28 \\
+%        PUa-1-0-IN &        &  & \CHECK   & &  2.612903    \\
+%        PUa-1-0-SL & \CHECK        &        &  &  &  1.00 \\
+%        PUb-1-0-IN &        &  & \CHECK  & & 2.290323 \\
+%        PUa-H2O(1)-1-0-SL & \CHECK &  &   & \CHECK & 1.00     \\
+%        PUa-H2O(0.5)-1-0-SL & \CHECK & & & \CHECK & 1.00    \\
+%        PUb-1-0-SL & \CHECK &        & &  & 1.00 \\
+%        PUb-1-0-SP &  & \CHECK & &  & 1.00 \\
+%        Ua-1-0-SL & \CHECK & & & & 1.00 \\
+%	Ua-1-0-IN & & & \CHECK & & 2.25 \\
+%	Ub-1-0-IN & & & \CHECK & & 2.330917 \\
+%	Uc-1-0-IN & & & \CHECK & & 2.256083 \\
+%	Ud-1-0-IN & & & \CHECK & & 2.232667 \\
 %        \bottomrule
 %    \end{tabular}
-  %  }
-%\end{subtable}
+%    }
 %\end{table}
-%\end{figure}
-
-

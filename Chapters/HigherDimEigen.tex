@@ -1,0 +1,17 @@
+\chapter{Higher Dimensional Eigenvalues}
+
+In this chapter we verify the correctness and examine the performance of the Rayleigh quotient fixed point methods for higher-dimensional problems. We consider realistic two- and three-dimensional problems involving fuel rods and fuel assemblies. For higher dimensions, the phase space of the neutron transport equation is a function of two $(x, y)$ or three $(x, y, z)$ spatial variables $x$ and two $(\mu, \eta)$ or three $(\mu, \eta, \xi)$ angular variables defined as the $x$-, $y$-, and $z$-direction cosines. For higher-dimensional Cartesian geometry, the two-dimensional and three-dimensional alpha-eigenvalue neutron transport equations are given by Eq.~\ref{eq:2DAlphaSlab} and Eq.~\ref{eq:3DAlpha}, respectively:
+
+\begin{multline}
+\bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \frac{\alpha}{v(E)} + \sigma(x,y,E) \bigg ] \psi(x,y,\mu,\eta,E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,E') \int_{-1}^{1} \diff \mu' \int_{-1}^{1} \diff \eta' \psi(x,y, \mu',\eta', E) \\ + \frac{1}{2\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(x, y, E' \rightarrow E) \int_{-1}^{1} \diff \mu' \int_{-1}^{1} \diff \eta' \, \psi(x,y, \mu',\eta',E),
+\label{eq:2DAlpha}
+\end{multline}
+
+\begin{multline}
+\bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \xi \frac{\partial}{\partial z} + \frac{\alpha}{v(E)} + \sigma(x,y,z,E) \bigg ] \psi(x,y,z,\mu,\eta,\xi, E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,z,E') \int_{-1}^{1} \diff \mu' \int_{-1}^{1} \diff \eta' \int_{0}^{\pi} \diff \xi' \psi(x,y,z, \mu',\eta', \xi',E) \\ + \frac{1}{4\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(x, y,z, E' \rightarrow E) \int_{-1}^{1} \diff \mu' \int_{-1}^{1} \diff \eta' \int_{0}^{\pi} \diff \xi' \, \psi(x,y,z, \mu',\eta',\xi',E),
+\label{eq:3DAlpha}
+\end{multline}
+%Various homogeneous and heterogeneous slab geometry problems with vacuum boundary conditions were modeled in ARDRA. These slab media problems consist of multiplying and non-multiplying materials with thicknesses $\Delta$. Alpha- and $k$-effective eigenvalues were calculated and the number of transport sweeps compared to various methods such as the critical search method and the power method. To verify the correctness of the Rayleigh quotient fixed point method (RQFP), the method was compared to various methods such as Green's Function Method (GFM) and Direct Evaluation (DE) and compared to other discrete ordinate neutron transport codes such as PARTISN/DANT.
+
+
+\section{Conclusion}
