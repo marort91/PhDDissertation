@@ -1,6 +1,6 @@
 \chapter{Eigenvalues for Infinite Medium Problems}% for the Rayleigh Quotient Fixed Point Method}
 
-In this section we describe the performance of the Rayleigh quotient methods for various infinite medium problem selected from the \textit{Analytical Benchmark Test Set for Criticality Code Verification} \cite{sood2003analytical} or analytical benchmark solutions. Some problems were selected that did not meet the assumptions used in deriving the methods to test the general applicability of the Rayleigh quotient methods. The Rayleigh quotient method was compared to the critical search method \cite{hill_efficient_1983} for alpha-eigenvalue problems and to standard power iteration for $k$-effective eigenvalue problems. The total number of transport sweeps was compared for the various criticality benchmark problems listed in Table \ref{table:probs}. Transport sweeps were measured as they represent the majority of computational expensive in standard transport codes. The methods were implemented in ARDRA, a 1D, 2D, and 3D deterministic discrete ordinates neutron and gamma transport code developed and maintained by Lawrence Livermore National Laboratory \cite{hanebutte_ardra_1999}.
+In this section we describe the performance of the Rayleigh quotient methods for various infinite medium problem selected from the \textit{Analytical Benchmark Test Set for Criticality Code Verification} \cite{sood2003analytical} or analytical benchmark solutions. Some problems were selected that did not meet the assumptions used in deriving the methods to test the general applicability of the Rayleigh quotient methods. The Rayleigh quotient method was compared to the critical search method \cite{hill_efficient_1983} for alpha-eigenvalue problems and to standard power iteration for $k$-effective eigenvalue problems. The total number of transport sweeps was compared for each method as they represent the majority of computational expensive in standard transport codes. The methods were implemented in ARDRA, a 1D, 2D, and 3D deterministic discrete ordinates neutron and gamma transport code developed and maintained by Lawrence Livermore National Laboratory \cite{hanebutte_ardra_1999}.
 
 %These problems represented a spectrum of common nuclear engineering problem characteristics including infinite medium, slab geometry, reflected slab, spherical geometry, heterogeneous media, and anisotropic scattering. 
 
@@ -145,7 +145,7 @@ The RQFP for the $k$-effective eigenvalue reduces the number of sweeps by a fact
 
 \subsection{Infinite Medium Subcritical/Critical Problems}
 
-\textbf{Problem 5.2.1.1}: We consider a three energy group problem with cross sections shown in Table~\ref{table:Betzler}. The problem only has fissions in energy group $g = 3$ emitting $\bar{\nu}$ neutrons in energy group $g = 1$. There is no upscatter and downscatter only occurs into the next group. We vary $\bar{\nu}$ from zero neutrons emitted in fission to $\bar{\nu} = 3$ to create various subcritical systems. The analytic $k$-eigenvalue is given by
+\textbf{Problem 5.2.1.1}: We consider a three energy group problem with cross sections shown in Table~\ref{table:Betzler3}. The problem only has fissions in energy group $g = 3$ emitting $\bar{\nu}$ neutrons in energy group $g = 1$. There is no upscatter and downscatter only occurs into the next group. We vary $\bar{\nu}$ from zero neutrons emitted in fission to $\bar{\nu} = 3$ to create various subcritical systems. The analytic $k$-eigenvalue is given by
 \begin{equation}
 	k = \frac{\bar{\nu} \sigma_{f,1} \sigma_{s12} \sigma_{s23}}{\sigma_{1} \sigma_{2} \sigma_{3}},
 \end{equation}
@@ -166,14 +166,14 @@ and the analytical alpha-eigenvalue can be calculated from the system
 \end{equation}
 The reference eigenvalues and the number of transport sweeps needed to converge the eigenvector residual to a value of $10^{-8}$ is seen in Table~\ref{table:InfMedNu}. 
 
-For $k$-effective eigenvalue problems, the Rayleigh quotient fixed point method requires a similar number of sweeps for all values of $k_{\infty}$. It requires approximately 40\% iterations as compared to the traditional power method. One reason for this is that the fission source of Problem 5.1.1 is simple with fissions only occurring in the highest energy group and neutrons are only born in the lowest energy group. Using the fission distribution as the norm is better in this particular case because it does not require all energy group scalar fluxes to converge.
-
 For alpha-eigenvalue problems, the Rayleigh quotient fixed point method is able to converge the various subcritical problems to the correct eigenvalue. The number of sweeps necessary varies with the most subcritical and closest to critical problems requiring more sweeps to converge the angular flux. The critical search method is unable to converge these problems as the sum of the total cross section and the negative eigenvalue introduces negative absorption into the system. This pseudo-absorption term causes instabilities in the transport sweep algorithm and forces the method to terminate before convergence. We see that for even simple, three energy group, subcritical problems, the Rayleigh quotient fixed point method is able to converge very subcritical problems and critical problems without difficulty.
+
+For $k$-effective eigenvalue problems, the Rayleigh quotient fixed point method requires a similar number of sweeps for all values of $k_{\infty}$. It requires approximately 40\% iterations as compared to the traditional power method. One reason for this is that the fission source of Problem 5.1.1 is simple with fissions only occurring in the highest energy group and neutrons are only born in the lowest energy group. Using the fission distribution as the norm is better in this particular case because it does not require all energy group scalar fluxes to converge.
 
 \begin{table}[]
     \centering
     \caption{Infinite Medium Subcritical Problem Cross Sections (cm$^{-1}$)}
-\label{table:Betzler}
+\label{table:Betzler3}
     \begin{tabular}{*7c}
         \toprule
 	$g$ & $\sigma$ & $\sigma_{f}$ & $\sigma_{sg,g+1}$ & $\chi$ & $v_{g}$ [cm/s] \\ 
