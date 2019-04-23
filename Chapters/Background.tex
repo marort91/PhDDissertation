@@ -7,7 +7,99 @@ Neutron transport is the study of the motion and interactions of neutrons in mat
 	\bigg [ \frac{1}{v(E)} \frac{\partial}{\partial t} + \hat{\Omega} \cdot \nabla + \sigma(\vec{r},E) \bigg ] \psi(\vec{r},\hat{\Omega},E,t) \\ = \int_{0}^{\infty} \diff E' \, \int_{4\pi} \diff \hat{\Omega} \, \sigma_{s}(\vec{r},E'\rightarrow E,\hat{\Omega}' \cdot \hat{\Omega}) \psi(\vec{r},\hat{\Omega}',E',t) \\ + \int_{0}^{\infty} \diff E' \, \nu(E') \chi(E'\rightarrow E) \sigma_{f}(\vec{r},E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(\vec{r},\hat{\Omega}',E',t), 
 	\label{eq:NeutronTransport}
 \end{multline}
-where the quantities are located at direction $\vec{r}$, traveling in direction $\hat{\Omega}$, and at energy $E$, and $\sigma$, $\sigma_{s}$, $\sigma_{f}$, and $v$ are the total, scattering, fission macroscopic cross sections and neutron velocity, respectively. $\chi(E'\rightarrow E)$ is the fission spectrum and specifies the energy distribution of neutrons born from fission and $\nu(E)$ is the average number of neutrons emitted in fission when the neutron causing fission has energy $E$. The angular flux, denoted by $\psi(\vec{r},\hat{\Omega},E)$ gives the number of neutrons per unit length squared per steradian per energy and is the unknown distribution we are looking to solve for. The linear Boltzmann transport equation is used in solving many problems in nuclear engineering \cite{duderstadt_nuclear_1976}. We refer to the linear Boltzmann transport equation as the neutron transport equation for the rest of this disseration.
+where the quantities are located at position $\vec{r}$, traveling in direction $\hat{\Omega}$, and at energy $E$, and $\sigma$, $\sigma_{s}$, $\sigma_{f}$, and $v$ are the total, scattering, fission macroscopic cross sections and neutron velocity, respectively. $\chi(E'\rightarrow E)$ is the fission spectrum and specifies the energy distribution of neutrons born from fission and $\nu(E)$ is the average number of neutrons emitted in fission when the neutron causing fission has energy $E$. The angular flux, denoted by $\psi(\vec{r},\hat{\Omega},E)$, gives the number of neutrons per unit length squared per steradian per energy and is the unknown distribution we are looking to solve for. The streaming term of Eq.~\ref{eq:NeutronTransport} can be simplified using the angle space shown in Figure~\ref{fig:angle_space}. If the direction vector $\hat{\Omega}$ is given by
+\begin{equation}
+	\hat{\Omega} = \mu \hat{x} + \eta \hat{y} + \xi \hat{z},
+\end{equation}
+where $\hat{x}, \hat{y},$ and $\hat{z}$ are unit vectors, then it follows that the streaming term is given by
+\begin{equation}
+	 \hat{\Omega} \cdot \nabla \psi(\vec{r},\hat{\Omega},E,t) = \mu \frac{\partial \psi}{\partial x} + \eta \frac{\partial \psi}{\partial y} + \xi \frac{\partial \psi}{\partial z}.
+\end{equation}
+The linear Boltzmann transport equation is used in solving many problems in nuclear engineering \cite{duderstadt_nuclear_1976}. We refer to the linear Boltzmann transport equation as the neutron transport equation for the rest of this dissertation. The neutron transport equation is an integro-differential equation for the neutron angular flux and is a function of seven independent variables: three spatial variables, two direction variables, energy, and time.
+
+\begin{figure}
+	\centering
+	\tdplotsetmaincoords{60}{110}
+	
+	\pgfmathsetmacro{\rvec}{1.8}
+	\pgfmathsetmacro{\thetavec}{40}
+	\pgfmathsetmacro{\phivec}{50}
+	
+	\begin{tikzpicture}[scale=5,tdplot_main_coords]
+	
+	\coordinate (O) at (0,0,0);
+	
+	\draw[thick,->] (0,0,0) -- (1,0,0) node[anchor=north east]{$x$};
+	\draw[thick,->] (0,0,0) -- (0,1,0) node[anchor=north west]{$y$};
+	\draw[thick,->] (0,0,0) -- (0,0,1) node[anchor=south]{$z$};
+	
+	\tdplotsetcoord{P}{\rvec}{\thetavec}{\phivec}
+	\tdplotsetcoord{Q}{1.93}{\thetavec}{\phivec}
+	\draw[-stealth,color=black, very thick] (O) -- (P);
+	\draw[dashed, color=black, very thick] (O) -- (Pxy);
+	\draw[dashed, color=black, very thick] (P) -- (Pxy);
+	
+	\draw[dashed, color=black, very thick] (0.743717,0,0) -- (Pxy);
+	\draw[dashed, color=black, very thick] (0,0.886327,0) -- (Pxy);
+	
+	\tdplotdrawarc{(O)}{0.3}{0}{\phivec}{anchor=north}{$\cos^{-1}(\mu)$}
+	
+	\tdplotdrawarc{(O)}{0.4}{50}{90}{anchor=north}{}
+	
+	\tdplotsetthetaplanecoords{\phivec}\tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{0.5}{0}%
+		{\thetavec}{anchor=south}{}
+	
+	\tdplotsetrotatedcoords{\phivec}{\thetavec}{0}
+	\tdplotsetrotatedcoordsorigin{(P)}
+	
+	\draw node at (0,0.2,0.6) {$\cos^{-1}(\xi)$};
+	\draw node at (0,0.4,0.1) {$\cos^{-1}(\eta)$};
+	
+	\draw node at (Q) {$\hat{\Omega}$};
+	
+	\end{tikzpicture}
+	\caption{Neutron Direction Angle Space}
+	\label{fig:angle_space} 
+\end{figure}
+
+%\begin{figure}
+%	\centering
+%\tdplotsetmaincoords{60}{120} 
+%\begin{tikzpicture} [scale=3, tdplot_main_coords, axis/.style={->,black,thick}, 
+%vector/.style={-stealth,black,very thick}, 
+%vector guide/.style={dashed,black,thick}]
+%
+%%standard tikz coordinate definition using x, y, z coords
+%\coordinate (O) at (0,0,0);
+%
+%%tikz-3dplot coordinate definition using x, y, z coords
+%
+%\pgfmathsetmacro{\ax}{0.8}
+%\pgfmathsetmacro{\ay}{0.8}
+%\pgfmathsetmacro{\az}{1.2}
+%
+%\coordinate (P) at (\ax,\ay,\az);
+%
+%%draw axes
+%\draw[axis] (0,0,0) -- (1.5,0,0) node[anchor=north east]{$x$};
+%\draw[axis] (0,0,0) -- (0,1.5,0) node[anchor=north west]{$y$};
+%\draw[axis] (0,0,0) -- (0,0,1.5) node[anchor=south]{$z$};
+%
+%%draw a vector from O to P
+%\draw[vector] (O) -- (P);
+%
+%%draw guide lines to components
+%\draw[vector guide]         (O) -- (\ax,\ay,0);
+%\draw[vector guide] (\ax,\ay,0) -- (P);
+%\draw[vector guide]         (P) -- (0,0,\az);
+%\draw[vector guide] (\ax,\ay,0) -- (0,\ay,0);
+%\draw[vector guide] (\ax,\ay,0) -- (0,\ay,0);
+%\draw[vector guide] (\ax,\ay,0) -- (\ax,0,0);
+%
+%\end{tikzpicture}
+%\caption{Neutron Direction Angle Space}
+%\label{fig:angle_space} 
+%\end{figure}
 
 \section{Solving the Neutron Transport Equation}
 

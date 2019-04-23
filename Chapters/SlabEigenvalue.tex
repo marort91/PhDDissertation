@@ -21,7 +21,7 @@ In one-dimensional spherical geometry, there is only one position variable $r$, 
 \end{multline}
 
 \begin{multline}
-\frac{\mu}{r^{2}} \frac{\partial}{\partial r} \bigg [r^{2} \psi(r,\mu,E) \bigg ] + \frac{1}{r} \frac{\partial}{\partial \mu} \bigg [(1-\mu^{2})\psi(r,\mu,E) \bigg ]+ \bigg [ \frac{\alpha}{v(E)} + \sigma(x,E) \bigg ] \psi(r,\mu,E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \, \nu(E') \sigma_{f}(r,E') \int_{-1}^{1} \diff \mu' \, \psi(r,\mu',E) \\ + \frac{1}{2} \int_{0}^{\infty} \diff E' \, \sigma_{s}(r, E' \rightarrow E) \int_{-1}^{1} \diff \mu' \, \psi(r,\mu',E),
+\frac{\mu}{r^{2}} \frac{\partial}{\partial r} \bigg [r^{2} \psi(r,\mu,E) \bigg ] + \frac{1}{r} \frac{\partial}{\partial \mu} \bigg [(1-\mu^{2})\psi(r,\mu,E) \bigg ]+ \bigg [ \frac{\alpha}{v(E)} + \sigma(x,E) \bigg ] \psi(r,\mu,E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \, \nu(E') \sigma_{f}(r,E') \int_{-1}^{1} \diff \mu' \, \psi(r,\mu',E) \\ + \frac{1}{2} \int_{0}^{\infty} \diff E' \, \sigma_{s}(r, E' \rightarrow E) \int_{-1}^{1} \diff \mu' \, \psi(r,\mu',E).
 \label{eq:1DkSphere}
 \end{multline}
 
@@ -92,7 +92,7 @@ A two-region multiplying slab was examined with material properties as seen in T
     \end{tabular}
 \end{table}
 
-Four one-speed five region slab problems consisting of fuel, moderator, and absorber materials were examined and the Rayleigh quotient fixed point method alpha-eigenvalue compared to the GFM. The alpha-eigenvalue was calculated for different fuel width thicknesses with the fuel having $\nu \sigma_{f} = 0.3$ or 0.7. Cross sections for the three materials are seen in Table~\ref{table:BetzlerFive}.
+Four one-speed five region slab problems consisting of fuel, moderator, and absorber materials were examined and the Rayleigh quotient fixed point method alpha-eigenvalue compared to the GFM. The leftmost fuel pin width was allowed to vary (see Figure~\ref{fig:FiveRegionProblem}).The alpha-eigenvalue was calculated for different fuel width thicknesses with the fuel having $\nu \sigma_{f} = 0.3$ or $0.7$. Cross sections for the three materials are seen in Table~\ref{table:BetzlerFive}.
 
 \begin{table}[H]
     \centering
@@ -110,7 +110,7 @@ Four one-speed five region slab problems consisting of fuel, moderator, and abso
 \end{table}
 
 \subsection{Non-Multiplying Homogeneous Slab}
-For the one-speed, purely-scattering, homogeneous slabs of thicknesses $\Delta = 1.0$ to $\Delta = 25.0$ mfp with cross sections shown in Table~\ref{table:Betzler}, the Rayleigh quotient fixed point method showed good agreement with the GFM (Table~\ref{table:CompHomogScatt}). For $M = 500$ cells and $L = 64$ angular quadrature points, the subcritical alpha-eigenvalues matched within less than 0.1\% relative error. The greatest discrepancy between the two methods was for $\Delta = 1.0$ mfp. As the slab thickness gets smaller, the existence of a dominant alpha-eigenvalue is not assured and we begin to see this behavior. As the slab thickness increases, the number of transport sweeps necessary to converge the alpha-eigenvalue to a tolerance of $10^{-12}$ increases. However, the relative error between RQFP and the GFM decreases. For problems without any multiplication, the $k$-effective eigenvalue is not defined.
+For the one-speed, purely-scattering, homogeneous slabs of thicknesses $\Delta = 1.0$ to $\Delta = 25.0$ mfp with cross sections shown in Table~\ref{table:Betzler}, the Rayleigh quotient fixed point method showed good agreement with the GFM (Table~\ref{table:CompHomogScatt}). For diamond difference discretization ($M = 500$ cells) and S$_{64}$ discrete ordinates quadrature ($L = 64$), the subcritical alpha-eigenvalues matched within less than 0.1\% relative error. $500$ spatial cells and $64$ angular quadrature points were selected to guarantee the positivity of the flux solution for all slab widths. The greatest discrepancy between the two methods was for $\Delta = 1.0$ mfp. As the slab thickness gets smaller, the existence of a dominant alpha-eigenvalue is not assured and we begin to see this behavior. As the slab thickness increases, the number of transport sweeps necessary to converge the alpha-eigenvalue to a tolerance of $10^{-12}$ increases. However, the relative error between RQFP and the GFM decreases. For problems without any multiplication, the $k$-effective eigenvalue is not defined.
 
 \begin{table*}[b]
 \centering\ra{1.3}
@@ -203,12 +203,23 @@ For the one-speed homogeneous multiplying slabs of varying thickness, the $k$-ef
 	\cmidrule{2-3} \cmidrule{5-6} $\Delta$ & RQFP & Power Method \quad &  \Delta & RQFP & Power Method\\
 	\midrule
 	%$\Delta$\\
-	1 & 23 & 22 & 20 & 445 & 115\\ 
-	2 & 33 & 27 & 25 & 650 & 156 \\
-	4 & 54 & 34 & 30 & 892 & 206 \\
-	5 & 67 & 37 & 40 & 1490 & 328 \\ 
-	10 & 154 & 55 & 50 & 2235 & 481 \\ 
-	15 & 280 & 81 &  &  &  \\
+%	1 & 23 & 22 & 20 & 445 & 115\\ 
+%	2 & 33 & 27 & 25 & 650 & 156 \\
+%	4 & 54 & 34 & 30 & 892 & 206 \\
+%	5 & 67 & 37 & 40 & 1490 & 328 \\ 
+%	10 & 154 & 55 & 50 & 2235 & 481 \\ 
+%	15 & 280 & 81 &  &  &  \\
+	0.25 & 16 & 17 & 5 & 67 & 37 \\
+	0.30 & 16 & 17 & 6 & 81 & 40 \\
+	0.35 & 17 & 18 & 7 & 97 & 44 \\
+	0.40 & 18 & 19 & 8 & 115 & 47 \\
+	0.45 & 18 & 19 & 9 & 133 & 51 \\
+	0.50 & 19 & 19 & 10 & 154 & 55 \\
+	0.75 & 21 & 21 & 15 & 280 & 81 \\
+	1 & 23 & 22 & 20 & 445 & 115 \\
+	2 & 33 & 27 & 30 & 892 & 206 \\
+	3 & 43 & 31 & 40 & 1490 & 238 \\
+	4 & 54 & 34 & 50 & 2235 & 481 \\
 	\bottomrule
 	\multicolumn{6}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
 	\end{tabular}
@@ -393,26 +404,32 @@ For the one-speed homogeneous multiplying slabs of varying thickness, the $k$-ef
 	\label{fig:GrainScalarFlux}
 \end{figure}
 
-\textbf{Problem 6.1.3.2-Multiplying Two Region Heterogeneous Slab}: For a supercritical two-region medium (Figure~\ref{fig:HeteroSlabMult}) consisting of two materials with cross sections given in Table~\ref{table:BetzlerHeteroMult}, the calculated alpha-eigenvalue and scalar flux were compared to the Green's Function Method. The calculated alpha-eigenvalue $\alpha = 0.142475$ s$^{-1}$ agreed with the GFM eigenvalue. The alpha-eigenvalue RQFP method required 47 iterations to converge the problems to a tolerance of $10^{-12}$. The critical search method required well over a thousand iterations, requiring multiple bracketing attempts. The multiple bracketing attempts were required since the system was close to critical. To verify the correctness of the RQFP scalar flux, the scalar flux was compared to the GFM scalar flux. The fluxes were found to be in agreement within tolerance (Figure~\ref{fig:TwoRegionMultiply}).
-\begin{figure}[h]
+\textbf{Problem 6.1.3.2-Multiplying Two Region Heterogeneous Slab}: For a supercritical two-region medium (Figure~\ref{fig:HeteroSlabMult}) consisting of two materials with cross sections given in Table~\ref{table:BetzlerHeteroMult}, the calculated alpha-eigenvalue and scalar flux were compared to the Green's Function Method. The calculated alpha-eigenvalue $\alpha = 0.142475$ s$^{-1}$ agreed with the GFM eigenvalue. The alpha-eigenvalue RQFP method required 50 iterations to converge the problems to a tolerance of $10^{-12}$. The critical search method required 22076 iterations, requiring multiple bracketing attempts. The multiple bracketing attempts were required since the system was close to critical. To verify the correctness of the RQFP alpha-eigenvalue scalar flux, the scalar flux was compared to the GFM scalar flux. The fluxes were found to be in agreement within tolerance (Figure~\ref{fig:TwoRegionMultiply}).
+
+The $k$-effective eigenvalue of the supercritical two-region medium was found to be $1.28656$. The RQFP method was found to require 46 transport sweeps to converge to a tolerance of $10^{-12}$. The power method with fission norm update required 36 transport sweeps.
+
+\begin{figure}[!htbp]
 	\centering
 	\input{Figures/SlabEigenvalue/HeterogMultSlab.tex}
 	\caption{Heterogeneous Multiplying Slab Benchmark Problem Domain \cite{kornreich_greens_1997}}
 	\label{fig:HeteroSlabMult}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[!htbp]
 	\centering
 	\resizebox{0.5\textwidth}{!}{
 	\input{Figures/SlabEigenvalue/TwoRegionMultiply.tex}
 	}
-	\caption{Scalar Flux Results for Two-Region Multiplying Slab}
+	\caption{Alpha-Eigenvalue Scalar Flux Results for Two-Region Multiplying Slab}
 	\label{fig:TwoRegionMultiply}
 \end{figure}
 
-\textbf{Problem 6.1.3.3-Multiplying Five Region Fuel Pin}:
+\clearpage
+\textbf{Problem 6.1.3.3-Multiplying Five Region Fuel-Pin}:
 
-A five region fuel pin like domain was modeled and the alpha-eigenvalues compared to GFM for two cases. The fuel pin domain consisted of five regions as seen in Figure~\ref{fig:FiveRegionProblem}, fuel, moderator, absorber, moderator, and fuel, with cross sections given in Table~\ref{table:BetzlerFive}. For the two cases, the fuel fission cross section was set to $\nu \sigma_{f} = 0.3$ or $\nu \sigma_{f} = 0.7$. The alpha-eigenvalues were $\alpha = -0.3196537$ and $\alpha = -0.006156369$ for the $\nu \sigma_{f} = 0.3$ and $\nu \sigma_{f} = 0.7$ cases, respectively. The RQFP method eigenvalues matched within tolerance. Convergence of both cases required approximately 30 transport sweeps. The scalar fluxes for both cases matched GFM within tolerance and are seen in Figure~\ref{fig:FiveRegionMultiply}.
+A five region fuel-pin-like domain was modeled ($M=1000$ and $L=64$) and the alpha-eigenvalues compared to GFM for four cases. For case one and two, the fuel-pin domain consisted of five regions as seen in Figure~\ref{fig:FiveRegionProblem}, fuel, moderator, absorber, moderator, and fuel, with cross sections given in Table~\ref{table:BetzlerFive}. The leftmost fuel pin had a one mean free path width. For case one and two, the fuel fission cross section was set to $\nu \sigma_{f} = 0.3$ or $\nu \sigma_{f} = 0.7$. The alpha-eigenvalues were $\alpha = -0.3196537$ s$^{-1}$ and $\alpha = -0.006156369$ s$^{-1}$ for the $\nu \sigma_{f} = 0.3$ and $\nu \sigma_{f} = 0.7$ cases, respectively. The RQFP method eigenvalues matched the GFM-calculated alpha-eigenvalues within tolerance. Convergence of the $\nu \sigma_{f} = 0.3$ and $\nu \sigma_{f} = 0.7$ cases for the RQFP method required 32 and 29 transport sweeps, respectively. The scalar fluxes for both cases matched GFM within tolerance and are seen in Figure~\ref{fig:FiveRegionMultiply}. For cases three and four, the leftmost fuel pin width was set to 1.1. The alpha-eigenvalues for $\nu \sigma_{f} = 0.3$ and $\nu \sigma_{f} = 0.7$ were found to be -0.2932897 s$^{-1}$ and 0.0375543 s$^{-1}$, respectively. The RQFP method eigenvalues matched the GFM-calculated alpha-eigenvalues within tolerance (Table~\ref{table:FiveRegionCases}).
+
+For leftmost fuel pin width of one mean free path, the $k$-effective eigenvalue of the five region fuel-pin-like was determined to be $0.42428$ and $0.98998$ for the $\nu \sigma_{f} = 0.3$ and $\nu \sigma_{f} = 0.7$ cases, respectively. For the $\nu \sigma_{f} = 0.3$ fuel pin, the RQFP method required 29 transport sweeps while the power method with fission norm update required 22 transport sweeps. For the $\nu \sigma_{f} = 0.7$ fuel pin, the RQFP method required 28 transport sweeps while the power method with fission norm update required 21 transport sweeps. For leftmost fuel pin width of 1.1 mean free paths, the $k$-effective was determined to be $0.45554$ and $1.06316$, respectively, for  $\nu \sigma_{f} = 0.3$ and $\nu \sigma_{f} = 0.7$. For the $\nu \sigma_{f} = 0.3$ fuel pin, the RQFP method required 514 transport sweeps while the power method with fission norm update required 355 transport sweeps. For the $\nu \sigma_{f} = 0.7$ fuel pin, the RQFP method required 513 transport sweeps while the power method with fission norm update required 355 transport sweeps.
 
 \begin{figure}[h]
 	\centering
@@ -421,16 +438,39 @@ A five region fuel pin like domain was modeled and the alpha-eigenvalues compare
 	\label{fig:FiveRegionProblem}
 \end{figure}
 
+\begin{table*}[!htbp]
+\centering\ra{1.3}
+\caption{Comparison of RQFP- and GFM-calculated alpha-eigenvalues for a homogeneous scattering multiplying slab}
+\label{table:FiveRegionCases}
+\begin{tabular}{@{}cccc@{}}\toprule
+& \multicolumn{3}{c}{Alpha-Eigenvalue} \\
+\cmidrule{3-4} $\Delta$ & $\nu \sigma_{f}$ & RQFP & GFM  \\
+\midrule
+%$\Delta$\\
+1 & 0.3 & $-3.196537 \times 10^{-1}$ & $-3.196537 \times 10^{-2}$  \\ 
+1 & 0.7 & $-6.156369 \times 10^{-2}$ & $-6.156369 \times 10^{-2}$  \\ 
+1.1 & 0.3 & $-2.932897 \times 10^{-1}$ & $-2.93247 \times 10^{-1}$  \\ 
+1.1 & 0.7 & $3.75543 \times 10^{-2}$ & $3.759991 \times 10^{-2}$  \\ 
+\bottomrule
+\multicolumn{4}{l}{$M = 1000$, $L = 64$, Tolerance = $10^{-12}$} \\
+\end{tabular}
+\end{table*}
+
+
 \begin{figure}[h]
 	\centering
 	\resizebox{0.5\textwidth}{!}{
 	\input{Figures/SlabEigenvalue/FiveRegionScalarFlux.tex}
 	}
-	\caption{Scalar Flux Results for Five-Region Multiplying Slab-Two Cases}
+	\caption{Case One and Two Scalar Flux Results for Five-Region Multiplying Slab-Two Cases}
 	\label{fig:FiveRegionMultiply}
 \end{figure}
 
+\section{Multigroup Verification for Slab Geometry}
+
 \section{One-Speed Verification for Spherical Geometry}
+
+In certain circumstances, alpha-eigenvalue results for slab geometry also apply to spherical geometry problems. This slab-sphere equivalence holds for isotropically scattering heterogeneous media where the total cross section is equal for all regions \cite{davison1957neutron}. More generally, a convenient property of spherically symmetric systems is that if the mean free path in the system is independent of position and scattering is isotropic, then the determination of the spherically symmetric neutron distribution of these systems is reduced to the determination of these distributions in certain systems with plane symmetries. Thus, for all homogeneous slab and symmetric heterogeneous slab systems where each region has the same total cross section, it follows that there exists a spherical equivalent for the problems studied in the previous sections. Specifically, it can be shown that the second eigenvalue of a slab system is identical to the fundamental eigenvalue for the equivalent sphere. In this section, we examine the performance of the RQFP method for one-dimensional spherical problems which are equivalent to the slab problems from before. We verify the correctness of the method for this subset of problems and compare its performance to the critical search and power methods.
 
 \subsection{Non-Multiplying Homogeneous Spheres}
 
@@ -497,7 +537,35 @@ A five region fuel pin like domain was modeled and the alpha-eigenvalues compare
 \end{tabular}
 \end{table*}
 
-\section{Multigroup Verification}
+\begin{table*}[t]
+\centering\ra{1.3}
+\caption{$k$-Effective Eigenvalue: Comparison of RQFP and Power Method with Fission Norm Sweeps for Homogeneous Multiplying Spheres}
+\label{table:CompMultSweepSpheresK}
+\begin{tabular}{@{}cccccc@{}}\toprule
+& \multicolumn{2}{c}{Transport Sweeps} & & \multicolumn{2}{c}{Transport Sweeps} \\
+\cmidrule{2-3} \cmidrule{5-6} $\Delta$ & RQFP & Power Method \quad &  \Delta & RQFP & Power Method\\
+\midrule
+%$\Delta$\\
+3 & 49 & 43 & 10 & 127 & 62 \\ 
+4 & 57 & 47 & 15 & 214 & 79 \\
+5 & 66 & 49 & 20 & 329 & 103 \\
+6 & 76 & 52 & 30 & 636 & 167 \\ 
+7 & 87 & 54 & 40 & 1049 & 253 \\ 
+8 & 99 & 56 & 50 & 1562 & 360 \\ 
+9 & 113 & 59 &  &  &  \\ 
+\bottomrule
+\multicolumn{6}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
+\end{tabular}
+\end{table*}
+
+\begin{figure}[h]
+	\centering
+	\input{Figures/SlabEigenvalue/SphereFuelPinEquiv.tex}
+	\caption{Five Region Fuel Pin Spherical Equivalent \cite{kornreich_timeeigenvalue_2005}}
+	\label{fig:FiveRegionSphereProblem}
+\end{figure}
+
+\section{Multigroup Verification for Spherical Geometry}
 
 \section{Conclusion}
 
