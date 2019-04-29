@@ -1,4 +1,5 @@
 \chapter{Discretization and Primitivity of the Neutron Transport Criticality Eigenvalue Problems}
+\label{Discrete}
 
 In this section we describe the discretization of the neutron transport criticality eigenvalue equations for three-dimensional Cartesian geometry. The discretization follows a similar approach to that of \cite{brown_linear_1995} \cite{brown_POI_2008} \cite{brown_POI_2012}. First, we derive semi-discretized forms of the eigenvalue equations by applying the \textit{multigroup} in energy approximation and a spherical harmonics expansion for the scattering integral. We then discretize the spatial and angular variables using step differencing and the discrete ordinates approach. Finally, we write down the discretized matrix forms of the criticality eigenvalue equations for three-dimensional Cartesian geometry. For the one-dimensional slab geometry discretized alpha-eigenvalue problem, we show by example the fixed point matrix is primitive. A similar result can be shown for the two-dimensional and three-dimensional Cartesian discretized eigenvalue equations.
 
@@ -34,7 +35,7 @@ We begin by discretizing Eq.~\ref{eq:Alpha3DNeutronTransport} in energy using th
 \begin{equation*}
 	E_{max} = E_{0} > E_{1} > \dots > E_{G} = E_{min}.
 \end{equation*}
-The eigenvalue equation is then averaged over each group $E_{g} < E < E_{g-1}$ and the cross sections are approximated by a flux-weighted average over each energy group to yield the following semi-discretization of Eq.~\ref{eq:Alpha3DNeutronTransport}:
+The eigenvalue equation is then integrated over each group $E_{g} < E < E_{g-1}$ and the cross sections are approximated by a flux-weighted average over each energy group to yield the following semi-discretization of Eq.~\ref{eq:Alpha3DNeutronTransport}:
 \begin{multline}
 	\bigg [ \frac{\alpha}{v_{g}} + \hat{\Omega} \cdot \nabla + \sigma_{g}(\vec{r}) \bigg ] \psi_{g}(\vec{r},\hat{\Omega}) = \sum_{g'=1}^{G} \int_{4\pi} \diff \hat{\Omega} \, \sigma_{s,g,g'}(\vec{r},\hat{\Omega}' \cdot \hat{\Omega}) \psi_{g'}(\vec{r},\hat{\Omega}') \\ + \chi_{g} \sum_{g'=1}^{G} \, \nu_{g'} \sigma_{f,g'}(\vec{r}) \int_{4\pi} \diff \hat{\Omega}' \, \psi_{g'}(\vec{r},\hat{\Omega}'), 
 	\label{eq:Alpha3DMG}
@@ -71,9 +72,9 @@ and $P_{n}^{\abs{m}}$ is an \textit{associated Legendre polynomial}. The constan
 \begin{equation}
 	a_{n}^{m} = \bigg [ \frac{2(2n+1)(n-\abs{m})!}{(1+\delta_{m0})(n + \abs{m})!} \bigg ]^{1/2}.
 \end{equation}
-where $\delta_{n,n'}$ is the \textit{Kronecker delta}. The $(n,m)^{\text{th}}$ moment of $\psi(\vec{r}, \hat{\Omega})$, $\phi_{n}^{m}$ is given by
+where $\delta_{n,n'}$ is the \textit{Kronecker delta}. The $(n,m)^{\text{th}}$ moment of $\psi(\vec{r}, \hat{\Omega})$, $\phi_{n,m}$ is given by
 \begin{equation}
-	\phi_{n}^{m}(\vec{r}) = \int_{4\pi} \diff \hat{\Omega} \, \psi(\vec{r},\hat{\Omega}) Y_{n}^{m}(\hat{\Omega}).
+	\phi_{n,m}(\vec{r}) = \int_{4\pi} \diff \hat{\Omega} \, \psi(\vec{r},\hat{\Omega}) Y_{n}^{m}(\hat{\Omega}).
 \end{equation}
 From the properties of the surface harmonics, we have
 \begin{equation}
@@ -88,9 +89,9 @@ where
 \begin{equation}
 	\sigma_{s,g,g',n}(\vec{r}) \equiv \frac{1}{2} \int_{-1}^{1} \diff \mu_{0} \, \sigma_{s,g,g'}(\vec{r},\mu_{0}) P_{n}(\mu_{0}),
 \end{equation}
-and $\mu_{0}$ is the cosine of the scattering angle. The infinite series in Eq.~\ref{eq:ScattInt} is truncated to a finite number of terms $N_{s}$, where $N_{s}$ is the maximum value for $n$. The fission integral can be written similarly. The multigroup equations can then be written as
+and $\mu_{0}$ is the cosine of the scattering angle. The infinite series in Eq.~\ref{eq:ScattInt} is truncated to a finite number of terms $N_{s}$, where $N_{s}$ is the maximum value for $n$. The fission integral can be written similarly with the infinite series truncated after $N_{f}$ terms. The multigroup equations can then be written as
 \begin{multline}
-	\bigg [ \frac{\alpha}{v_{g}} + \hat{\Omega} \cdot \nabla + \sigma_{g}(\vec{r}) \bigg ] \psi_{g}(\vec{r},\hat{\Omega}) = \sum_{g'=1}^{G} \sum_{n=0}^{N_{s}} \sigma_{s,g,g',n}(\vec{r}) \sum_{m=-n}^{n} \phi_{g',n,m}(\vec{r}) Y_{n}^{m}(\hat{\Omega}) \\ + \chi_{g} \sum_{g'=1}^{G} \sum_{n=0}^{N_{s}} \nu_{g'} \sigma_{f,g',n}(\vec{r}) \sum_{m=-n}^{n} \phi_{g',n,m}(\vec{r}) Y_{n}^{m}(\hat{\Omega}), 
+	\bigg [ \frac{\alpha}{v_{g}} + \hat{\Omega} \cdot \nabla + \sigma_{g}(\vec{r}) \bigg ] \psi_{g}(\vec{r},\hat{\Omega}) = \sum_{g'=1}^{G} \sum_{n=0}^{N_{s}} \sigma_{s,g,g',n}(\vec{r}) \sum_{m=-n}^{n} \phi_{g',n,m}(\vec{r}) Y_{n}^{m}(\hat{\Omega}) \\ + \chi_{g} \sum_{g'=1}^{G} \sum_{n=0}^{N_{f}} \nu_{g'} \sigma_{f,g',n}(\vec{r}) \sum_{m=-n}^{n} \phi_{g',n,m}(\vec{r}) Y_{n}^{m}(\hat{\Omega}), 
 	\label{eq:Alpha3DMGSPH}
 \end{multline}
 for $g = 1, \dots, G$.
@@ -228,7 +229,7 @@ where we define $E_{000}$ as
 				(0,I_{K}) \otimes (0,I_{J}) \otimes e_{0M}^{T}
 			\end{pmatrix},
 \end{equation}
-where the vectors $e_{0J}$ and $e_{0K}$ are unit vectors. There are different $E$ matrices for other directions. For three-dimensional Cartesian geometry, there are eight different matrices, $E_{ijk}$, corresponding to boundary points $i=0,M$, $j=0,L$, and $k = 0,K$.
+where the vectors $e_{0J}$ and $e_{0K}$ are the standard unit vectors. There are different $E$ matrices for other directions. For three-dimensional Cartesian geometry, there are eight different matrices, $E_{ijk}$, corresponding to boundary points $i=0,M$, $j=0,L$, and $k = 0,K$.
 
 Equation~\ref{eq:Disc} is the discretized equation for quadrature point $\hat{\Omega}$ and energy group $g$. We generalize for multiple quadrature points and energy groups by introducing the indices $\ell$ and $g$, where $\ell$ is the index of quadrature point $\hat{\Omega} = \hat{\Omega}_{\ell}$ and $g$ is the energy group index.The vectors $\Psi$ and $\Psi_{B}$ and matrix $C$ of Eq.~\ref{eq:Disc} become $\Psi_{g,\ell}$, $\Psi_{B,g,\ell}$, and $C_{\ell}$.
 
@@ -289,9 +290,9 @@ since
 \begin{equation}
 \quad \int_{4\pi} \diff \hat{\Omega} \, = 1.
 \end{equation}
-The symmetry requirement is met using symmetry through the origin. Namely, if $\hat{\Omega}_{\ell}$ is a quadrature point with corresponding weight, $w_{\ell}$, then $-\hat{\Omega}_{\ell}$ is also a quadrature point. Letting $\ell^{-}$ denote the index, we can write $\hat{\Omega}_{-\ell} = -\hat{\Omega}_{\ell}$. It is also true that $w_{-\ell} = w_{\ell}$ \cite{carlson1965transport}.
+The symmetry requirement is met using symmetry through the origin. Namely, if $\hat{\Omega}_{\ell}$ is a quadrature point with corresponding weight, $w_{\ell}$, then $-\hat{\Omega}_{\ell}$ is also a quadrature point. Letting $\ell^{-}$ denote the index, we can write $\hat{\Omega}_{\ell^{-}} = -\hat{\Omega}_{\ell}$. It is also true that $w_{-\ell} = w_{\ell}$ \cite{carlson1965transport}.
 
-We define discretized representations of angular flux moment operators in Eq.~\ref{eq:ContG}. These operators operate on zone-centered vectors and are easily seen to be given by $MJK \times LMJK$ size matrices
+We define discretized representations of the angular flux moment operators in Eq.~\ref{eq:ContG}. These operators operate on zone-centered vectors and are easily seen to be given by $MJK \times LMJK$ size matrices
 \begin{equation}
 	L_{n,m} \equiv (l_{n,m}W) \otimes I_{MJK},
 \end{equation}
@@ -563,7 +564,7 @@ We consider Eqns.~\ref{eq:AlphaZ} and \ref{eq:kZ} in the derivation of the Rayle
 
 \section{Primitivity of the Discretized Eigenvalue Equations}
 
-Assuming isotropic fission and scattering, we show by example that the matrix $\mathbf{A}(\alpha)$ is a primitive matrix. A primitive matrix is a matrix $\mathbf{B} \geq 0$ for which there exists some $n$ such that $\mathbf{B}^{n} > 0$ \cite{horn_matrix_2012}.  Consider a two energy group problem with discrete ordinates $S_{2}$ angular quadrature from \cite{lewis_computational_1984} and two spatial cells ($G, L, M = 2$). The scattering matrix is then
+Assuming isotropic fission and scattering, we show by example that the matrix $\mathbf{A}(\alpha)$ is a primitive matrix (Section~\ref{PrimMatrix}). Consider a two energy group problem with discrete ordinates $S_{2}$ angular quadrature from \cite{lewis_computational_1984} and two spatial cells ($G, L, M = 2$). The scattering matrix is then
 \begin{multline}
 	\mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} = \begin{pmatrix}
 											L^{0,+} & 0 \\
@@ -668,7 +669,7 @@ Therefore, the matrix $\mathbf{H_{z}^{-1}} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \
 		\UTx & \UTx & \UTx & \UTx
 	\end{pmatrix},
 \end{equation}
-where $I_{L}$ is the identity matrix of size $L$. It follows that each block of the matrix $(\mathbf{H_{z}^{-1}}\mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L})^{2}$ is
+where $x > 0$ represents a positive entry, and where $I_{L}$ is the identity matrix of size $L$. It follows that each block of the matrix $(\mathbf{H_{z}^{-1}}\mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L})^{2}$ is
 \begin{equation}
 	\begin{pmatrix}
 		x & 0 \\ x & x
@@ -683,6 +684,6 @@ where $I_{L}$ is the identity matrix of size $L$. It follows that each block of 
 	\chi_{1} \nu\sigma_{f,1} & \chi_{1}\nu\sigma_{f,2} \\ \chi_{2}\nu\sigma_{f,1} & \chi_{2}\nu\sigma_{f,2}
 	\end{pmatrix} > 0
 \end{equation}
-and $\mathbf{H_{z}^{-1}} \geq 0$. Therefore, $\mathbf{H_{z}^{-1}} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ is primitive and it follows that $\mathbf{A}(\alpha)$ is primitive since $\mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} \geq 0$. When the system is subcritical, $\alpha < 0$ and the matrix $\mathbf{A}(\alpha)$ is primitive. For supercritical systems, $\alpha > 0$ and there is an upper limit $\alpha_{\text{max}}$ such that the matrix $\mathbf{A}(\alpha)$ remains primitive. For $k$-effective eigenvalue problems, $k$ is always positive and therefore the matrix $\mathbf{T}(k)$ is primitive.
+and $\mathbf{H_{z}^{-1}} \geq 0$. Therefore, $\mathbf{H_{z}^{-1}} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ is primitive and it follows that $\mathbf{A}(\alpha)$ is primitive since $\mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} \geq 0$ for isotropic scattering. For anisotropic scattering, as long as $\mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} \geq 0$, the previous fact remains valid. When the system is subcritical, $\alpha < 0$ and the matrix $\mathbf{A}(\alpha)$ is primitive. For supercritical systems, $\alpha > 0$ and there is an upper limit $\alpha_{\text{max}}$ such that the matrix $\mathbf{A}(\alpha)$ remains primitive. For $k$-effective eigenvalue problems, $k$ is always positive and therefore the matrix $\mathbf{T}(k)$ is primitive.
 %There are other eigenvalue problems useful for various applications \cite{ronen_comparison_1976}, however 
 

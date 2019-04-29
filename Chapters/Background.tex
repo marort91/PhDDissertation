@@ -320,7 +320,7 @@ In this section we describe various numerical methods use to determine the alpha
 	\bigg [ \frac{\alpha^{\ell}}{v(E)}  + \hat{\Omega} \cdot \nabla + \sigma(\vec{r},E) \bigg ] \psi(\vec{r},\hat{\Omega},E,t) \\ = \int \diff E' \, \int \diff \hat{\Omega} \, \sigma_{s}(\vec{r},E'\rightarrow E,\hat{\Omega}' \cdot \hat{\Omega}) \psi(\vec{r},\hat{\Omega}',E',t) \\ + \frac{1}{k^{\ell}}\int \diff E' \, \nu(E') \chi(E'\rightarrow E) \sigma_{f}(\vec{r},E') \int \diff \hat{\Omega}' \, \psi(\vec{r},\hat{\Omega}',E',t). 
 	\label{eq:CritSearch}
 \end{multline}
-The critical search method is described in Algorithm~\ref{algo:critsearch}. Using various guessed values for the alpha-eigenvalue, intermediate $k$-effective eigenvalue calculations are done. The true alpha-eigenvalue is then found by extrapolation using the ($\alpha$, $k$) pairs to find the alpha-eigenvalue such that the system is exactly critical. This extrapolation might require multiple iterations to bracket the eigenvalue. In this method, the alpha-eigenvalue introduces artificial absorption into the problem. For sufficiently subcritical systems, negative absorption is possible, potentially causing solution methods to diverge \cite{hill_efficient_1983}. For systems close to critical, many interpolations/extrapolations of alpha-eigenvalue iterates are required and the critical search method might become unacceptably slow. In addition, for systems close to critical, the intermediate $k$-effective calculation converge might become slow, increasing the cost of the method in the intermediate stage. The question of how converged the $k$-effective eigenvalue calculations remains open. For an eigenvalue that is not sufficiently converged the alpha-eigenvalue convergence could potentially be slowed down. For an eigenvalue that is too tightly converged, iterations are wasted and the method becomes inefficient.
+The critical search method is described in Algorithm~\ref{algo:critsearch}. Using various guessed values for the alpha-eigenvalue, intermediate $k$-effective eigenvalue calculations are done. The true alpha-eigenvalue is then found by extrapolation using the ($\alpha$, $k$) pairs to find the alpha-eigenvalue such that the system is exactly critical. This extrapolation might require multiple iterations to bracket the eigenvalue. In this method, the alpha-eigenvalue introduces artificial absorption into the problem. For sufficiently subcritical systems, negative absorption is possible, potentially causing solution methods to diverge \cite{hill_efficient_1983}. For systems close to critical, many interpolations/extrapolations of alpha-eigenvalue iterates are required and the critical search method might become unacceptably slow. In addition, for systems close to critical, the intermediate $k$-effective calculation converge might become slow, increasing the cost of the method in the intermediate stage. The question of how converged the $k$-effective eigenvalue calculations must be remains open. For an eigenvalue that is not sufficiently converged the alpha-eigenvalue convergence could potentially be slowed down. For an eigenvalue that is too tightly converged, iterations are wasted and the method becomes inefficient.
 
 \begin{algorithm}[H]
 				\caption{Critical Search Method \cite{hill_efficient_1983}}
@@ -417,7 +417,7 @@ We define the operator form of Eq.~\ref{eq:kEigEqn} as
 \mathcal{H} \psi = \bigg ( \mathcal{S} + \frac{1}{k}\mathcal{F} \bigg ) \psi.
 \label{eq:OpFormk}
 \end{equation}
-There exists a spectrum of eigenvalues but the only the positive eigenvector corresponds to the largest real eigenvalue, $k$. The $k$-eigenvalue exists for any system containing fissile material and corresponding to the eigenvalue is a non-negative eigenvector. For a system containing no fissile material, the $k$-eigenvalue is zero. The criticality of a system can be defined by the value of $k$:
+There exists a spectrum of eigenvalues but only the positive eigenvector corresponds to the largest real eigenvalue, $k$. The $k$-eigenvalue exists for any system containing fissile material and corresponding to the eigenvalue is a non-negative eigenvector. For a system containing no fissile material, the $k$-eigenvalue is undefined. The criticality of a system can be defined by the value of $k$:
 	$$ k \begin{cases}						  			  			 > 1, \quad \text{supercritical,} \\			 			 			= 1, \quad \text{critical,} \\
 					 < 1, \quad \text{subcritical.} 				       \end{cases} $$
 
@@ -463,7 +463,7 @@ There are various ways to compute the eigenvalue iterate. One simple estimate of
 \begin{equation}
 k^{(i+1)} = k^{(i)} \frac{ \norm{\psi^{(i+1)}}}{\norm{\psi^{(i)}}},
 \end{equation}
-where $\norm{\psi}$ is some discrete norm taken over the problem domain. In many implementations the norm takes into account only the isotropic scalar flux component as this is usually the required unknown \cite{warsa_krylov_2004}. However, there is no mathematical justification for this norm and any consistent norm can be used. Traditionally, in neutron transport codes, the eigenvalue is estimated using the total fission rate in the problem \cite{warsa_krylov_2004} which is given by 
+where $\norm{\psi}$ is some discrete norm taken over the problem domain. However, only a normalization is necessary and a norm is not required. In many implementations the norm takes into account only the isotropic scalar flux component as this is usually the required unknown \cite{warsa_krylov_2004}. However, there is no mathematical justification for this norm and any consistent norm can be used. Traditionally, in neutron transport codes, the eigenvalue is estimated using the total fission rate in the problem \cite{warsa_krylov_2004} which is given by 
 \begin{equation}
 	\norm{\phi} \equiv \norm{\phi}_{F} = \sum_{g=1}^{G} \sum_{s \in \mathcal{D}} \nu \sigma_{f,g,s} \phi_{0,g,s}
 \end{equation}
@@ -534,9 +534,14 @@ A matrix $\mathbf{A}$ that is not \textit{reducible} is said to be \textit{irred
 \end{definition}
 
 \subsection{Primitive and Cyclic Matrices}
+\label{PrimMatrix}
 			
 \begin{definition}
 Let $\mathbf{A} \ge \mathbf{0}$ be an irreducible $n \times n$ matrix, and let $k$ be the number of eigenvalues of $\mathbf{A}$ with modulus $\rho(\mathbf{A})$. If $k = 1$, then $\mathbf{A}$ is \textit{primitive}.
+\end{definition}
+
+\begin{definition}
+Let $\mathbf{A} \ge \mathbf{0}$, $\mathbf{A}$ is \textit{primitive} if there is some $n$ such that $\mathbf{A}^{n} \mathbf{0}$ \cite{horn_matrix_2012}.
 \end{definition}
 
 		%\begin{block}{Definition - \textit{Primitivity}}
@@ -619,7 +624,7 @@ Next, we define an \textit{attractive fixed point} of a function $g(x)$:
 \begin{definition}
 A point $x_{0}$ is an attractive fixed point of $g(x)$ if for any value of $x$ in the domain that is sufficiently close to $x_{0}$, the iterated function sequence
 \begin{equation}
-	x, f(x), f(f(x)), f(f(f(x))), \dots
+	x, g(x), g(g(x)), g(g(g(x))), \dots
 \end{equation}
 converges to $x_{0}$.
 \end{definition}
@@ -643,10 +648,10 @@ The convergence of this fixed point iteration method depends on the existence an
 We note the following:
 	\begin{itemize}
 		\item $g \in C[a,b] - g$ is continuous in $[a,b]$.
-		\item $g(x) \in C[a,b] - g$ takes values in $[a,b]$.
+		\item $g(x) \in [a,b] - g$ takes values in $[a,b]$.
 	\end{itemize}
 	\begin{enumerate}
-		\item Existence: If $g(a) = a$ or $g(b) = b$, then $g$ has a fixed point at that endpoint. Otherwise, $g(a) > a$ and $g(b) < b$. We define a new function $h(x) = g(x) - x$ such that $h(a) = g(a) - a > 0$, $h(b) = g(b) - b < 0$, and $h(x)$ is continuous. By the intermediate value theorem, there exists $p \in (a,b)$ for which $h(p) = p$ which implies $g(p) = p$.
+		\item Existence: If $g(a) = a$ or $g(b) = b$, then $g$ has a fixed point at that endpoint. Otherwise, $g(a) > a$ and $g(b) < b$. We define a new function $h(x) = g(x) - x$ such that $h(a) = g(a) - a > 0$, $h(b) = g(b) - b < 0$, and $h(x)$ is continuous. By the intermediate value theorem, there exists $p \in (a,b)$ for which $h(p) = 0$ which implies $g(p) = p$.
 		\item Uniqueness: Assume $\abs{g'(x)} \leq k < 1$. Suppose there are two fixed points $p$ and $q$. By the mean value theorem, there is a number $\xi$ between $p$ and $q$ such that
 			\begin{equation}
 				g'(\xi) = \frac{g(p) - g(q)}{p-q}.
@@ -663,4 +668,4 @@ The previous concepts extend to vector valued functions. Given a vector valued f
 \begin{equation}
 	x_{n+1} = F(x_{n})
 \end{equation}
-converges to the fixed point $x_{*}$ if $\rho(J(x_{*})) < 1$ where $J(x_{*})$ is the Jacobian of the vector valued function $F$ evaluated at the fixed point $x_{*}$ \cite{ostrowski_solution_2016}. 
+converges to the fixed point $x_{*}$ if $\rho(J(x_{*})) < 1$, where $J(x_{*})$ is the Jacobian of the vector valued function $F$ evaluated at the fixed point $x_{*}$ \cite{ostrowski_solution_2016}, for a close enough initial guess $x_{0}$. 

@@ -121,23 +121,35 @@ For the supercritical one-speed criticality benchmark problems, the alpha-eigenv
 
 \begin{figure}[!htbp]
 	\centering
-	\resizebox{!}{0.45\textheight}{
-		\input{alphainf.tex}
+	\begin{subfigure}[!htbp]{0.5\textheight}
+		\centering
+		\resizebox{!}{0.45\textheight}{
+		\input{Figures/InfiniteMediumEigenvalues/alphainf.tex}
 	}
-	\caption{Convergence of Rayleigh Quotient Fixed Point and Critical Search Methods for Plutonium Infinite Medium Problem}
+	\caption{Convergence of Rayleigh Quotient Fixed Point and Critical Search Methods for PUa Cross Section Set}
 	\label{fig:AlphaInfConv}
+	\end{subfigure}
+	\begin{subfigure}[!htbp]{0.5\textheight}
+	\centering
+	\resizebox{!}{0.45\textheight}{
+		\input{Figures/InfiniteMediumEigenvalues/kinfPu.tex}
+	}
+	\caption{Eigenvector Residual as a Function of Transport Sweeps for Two Infinite Medium $k$-Effective Eigenvalue Problems}
+	\label{fig:kRes}
+	\end{subfigure}
+	\caption{Convergence Behavior for the Rayleigh Quotient Fixed Point Methods for Selected Infinite Medium Problems}
 \end{figure}
 
 The RQFP for the $k$-effective eigenvalue reduces the number of sweeps by a factor of three (Table~\ref{table:CompInfSweepsK}) as compared to the power method with the fission source norm update. In these particular problems, all cells contain fissile material and the angular flux is exactly equal to the fission source to some constant. The rapid convergence of the angular flux by the Rayleigh quotient fixed point method as compared to the power method with fission source norm update results in a substantial reduction in the number of transport sweeps necessary to converge the eigenvector/eigenvalue. While the convergence of the method is linear, it appears in practice to have a lower asymptotic constant coefficient than the power method as seen in Figure \ref{fig:kRes}.
 
-\begin{figure}[!htbp]
-	\centering
-	\resizebox{!}{0.45\textheight}{
-		\input{kinfPu.tex}
-	}
-	\caption{Eigenvector Residual as a Function of Sweeps for Two Infinite Medium $k$-Effective Eigenvalue Problems}
-	\label{fig:kRes}
-\end{figure}
+%\begin{figure}[!htbp]
+%	\centering
+%	\resizebox{!}{0.45\textheight}{
+%		\input{kinfPu.tex}
+%	}
+%	\caption{Eigenvector Residual as a Function of Sweeps for Two Infinite Medium $k$-Effective Eigenvalue Problems}
+%	\label{fig:kRes}
+%\end{figure}
 
 %\begin{table}[!htb]
 %    \caption{Sweep Comparisons for Infinite Medium Problems in \cite{sood2003analytical}}
@@ -397,9 +409,9 @@ Both the $k$-effective eigenvalue Rayleigh quotient fixed point method and the p
 
 \textbf{Problem 5.2.2.2}: We consider a problem similar to Problem 5.2.1.1 where the energy group velocities are group-dependent. The velocity of each group is given by $v_{g} = 82 - g$ and the cross sections are the same as Problem 5.2.1.1 (Table~\ref{table:G81v}). The $k$-effective eigenvalue remains 1.11663 as only the velocity terms have been modified. The problem no longer has an analytical expression for the alpha-eigenvalue spectrum. The dominant alpha-eigenvalue is found to be $2.2464$ s$^{-1}$ from numerical eigenvalue solvers. With the change in the velocity, the alpha-eigenvalue spectrum eigenvalues are no longer on a circle (Figure~\ref{fig:G81VSpec}). Instead, the eigenvalues are along elliptical shapes with very negative real eigenvalues now existing. We also note that there are complex eigenvalues whose real parts are larger than zero, a phenomenon unexpected for alpha-eigenvalue problems where only the dominant eigenvalue has real part larger than zero for supercritical systems.
 
-Similar to Problem 5.2.2.1, the alpha-eigenvalue Rayleigh quotient method does not converge for this method. The spectral radius of the Jacobian matrix for the fixed point formulation evaluated at the fixed point is found to be larger than one, implying the method will not converge for this problem. The critical search method is able to converge the alpha-eigenvalue. However, it requires a large number of iterations (Table~\ref{table:G81b}).
+Similar to Problem 5.2.2.1, the alpha-eigenvalue Rayleigh quotient method does not converge for this method. The spectral radius of the Jacobian matrix for the fixed point formulation evaluated at the fixed point is found to be larger than one, implying the method will not converge for this problem. The critical search method is able to converge the alpha-eigenvalue. However, it requires a large number of iterations (Table~\ref{table:AlphaProb5222}).
 
-Also similar to Problem 5.2.2.1, both the Rayleigh quotient fixed point method and power method were able to converge the $k$-effective eigenvalue. This is expected as the only change from Problem 5.2.2.1 was in the group velocities which do not matter in the $k$-effective eigenvalue problem. The number of transport sweeps required to converge the problem did not change.
+Also similar to Problem 5.2.2.1, both the Rayleigh quotient fixed point method and power method were able to converge the $k$-effective eigenvalue. This is expected as the only change from Problem 5.2.2.1 was in the group velocities which do not matter in the $k$-effective eigenvalue problem. The number of transport sweeps required to converge the problem did not change (Table~\ref{table:kProb5222}).
 
 \begin{table}[!htbp]
     \centering
@@ -425,30 +437,60 @@ Also similar to Problem 5.2.2.1, both the Rayleigh quotient fixed point method a
 \end{figure}
 
 \begin{table}[!htbp]
-    \centering
-    \caption{Transport Sweeps for Convergence for Problem 5.2.2.2}
-\label{table:G81b}
-    \scalebox{1.00}{
-    \begin{tabular}{*4c}
-        \toprule
-        \multicolumn{4}{c}{Transport Sweeps} \\
-        \cmidrule(lr){1-4}
-        $k$RQ & $k$PM & $\alpha$RQ & $\alpha$CS \\
-        \midrule
-	6701 & 6707 & * & 50773 \\
-        \bottomrule
-        \multicolumn{2}{c}{*Did Not Converge}
-    \end{tabular}
-    }
+	\caption{Transport Sweep Comparisons for Problem 5.2.2.2}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccc@{}}\toprule
+	& \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{2-3} $\alpha$  (s$^{-1}) $& RQFP & Critical Search \\
+	\midrule
+	2.2464 & * & 50773 \\
+	\bottomrule
+	\multicolumn{3}{l}{*Did Not Converge}
+	\end{tabular}
+	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Sweeps}
+	\label{table:AlphaProb5222}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccc@{}}\toprule
+	& \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{2-3} $k_{\text{eff}}$ & RQFP & Power Method \\
+	\midrule
+	1.11663 & 6701 & 6707 \\
+	\bottomrule
+	\end{tabular}
+	\caption{$k$-Effective: Comparison of RQFP and Critical Search Sweeps}
+	\label{table:kProb5222}
+	\end{subtable}%
 \end{table}
+
+%\begin{table}[!htbp]
+%    \centering
+%    \caption{Transport Sweeps for Convergence for Problem 5.2.2.2}
+%\label{table:G81b}
+%    \scalebox{1.00}{
+%    \begin{tabular}{*4c}
+%        \toprule
+%        \multicolumn{4}{c}{Transport Sweeps} \\
+%        \cmidrule(lr){1-4}
+%        $k$RQ & $k$PM & $\alpha$RQ & $\alpha$CS \\
+%        \midrule
+%	6701 & 6707 & * & 50773 \\
+%        \bottomrule
+%        \multicolumn{2}{c}{*Did Not Converge}
+%    \end{tabular}
+%    }
+%\end{table}
 
 \textbf{Problem 5.2.2.3}: We consider another problem similar to Problem 5.2.1.1 where we now allow downscattering from energy group $g \rightarrow g'$ over several energy groups with equal probability where $g + 1 \leq g' \leq g+5$. For the last five energy groups, the downscattering cross section is equally distributed among the remaining groups where $g+1 \leq g' \leq G$. The total scattering cross section remains unchanged. The $k$-effective eigenvalue is 1.8853 and the alpha-eigenvalue is $2.2914$ s$^{-1}$.
 
 The alpha-eigenvalue spectrum seen in Figure~\ref{fig:G81P3Spec} is significantly different to that of Problem 5.2.2.1. The spectrum contains more eigenvalues with large real negative parts. This is due to neutrons being able to downscatter quickly by skipping several energy groups.
 
-The alpha-eigenvalue Rayleigh quotient method was able to converge on the analytical alpha-eigenvalue. By allowing downscattering to more energy groups, the Jacobian of the fixed point method at the fixed point is now less than one, allowing the convergence of the method. In this particular problem, the alpha-eigenvalue Rayleigh quotient method vastly outperforms the critical search method. The critical search method requires 20 times the number of sweeps than the Rayleigh quotient fixed point method. This is caused by the need for multiple $k$-effective eigenvalue calculations to bracket the alpha-eigenvalue.
+The alpha-eigenvalue Rayleigh quotient method was able to converge on the analytical alpha-eigenvalue. By allowing downscattering to more energy groups, the Jacobian of the fixed point method at the fixed point is now less than one, allowing the convergence of the method. In this particular problem, the alpha-eigenvalue Rayleigh quotient method vastly outperforms the critical search method. The critical search method requires 20 times the number of sweeps than the Rayleigh quotient fixed point method (Table~\ref{table:AlphaProb5223}). This is caused by the need for multiple $k$-effective eigenvalue calculations to bracket the alpha-eigenvalue.
 
-Both the Rayleigh quotient fixed point and power method were able to converge the eigenvalue and eigenvector for the $k$-effective eigenvalue problem requiring a similar number of iterations. 
+Both the Rayleigh quotient fixed point and power method were able to converge the eigenvalue and eigenvector for the $k$-effective eigenvalue problem requiring a similar number of iterations (Table~\ref{table:kProb5223}). 
 
 \begin{figure}
 \centering
@@ -458,23 +500,53 @@ Both the Rayleigh quotient fixed point and power method were able to converge th
 \label{fig:G81P3Spec}
 \end{figure}
 
+%\begin{table}[!htbp]
+%    \centering
+%    \caption{Transport Sweeps for Convergence for Problem 5.2.2.3}
+%\label{table:G81c}
+%    \scalebox{1.00}{
+%    \begin{tabular}{*4c}
+%        \toprule
+%        \multicolumn{4}{c}{Transport Sweeps} \\
+%        \cmidrule(lr){1-4}
+%        $k$RQ & $k$PM & $\alpha$RQ & $\alpha$CS \\
+%        \midrule
+%	5306 & 5080 & 5516 & 105570 \\
+%        \bottomrule
+%        \multicolumn{2}{c}{*Did Not Converge}
+%    \end{tabular}
+%    }
+%\end{table}
+
 \begin{table}[!htbp]
-    \centering
-    \caption{Transport Sweeps for Convergence for Problem 5.2.2.3}
-\label{table:G81c}
-    \scalebox{1.00}{
-    \begin{tabular}{*4c}
-        \toprule
-        \multicolumn{4}{c}{Transport Sweeps} \\
-        \cmidrule(lr){1-4}
-        $k$RQ & $k$PM & $\alpha$RQ & $\alpha$CS \\
-        \midrule
-	5306 & 5080 & 5516 & 105570 \\
-        \bottomrule
-        \multicolumn{2}{c}{*Did Not Converge}
-    \end{tabular}
-    }
+	\caption{Transport Sweep Comparisons for Problem 5.2.2.3}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccc@{}}\toprule
+	& \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{2-3} $\alpha$  (s$^{-1}) $& RQFP & Critical Search \\
+	\midrule
+	2.2914 & 5516 & 105570 \\
+	\bottomrule
+	\end{tabular}
+	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Sweeps}
+	\label{table:AlphaProb5223}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccc@{}}\toprule
+	& \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{2-3} $k_{\text{eff}}$ & RQFP & Power Method \\
+	\midrule
+	1.8853 & 5306 & 5080 \\
+	\bottomrule
+	\end{tabular}
+	\caption{$k$-Effective: Comparison of RQFP and Critical Search Sweeps}
+	\label{table:kProb5223}
+	\end{subtable}%
 \end{table}
+
 
 \label{sec:Res}
 
