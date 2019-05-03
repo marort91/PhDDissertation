@@ -135,7 +135,7 @@ For the one-speed, purely-scattering, homogeneous slabs of thicknesses $\Delta =
 
 For the material cross sections shown in Table~\ref{table:Betzler2}, one-speed homogeneous multiplying slabs of thicknesses of thickness $\Delta = 1.0$ to $\Delta = 50.0$ mfp showed good agreement between RQFP and the GFM with the exception of thin slabs. For thin slabs of up to width $\Delta = 1.0$ mfp, percent relative error was substantial. This is caused by the difficulty of numerically determining the alpha-eigenvalues for thin slabs. If the slab is thin enough, the existence of an alpha-eigenvalue is not assured. As the slab thickness increase, agreement was substantially better (Table~\ref{table:CompHomogMult}). 
 
-For supercritical systems, the RQFP was compared to the critical search method (Table~\ref{table:CompMultSweeps}). The RQFP method substantially outperformed the critical search method in all cases. As the system became more supercritical, the number of transport sweeps necessary to converge increased for both methods. For the most supercritical slab ($\Delta = 50.0$ mfp), the number of sweeps necessary for the RQFP method to converge was less than the number of transport sweeps necessary for critical search to converge for the $\Delta = 4.0$ mfp case. Since the RQFP method requires no intermediate $k$-effective eigenvalue calculations, the method substantially reduced the number of transport sweeps necessary as there was no need to do multiple $k$-effective eigenvalue calculations to bracket the alpha-eigenvalue.
+The alpha-eigenvalue RQFP was compared to the critical search method (Table~\ref{table:CompMultSweeps}). The RQFP method substantially outperformed the critical search method in all cases and was able to converge subcritical alpha-eigenvalues that the critical search method could not determine. As the system became more supercritical, the number of transport sweeps necessary to converge increased for both methods. For the most supercritical slab ($\Delta = 50.0$ mfp), the number of sweeps necessary for the RQFP method to converge was less than the number of transport sweeps necessary for critical search to converge for the $\Delta = 4.0$ mfp case. Since the RQFP method requires no intermediate $k$-effective eigenvalue calculations, the method substantially reduced the number of transport sweeps necessary as there was no need to do multiple $k$-effective eigenvalue calculations to bracket the alpha-eigenvalue.
 
 For the one-speed homogeneous multiplying slabs of varying thickness, the $k$-effective eigenvalue RQFP method was compared to the power method with the fission norm update (Table~\ref{table:CompMultSweepsK}). It was seen that the number of transport sweeps for convergence increased as the $k$-effective eigenvalue increased. The RQFP method required far more sweeps than the power method, up to a factor of five. Underperformance of the RQFP method for these particular $k$-effective problems is believed to be caused by flattening of the fundamental angular flux mode. As the system thickness is increases, the flux profile is flattened but higher flux modes take longer to decay.
 
@@ -192,16 +192,16 @@ For the one-speed homogeneous multiplying slabs of varying thickness, the $k$-ef
 %	7 & 103 & 55242 & 30 & 1002 & 98087 \\ 
 %	8 & 122 & 63851 & 40 & 1682 & 106055 \\ 
 %	9 & 143 & 71181 & 50 & 2530 & 113189 \\
-	0.25 & x & * & 5 & 70 & 33036 \\
-	0.30 & x & * & 6 & 85 & 44655 \\
-	0.35 & x & * & 7 & 103 & 55242 \\
-	0.40 & x & * & 8 & 122 & 63851 \\
-	0.45 & x & * & 9 & 143 & 71181 \\
-	0.50 & x & * & 10 & 166 & 78002 \\
-	0.75 & x & * & 15 & 308 & 89627 \\
-	1 & x & * & 20 & 495 & 97267 \\
-	2 & x & * & 30 & 1002 & 98087 \\
-	3 & x & * & 40 & 1682 & 106055 \\ 
+	0.25 & 95 & * & 5 & 70 & 33036 \\
+	0.30 & 98 & * & 6 & 85 & 44655 \\
+	0.35 & 99 & * & 7 & 103 & 55242 \\
+	0.40 & 95 & * & 8 & 122 & 63851 \\
+	0.45 & 91 & * & 9 & 143 & 71181 \\
+	0.50 & 84 & * & 10 & 166 & 78002 \\
+	0.75 & 52 & * & 15 & 308 & 89627 \\
+	1 & 34 & * & 20 & 495 & 97267 \\
+	2 & 32 & * & 30 & 1002 & 98087 \\
+	3 & 43 & * & 40 & 1682 & 106055 \\ 
 	4 & 56 & 21044 & 50 & 2530 & 113189 \\
 	\bottomrule
 	\multicolumn{6}{l}{*Did Not Converge} \\
@@ -282,6 +282,75 @@ For the one-speed homogeneous multiplying slabs of varying thickness, the $k$-ef
 %\end{tabular}
 %\end{table*}
 %
+\clearpage
+\subsection{Multiplying Homogeneous Slabs with Anisotropic Scattering}
+
+Four one-group critical slab problems with anisotropic scattering were examined to demonstrate the performance of the Rayleigh quotient fixed point method. For each set of cross sections in Table~\ref{table:SoodPUAniso}, two distinct problems with P1 or P2 scattering were considered. In these problems, the higher order scattering cross sections are all positive, ensuring the non-negativity of the scattering matrix. All problems were exactly critical with the critical half-width, $r_{c}$, defined in Figure~\ref{fig:SlabCritWidth}, given in Table~\ref{table:SlabAniso}.
+
+For the alpha-eigenvalue problems, the RQFP-calculated alpha-eigenvalues are seen in Table~\ref{table:CompAnisoSweepAlpha}. All problems were slightly subcritical but within $10^{-5}$ of the actual alpha-eigenvalue of zero. The RQFP method took 22-26 transport sweeps to converge the eigenvector $L_{2}$ norm residual to $10^{-12}$ (Table~\ref{table:CompAnisoSweepAlpha}). Since the problems were too close to critical and slightly subcritical, the critical search method could not converge the problem.
+
+For $k$-effective eigenvalue problems, the RQFP-calculated eigenvalues are seen in Table~\ref{table:CompAnisoSweepk} The problems had a calculated $k$-effective eigenvalue slightly below the true eigenvalue of one. The RQFP method took 22-26 transport sweeps to converge the $L_{2}$ norm eigenvector residual to $10^{-12}$. The power method with the fission source update required 3-4 transport sweeps less than the RQFP method for all problems.
+
+\begin{figure}[!htbp]
+	\centering
+	\input{Figures/SlabEigenvalue/SlabCriticalWidth.tex}
+	\caption{Critical Width of Slab}
+	\label{fig:SlabCritWidth}
+\end{figure}
+
+\begin{table}[!htbp]
+	\caption{Plutonium Cross Sections with Anisotropic Scattering for Critical Slab Problems (cm$^{-1}$) \cite{sood2003analytical}}
+	\label{table:SoodPUAniso}
+	\centering\ra{1.3}
+    \begin{tabular}{*6c}
+        \toprule
+	Cross Section Set & $\sigma$ & $\nu \sigma_{f}$ & $\sigma_{s0}$  & $\sigma_{s1}$ & $v$ [cm/s] \\ 
+        \midrule
+	PUa & 0.32640 & 0.176256 & 0.248064 & 0.042432 & 1 \\
+	PUb & 0.32640 & 0.176256 & 0.248064 & 0.212160 & 1 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Critical Slab Problems with Anisotropic Scattering in \cite{sood2003analytical}}
+	\label{table:SlabAniso}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccccc@{}}\toprule
+	& & & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{4-5} Cross Section Set & $r_{c}$ [cm] & Calculated $\alpha$ [s$^{-1}$] & RQFP & Critical Search\\
+	\midrule
+	PUa-P1 Scattering & 0.77032 & $-3.50639 \times 10^{-5}$ & 24 & *\\
+	PUb-P1 Scattering & 0.76378 & $-6.16666 \times 10^{-5}$ & 26 & * \\
+	PUa-P2 Scattering & 0.79606 & $-5.29475 \times 10^{-5}$ & 24 & *\\
+	PUb-P2 Scattering & 0.78396 & $-2.72628 \times 10^{-5}$ & 22 & * \\
+	\bottomrule
+	\multicolumn{5}{l}{*Did Not Converge} \\
+	\end{tabular}
+	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
+	\label{table:CompAnisoSweepAlpha}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccccc@{}}\toprule
+	& & & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{4-5} Cross Section Set & $r_{c}$ [cm] & Calculated $k_{\text{eff}}$ & RQFP & Critical Search\\
+	\midrule
+	PUa-P1 Scattering & 0.77032 & 0.99995 & 25 & 22 \\
+	PUb-P1 Scattering & 0.76378 & 0.99991 & 26 & 24 \\
+	PUa-P2 Scattering & 0.79606 & 0.99993 & 22 & 18 \\
+	PUb-P2 Scattering & 0.78396 & 0.99996 & 24 & 21 \\
+	\bottomrule%	
+	\multicolumn{5}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
+	\end{tabular}
+	\caption{$k$-Effective: Comparison of RQFP and Power Method Transport Sweeps}
+	\label{table:CompAnisoSweepk}
+	\end{subtable}
+\end{table}
+
+
 \clearpage
 \subsection{Heterogeneous Slabs}
 
@@ -417,7 +486,7 @@ For the one-speed homogeneous multiplying slabs of varying thickness, the $k$-ef
 	\label{fig:GrainScalarFlux}
 \end{figure}
 
-\textbf{Problem 6.1.3.2-Multiplying Two Region Heterogeneous Slab}: For a supercritical two-region medium (Figure~\ref{fig:HeteroSlabMult}) consisting of two materials with cross sections given in Table~\ref{table:BetzlerHeteroMult}, the calculated alpha-eigenvalue and scalar flux were compared to the Green's Function Method. The calculated alpha-eigenvalue $\alpha = 0.142475$ s$^{-1}$ agreed with the GFM eigenvalue. The alpha-eigenvalue RQFP method required 50 iterations to converge the problems to a tolerance of $10^{-12}$. The critical search method required 22076 iterations, requiring multiple bracketing attempts. The multiple bracketing attempts were required since the system was close to critical. To verify the correctness of the RQFP alpha-eigenvalue scalar flux, the scalar flux was compared to the GFM scalar flux. The fluxes were found to be in agreement within tolerance (Figure~\ref{fig:TwoRegionMultiply}).
+\textbf{Problem 6.1.3.2-Multiplying Two Region Heterogeneous Slab}: For a supercritical two-region medium (Figure~\ref{fig:HeteroSlabMult}) consisting of two materials with cross sections given in Table~\ref{table:BetzlerHeteroMult}, the calculated alpha-eigenvalue and scalar flux were compared to the Green's Function Method. The calculated alpha-eigenvalue $\alpha = 0.142473$ s$^{-1}$ agreed with the GFM eigenvalue. The alpha-eigenvalue RQFP method required 48 iterations to converge the problems to a tolerance of $10^{-12}$. The critical search method required 22076 iterations, requiring multiple bracketing attempts. The multiple bracketing attempts were required since the system was close to critical. To verify the correctness of the RQFP alpha-eigenvalue scalar flux, the scalar flux was compared to the GFM scalar flux. The fluxes were found to be in agreement within tolerance (Figure~\ref{fig:TwoRegionMultiply}).
 
 The $k$-effective eigenvalue of the supercritical two-region medium was found to be $1.28656$. The RQFP method was found to require 46 transport sweeps to converge to a tolerance of $10^{-12}$. The power method with fission norm update required 36 transport sweeps.
 
@@ -440,7 +509,7 @@ The $k$-effective eigenvalue of the supercritical two-region medium was found to
 \clearpage
 \textbf{Problem 6.1.3.3-Multiplying Five Region Fuel-Pin}:
 
-A five region fuel-pin-like domain was modeled ($M=1000$ and $L=64$) and the alpha-eigenvalues compared to GFM for four cases. For case one and two, the fuel-pin domain consisted of five regions as seen in Figure~\ref{fig:FiveRegionProblem}, fuel, moderator, absorber, moderator, and fuel, with cross sections given in Table~\ref{table:BetzlerFive}. The leftmost fuel pin had a one mean free path width. For case one and two, the fuel fission cross section was set to $\nu \sigma_{f} = 0.3$ or $\nu \sigma_{f} = 0.7$. The alpha-eigenvalues were $\alpha = -0.3196537$ s$^{-1}$ and $\alpha = -0.006156369$ s$^{-1}$ for the $\nu \sigma_{f} = 0.3$ and $\nu \sigma_{f} = 0.7$ cases, respectively. The RQFP method eigenvalues matched the GFM-calculated alpha-eigenvalues within tolerance. Convergence of the $\nu \sigma_{f} = 0.3$ and $\nu \sigma_{f} = 0.7$ cases for the RQFP method required 32 and 29 transport sweeps, respectively. The scalar fluxes for both cases matched GFM within tolerance and are seen in Figure~\ref{fig:FiveRegionMultiply}. For cases three and four, the leftmost fuel pin width was set to 1.1. The alpha-eigenvalues for $\nu \sigma_{f} = 0.3$ and $\nu \sigma_{f} = 0.7$ were found to be -0.2932897 s$^{-1}$ and 0.0375543 s$^{-1}$, respectively. The RQFP method eigenvalues matched the GFM-calculated alpha-eigenvalues within tolerance (Table~\ref{table:FiveRegionCases}).
+A five region fuel-pin-like domain was modeled ($M=1000$ and $L=64$) and the alpha-eigenvalues compared to GFM for four cases. For case one and two, the fuel-pin domain consisted of five regions as seen in Figure~\ref{fig:FiveRegionProblem}, fuel, moderator, absorber, moderator, and fuel, with cross sections given in Table~\ref{table:BetzlerFive}. The leftmost fuel pin had a one mean free path width. For case one and two, the fuel fission cross section was set to $\nu \sigma_{f} = 0.3$ or $\nu \sigma_{f} = 0.7$. The alpha-eigenvalues were $\alpha = -0.3197041$ s$^{-1}$ and $\alpha = -0.0062120$ s$^{-1}$ for the $\nu \sigma_{f} = 0.3$ and $\nu \sigma_{f} = 0.7$ cases, respectively. The RQFP method eigenvalues matched the GFM-calculated alpha-eigenvalues within tolerance. Convergence of the $\nu \sigma_{f} = 0.3$ and $\nu \sigma_{f} = 0.7$ cases for the RQFP method required 30 and 27 transport sweeps, respectively. The scalar fluxes for both cases matched GFM within tolerance and are seen in Figure~\ref{fig:FiveRegionMultiply}. For cases three and four, the leftmost fuel pin width was set to 1.1. The alpha-eigenvalues for $\nu \sigma_{f} = 0.3$ and $\nu \sigma_{f} = 0.7$ were found to be -0.2932897 s$^{-1}$ and 0.0375543 s$^{-1}$, respectively. The RQFP method eigenvalues matched the GFM-calculated alpha-eigenvalues within tolerance (Table~\ref{table:FiveRegionCases}). For the supercritical case, the alpha-eigenvalue RQFP required 502 sweeps as compared to 13099 sweeps for the critical search method.
 
 For leftmost fuel pin width of one mean free path, the $k$-effective eigenvalue of the five region fuel-pin-like was determined to be $0.42428$ and $0.98998$ for the $\nu \sigma_{f} = 0.3$ and $\nu \sigma_{f} = 0.7$ cases, respectively. For the $\nu \sigma_{f} = 0.3$ fuel pin, the RQFP method required 29 transport sweeps while the power method with fission norm update required 22 transport sweeps. For the $\nu \sigma_{f} = 0.7$ fuel pin, the RQFP method required 28 transport sweeps while the power method with fission norm update required 21 transport sweeps. For leftmost fuel pin width of 1.1 mean free paths, the $k$-effective was determined to be $0.45554$ and $1.06316$, respectively, for  $\nu \sigma_{f} = 0.3$ and $\nu \sigma_{f} = 0.7$. For the $\nu \sigma_{f} = 0.3$ fuel pin, the RQFP method required 514 transport sweeps while the power method with fission norm update required 355 transport sweeps. For the $\nu \sigma_{f} = 0.7$ fuel pin, the RQFP method required 513 transport sweeps while the power method with fission norm update required 355 transport sweeps.
 
@@ -453,24 +522,23 @@ For leftmost fuel pin width of one mean free path, the $k$-effective eigenvalue 
 
 \begin{table*}[!htbp]
 \centering\ra{1.3}
-\caption{Comparison of RQFP- and GFM-calculated alpha-eigenvalues for a homogeneous scattering multiplying slab}
+\caption{Comparison of RQFP- and GFM-calculated alpha-eigenvalues for Multiplying Five-region Fuel-pin}
 \label{table:FiveRegionCases}
-\begin{tabular}{@{}cccc@{}}\toprule
-& \multicolumn{3}{c}{Alpha-Eigenvalue} \\
-\cmidrule{3-4} $\Delta$ & $\nu \sigma_{f}$ & RQFP & GFM  \\
+\begin{tabular}{@{}ccccc@{}}\toprule
+& & \multicolumn{3}{c}{Alpha-Eigenvalue/Percent Relative Error} \\
+\cmidrule{3-5} $\Delta$ & $\nu \sigma_{f}$ & RQFP & GFM & \% Relative Error \\
 \midrule
 %$\Delta$\\
-1 & 0.3 & $-3.196537 \times 10^{-1}$ & $-3.196537 \times 10^{-2}$  \\ 
-1 & 0.7 & $-6.156369 \times 10^{-2}$ & $-6.156369 \times 10^{-2}$  \\ 
-1.1 & 0.3 & $-2.932897 \times 10^{-1}$ & $-2.93247 \times 10^{-1}$  \\ 
-1.1 & 0.7 & $3.75543 \times 10^{-2}$ & $3.759991 \times 10^{-2}$  \\ 
+1 & 0.3 & $-3.197041 \times 10^{-1}$ & $-3.196537 \times 10^{-2}$ & $1.58 \times 10^{-2}$ \\ 
+1 & 0.7 & $-6.212026 \times 10^{-3}$ & $-6.156369 \times 10^{-3}$ & $9.041 \times 10^{-1}$ \\ 
+1.1 & 0.3 & $-2.932897 \times 10^{-1}$ & $-2.93247 \times 10^{-1}$ & $1.46 \times 10 ^{-2}$ \\ 
+1.1 & 0.7 & $3.75543 \times 10^{-2}$ & $3.759991 \times 10^{-2}$ & $1.213 \times 10^{-1}$ \\ 
 \bottomrule
-\multicolumn{4}{l}{$M = 1000$, $L = 64$, Tolerance = $10^{-12}$} \\
+\multicolumn{5}{l}{$M = 1000$, $L = 64$, Tolerance = $10^{-12}$} \\
 \end{tabular}
 \end{table*}
 
-
-\begin{figure}[h]
+\begin{figure}[!htbp]
 	\centering
 	\resizebox{0.5\textwidth}{!}{
 	\input{Figures/SlabEigenvalue/FiveRegionScalarFlux.tex}
@@ -481,6 +549,7 @@ For leftmost fuel pin width of one mean free path, the $k$-effective eigenvalue 
 
 \section{Multigroup Verification for Slab Geometry}
 
+\clearpage
 \section{One-Speed Verification for Spherical Geometry}
 
 In certain circumstances, alpha-eigenvalue results for slab geometry also apply to spherical geometry problems. This slab-sphere equivalence holds for isotropically scattering heterogeneous media where the total cross section is equal for all regions \cite{davison1957neutron}. More generally, a convenient property of spherically symmetric systems is that if the mean free path in the system is independent of position and scattering is isotropic, then the determination of the spherically symmetric neutron distribution of these systems is reduced to the determination of these distributions in certain systems with plane symmetries. Thus, for all homogeneous slab and symmetric heterogeneous slab systems where each region has the same total cross section, it follows that there exists a spherical equivalent for the problems studied in the previous sections. Specifically, it can be shown that the second eigenvalue of a slab system is identical to the fundamental eigenvalue for the equivalent sphere. In this section, we examine the performance of the RQFP method for one-dimensional spherical problems which are equivalent to the slab problems from before. We verify the correctness of the method for this subset of problems and compare its performance to the critical search and power methods.
@@ -540,18 +609,18 @@ In certain circumstances, alpha-eigenvalue results for slab geometry also apply 
 	& \multicolumn{2}{c}{Transport Sweeps} & & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{2-3} \cmidrule{5-6} $\Delta$ & RQFP & Critical Search \quad &  \Delta & RQFP & Critical Search\\
 	\midrule
-3 & x & * & 10 & 130 & 29645 \\
-4 & x & * & 15 & 232 & 61303 \\
-5 & x & * & 20 & 364 & 84353 \\
-6 & x & * & 30 & 722 & 100433 \\
-7 & x & * & 40 & 1201 & 99135 \\
-8 & 98 & 10865 & 50 & 1799 & 97037 \\
-9 & 113 & 21555 & & & \\ 
+3 & 46 & * & 10 & 128 & 29645 \\
+4 & 46 & * & 15 & 227 & 61303 \\
+5 & 52 & * & 20 & 357 & 84353 \\
+6 & 67 & * & 30 & 707 & 100433 \\
+7 & 81 & * & 40 & 1176 & 99135 \\
+8 & 96 & 10865 & 50 & 1761 & 97037 \\
+9 & 111 & 21555 & & & \\ 
 	\bottomrule
 	\multicolumn{6}{l}{*Did Not Converge} \\
 	\end{tabular}
 	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Sweeps}
-	\label{table:CompMultSweeps}
+	\label{table:CompMultSweepsSphere}
 	\end{subtable}%
 	\vspace{0.25cm}
 	\begin{subtable}[h]{1.0\textwidth}
@@ -571,7 +640,7 @@ In certain circumstances, alpha-eigenvalue results for slab geometry also apply 
 	\multicolumn{6}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
 	\end{tabular}
 	\caption{$k$-Effective: Comparison of RQFP and Power Method Transport Sweeps}
-	\label{table:CompMultSweepsK}
+	\label{table:CompMultSweepsKSphere}
 	\end{subtable}
 \end{table}
 
@@ -621,12 +690,81 @@ In certain circumstances, alpha-eigenvalue results for slab geometry also apply 
 %\end{tabular}
 %\end{table*}
 
-\begin{figure}[h]
+\begin{figure}[!htbp]
 	\centering
 	\input{Figures/SlabEigenvalue/SphereFuelPinEquiv.tex}
 	\caption{Five Region Fuel Pin Spherical Equivalent \cite{kornreich_timeeigenvalue_2005}}
 	\label{fig:FiveRegionSphereProblem}
 \end{figure}
+
+\begin{table*}[!htbp]
+\centering\ra{1.3}
+\caption{Comparison of RQFP- and GFM-calculated alpha-eigenvalues for a three region multiplying sphere}
+\label{table:FiveRegionCasesSphere}
+\begin{tabular}{@{}ccccc@{}}\toprule
+& & \multicolumn{3}{c}{Alpha-Eigenvalue/Percent Relative Error} \\
+\cmidrule{3-5} $\Delta$ & $\nu \sigma_{f}$ & RQFP & GFM & \% Relative Error \\
+\midrule
+%$\Delta$\\
+1 & 0.3 & $-3.213384 \times 10^{-1}$ & $-3.229855 \times 10^{-1}$ & $5.10 \times 10^{-1}$ \\ 
+1 & 0.7 & $-6.300281 \times 10^{-3}$ & $-6.440766 \times 10^{-3}$ & $2.18$ \\ 
+\bottomrule
+\multicolumn{5}{l}{$M = 1000$, $L = 64$, Tolerance = $10^{-12}$} \\
+\end{tabular}
+\end{table*}
+
+\subsection{Multiplying Homogeneous Spheres with Anisotropic Scattering}
+
+\begin{table}[!htbp]
+	\caption{Uranium-Heavy Water Cross Sections with Anisotropic Scattering for Critical Sphere Problems (cm$^{-1}$) \cite{sood2003analytical}}
+	\label{table:SoodUD2OAniso}
+	\centering\ra{1.3}
+    \begin{tabular}{*6c}
+        \toprule
+	Cross Section Set & $\sigma$ & $\nu \sigma_{f}$ & $\sigma_{s0}$  & $\sigma_{s1}$ & $v$ [cm/s] \\ 
+        \midrule
+	U-D$_{2}$O (a)  & 0.54628 & 0.098788237268 & 0.464338 & 0.056312624 & 1 \\
+	U-D$_{2}$O (b)  & 0.54628 & 0.100574846008 & 0.464338 & 0.112982569 & 1 \\
+	U-D$_{2}$O (c)  & 0.54628 & 0.0926709392 & 0.464338 & -0.27850447 & 1 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Critical Sphere Problems with Anisotropic Scattering in \cite{sood2003analytical}}
+	\label{table:AnisoSphere}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} Cross Section Set & Calculated $\alpha$ [s$^{-1}$] & RQFP & Critical Search\\
+	\midrule
+	U-D$_{2}$O (a) & $3.165772 \times 10^{-7}$ & 299 & 585 \\
+	U-D$_{2}$O (b) & $3.930857 \times 10^{-7}$ & 270 & 541\\
+	U-D$_{2}$O (c) & $ -6.613381 \times 10^{-7}$ & 456 & *\\
+	\bottomrule
+	\multicolumn{4}{l}{*Did Not Converge} \\
+	\end{tabular}
+	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
+	\label{table:AnisoSphereAlpha}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} Cross Section Set & Reference $k_{\text{eff}}$ & RQFP & Power Method \\
+	\midrule
+	U-D$_{2}$O (a) & 1.000003 & 301 & 118 \\
+	U-D$_{2}$O (b) & 1.000003 & 273 & 106 \\
+	U-D$_{2}$O (c) & 0.999993 & 456 & 207 \\
+	\bottomrule
+	\multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
+	\end{tabular}
+	\caption{$k$-Effective: Comparison of RQFP and Power Method Transport Sweeps}
+	\label{table:AnisoSpherek}
+	\end{subtable}
+\end{table}
 
 \section{Multigroup Verification for Spherical Geometry}
 
