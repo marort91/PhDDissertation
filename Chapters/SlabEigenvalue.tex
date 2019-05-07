@@ -350,7 +350,6 @@ For $k$-effective eigenvalue problems, the RQFP-calculated eigenvalues are seen 
 	\end{subtable}
 \end{table}
 
-
 \clearpage
 \subsection{Heterogeneous Slabs}
 
@@ -479,7 +478,7 @@ For $k$-effective eigenvalue problems, the RQFP-calculated eigenvalues are seen 
 
 \begin{figure}[!htbp]
 	\centering
-	\resizebox{0.50\textwidth}{!}{
+	\resizebox{0.75\textwidth}{!}{
 	\input{Figures/SlabEigenvalue/GrainScalarFlux}
 	}
 	\caption{Scalar Flux Results for Alternating Slabs Grain Size Problems}
@@ -499,7 +498,7 @@ The $k$-effective eigenvalue of the supercritical two-region medium was found to
 
 \begin{figure}[!htbp]
 	\centering
-	\resizebox{0.5\textwidth}{!}{
+	\resizebox{0.75\textwidth}{!}{
 	\input{Figures/SlabEigenvalue/TwoRegionMultiply.tex}
 	}
 	\caption{Alpha-Eigenvalue Scalar Flux Results for Two-Region Multiplying Slab}
@@ -540,14 +539,266 @@ For leftmost fuel pin width of one mean free path, the $k$-effective eigenvalue 
 
 \begin{figure}[!htbp]
 	\centering
-	\resizebox{0.5\textwidth}{!}{
+	\resizebox{0.75\textwidth}{!}{
 	\input{Figures/SlabEigenvalue/FiveRegionScalarFlux.tex}
 	}
 	\caption{Case One and Two Scalar Flux Results for Five-Region Multiplying Slab-Two Cases}
 	\label{fig:FiveRegionMultiply}
 \end{figure}
 
+\clearpage
+
 \section{Multigroup Verification for Slab Geometry}
+
+\subsection{Multigroup Multiplying Homogeneous Slabs}
+
+\begin{table}[!htbp]
+	\caption{Two-Group Plutonium-239 Problem Cross Sections (cm$^{-1}$)}
+	\label{table:Pu239-TwoGroup}
+	\begin{subtable}[h]{1.0\textwidth}
+		\centering\ra{1.3}
+		\begin{tabular}{@{}cccccc@{}}\toprule
+			$g$ & $\sigma_{g} $ & $\nu_{g}$ & $\sigma_{fg}$ & $\chi_{g}$ & $v_{g}$ [cm/s] \\ 
+        			\midrule
+			1 & 0.2208 & 3.10 & 0.0936 & 0.575 & 2.0 \\
+			2 & 0.3360 & 2.93 & 0.08544 & 0.425 & 1.0 \\
+			\bottomrule
+		\end{tabular}
+	\caption{Pu-239 Cross Sections}
+	\label{table:TwoGroupPu239}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccc@{}}\toprule
+	$g' \rightarrow g$ & 1 & 2 \\ 
+        \midrule
+	1 & 0.0792 & 0.0432 \\
+	2 & 0.0 & 0.23616 \\
+	\bottomrule
+	\end{tabular}
+	\caption{Pu-239 Scattering Block}
+	\label{table:TwoGroupPu239_ScatterXS}
+	\end{subtable}
+\end{table}
+
+\begin{table}[!htbp]
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Two-Group Pu-239 Cross Sections in \cite{sood2003analytical}}
+	\label{table:SlabMG-Pu239}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $\alpha$ [s$^{-1}$] & RQFP & Critical Search\\
+	\midrule
+	1.795602 & &  & \\
+	\bottomrule
+	\multicolumn{4}{l}{*Did Not Converge} \\
+	\end{tabular}
+	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
+	\label{table:MG-Pu239-alpha}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $k_{\text{eff}}$ & RQFP & Critical Search\\
+	\midrule
+	1.795602 & &  & \\
+	\bottomrule%	
+	\multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
+	\end{tabular}
+	\caption{$k$-Effective: Comparison of RQFP and Power Method Transport Sweeps}
+	\label{table:MG-Pu239-k}
+	\end{subtable}
+\end{table}
+
+\begin{table}[!htbp]
+	\caption{Two-Group Uranium-235 Problem Cross Sections (cm$^{-1}$)}
+	\label{table:U235-TwoGroup}
+	\begin{subtable}[h]{1.0\textwidth}
+		\centering\ra{1.3}
+		\begin{tabular}{@{}cccccc@{}}\toprule
+			$g$ & $\sigma_{g} $ & $\nu_{g}$ & $\sigma_{fg}$ & $\chi_{g}$ & $v_{g}$ [cm/s] \\ 
+        			\midrule
+			1 & 0.2160 & 2.70 & 0.06192 & 0.575 & 2.0 \\
+			2 & 0.3456 & 2.50 & 0.06912  & 0.425 & 1.0 \\
+			\bottomrule
+		\end{tabular}
+	\caption{U-235 Cross Sections}
+	\label{table:TwoGroupU235}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccc@{}}\toprule
+	$g' \rightarrow g$ & 1 & 2 \\ 
+        \midrule
+	1 & 0.078240 & 0.0720  \\
+	2 & 0.0 & 0.26304 \\
+	\bottomrule
+	\end{tabular}
+	\caption{U-235 Scattering Block}
+	\label{table:TwoGroupU235_ScatterXS}
+	\end{subtable}
+\end{table}
+
+\begin{table}[!htbp]
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Two-Group U-235 Cross Sections in \cite{sood2003analytical}}
+	\label{table:SlabMG-U235}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $\alpha$ [s$^{-1}$] & RQFP & Critical Search\\
+	\midrule
+	3.006375 & &  & \\
+	\bottomrule
+	\multicolumn{4}{l}{*Did Not Converge} \\
+	\end{tabular}
+	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
+	\label{table:MG-U235-alpha}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $k_{\text{eff}}$ & RQFP & Critical Search\\
+	\midrule
+	3.006375 & &  & \\
+	\bottomrule%	
+	\multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
+	\end{tabular}
+	\caption{$k$-Effective: Comparison of RQFP and Power Method Transport Sweeps}
+	\label{table:MG-U235-k}
+	\end{subtable}
+\end{table}
+
+\begin{table}[!htbp]
+	\caption{Two-Group Uranium/Aluminum Problem Cross Sections (cm$^{-1}$)}
+	\label{table:U-Al}
+	\begin{subtable}[h]{1.0\textwidth}
+		\centering\ra{1.3}
+		\begin{tabular}{@{}cccccc@{}}\toprule
+			$g$ & $\sigma_{g} $ & $\nu_{g}$ & $\sigma_{fg}$ & $\chi_{g}$ & $v_{g}$ [cm/s] \\ 
+        			\midrule
+			1 & 0.26817 & 0.0 & 0.0 & 1.0 & 2.0 \\
+			2 & 1.27698 & 2.83 & 0.06070636042 & 0.0 & 1.0 \\
+			\bottomrule
+		\end{tabular}
+	\caption{U/Aluminum Cross Sections}
+	\label{table:TwoGroupU-Al}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccc@{}}\toprule
+	$g' \rightarrow g$ & 1 & 2 \\ 
+        \midrule
+	1 & 0.020432 & 0.247516  \\
+	2 & 0.0 & 1.21313 \\
+	\bottomrule
+	\end{tabular}
+	\caption{U/Aluminum Scattering Block}
+	\label{table:TwoGroupU-Al_ScatterXS}
+	\end{subtable}
+\end{table}
+
+\begin{table}[!htbp]
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Two-Group U/Aluminum Mixture Cross Sections in \cite{sood2003analytical}}
+	\label{table:SlabMG-U-Al}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $\alpha$ [s$^{-1}$] & RQFP & Critical Search\\
+	\midrule
+	7.830630 & &  & \\
+	\bottomrule
+	\multicolumn{4}{l}{*Did Not Converge} \\
+	\end{tabular}
+	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
+	\label{table:MG-U-Al-alpha}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $k_{\text{eff}}$ & RQFP & Critical Search\\
+	\midrule
+	7.830630 & &  & \\
+	\bottomrule%	
+	\multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
+	\end{tabular}
+	\caption{$k$-Effective: Comparison of RQFP and Power Method Transport Sweeps}
+	\label{table:MG-U-Al-k}
+	\end{subtable}
+\end{table}
+
+\begin{table}[!htbp]
+	\caption{Two-Group 93\% Enriched Uranium Problem Cross Sections (cm$^{-1}$)}
+	\label{table:U93}
+	\begin{subtable}[h]{1.0\textwidth}
+		\centering\ra{1.3}
+		\begin{tabular}{@{}cccccc@{}}\toprule
+			$g$ & $\sigma_{g} $ & $\nu_{g}$ & $\sigma_{fg}$ & $\chi_{g}$ & $v_{g}$ [cm/s] \\ 
+        			\midrule
+			1 & 0.65696  & 2.50 & 0.0010484  & 1.0 & 2.0 \\
+			2 & 2.52025 & 2.50 & 0.050632 & 0.0 & 1.0 \\
+			\bottomrule
+		\end{tabular}
+	\caption{U-D$_{2}$O Cross Sections}
+	\label{table:TwoGroupU93}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccc@{}}\toprule
+	$g' \rightarrow g$ & 1 & 2 \\ 
+        \midrule
+	1 & 0.62568  & 0.029227  \\
+	2 & 0.0 & 2.44383  \\
+	\bottomrule
+	\end{tabular}
+	\caption{U-D$_{2}$O Scattering Block}
+	\label{table:TwoGroupU93_ScatterXS}
+	\end{subtable}
+\end{table}
+
+\begin{table}[!htbp]
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Two-Group 93\% Enriched Uranium Mixture Cross Sections in \cite{sood2003analytical}}
+	\label{table:SlabMG-U93}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $\alpha$ [s$^{-1}$] & RQFP & Critical Search\\
+	\midrule
+	7.566853 & &  & \\
+	\bottomrule
+	\multicolumn{4}{l}{*Did Not Converge} \\
+	\end{tabular}
+	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
+	\label{table:MG-U93-alpha}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $k_{\text{eff}}$ & RQFP & Critical Search\\
+	\midrule
+	7.566853 & &  & \\
+	\bottomrule%	
+	\multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
+	\end{tabular}
+	\caption{$k$-Effective: Comparison of RQFP and Power Method Transport Sweeps}
+	\label{table:MG-U93-k}
+	\end{subtable}
+\end{table}
 
 \clearpage
 \section{One-Speed Verification for Spherical Geometry}
@@ -556,7 +807,9 @@ In certain circumstances, alpha-eigenvalue results for slab geometry also apply 
 
 \subsection{Non-Multiplying Homogeneous Spheres}
 
-\begin{table*}[t]
+To verify the correctness of the RQFP method for one-dimensional spherical geometry, four non-multiplying homogeneous slab problems in \cite{kornreich_greens_1997} with a second eigenvalue listed were modeled as equivalent spherical problems with radii of $\Delta/2$ mfp \cite{}.The dominant alpha-eigenvalue of the equivalent spherical systems is the second eigenvalue of the slab problems. The calculated alpha-eigenvalues were then compared to the GFM-calculated eigenvalues. The purely homogeneous scattering spheres used the cross sections listed in Table~\ref{table:Betzler}. For all problems, the percent relative error between the RQFP- and GFM-calculated eigenvalues was less than 0.005 \% (Table~\ref{table:CompHomogScattSphere}) for diamond differencing discretization ($M=500$) and an S$_{64}$ discrete ordinates quadrature in angle ($L=64$). As the radius of the spheres increases, the system approaches the critical state and the alpha-eigenvalue approaches zero. However, as there is no fissile material, the eigenvalue can never reach zero.
+
+\begin{table*}[!htbp]
 \centering\ra{1.3}
 \caption{Comparison of RQFP- and GFM-calculated alpha-eigenvalues for a homogeneous scattering sphere}
 \label{table:CompHomogScattSphere}
@@ -574,6 +827,14 @@ In certain circumstances, alpha-eigenvalue results for slab geometry also apply 
 \end{table*}
 
 \subsection{Multiplying Homogeneous Spheres}
+
+For homogeneous slab problems with multiplication (Cross sections-Table~\ref{table:Betzler2}), the equivalent spherical problems were modeled and the performance and correctness of the RQFP methods for alpha- and $k$-effective eigenvalue calculations were examined.
+
+To verify the correctness of the RQFP method for alpha-eigenvalue problems, the RQFP-calculated eigenvalues were compared to the GFM-calculated eigenvalues listed in \cite{kornreich_greens_1997}. The problems were modeled using diamond differencing ($M=500$) and an S$_{64}$ discrete ordinates quadrature in angle ($L=64$). For spherical problems with diameters ranging from three to 50 mean free paths, it was found that the eigenvalues agreed within 0.02\% relative error (Table~\ref{table:CompHomogMultSphere}). Alpha-eigenvalue agreement increased as the spherical system became larger. In all cases, the RQFP method was able to correctly determine the criticality of the system, even for systems that were slightly subcritical or supercritical.
+
+The performance of the RQFP method for alpha-eigenvalue problems was compared to the critical search method. The number of transport sweeps required to converge the eigenvector norm residual to a tolerance of $10^{-12}$ for various spherical radii is seen in Table~\ref{table:CompMultSweepsSphere}. For problem that were subcritical ($\Delta = 3 - 7$ mfp), the RQFP method was able to converge to the correct eigenvalue while the critical search method was not able to converge the problem. As problems became increasingly supercritical, the number of transport sweeps required to converge increased for both the RQFP and critical search methods. This is due to the fact that as the systems become larger, neutrons can survive longer before being absorbed or leaking out of the system. These longer lived neutrons cause the increase in the alpha-eigenvalue but more transport sweeps are required before reaching the fundamental mode of the angular flux. For the supercritical cases, the critical search method was able to correctly determine the eigenvalue of the spherical systems. However, in all cases, the number of transport sweeps required by the RQFP method was approximately 20-40 times less than the critical search method.
+
+The RQFP method was compared to the power method with a fission norm update for the $k$-effective eigenvalue. In all cases, the power method performed better than the RQFP method. The number of transport sweeps necessary to converge was similar to subcritical and slightly supercritical problems for both methods. However, as the problems became more supercritical, the RQFP method's performance deteriorated (Table~\ref{table:CompMultSweepsKSphere}).
 
 \begin{table*}[h]
 \centering\ra{1.3}
@@ -690,30 +951,15 @@ In certain circumstances, alpha-eigenvalue results for slab geometry also apply 
 %\end{tabular}
 %\end{table*}
 
-\begin{figure}[!htbp]
-	\centering
-	\input{Figures/SlabEigenvalue/SphereFuelPinEquiv.tex}
-	\caption{Five Region Fuel Pin Spherical Equivalent \cite{kornreich_timeeigenvalue_2005}}
-	\label{fig:FiveRegionSphereProblem}
-\end{figure}
-
-\begin{table*}[!htbp]
-\centering\ra{1.3}
-\caption{Comparison of RQFP- and GFM-calculated alpha-eigenvalues for a three region multiplying sphere}
-\label{table:FiveRegionCasesSphere}
-\begin{tabular}{@{}ccccc@{}}\toprule
-& & \multicolumn{3}{c}{Alpha-Eigenvalue/Percent Relative Error} \\
-\cmidrule{3-5} $\Delta$ & $\nu \sigma_{f}$ & RQFP & GFM & \% Relative Error \\
-\midrule
-%$\Delta$\\
-1 & 0.3 & $-3.213384 \times 10^{-1}$ & $-3.229855 \times 10^{-1}$ & $5.10 \times 10^{-1}$ \\ 
-1 & 0.7 & $-6.300281 \times 10^{-3}$ & $-6.440766 \times 10^{-3}$ & $2.18$ \\ 
-\bottomrule
-\multicolumn{5}{l}{$M = 1000$, $L = 64$, Tolerance = $10^{-12}$} \\
-\end{tabular}
-\end{table*}
+\clearpage
 
 \subsection{Multiplying Homogeneous Spheres with Anisotropic Scattering}
+
+Three exactly critical multiplying homogeneous spheres with anisotropic scattering were modeled to determine the impacts of higher scattering order cross sections on the performance of the RQFP methods. Three sets of uranium-heavy water cross sections sets (Table~\ref{table:SoodUD2OAniso}) were examined, each with different anisotropic scattering cross section orders. In particular, cross section set U-D$_{2}$O (c) had a negative anisotropic scattering cross section. The critical radii for the three problems are listed in Table~\ref{table:AnisoSphere}. These problems were modeled using the diamond differencing scheme in space (500 cells), and S$_{64}$ discrete ordinate angular quadrature.
+
+For alpha-eigenvalue problems, the RQFP method calculated alpha-eigenvalues that were within $10^{-7}$ of the true alpha-eigenvalue of zero. For two cases, U-D$_{2}$O (a) and U-D$_{2}$O (b), the problems were slightly supercritical, while for U-D$_{2}$O (c) the problem was subcritical. For the two supercritical cases, both the RQFP and critical search methods were able to converge to the same eigenvalue. The RQFP method required approximately half the transport sweeps as compared to the critical search method (Table~\ref{table:AnisoSphereAlpha}). For the subcritical case, the critical search method could not converge to the correct eigenvalue as the problem was too close to critical and subcritical. For the RQFP method, the number of transport sweeps required to converge the case with a negative anisotropic scattering cross section increased by a factor of 1.5 as compared to non-negative anisotropic cross sections. This suggests the negative anisotropic cross section can impact the rate of convergence.
+
+For $k$-effective eigenvalue problems, the RQFP method calculated $k$-effective eigenvalues were within $10^{-7}$ of the true value of $k_{\text{eff}}=1.00000$. In all three cases, the RQFP method required approximately double the iterations as compared to the power method with fission norm update (Table~\ref{table:AnisoSpherek}). Similar to the alpha-eigenvalue problems, the inclusion of a negative anisotropic scattering cross section increased the number of transport sweeps necessary to converge to a tolerance of $10^{-12}$.
 
 \begin{table}[!htbp]
 	\caption{Uranium-Heavy Water Cross Sections with Anisotropic Scattering for Critical Sphere Problems (cm$^{-1}$) \cite{sood2003analytical}}
@@ -735,15 +981,15 @@ In certain circumstances, alpha-eigenvalue results for slab geometry also apply 
 	\label{table:AnisoSphere}
 	\begin{subtable}[h]{1.0\textwidth}
 	\centering\ra{1.3}
-	\begin{tabular}{@{}cccc@{}}\toprule
-	& & \multicolumn{2}{c}{Transport Sweeps} \\
-	\cmidrule{3-4} Cross Section Set & Calculated $\alpha$ [s$^{-1}$] & RQFP & Critical Search\\
+	\begin{tabular}{@{}ccccc@{}}\toprule
+	& & & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{4-5} Cross Section Set & r$_{c}$ [cm] & Calculated $\alpha$ [s$^{-1}$] & RQFP & Critical Search\\
 	\midrule
-	U-D$_{2}$O (a) & $3.165772 \times 10^{-7}$ & 299 & 585 \\
-	U-D$_{2}$O (b) & $3.930857 \times 10^{-7}$ & 270 & 541\\
-	U-D$_{2}$O (c) & $ -6.613381 \times 10^{-7}$ & 456 & *\\
+	U-D$_{2}$O (a) & 18.30563081 & $3.165772 \times 10^{-7}$ & 299 & 585 \\
+	U-D$_{2}$O (b) & 18.30563081 & $3.930857 \times 10^{-7}$ & 270 & 541\\
+	U-D$_{2}$O (c) & 18.30563081 & $ -6.613381 \times 10^{-7}$ & 456 & *\\
 	\bottomrule
-	\multicolumn{4}{l}{*Did Not Converge} \\
+	\multicolumn{5}{l}{*Did Not Converge} \\
 	\end{tabular}
 	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
 	\label{table:AnisoSphereAlpha}
@@ -751,20 +997,51 @@ In certain circumstances, alpha-eigenvalue results for slab geometry also apply 
 	\vspace{0.25cm}
 	\begin{subtable}[h]{1.0\textwidth}
 	\centering\ra{1.3}
-	\begin{tabular}{@{}cccc@{}}\toprule
+	\begin{tabular}{@{}ccccc@{}}\toprule
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
-	\cmidrule{3-4} Cross Section Set & Reference $k_{\text{eff}}$ & RQFP & Power Method \\
+	\cmidrule{4-5} Cross Section Set & r$_{c}$ [cm] & Reference $k_{\text{eff}}$ & RQFP & Power Method \\
 	\midrule
-	U-D$_{2}$O (a) & 1.000003 & 301 & 118 \\
-	U-D$_{2}$O (b) & 1.000003 & 273 & 106 \\
-	U-D$_{2}$O (c) & 0.999993 & 456 & 207 \\
+	U-D$_{2}$O (a) & 18.30563081 & 1.000003 & 301 & 118 \\
+	U-D$_{2}$O (b) & 18.30563081 & 1.000003 & 273 & 106 \\
+	U-D$_{2}$O (c) & 18.30563081 & 0.999993 & 456 & 207 \\
 	\bottomrule
-	\multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
+	\multicolumn{5}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
 	\end{tabular}
 	\caption{$k$-Effective: Comparison of RQFP and Power Method Transport Sweeps}
 	\label{table:AnisoSpherek}
 	\end{subtable}
 \end{table}
+
+\clearpage
+
+\subsection{A Spherical Shell Problem}
+
+To verify the correctness of the alpha-eigenvalue RQFP method, two spherical shell problems were modeled and the calculated alpha-eigenvalues compared to the GFM-calculated value in \cite{kornreich_greens_1997}. For any symmetric heterogeneous slab problem, an equivalent spherical shell problem can be modeled. As before, the second eigenvalue of the heterogeneous slab problem is the dominant eigenvalue of the spherical shell problem. Using the five-region fuel pin from Figure~\ref{fig:FiveRegionProblem} with the right fuel pin width set to one mean free path, an equivalent spherical problem shown in Figure~\ref{fig:FiveRegionSphereProblem} was modeled. For this particular problem, the width of each material section remained the same as in the five region slab case. Cross sections for the three materials were the same as the slab geometry problem (Table~\ref{table:BetzlerFive}). Similar to the five region slab problem, two cases were examined where $\nu \sigma_{f} = 0.3$ and $0.7$.
+
+The RQFP- and GFM-calculated alpha-eigenvalues are listed in Table~\ref{table:FiveRegionCasesSphere}. For the $\nu \sigma_{f} = 0.3$ case, the alpha-eigenvalues matched within 0.5\%. For the $\nu \sigma_{f} = 0.7 $ case, agreement was within 2.2\%. The higher discrepancy in the eigenvalue was most likely due to the neutron angular redistribution of spherical geometry as compared to Cartesian coordinates in ARDRA. The GFM-calculated alpha-eigenvalue uses analytic Green's Functions and then determines the eigenvalues numerical through a search process and does not discretize the underlying integro-differential equation like ARDRA.
+
+\begin{figure}[!htbp]
+	\centering
+	\input{Figures/SlabEigenvalue/SphereFuelPinEquiv.tex}
+	\caption{Five Region Fuel Pin Spherical Equivalent \cite{kornreich_timeeigenvalue_2005}}
+	\label{fig:FiveRegionSphereProblem}
+\end{figure}
+
+\begin{table*}[!htbp]
+\centering\ra{1.3}
+\caption{Comparison of RQFP- and GFM-calculated alpha-eigenvalues for a three region multiplying sphere}
+\label{table:FiveRegionCasesSphere}
+\begin{tabular}{@{}cccc@{}}\toprule
+& \multicolumn{3}{c}{Alpha-Eigenvalue/Percent Relative Error} \\
+\cmidrule{2-4} $\nu \sigma_{f}$ & RQFP & GFM & \% Relative Error \\
+\midrule
+%$\Delta$\\
+0.3 & $-3.213384 \times 10^{-1}$ & $-3.229855 \times 10^{-1}$ & $5.10 \times 10^{-1}$ \\ 
+0.7 & $-6.300281 \times 10^{-3}$ & $-6.440766 \times 10^{-3}$ & $2.18$ \\ 
+\bottomrule
+\multicolumn{4}{l}{$M = 1000$, $L = 64$, Tolerance = $10^{-12}$} \\
+\end{tabular}
+\end{table*}
 
 \section{Multigroup Verification for Spherical Geometry}
 

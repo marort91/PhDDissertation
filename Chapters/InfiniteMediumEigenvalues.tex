@@ -237,7 +237,9 @@ The RQFP for the $k$-effective eigenvalue reduces the number of sweeps by a fact
 \clearpage
 \section{Infinite Medium Multigroup Problems}
 
-\subsection{Infinite Medium Subcritical/Critical Problems}
+In this section, we consider various analytical multigroup infinite medium problems with analytic expressions for the alpha- and $k$-effective eigenvalues. The problems are divided into subcritical, critical, and supercritical problems. The subcritical and critical problems consist of a ten variations of a three energy-group cross section set. For the supercritical case, we examine three 81 energy-group cross section sets. We discuss the performance of the Rayleigh quotient fixed point method for these problems and discuss various cases where the method fails to converge to the correct eigenvalue. The alpha-eigenvalue spectrum of these problems are examined to demonstrate in what cases the method is expected to fail and how violating the assumptions used in deriving the methods affects the performance of the method.
+
+\subsection{Analytical Subcritical \& Critical Problems}
 
 \textbf{Problem 5.2.1.1}: We consider a three energy group problem with cross sections shown in Table~\ref{table:Betzler3}. The problem only has fissions in energy group $g = 3$ emitting $\bar{\nu}$ neutrons in energy group $g = 1$. There is no upscatter and downscatter only occurs into the next group. We vary $\bar{\nu}$ from zero neutrons emitted in fission to $\bar{\nu} = 3$ to create various subcritical systems. The analytic $k$-eigenvalue is given by
 \begin{equation}
@@ -366,14 +368,6 @@ The number of transport sweep needed to converge to a eigenvalue residual of 10$
 
 Both the $k$-effective eigenvalue Rayleigh quotient fixed point method and the power method converge for this particular problem requiring a similar number of iterations. The fact that the $k$-effective eigenvalue is the dominant eigenvalue with a corresponding positive eigenvector allows the Rayleigh quotient method fixed method to converge to the right eigenvalue and eigenvector. In this particular problem, all other eigenvalues except for the dominant eigenvalue are zero. Both methods require a large amount of iterations, reflecting the unphysical nature of the problem cross sections. 
 
-\begin{figure}
-\centering
-	\resizebox{0.75\textwidth}{!}{
-	\input{Figures/InfiniteMediumEigenvalues/G81Spec.tex}}
-\caption{Alpha-Eigenvalue Spectrum for Problem 5.2.2.1}
-\label{fig:G81Spec}
-\end{figure}
-
 \begin{table}[!htbp]
     \centering
     \caption{Infinite Medium 81-Group Problem Cross Sections (cm$^{-1}$)}
@@ -389,22 +383,46 @@ Both the $k$-effective eigenvalue Rayleigh quotient fixed point method and the p
     \end{tabular}
 \end{table}
 
+\begin{figure}[!htbp]
+\centering
+	%\resizebox{0.75\textwidth}{!}{
+	\resizebox{0.90\textwidth}{!}{
+	\input{Figures/InfiniteMediumEigenvalues/G81Spec.tex}}
+\caption{Alpha-Eigenvalue Spectrum for Problem 5.2.2.1}
+\label{fig:G81Spec}
+\end{figure}
+
+\clearpage
+
 \begin{table}[!htbp]
-    \centering
-    \caption{Transport Sweeps for Convergence for Problem 5.2.2.1}
-\label{table:G81a}
-    \scalebox{1.00}{
-    \begin{tabular}{*4c}
-        \toprule
-        \multicolumn{4}{c}{Transport Sweeps} \\
-        \cmidrule(lr){1-4}
-        $k$RQ & $k$PM & $\alpha$RQ & $\alpha$CS \\
-        \midrule
-	6701 & 6707 & * & 63843 \\
-        \bottomrule
-        \multicolumn{2}{c}{*Did Not Converge}
-    \end{tabular}
-    }
+	\caption{Transport Sweep Comparisons for Problem 5.2.2.1}
+	\label{table:G81a}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccc@{}}\toprule
+	& \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{2-3} $\alpha$  (s$^{-1}) $& RQFP & Critical Search \\
+	\midrule
+	0.13765 & * & 63843 \\
+	\bottomrule
+	\multicolumn{3}{l}{*Did Not Converge}
+	\end{tabular}
+	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Sweeps}
+	\label{table:AlphaProb5222}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccc@{}}\toprule
+	& \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{2-3} $k_{\text{eff}}$ & RQFP & Power Method \\
+	\midrule
+	1.11663 & 6701 & 6707 \\
+	\bottomrule
+	\end{tabular}
+	\caption{$k$-Effective: Comparison of RQFP and Critical Search Sweeps}
+	\label{table:kProb5222}
+	\end{subtable}%
 \end{table}
 
 \textbf{Problem 5.2.2.2}: We consider a problem similar to Problem 5.2.1.1 where the energy group velocities are group-dependent. The velocity of each group is given by $v_{g} = 82 - g$ and the cross sections are the same as Problem 5.2.1.1 (Table~\ref{table:G81v}). The $k$-effective eigenvalue remains 1.11663 as only the velocity terms have been modified. The problem no longer has an analytical expression for the alpha-eigenvalue spectrum. The dominant alpha-eigenvalue is found to be $2.2464$ s$^{-1}$ from numerical eigenvalue solvers. With the change in the velocity, the alpha-eigenvalue spectrum eigenvalues are no longer on a circle (Figure~\ref{fig:G81VSpec}). Instead, the eigenvalues are along elliptical shapes with very negative real eigenvalues now existing. We also note that there are complex eigenvalues whose real parts are larger than zero, a phenomenon unexpected for alpha-eigenvalue problems where only the dominant eigenvalue has real part larger than zero for supercritical systems.
@@ -430,11 +448,31 @@ Also similar to Problem 5.2.2.1, both the Rayleigh quotient fixed point method a
 
 \begin{figure}[!htbp]
 \centering
-	\resizebox{0.75\textwidth}{!}{
+	\resizebox{0.90\textwidth}{!}{
 	\input{Figures/InfiniteMediumEigenvalues/G81VSpec.tex}}
 \caption{Alpha-Eigenvalue Spectrum for Problem 5.2.2.2}
 \label{fig:G81VSpec}
 \end{figure}
+
+%\begin{table}[!htbp]
+%    \centering
+%    \caption{Transport Sweeps for Convergence for Problem 5.2.2.2}
+%\label{table:G81b}
+%    \scalebox{1.00}{
+%    \begin{tabular}{*4c}
+%        \toprule
+%        \multicolumn{4}{c}{Transport Sweeps} \\
+%        \cmidrule(lr){1-4}
+%        $k$RQ & $k$PM & $\alpha$RQ & $\alpha$CS \\
+%        \midrule
+%	6701 & 6707 & * & 50773 \\
+%        \bottomrule
+%        \multicolumn{2}{c}{*Did Not Converge}
+%    \end{tabular}
+%    }
+%\end{table}
+
+\clearpage
 
 \begin{table}[!htbp]
 	\caption{Transport Sweep Comparisons for Problem 5.2.2.2}
@@ -466,24 +504,6 @@ Also similar to Problem 5.2.2.1, both the Rayleigh quotient fixed point method a
 	\end{subtable}%
 \end{table}
 
-%\begin{table}[!htbp]
-%    \centering
-%    \caption{Transport Sweeps for Convergence for Problem 5.2.2.2}
-%\label{table:G81b}
-%    \scalebox{1.00}{
-%    \begin{tabular}{*4c}
-%        \toprule
-%        \multicolumn{4}{c}{Transport Sweeps} \\
-%        \cmidrule(lr){1-4}
-%        $k$RQ & $k$PM & $\alpha$RQ & $\alpha$CS \\
-%        \midrule
-%	6701 & 6707 & * & 50773 \\
-%        \bottomrule
-%        \multicolumn{2}{c}{*Did Not Converge}
-%    \end{tabular}
-%    }
-%\end{table}
-
 \textbf{Problem 5.2.2.3}: We consider another problem similar to Problem 5.2.1.1 where we now allow downscattering from energy group $g \rightarrow g'$ over several energy groups with equal probability where $g + 1 \leq g' \leq g+5$. For the last five energy groups, the downscattering cross section is equally distributed among the remaining groups where $g+1 \leq g' \leq G$. The total scattering cross section remains unchanged. The $k$-effective eigenvalue is 1.8853 and the alpha-eigenvalue is $2.2914$ s$^{-1}$.
 
 The alpha-eigenvalue spectrum seen in Figure~\ref{fig:G81P3Spec} is significantly different to that of Problem 5.2.2.1. The spectrum contains more eigenvalues with large real negative parts. This is due to neutrons being able to downscatter quickly by skipping several energy groups.
@@ -492,9 +512,9 @@ The alpha-eigenvalue Rayleigh quotient method was able to converge on the analyt
 
 Both the Rayleigh quotient fixed point and power method were able to converge the eigenvalue and eigenvector for the $k$-effective eigenvalue problem requiring a similar number of iterations (Table~\ref{table:kProb5223}). 
 
-\begin{figure}
+\begin{figure}[!htbp]
 \centering
-	\resizebox{0.75\textwidth}{!}{
+	\resizebox{0.90\textwidth}{!}{
 	\input{Figures/InfiniteMediumEigenvalues/G81P3Spec.tex}}
 \caption{Alpha-Eigenvalue Spectrum for Problem 5.2.2.3}
 \label{fig:G81P3Spec}
