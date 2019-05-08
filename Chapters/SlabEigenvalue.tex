@@ -550,6 +550,8 @@ For leftmost fuel pin width of one mean free path, the $k$-effective eigenvalue 
 
 \section{Multigroup Verification for Slab Geometry}
 
+
+
 \subsection{Multigroup Multiplying Homogeneous Slabs}
 
 \begin{table}[!htbp]
@@ -591,7 +593,7 @@ For leftmost fuel pin width of one mean free path, the $k$-effective eigenvalue 
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $\alpha$ [s$^{-1}$] & RQFP & Critical Search\\
 	\midrule
-	1.795602 & &  & \\
+	1.795602 & $-4.64633 \times 10^{-5}$ & 48 & * \\
 	\bottomrule
 	\multicolumn{4}{l}{*Did Not Converge} \\
 	\end{tabular}
@@ -605,7 +607,7 @@ For leftmost fuel pin width of one mean free path, the $k$-effective eigenvalue 
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $k_{\text{eff}}$ & RQFP & Critical Search\\
 	\midrule
-	1.795602 & &  & \\
+	1.795602 & 0.99988 & 48 & 46 \\
 	\bottomrule%	
 	\multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
 	\end{tabular}
@@ -653,7 +655,7 @@ For leftmost fuel pin width of one mean free path, the $k$-effective eigenvalue 
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $\alpha$ [s$^{-1}$] & RQFP & Critical Search\\
 	\midrule
-	3.006375 & &  & \\
+	3.006375 & $-1.28364 \times 10^{-5}$ & 62 & * \\
 	\bottomrule
 	\multicolumn{4}{l}{*Did Not Converge} \\
 	\end{tabular}
@@ -665,9 +667,9 @@ For leftmost fuel pin width of one mean free path, the $k$-effective eigenvalue 
 	\centering\ra{1.3}
 	\begin{tabular}{@{}cccc@{}}\toprule
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
-	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $k_{\text{eff}}$ & RQFP & Critical Search\\
+	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $k_{\text{eff}}$ & RQFP & Power Method\\
 	\midrule
-	3.006375 & &  & \\
+	3.006375 & 0.99995 & 62 & 58 \\
 	\bottomrule%	
 	\multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
 	\end{tabular}
@@ -715,7 +717,7 @@ For leftmost fuel pin width of one mean free path, the $k$-effective eigenvalue 
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $\alpha$ [s$^{-1}$] & RQFP & Critical Search\\
 	\midrule
-	7.830630 & &  & \\
+	7.830630 & $-6.39646 \times 10^{-6}$ & 492 & * \\
 	\bottomrule
 	\multicolumn{4}{l}{*Did Not Converge} \\
 	\end{tabular}
@@ -727,9 +729,9 @@ For leftmost fuel pin width of one mean free path, the $k$-effective eigenvalue 
 	\centering\ra{1.3}
 	\begin{tabular}{@{}cccc@{}}\toprule
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
-	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $k_{\text{eff}}$ & RQFP & Critical Search\\
+	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $k_{\text{eff}}$ & RQFP & Power Method \\
 	\midrule
-	7.830630 & &  & \\
+	7.830630 & 0.99985 & 592 & 82 \\
 	\bottomrule%	
 	\multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
 	\end{tabular}
@@ -750,7 +752,7 @@ For leftmost fuel pin width of one mean free path, the $k$-effective eigenvalue 
 			2 & 2.52025 & 2.50 & 0.050632 & 0.0 & 1.0 \\
 			\bottomrule
 		\end{tabular}
-	\caption{U-D$_{2}$O Cross Sections}
+	\caption{93\% Enriched Uranium Cross Sections}
 	\label{table:TwoGroupU93}
 	\end{subtable}%
 	\vspace{0.25cm}
@@ -777,7 +779,7 @@ For leftmost fuel pin width of one mean free path, the $k$-effective eigenvalue 
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $\alpha$ [s$^{-1}$] & RQFP & Critical Search\\
 	\midrule
-	7.566853 & &  & \\
+	7.566853 & $-3.28714 \times 10^{-7}$ & 1188 & * \\
 	\bottomrule
 	\multicolumn{4}{l}{*Did Not Converge} \\
 	\end{tabular}
@@ -789,14 +791,76 @@ For leftmost fuel pin width of one mean free path, the $k$-effective eigenvalue 
 	\centering\ra{1.3}
 	\begin{tabular}{@{}cccc@{}}\toprule
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
-	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $k_{\text{eff}}$ & RQFP & Critical Search\\
+	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $k_{\text{eff}}$ & RQFP & Power Method \\
 	\midrule
-	7.566853 & &  & \\
+	7.566853 & 0.99999 & 1188 & 98 \\
 	\bottomrule%	
 	\multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
 	\end{tabular}
 	\caption{$k$-Effective: Comparison of RQFP and Power Method Transport Sweeps}
 	\label{table:MG-U93-k}
+	\end{subtable}
+\end{table}
+
+\begin{table}[!htbp]
+	\caption{Two-Group U-D$_{2}$O Problem Cross Sections (cm$^{-1}$)}
+	\label{table:U93}
+	\begin{subtable}[h]{1.0\textwidth}
+		\centering\ra{1.3}
+		\begin{tabular}{@{}cccccc@{}}\toprule
+			$g$ & $\sigma_{g} $ & $\nu_{g}$ & $\sigma_{fg}$ & $\chi_{g}$ & $v_{g}$ [cm/s] \\ 
+        			\midrule
+			1 & 0.33588  & 2.50 & 0.002817 & 1.0 & 2.0 \\
+			2 & 0.54628  & 2.50 & 0.097 & 0.0 & 1.0 \\
+			\bottomrule
+		\end{tabular}
+	\caption{U-D$_{2}$O Cross Sections}
+	\label{table:TwoGroupUD2O}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccc@{}}\toprule
+	$g' \rightarrow g$ & 1 & 2 \\ 
+        \midrule
+	1 & 0.31980   & 0.004555   \\
+	2 & 0.0 & 0.42410  \\
+	\bottomrule
+	\end{tabular}
+	\caption{U-D$_{2}$O Scattering Block}
+	\label{table:TwoGroupUD2O_ScatterXS}
+	\end{subtable}
+\end{table}
+
+\begin{table}[!htbp]
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Two-Group U-D$_{2}$O Cross Sections in \cite{sood2003analytical}}
+	\label{table:SlabMG-UD2O}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $\alpha$ [s$^{-1}$] & RQFP & Critical Search\\
+	\midrule
+	846.632726 & $-6.93314 \times 10^{-7}$ & 451140 & * \\
+	\bottomrule
+	\multicolumn{4}{l}{*Did Not Converge} \\
+	\end{tabular}
+	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
+	\label{table:MG-UD2O-alpha}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} $r_{c}$ [cm] & Calculated $k_{\text{eff}}$ & RQFP & Power Method \\
+	\midrule
+	846.632726 & 0.99887 & 451136 & 52964 \\
+	\bottomrule%	
+	\multicolumn{4}{l}{$M = 2000$, $L = 64$, Tolerance = $10^{-12}$} \\
+	\end{tabular}
+	\caption{$k$-Effective: Comparison of RQFP and Power Method Transport Sweeps}
+	\label{table:MG-UD2O-k}
 	\end{subtable}
 \end{table}
 
