@@ -612,6 +612,7 @@ Kronecker products have various interesting properties. We list the ones relevan
 \end{itemize}
 
 \section{Review of Fixed Point Iteration}
+\label{sec:FPI}
 
 In this section we review fixed point iteration methods. We begin by defining a \textit{fixed point} of some equation $g(x)$:
 \begin{definition}
@@ -664,8 +665,41 @@ We note the following:
 	\end{enumerate}
 \end{proof}
 
-The previous concepts extend to vector valued functions. Given a vector valued function $F: \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$, a fixed point iteration method of the form
+The previous concepts extend to vector valued functions. Consider the general iteration
 \begin{equation}
-	x_{n+1} = F(x_{n})
+	x_{n+1} = F(x_{n}),
+	\label{eq:FPV}
 \end{equation}
-converges to the fixed point $x_{*}$ if $\rho(J(x_{*})) < 1$, where $J(x_{*})$ is the Jacobian of the vector valued function $F$ evaluated at the fixed point $x_{*}$ \cite{ostrowski_solution_2016}, for a close enough initial guess $x_{0}$. 
+where $F: \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$ is a vector valued function. A solution of the equation $x = F(x)$ is called a \textit{fixed point} of $F$. Unlike iterative methods for linear equations, it is usually only possible to analyze the convergence of Eq.~\ref{eq:FPV} in a neighborhood about a fixed point. For any initial guess $x_{0}$ in that neighborhood, the general iteration in Eq.~\ref{eq:FPV} will converge to the fixed point if the fixed point is a \textit{point of attraction}. More precisely, we define a fixed point as a \textit{point of attraction} as follows:
+
+\begin{definition}
+	A fixed point $x_{*}$ of $F: \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$ is a point of attraction of the iteration given in Eq.~\ref{eq:FPV} if there is an open neighborhood $S$ of $x_{*}$ such that when $x_{0} \in S$, the iterates are well defined and converge to $x_{*}$.
+\end{definition}
+
+Before we give the basic local convergence theorem for Eq.~\ref{eq:FPV}, we discuss the \textit{Jacobian matrix} of the vector valued function $F$. The \textit{Jacobian matrix} of the vector valued function $F$ is denoted by $J(x)$ and is defined as follows:
+
+\begin{definition}
+	The Jacobian matrix of the vector valued function $F$ is defined as
+	\begin{equation}
+		J(x) = \begin{pmatrix}
+					\frac{\partial F_{1}(x)}{\partial x_{1}} & \cdots & 	\frac{\partial F_{1}(x)}{\partial x_{n}} \\
+					\vdots & & \vdots \\
+					\frac{\partial F_{1}(x)}{\partial x_{n}} & \cdots & 	\frac{\partial F_{n}(x)}{\partial x_{n}}
+			      \end{pmatrix}.
+	\end{equation}
+\end{definition}
+It is assumed that the Jacobian matrix is at least continuous at the fixed point $x_{*}$. It can be shown that if the Jacobian matrix is continuous at $x_{*}$, then $F$ is differentiable at $x_{*}$ \cite{ortega_numerical_1990}.
+
+We now introduce Ostrowki's Theorem \cite{ostrowski_solution_2016}, the local convergence theorem for the iteration given by Eq.~\ref{eq:FPV}.
+
+\begin{theorem}{Ostrowski's Theorem:}
+	Assume that $F: \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$ is differentiable at the fixed point $x_{*}$ and that $\rho(J(x_{*})) < 1$. Then $x_{*}$ is a point of attraction for the general iteration given by Eq.~\ref{eq:FPV}.
+\end{theorem}
+
+It is important to note that the previous theorem is a sufficient but not necessary condition for the convergence of the non-linear fixed point iteration. 
+
+%, a fixed point iteration method of the form
+%\begin{equation}
+%	x_{n+1} = F(x_{n})
+%\end{equation}
+%converges to the fixed point $x_{*}$ if $\rho(J(x_{*})) < 1$, where $J(x_{*})$ is the Jacobian of the vector valued function $F$ evaluated at the fixed point $x_{*}$ \cite{ostrowski_solution_2016}, for a close enough initial guess $x_{0}$. 

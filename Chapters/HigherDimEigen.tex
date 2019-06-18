@@ -1,6 +1,6 @@
 \chapter{Higher Dimensional Eigenvalues}
 
-In this chapter we verify the correctness and examine the performance of the Rayleigh quotient fixed point methods for higher-dimensional problems. We consider realistic two- and three-dimensional problems involving fuel rods and fuel assemblies. For higher dimensions, the phase space of the neutron transport equation is a function of two $(x, y)$ or three $(x, y, z)$ spatial variables $x$ and two $(\mu, \eta)$ or three $(\mu, \eta, \xi)$ angular variables defined as the $x$-, $y$-, and $z$-direction cosines. For higher-dimensional Cartesian geometry, the two-dimensional and three-dimensional alpha-eigenvalue neutron transport equations are given by Eq.~\ref{eq:2DAlphaSlab} and Eq.~\ref{eq:3DAlpha}, respectively:
+In this chapter we verify the correctness and examine the performance of the Rayleigh quotient fixed point methods for higher-dimensional problems. We consider realistic two- and three-dimensional problems involving fuel rods and fuel assemblies. For higher dimensions, the phase space of the neutron transport equation is a function of two $(x, y)$ or three $(x, y, z)$ spatial variables and two $(\mu, \eta)$ or three $(\mu, \eta, \xi)$ angular variables defined as the $x$-, $y$-, and $z$-direction cosines. For higher-dimensional Cartesian geometry, the two-dimensional and three-dimensional alpha-eigenvalue neutron transport equations are given by Eq.~\ref{eq:2DAlpha} and Eq.~\ref{eq:3DAlpha}, respectively:
 
 \begin{multline}
 \bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \frac{\alpha}{v(E)} + \sigma(x,y,E) \bigg ] \psi(x,y,\mu,\eta,E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,E') \int_{-1}^{1} \diff \mu' \int_{-1}^{1} \diff \eta' \psi(x,y, \mu',\eta', E) \\ + \frac{1}{2\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(x, y, E' \rightarrow E) \int_{-1}^{1} \diff \mu' \int_{-1}^{1} \diff \eta' \, \psi(x,y, \mu',\eta',E),
@@ -13,6 +13,74 @@ In this chapter we verify the correctness and examine the performance of the Ray
 \end{multline}
 
 %Various homogeneous and heterogeneous slab geometry problems with vacuum boundary conditions were modeled in ARDRA. These slab media problems consist of multiplying and non-multiplying materials with thicknesses $\Delta$. Alpha- and $k$-effective eigenvalues were calculated and the number of transport sweeps compared to various methods such as the critical search method and the power method. To verify the correctness of the Rayleigh quotient fixed point method (RQFP), the method was compared to various methods such as Green's Function Method (GFM) and Direct Evaluation (DE) and compared to other discrete ordinate neutron transport codes such as PARTISN/DANT.
+
+\section{Cylinder Benchmark Problems}
+
+\begin{figure}[!htbp]
+	\centering
+	\input{Figures/HigherDimEigen/CylinderCriticalRadius.tex}
+	\caption{Critical Radius of Infinite Cylinder}
+	\label{fig:CylCritRadius}
+\end{figure}
+
+\begin{table}[!htbp]
+	\caption{One-Group Cross Sections for Infinite Cylinder Critical Problems (cm$^{-1}$) \cite{sood2003analytical}}
+	\label{table:SoodCyl}
+	\centering\ra{1.3}
+    \begin{tabular}{*6c}
+        \toprule
+	Cross Section Set & $\sigma$ & $\nu \sigma_{f}$ & $\sigma_{s0}$ & $\sigma_{s1}$ & $v$ [cm/s] \\ 
+        \midrule
+	PUb & 0.32640 & 0.231744 & 0.225216 & 0.0 & 1 \\
+	U-235a & 0.32640 & 0.176256 & 0.248064 & 0.0 & 1 \\
+	U-D$_{2}$O & 0.54628 & 0.0928676 & 0.464338 & 0.0 & 1 \\
+	U-235a Anisotropic & 0.32640 & 1.76256 & 0.248064 & 0.04432 & 1 \\
+	U-235b Anisotropic & 0.32640 & 1.76256 & 0.248064 & 0.212160 & 1 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Critical Infinite Cylinder Problems in \cite{sood2003analytical}}
+	\label{table:SoodCyl}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccccc@{}}\toprule
+	& & & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{4-5} Cross Section Set & r$_{c}$ [cm] & Calculated $\alpha$ [s$^{-1}$] & RQFP & Critical Search\\
+	\midrule
+	PUb & 4.279960 & $3.783833 \times 10^{-4}$ & 38 & 461 \\
+	U-235a & 5.284935 & $ 1.973082 \times 10^{-4}$ & 45 & 455 \\
+	U-D$_{2}$O & 16.554249 & $ -1.007328 \times 10^{-4}$ &  319 & * \\
+	U-235a Anisotropic & 5.514296811 & $ 6.549139 \times 10^{-3}$ & 47 & 99260 \\
+	U-235b Anisotropic (Check this) & 6.940205668 & $ 6.549139 \times 10^{-3}$ & 47 & 99260 \\ 
+	\bottomrule
+	\multicolumn{5}{l}{*Did Not Converge} \\
+	\end{tabular}
+	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
+	\label{table:SoodCylAlpha}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{4-5} Cross Section Set & r$_{c}$ [cm] & Reference $k_{\text{eff}}$ & RQFP & Power Method \\
+	\midrule
+	PUb & 4.279960 & 1.001419 & 43 & 40 \\
+	U-235a & 5.284935 & 1.000989 & 49 & 42 \\
+	U-D$_{2}$O & 16.554249 & 0.998935 & 320 & 121 \\
+	U-235a Anisotropic & 5.514296811 & 1.034070 & 51 & 43 \\
+	U-235b Anisotropic (Check this) & 6.940205668 &  &  & \\
+	\bottomrule
+	\multicolumn{5}{l}{$M = 500$, $L = 10$, Tolerance = $10^{-12}$} \\
+	\end{tabular}
+	\caption{$k$-Effective: Comparison of RQFP and Power Method Transport Sweeps}
+	\label{table:SoodCylK}
+	\end{subtable}
+\end{table}
+
+\section{Two- and Three-Dimensional Cartesian Benchmark Problems}
 
 \begin{figure}
 \begin{table}[H]
