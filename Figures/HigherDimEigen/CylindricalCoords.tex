@@ -1,0 +1,42 @@
+% 3D axis with spherical coordinates
+\tdplotsetmaincoords{60}{110}
+\begin{tikzpicture}[scale=3,tdplot_main_coords]
+ 
+  % variables
+  \def\rvec{1.4}
+  \def\thetavec{45}
+  \def\phivec{60}
+ 
+  % axes
+  \coordinate (O) at (0,0,0);
+  \draw[thick,->] (0,0,0) -- (1,0,0) node[anchor=north east]{$x$};
+  \draw[thick,->] (0,0,0) -- (0,1,0) node[anchor=north west]{$y$};
+  \draw[thick,->] (0,0,0) -- (0,0,1) node[anchor=south]{$z$};
+ 
+  % vectors
+  \tdplotsetcoord{P}{\rvec}{\thetavec}{\phivec}
+  \draw[-stealth,black] (O)  -- (P) node[above right] {$P$};
+  \draw[dashed,black]   (O)  -- (Pxy);
+  \draw[dashed,black]   (P)  -- (Pxy);
+  %\draw[dashed,red]   (Py) -- (Pxy);
+ 
+  % arcs
+  \tdplotdrawarc[->]{(O)}{0.2}{0}{\phivec}
+    {anchor=north}{$\theta$}
+  \tdplotsetthetaplanecoords{\phivec}
+  \tdplotdrawarc[->,tdplot_rotated_coords]{(0,0,0)}{0.5}{0}{\thetavec}
+    {anchor=south west}{$\theta$}
+    
+    \tdplotsetthetaplanecoords{\phivec}
+\tdplotsetcoord{P}{\rvec}{\thetavec}{\phivec}
+\tdplotsetrotatedcoords{0}{0}{0}
+
+%translate the rotated coordinate system
+%syntax: \tdplotsetrotatedcoordsorigin{point}
+\tdplotsetrotatedcoordsorigin{(P)}
+\draw[thick,tdplot_rotated_coords,->] (0,0,0) -- (-.5,0,0) node[anchor=north west]{$x'$};
+\draw[thick,tdplot_rotated_coords,->] (0,0,0) -- (0,.5,0) node[anchor=west]{$y'$};
+\draw[thick,tdplot_rotated_coords,->] (0,0,0) -- (0,0,.5) node[anchor=south]{$z'$};
+\tdplotsetrotatedthetaplanecoords{45}
+ 
+\end{tikzpicture}

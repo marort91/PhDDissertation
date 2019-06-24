@@ -1,20 +1,47 @@
 \chapter{Higher Dimensional Eigenvalues}
 
-In this chapter we verify the correctness and examine the performance of the Rayleigh quotient fixed point methods for higher-dimensional problems. We consider realistic two- and three-dimensional problems involving fuel rods and fuel assemblies. For higher dimensions, the phase space of the neutron transport equation is a function of two $(x, y)$ or three $(x, y, z)$ spatial variables and two $(\mu, \eta)$ or three $(\mu, \eta, \xi)$ angular variables defined as the $x$-, $y$-, and $z$-direction cosines. For higher-dimensional Cartesian geometry, the two-dimensional and three-dimensional alpha-eigenvalue neutron transport equations are given by Eq.~\ref{eq:2DAlpha} and Eq.~\ref{eq:3DAlpha}, respectively:
+In this chapter we verify the correctness and examine the performance of the Rayleigh quotient fixed point methods for higher-dimensional problems. We consider realistic two- and three-dimensional problems involving fuel rods and fuel assemblies. For higher dimensions, the phase space of the neutron transport equation is a function of two $(x, y)$ or three $(x, y, z)$ spatial variables and two $\hat{\Omega} = (\mu, \eta)$ or three $\hat{\Omega} =  (\mu, \eta, \xi)$ angular variables defined as the $x$-, $y$-, and $z$-direction cosines. For higher-dimensional Cartesian geometry, the two-dimensional and three-dimensional alpha-eigenvalue neutron transport equations are given by Eq.~\ref{eq:2DAlpha} and Eq.~\ref{eq:3DAlpha}, respectively:
 
 \begin{multline}
-\bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \frac{\alpha}{v(E)} + \sigma(x,y,E) \bigg ] \psi(x,y,\mu,\eta,E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,E') \int_{-1}^{1} \diff \mu' \int_{-1}^{1} \diff \eta' \psi(x,y, \mu',\eta', E) \\ + \frac{1}{2\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(x, y, E' \rightarrow E) \int_{-1}^{1} \diff \mu' \int_{-1}^{1} \diff \eta' \, \psi(x,y, \mu',\eta',E),
+\bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \frac{\alpha}{v(E)} + \sigma(x,y,E) \bigg ] \psi(x,y,\hat{\Omega},E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,E') \int_{2\pi} \diff \hat{\Omega}' \, \psi(x,y, \hat{\Omega}', E) \\ + \frac{1}{2\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(x, y, E' \rightarrow E) \int_{2\pi} \diff \hat{\Omega}' \, \psi(x,y, \hat{\Omega}',E),
 \label{eq:2DAlpha}
 \end{multline}
 
 \begin{multline}
-\bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \xi \frac{\partial}{\partial z} + \frac{\alpha}{v(E)} + \sigma(x,y,z,E) \bigg ] \psi(x,y,z,\mu,\eta,\xi, E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,z,E') \int_{-1}^{1} \diff \mu' \int_{-1}^{1} \diff \eta' \int_{0}^{\pi} \diff \xi' \psi(x,y,z, \mu',\eta', \xi',E) \\ + \frac{1}{4\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(x, y,z, E' \rightarrow E) \int_{-1}^{1} \diff \mu' \int_{-1}^{1} \diff \eta' \int_{0}^{\pi} \diff \xi' \, \psi(x,y,z, \mu',\eta',\xi',E),
+\bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \xi \frac{\partial}{\partial z} + \frac{\alpha}{v(E)} + \sigma(x,y,z,E) \bigg ] \psi(x,y,z,\hat{\Omega}, E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,z,E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E) \\ + \frac{1}{4\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(x, y, z, E' \rightarrow E) \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E).
 \label{eq:3DAlpha}
 \end{multline}
+The three-dimensional $k$-effective eigenvalue neutron transport equation is given by \ref{eq:3Dk}:
 
+\begin{multline}
+\bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \xi \frac{\partial}{\partial z} + \sigma(x,y,z,E) \bigg ] \psi(x,y,z,\hat{\Omega}, E) \\ = \frac{1}{k}\frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,z,E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E) \\ + \frac{1}{4\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(x, y, z, E' \rightarrow E) \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E).
+\label{eq:3Dk}
+\end{multline}
+
+We also consider two-dimensional cylindrical geometry problems. For cylindrical geometry problems, the complexity is increased due to the fact that for one spatial dimension, two angular variables are required to describe the angular flux. For two-dimensional cylindrical problems, the alpha-eigenvalue neutron transport equation is given by 
+
+\begin{multline}
+\frac{\mu}{\rho} \frac{\partial}{\partial \rho} (\rho \psi) + \xi \frac{\partial \psi}{\partial z} - \frac{1}{\rho} \frac{\partial}{\partial \omega} (\eta \psi) + \frac{\alpha}{v(E)} \psi(\rho,\hat{\Omega},E) + \sigma(\rho,E) \psi(\rho,\hat{\Omega}E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(\rho,E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(\rho, \hat{\Omega}',E) \\ + \frac{1}{4\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(\rho, E' \rightarrow E) \int_{4\pi} \diff \hat{\Omega}' \, \psi(\rho, \hat{\Omega}',E),
+\label{eq:2DCylAlpha}
+\end{multline}
+where $\rho$ is the radial distance from the origin and $\mu = (1-\xi^{2})^{1/2} \cos \omega$ and $\eta = (1-\xi^{2})^{1/2}\sin \omega$ (Figure \ref{fig:Cyl2D}).
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.55\textwidth}{!}{
+	\input{Figures/HigherDimEigen/2DCylinder.tex}
+%	\input{Figures/HigherDimEigen/CylindricalCoords.tex}
+	}
+	\caption{Cylindrical Space-Angle Coordinate System in Three Dimensions}
+	\label{fig:Cyl2D}
+\end{figure}
 %Various homogeneous and heterogeneous slab geometry problems with vacuum boundary conditions were modeled in ARDRA. These slab media problems consist of multiplying and non-multiplying materials with thicknesses $\Delta$. Alpha- and $k$-effective eigenvalues were calculated and the number of transport sweeps compared to various methods such as the critical search method and the power method. To verify the correctness of the Rayleigh quotient fixed point method (RQFP), the method was compared to various methods such as Green's Function Method (GFM) and Direct Evaluation (DE) and compared to other discrete ordinate neutron transport codes such as PARTISN/DANT.
 
-\section{Cylinder Benchmark Problems}
+Reactor fuel assemblies and fuel pins were modeled in ARDRA. These benchmark problems consisted of detailed heterogeneous domains with many nuclei of interest to reactor design and physics. The higher dimension geometry of the problems along with the many energy-group cross section libraries allowed for analysis of the Rayleigh quotient method for alpha- and $k$-effective eigenvalue problems in situations where assumptions of positivity might no longer be valid.
+
+\section{Critical Cylinder Benchmark Problems}
+
+We consider homogeneous and heterogeneous two-dimensional cylindrical problems in this section. In the homogeneous case, a critical "infinite cylinder" domain is modeled with critical radius $r_{c}$ and height $z_{c}$ to approximate an infinite cylinder in the $z$-direction (Figure~\ref{fig:CylCritRadius}). In the heterogeneous case, an infinite cylinder is surrounded by some reflector (such as water). The inclusion of the reflector introduces regions in the problem domain where fission is not possible and only downscattering is allowed. This violates the conditions necessary for primitivity (see Section~\ref{sec:PrimPos}). We find that the inclusion of non-fissile reflector material does not impact the ability of the Rayleigh quotient fixed point method for alpha- and $k$-effective eigenvalue problems to obtain the fundamental eigenpair.
 
 \begin{figure}[!htbp]
 	\centering
@@ -22,6 +49,14 @@ In this chapter we verify the correctness and examine the performance of the Ray
 	\caption{Critical Radius of Infinite Cylinder}
 	\label{fig:CylCritRadius}
 \end{figure}
+
+\subsection{Homogeneous Critical Cylinder Problems}
+
+Five exactly critical homogeneous cylinder problems from Sood \cite{sood2003analytical} were considered with cross sections listed in Table~\ref{table:SoodCyl}. These problems consisted of plutonium, uranium-235, and heavy-water/uranium mixture cylinders with critical radii listed in Table~\ref{table:SoodCylRes}. All problem cross-sections were one-group and two problems included anisotropic scattering.
+
+The number of transport sweeps necessary for convergence for the RQFP and critical search method can be seen in Table~\ref{table:SoodCylAlpha}. For the plutonium problem, the RQFP method required 38 sweeps to converge the alpha-eigenvalue and eigenvector. The critical search method required 461 transport sweeps. In this particular problem the RQFP method reduced the number of transport sweeps necessary by a factor of 10. For the uranium-235 problem, the RQFP method required 45 transport sweeps as compared to 455 sweeps for the critical search method, a factor of 10 reduction. For the heavy-water/uranium mixture, the number of transport sweeps required to converge the eigenpair increased dramatically. For this set of cross section data, 319 transport sweeps were required by the RQFP method to converge the fundamental mode and eigenvalue. The critical search method was not able to converge the alpha-eigenvalue as the system as modeled was slightly subcritical. For the uranium-235 cross sections with anisotropic scattering, the RQFP method was found to take 41 and 53 transport sweeps each. The critical search method was unable to converge these methods despite the fact that the systems were slightly supercritical. The critical search method was unable to converge the alpha-eigenvalue and eigenvector due to the fact that the $k$-effective eigenvalue goes negative in the interpolation part of the algorithm.
+
+The number of transport sweeps necessary for convergence for the RQFP and power method with fission source update can be seen in Table~\ref{table:SoodCylK}. The RQFP method requires a similar number of sweeps to converge the $k$-effective eigenvalue problem except for the heavy-water/uranium mixture problem. In this case, the RQFP method requires 320 transport sweeps to only 121 transport sweeps for the power method with fission source update. This implies that the convergence rate of the RQFP method is much more strongly influenced by the amount of scattering in the system as compared to the power method. In all cases, the number of sweeps required by the RQFP method to converge the $k$-effective eigenvalue was similar to the number of sweeps required to converge the alpha-eigenvalue problem. 
 
 \begin{table}[!htbp]
 	\caption{One-Group Cross Sections for Infinite Cylinder Critical Problems (cm$^{-1}$) \cite{sood2003analytical}}
@@ -42,7 +77,7 @@ In this chapter we verify the correctness and examine the performance of the Ray
 
 \begin{table}[!htbp]
 	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Critical Infinite Cylinder Problems in \cite{sood2003analytical}}
-	\label{table:SoodCyl}
+	\label{table:SoodCylRes}
 	\begin{subtable}[h]{1.0\textwidth}
 	\centering\ra{1.3}
 	\begin{tabular}{@{}ccccc@{}}\toprule
@@ -52,8 +87,8 @@ In this chapter we verify the correctness and examine the performance of the Ray
 	PUb & 4.279960 & $3.783833 \times 10^{-4}$ & 38 & 461 \\
 	U-235a & 5.284935 & $ 1.973082 \times 10^{-4}$ & 45 & 455 \\
 	U-D$_{2}$O & 16.554249 & $ -1.007328 \times 10^{-4}$ &  319 & * \\
-	U-235a Anisotropic & 5.514296811 & $ 6.549139 \times 10^{-3}$ & 47 & 99260 \\
-	U-235b Anisotropic (Check this) & 6.940205668 & $ 6.549139 \times 10^{-3}$ & 47 & 99260 \\ 
+	U-235a Anisotropic & 5.514296811 & $ 2.012672 \times 10^{-4}$ & 41 & * \\
+	U-235b Anisotropic & 6.940205668 & $ 1.906997 \times 10^{-4}$ & 53 & * \\ 
 	\bottomrule
 	\multicolumn{5}{l}{*Did Not Converge} \\
 	\end{tabular}
@@ -64,14 +99,14 @@ In this chapter we verify the correctness and examine the performance of the Ray
 	\begin{subtable}[h]{1.0\textwidth}
 	\centering\ra{1.3}
 	\begin{tabular}{@{}ccccc@{}}\toprule
-	& & \multicolumn{2}{c}{Transport Sweeps} \\
-	\cmidrule{4-5} Cross Section Set & r$_{c}$ [cm] & Reference $k_{\text{eff}}$ & RQFP & Power Method \\
+	& & & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{4-5} Cross Section Set & r$_{c}$ [cm] & Calculated $k_{\text{eff}}$ & RQFP & Power Method \\
 	\midrule
 	PUb & 4.279960 & 1.001419 & 43 & 40 \\
 	U-235a & 5.284935 & 1.000989 & 49 & 42 \\
 	U-D$_{2}$O & 16.554249 & 0.998935 & 320 & 121 \\
-	U-235a Anisotropic & 5.514296811 & 1.034070 & 51 & 43 \\
-	U-235b Anisotropic (Check this) & 6.940205668 &  &  & \\
+	U-235a Anisotropic & 5.514296811 & 1.000997 & 48 & 40 \\
+	U-235b Anisotropic & 6.940205668 & 1.000870 & 37  & 43 \\
 	\bottomrule
 	\multicolumn{5}{l}{$M = 500$, $L = 10$, Tolerance = $10^{-12}$} \\
 	\end{tabular}
@@ -402,5 +437,55 @@ In this chapter we verify the correctness and examine the performance of the Ray
   \caption{C5G7MOX Cross Sections - Moderator}
 \end{table}
 \end{figure}
+
+\begin{figure*}[t!]
+    \centering
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[scale=0.45]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=0}
+        \caption{Scalar Flux for Energy Group 0}
+    \end{subfigure}%
+    ~ 
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[scale=0.45]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=1}
+        \caption{Scalar Flux for Energy Group 1}
+    \end{subfigure}
+%    \caption{Caption place holder}
+        \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[scale=0.45]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=2}
+        \caption{Scalar Flux for Energy Group 2}
+    \end{subfigure}%
+    ~ 
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[scale=0.45]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=3}
+        \caption{Scalar Flux for Energy Group 3}
+    \end{subfigure}
+        \caption{Scalar Flux for Energy Group}
+\end{figure*}
+
+\begin{figure*}[t!]
+    \centering
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[scale=0.45]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=4}
+        \caption{Scalar Flux for Energy Group 4}
+    \end{subfigure}%
+    ~ 
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[scale=0.45]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=5}
+        \caption{Scalar Flux for Energy Group 5}
+    \end{subfigure}
+%    \caption{Caption place holder}
+        \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[scale=0.45]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=6}
+        \caption{Scalar Flux for Energy Group 6}
+    \end{subfigure}%
+    \caption{Caption place holder}
+\end{figure*}
 
 \section{Conclusion}

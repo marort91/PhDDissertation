@@ -1265,6 +1265,233 @@ The RQFP- and GFM-calculated alpha-eigenvalues are listed in Table~\ref{table:Fi
 
 \section{Multigroup Verification for Spherical Geometry}
 
+In this section, we examine the performance of the RQFP method for three multigroup-in-energy, reflected, critical spheres from the International Handbook of Evaluated Criticality Safety Benchmark Experiments \cite{bess2015international}. The handbook contains criticality safety benchmark specifications that have been derived from various experiments performed at various facilities throughout the world. These specifications are intended to help researchers validate calculation techniques and methods by providing researchers with integral quantities such as $k$-effective and energy spectra. The problems examined in this section provide a diverse set of critical systems consisting of a large number of materials, large cross-section libraries, anisotropically scattering materials, and other characteristics intended to test the performance of the RQFP methods for realistic problems.
+
+\subsection{A Plutonium-Nitrate Solution Critical Sphere}
+
+The alpha- and $k$-effective eigenvalues and eigenvectors of a plutonium-nitrate solution covered with cadmium were calculated and the number of transport sweeps required for convergence compared to standard eigensolver methods. The benchmark problem (Cross Section Evaluation Working Group (CSEWG) ID: \texttt{T-15} and International Criticality Safety Benchmark Evaluation Project (ICSBEP) ID: \texttt{PU\_SOL\_THERM\_011}) consisted of an 18-inch diameter sphere of a plutonium-nitrate solution with density 22.35 grams/liter covered with stainless steel and cadmium shells. The fissile sphere radius, $r_{\text{U}}$, and stainless steel and cadmium shell thicknesses, $\delta_{\text{SS}}$ and $\delta_{\text{Cd}}$, respectively, are listed in Table~\ref{table:PU_SOL_Dims} and material composition and number fractions in Table~\ref{table:PU_SOL}.
+
+\begin{table}[!htbp]
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& \multicolumn{3}{c}{Problem Dimensions [cm]} \\
+	\cmidrule{2-4} ICSBEP ID & $r_{\text{Pu}}$ & $\delta_{\text{SS}}$ & $\delta_{\text{Cd}}$ \\
+	\midrule
+	\texttt{PU\_SOL\_THERM\_001} & 22.6974 & 0.127 & 0.0508 \\
+	\bottomrule
+	\end{tabular}
+	\caption{Fissile Material Radius and Shell Thicknesses for Plutonium-Nitrate Solution Benchmark}
+	\label{table:PU_SOL_Dims}
+\end{table}
+
+\begin{table}[!htbp]
+	\caption{Material Composition for Plutonium-Nitrate Solution System}
+	\label{table:PU_SOL}
+	%\begin{subtable}[h]{1.0\textwidth}
+		\centering\ra{1.3}
+		\begin{tabular}{@{}ccccc@{}}\toprule
+			Material Number & Temperature ($^{\circ}$C) & Component & Density (g/cm$^{3}$) & Number Fraction \\ 
+        			\midrule
+			1 & 20.0 & 1001 & 1.066 & 6.484E-01 \\
+			 & & 7014 & & 7.358E-03 \\
+ 			 & & 8016 & & 3.437E-01 \\
+  			 & & 26000 & & 1.280E-05 \\
+   			 & & 94239 & & 5.638E-04 \\
+   			 & & 94240 & & 2.344E-05 \\
+			 & & & & \\
+			 2 & 20.0 & 24000 & 7.998 & 1.921E-01 \\
+			 & & 26000 & & 6.945E-01 \\
+ 			 & & 28000 & & 1.134E-01 \\
+			 & & & & \\
+			 3 & 20.0 & 48000 & 11.72 & 1.000E+00 \\
+ 			 & & & & \\
+			 4 & 20.0 & 7014 & 1.293E-03 & 7.800E-01 \\
+ 			  &  & 8016 & & 2.200E-01 \\
+		\bottomrule
+		\end{tabular}
+	%\caption{U-D$_{2}$O Cross Sections}
+	%\label{table:PU_SOL}
+	%\end{subtable}%
+\end{table}
+
+\begin{table}[!htbp]
+\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Plutonium-Nitrate Solution System}
+	\label{table:PU_SOL_Eigs}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} ICSBEP ID & Calculated $\alpha$ [$\mu s^{-1}$] & RQFP & Critical Search \\
+	\midrule
+	\texttt{PU\_SOL\_THERM\_001} & $2.287638 \times 10^{-4}$ & 106260 & 333500 \\
+	\bottomrule
+	\end{tabular}
+	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
+	\label{table:PU_SOL_Alpha}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} ICSBEP ID & Calculated $k_{\text{eff}}$ & RQFP & Power Method \\
+	\midrule
+	\texttt{PU\_SOL\_THERM\_001} & 1.012216 & * & 58650 \\
+	\bottomrule
+	\multicolumn{4}{l}{*Did Not Converge} \\
+	\end{tabular}
+	\caption{$k$-Effective: Comparison of RQFP and Critical Search Transport Sweeps}
+	\label{table:PU_SOL_k}
+	\end{subtable}%
+\end{table}
+
+\begin{figure}
+	\centering
+	\resizebox{0.75\textwidth}{!}{
+\input{Figures/SlabEigenvalue/EnergyScalarFluxDiff.tex}
+	}
+	\caption{Absolute Error Between RQFP Method and Reference Solution for the Alpha-Eigenvalue Energy Spectrum}
+	\label{fig:ScalarFluxEDiff}
+\end{figure}
+
+\subsection{A Plutonium/Highly Enriched Uranium Mixture Critical Sphere}
+
+The alpha- and $k$-effective eigenvalues and eigenvectors of a plutonium/highly enriched uranium mixture spherical assembly were calculated. The number of transport sweeps required by the Rayleigh quotient fixed point method for convergence of the eigenpair was compared to the standard eigenvalue methods for the alpha- and $k$-effective eigenvalue problems. The benchmark problem (International Criticality Safety Benchmark Evaluation Project (ICSBEP) ID: \texttt{MIX\_MET\_FAST\_001}) consisted of a plutonium metal sphere surrounded by a uranium-235 and uranium-238 shell. The plutonium sphere radius and uranium shell thickness are listed in Table~\ref{table:MIX_MET_Dims}. Material compositions and number fractions are listed in Table~\ref{table:MIX}.
+
+\begin{table}[!htbp]
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccc@{}}\toprule
+	& \multicolumn{2}{c}{Problem Dimensions [cm]} \\
+	\cmidrule{2-3} ICSBEP ID & $r_{\text{Pu}}$ & $\delta_{\text{U}}$ \\
+	\midrule
+	\texttt{MIX\_MET\_FAST\_001} & 5.0419 & 1.6637 \\
+	\bottomrule
+	\end{tabular}
+	\caption{Fissile Material Radius and Shell Thicknesses for Plutonium/Highly Enriched Uranium Mixture Benchmark}
+	\label{table:MIX_MET_Dims}
+\end{table}
+
+\begin{table}[!htbp]
+	\caption{Material Composition for Plutonium/Highly Enriched Uranium Mixture System}
+	\label{table:MIX}
+		\centering\ra{1.3}
+		\begin{tabular}{@{}ccccc@{}}\toprule
+			Material Number & Temperature ($^{\circ}$C) & Component & Density (g/cm$^{3}$) & Number Fraction \\ 
+        			\midrule
+         1  &  20.0  &  31069    &     1.578E+01 &  2.012E-02 \\
+            &          &  31071    &               &  1.336E-02 \\
+            &          &  94239    &               &  9.162E-01 \\
+            &          &  94240    &               &  4.736E-02 \\
+            &          &  94241    &               &  2.996E-03 \\
+            & & & & \\
+          2  &  20.0  &  92235    &     1.880E+01 &  9.328E-01 \\
+            &          &  92238    &               &  6.720E-02 \\
+                        & & & & \\
+          3    & 20.0  &  7014    &      1.293E-03   & 7.800E-01\\
+              & & 8016              & &        2.200E-01 \\
+		\bottomrule
+		\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Plutonium/Highly Enriched Uranium System}
+	\label{table:MIX_MET_Eigs}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} ICSBEP ID & Calculated $\alpha$ [$\mu s^{-1}$] & RQFP & Critical Search \\
+	\midrule
+	\texttt{MIX\_MET\_FAST\_001} & $-4.114757 \times 10^{-1}$ & 22310 & * \\
+	\bottomrule
+	\multicolumn{4}{l}{*Did Not Converge} \\
+	\end{tabular}
+	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
+	\label{table:MIX_MET_Alpha}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} ICSBEP ID & Calculated $k_{\text{eff}}$ & RQFP & Power Method \\
+	\midrule
+	\texttt{MIX\_MET\_FAST\_001} & 0.999063 & 7130 & 4370 \\
+	\bottomrule
+	\end{tabular}
+	\caption{$k$-Effective: Comparison of RQFP and Critical Search Transport Sweeps}
+	\label{table:MIX_MET_k}
+	\end{subtable}%
+\end{table}
+
+\subsection{A Uranium-233 Critical Sphere}
+
+The alpha- and $k$-effective eigenvalue and eigenvectors of a 0.481 inch uranium-233 sphere reflected by an HEU shell were calculated and the number of transport sweeps necessary for converge compared to standard eigenproblem solvers. The uranium-233 system was a fast energy spectrum critical benchmark problem (ICSBEP ID: \texttt{U233\_MET\_FAST\_002}). The critical sphere radius and shell thickness are listed in Table~\ref{table:U233_MET_Dims}. Material compositions and number fractions are shown in Table~\ref{table:U233}.
+
+\begin{table}[!htbp]
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccc@{}}\toprule
+	& \multicolumn{2}{c}{Problem Dimensions [cm]} \\
+	\cmidrule{2-3} ICSBEP ID & $r_{\text{U$_{233}$}}$ & $\delta_{\text{U}}$ \\
+	\midrule
+	\texttt{U233\_MET\_FAST\_002} & 5.0444 & 6.2661 \\
+	\bottomrule
+	\end{tabular}
+	\caption{Fissile Material Radius and Shell Thicknesses for Uranium-233 Benchmark}
+	\label{table:U233_MET_Dims}
+\end{table}
+
+\begin{table}[!htbp]
+	\caption{Material Composition for Uranium-233 System}
+	\label{table:U233}
+		\centering\ra{1.3}
+		\begin{tabular}{@{}ccccc@{}}\toprule
+			Material Number & Temperature ($^{\circ}$C) & Component & Density (g/cm$^{3}$) & Number Fraction \\ 
+        			\midrule
+         1  &  20.0 &    92233  &       1.862E+01  & 9.822E-01 \\
+            & &          92234      &     &          1.096E-02 \\
+           & &            92238     &     &           6.854E-03 \\
+	& & & & \\
+         2    & 20.0 &    92235   &      1.880E+01  & 9.328E-01 \\
+        & &               92238     &  &              6.720E-02 \\
+	& & & & \\
+         3   & 20.0  &  7014  &        1.293E-03  & 7.800E-01 \\
+          & &              8016   & &                2.200E-01 \\
+		\bottomrule
+		\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for a Uranium-233 System}
+	\label{table:U233_Eigs}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} ICSBEP ID & Calculated $\alpha$ [$\mu s^{-1}$] & RQFP & Critical Search \\
+	\midrule
+	\texttt{U233\_MET\_FAST\_002} & $-5.158602 \times 10^{-1}$ & 30590 & * \\
+	\bottomrule
+	\multicolumn{4}{l}{*Did Not Converge} \\
+	\end{tabular}
+	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
+	\label{table:U233_MET_Alpha}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} ICSBEP ID & Calculated $k_{\text{eff}}$ & RQFP & Power Method \\
+	\midrule
+	\texttt{U233\_MET\_FAST\_002} & 0.998474 &15640 & 10580 \\
+	\bottomrule
+	\end{tabular}
+	\caption{$k$-Effective: Comparison of RQFP and Critical Search Transport Sweeps}
+	\label{table:U233_MET_k}
+	\end{subtable}%
+\end{table}
+
 \section{Conclusion}
 
 %\begin{table*}
