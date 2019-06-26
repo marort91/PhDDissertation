@@ -117,6 +117,7 @@ The number of transport sweeps necessary for convergence for the RQFP and power 
 
 \section{Two- and Three-Dimensional Cartesian Benchmark Problems}
 
+%\newgeometry{landscape}
 \begin{figure}
 \begin{table}[H]
 	\begin{subtable}[h]{1.0\textwidth}
@@ -162,6 +163,8 @@ The number of transport sweeps necessary for convergence for the RQFP and power 
     \caption{C5G7MOX Cross Sections - UO$_{2}$ Fuel-Clad}
 \end{table}
 \end{figure}
+%\restoregeometry
+
 \begin{figure}
 \begin{table}[H]
   \begin{subtable}[h]{1.0\textwidth}
@@ -438,54 +441,57 @@ The number of transport sweeps necessary for convergence for the RQFP and power 
 \end{table}
 \end{figure}
 
-\begin{figure*}[t!]
-    \centering
-    \begin{subfigure}[t]{0.5\textwidth}
-        \centering
-        \includegraphics[scale=0.45]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=0}
+\begin{figure}[!htbp]
+\centering
+\begin{subfigure}[b]{0.75\textwidth}
+        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=0}
         \caption{Scalar Flux for Energy Group 0}
-    \end{subfigure}%
-    ~ 
-    \begin{subfigure}[t]{0.5\textwidth}
-        \centering
-        \includegraphics[scale=0.45]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=1}
-        \caption{Scalar Flux for Energy Group 1}
-    \end{subfigure}
-%    \caption{Caption place holder}
-        \begin{subfigure}[t]{0.5\textwidth}
-        \centering
-        \includegraphics[scale=0.45]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=2}
-        \caption{Scalar Flux for Energy Group 2}
-    \end{subfigure}%
-    ~ 
-    \begin{subfigure}[t]{0.5\textwidth}
-        \centering
-        \includegraphics[scale=0.45]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=3}
-        \caption{Scalar Flux for Energy Group 3}
-    \end{subfigure}
-        \caption{Scalar Flux for Energy Group}
-\end{figure*}
+   \label{fig:2DScalarFluxAlpha0} 
+\end{subfigure}
 
-\begin{figure*}[t!]
-    \centering
-    \begin{subfigure}[t]{0.5\textwidth}
-        \centering
-        \includegraphics[scale=0.45]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=4}
+\begin{subfigure}[b]{0.75\textwidth}
+        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=1}
+        \caption{Scalar Flux for Energy Group 1}
+   \label{fig:2DScalarFluxAlpha1} 
+\end{subfigure}
+\end{figure}
+\begin{figure}[!htbp]\ContinuedFloat
+\centering
+\begin{subfigure}[b]{0.75\textwidth}
+        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=2}
+        \caption{Scalar Flux for Energy Group 2}
+   \label{fig:2DScalarFluxAlpha2} 
+\end{subfigure}
+
+\begin{subfigure}[b]{0.75\textwidth}
+        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=3}
+        \caption{Scalar Flux for Energy Group 3}
+   \label{fig:2DScalarFluxAlpha3} 
+\end{subfigure}
+\end{figure}
+\begin{figure}[!htbp]\ContinuedFloat
+\centering
+\begin{subfigure}[b]{0.75\textwidth}
+        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=4}
         \caption{Scalar Flux for Energy Group 4}
-    \end{subfigure}%
-    ~ 
-    \begin{subfigure}[t]{0.5\textwidth}
-        \centering
-        \includegraphics[scale=0.45]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=5}
+   \label{fig:2DScalarFluxAlpha4} 
+\end{subfigure}
+
+\begin{subfigure}[b]{0.75\textwidth}
+        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=5}
         \caption{Scalar Flux for Energy Group 5}
-    \end{subfigure}
-%    \caption{Caption place holder}
-        \begin{subfigure}[t]{0.5\textwidth}
-        \centering
-        \includegraphics[scale=0.45]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=6}
+   \label{fig:2DScalarFluxAlpha5} 
+\end{subfigure}
+\end{figure}
+
+\begin{figure}[!htbp]\ContinuedFloat
+\centering
+\begin{subfigure}[b]{0.75\textwidth}
+        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=6}
         \caption{Scalar Flux for Energy Group 6}
-    \end{subfigure}%
-    \caption{Caption place holder}
-\end{figure*}
+   \label{fig:2DScalarFluxAlpha6} 
+\end{subfigure}
+\caption{Group Scalar Flux for Quadrant of MOX Assembly Benchmark Problem}
+\end{figure}
 
 \section{Conclusion}

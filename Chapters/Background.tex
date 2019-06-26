@@ -126,7 +126,7 @@ We expect the previous equation to have solutions in the form of
 where we obtain the eigenvalues $\alpha$ from the equation
 \begin{equation}
 \alpha \psi = A \psi.
-\label{eq:ivp}
+\label{eq:ivp_A}
 	\end{equation}
 Obtaining the solution of the time-dependent neutron transport equation becomes a matter of determining the eigenvalues (spectrum) of $A$ \cite{bell_nuclear_1970}. Taking the Laplace transform of Eq.~\ref{eq:ivp}, we define
 \begin{equation}
@@ -388,7 +388,7 @@ The eigenvalue problem is formulated by construction of a matrix of the interact
 
 The increase of computational difficulty increases with the number of regions present in the system. In addition, the search space might become large, especially if there is no estimate of the eigenvalue. The numerical quadrature of the integrals also present another cost, as improper integrals must be approximated in each region of the problem to some tolerance. Determination of the matrix determinant requires a complex LU decomposition routine. Further, the scope of GFM is limited to slab geometry, though using the slab-spherical equivalence \cite{case1953introduction}, the eigenvalues of one-dimensional spherical systems can be determined by solving an equivalent slab geometry problem when certain conditions are met.
 
-\textbf{Direct Evaluation}: Another numerical method capable of obtaining the alpha-eigenvalue and higher eigenvalues involves forming the matrix problem from the discretized form of the one-speed, one-dimensional transport equation \cite{modak_simple_2003} using discrete ordinates in angle and finite differences in space. Using a process similar to the one described in Chapter~\ref{Discrete} with $M$ directions in angle and $N$ cells in space yields a generalized eigenvalue problem of the form
+\textbf{Direct Evaluation}: Another numerical method capable of obtaining the alpha-eigen\-value and higher eigenvalues involves forming the matrix problem from the discretized form of the one-speed, one-dimensional transport equation \cite{modak_simple_2003} using discrete ordinates in angle and finite differences in space. Using a process similar to the one described in Chapter~\ref{Discrete} with $M$ directions in angle and $N$ cells in space yields a generalized eigenvalue problem of the form
 \begin{equation}
 \mathbf{A} \psi = \alpha \mathbf{B} \psi.
 \label{eq:geneig}

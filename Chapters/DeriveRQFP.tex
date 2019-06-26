@@ -3,7 +3,7 @@
 
 In this chapter we derive the Rayleigh Quotient Fixed Point (RQFP) method for alpha- and $k$-effective eigenvalue problems. We begin with the matrix form of the eigenvalue equations and proceed to develop a fixed point method for the angular flux eigenvector. Since the eigenvector corresponds to the alpha- or $k$-effective eigenvalue, we require an update for the eigenvalue at each iteration. We derive an eigenvalue update that is optimal in the least squares sense by relating the alpha- or $k$-effective eigenvalue to the dominant eigenvalue of a primitive matrix (see Section~\ref{sec:LinAlg}). This primitive matrix serves as the fixed point function to determine the solution of the eigenvalue problem. Since the dominant eigenvalue of a primitive matrix corresponds to the only positive eigenvector of the matrix, this eigenvector also solves the discretized criticality eigenvalue neutron transport problem. We end this chapter with a discussion of the primitivity of the discretized alpha- and $k$-effective eigenvalue matrix equations.
 
-\section{Derivation of the Rayleigh Quotient Fixed Point Method for Alpha-Eigenvalue Problems}
+\section{Derivation of the Rayleigh Quotient Fixed Point \newline Method for Alpha-Eigenvalue Problems}
 
 We begin with the discretized alpha-eigenvalue matrix equation:
 \begin{equation}
@@ -17,7 +17,7 @@ Solution of Eq.~\ref{eq:AlphaMatrixRQ} consists of finding the eigenpair ($\alph
 \end{equation}
 For all subcritical and critical systems, the righthand side of Eq.~\ref{eq:AlphaRQFP} is nonnegative since for isotropic scattering the scattering matrix is nonnegative. For supercritical systems, there is an $\alpha_{\text{max}}$ such that the righthand side is still nonnegative. Various fixed point equations can be written for the angular flux eigenvector $\mathbf{\Psi_{z}}$. However, this form was selected as it only requires the inversion of the matrix $\mathbf{H_{z}}$. In standard neutron transport codes \cite{hanebutte_ardra_1999} \cite{alcouffe2005partisn}, the matrix $\mathbf{H_{z}}$ is inverted without being formed by sweeping across the domain in space and angle. The updated eigenvector iterate is obtained by the action of the inverted operator on the source. By writing the fixed point in this way, the Rayleigh quotient fixed point method can be implemented easily in production neutron transport codes.
 
-We define an iterative method to find the fixed point (see Section~\ref{}) of Eq.~\ref{eq:AlphaRQFP} as
+We define an iterative method to find the fixed point (see Section~\ref{sec:FPI}) of Eq.~\ref{eq:AlphaRQFP} as
 \begin{equation}
 	\mathbf{\Psi_{z}}^{(i+1)} = \mathbf{A}(\alpha^{(i)}) \mathbf{\Psi_{z}}^{(i)}.
 \end{equation}
@@ -86,7 +86,7 @@ Using the fact that
 where $\mathbf{q}$ is the scattering and fission source vector, we can write Eq.~\ref{eq:AlphaUp} as
 \begin{equation}
 	\alpha_{(i)} = \frac{ \mathbf{\Psi}^{T}_{(i)} \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \mathbf{\Psi}_{(i)} -  \mathbf{\Psi}^{T}_{(i)}  \mathbf{q}_{(i-1)}}{  \mathbf{\Psi}^{T}_{(i)} \mathbf{V}^{-1}_{\mathbf{z}}  \mathbf{\Psi}_{(i)}}.
-	\label{eq:AlphaUp}
+	%\label{eq:AlphaUp}
 \end{equation}
 We introduce a one-sweep variant of Algorithm~\ref{algo:alpha} in Algorithm~\ref{algo:alpha_one}. For the first iteration ($i=0$), the source $\mathbf{q}_{(-1)} = \mathbf{0}$ where $\mathbf{0}$ is the zero vector. Algorithm~\ref{algo:alpha_one} requires only one transport sweep per iteration of the method. However, the method requires two vectors per iteration, one to store the angular flux vector and another to store the previous fission and scattering source vector.
 \begin{algorithm}[ht]
@@ -98,7 +98,7 @@ We introduce a one-sweep variant of Algorithm~\ref{algo:alpha} in Algorithm~\ref
 			\STATE{ 
 			\begin{equation*}
 	\alpha_{(i)} = \frac{ \mathbf{\Psi}^{T}_{(i)} \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \mathbf{\Psi}_{(i)}}{  \mathbf{\Psi}^{T}_{(i)} \mathbf{V}^{-1}_{\mathbf{z}}  \mathbf{\Psi}_{(i)}}.
-	\label{eq:AlphaUp}
+	%\label{eq:AlphaUp}
 			\end{equation*}
 }
 		\STATE{
@@ -217,7 +217,7 @@ Using the fact that
 we can write the update, Eq.~\ref{eq:HkUpdate} as
 \begin{equation}
 	k_{(i)} = \frac{\mathbf{\Psi}^{T}_{(i)} \mathbf{L} \mathbf{\Sigma_{f}} \mathbf{L}^{+} \mathbf{\Psi}_{(i)}}{\mathbf{\Psi}^{T}_{(i)}\mathbf{q}_{(i-1)} - \mathbf{\Psi}^{T}_{(i)} \mathbf{L} \mathbf{\Sigma_{s}} \mathbf{L}^{+} \mathbf{\Psi}_{(i)}}.
-	\label{eq:HkUpdate}
+	%\label{eq:HkUpdate}
 \end{equation}
 We introduce Algorithm~\ref{algo:kOne}, a one-sweep variant of Algorithm~\ref{algo:kTwo}. For the initial iteration, $k_{(0)} = 1$. Algorithm~\ref{algo:kOne} requires only one transport sweep per iteration of the method. However, it requires three vectors to store the angular flux and fission and scattering sources. For some angular flux iterates, it has been observed that the $k$-effective eigenvalue iterate can be negative for some iterations. However, in practice, this has not prevented convergence of the method to a positive eigenvalue.
 \begin{algorithm}[t]
@@ -265,7 +265,7 @@ We introduce Algorithm~\ref{algo:kOne}, a one-sweep variant of Algorithm~\ref{al
 
 \clearpage
 
-\section{Jacobian of the Rayleigh Quotient Fixed Point Method for Alpha-Eigenvalue Problems}
+\section{Jacobian of the Rayleigh Quotient Fixed Point \newline Method for Alpha-Eigenvalue Problems}
 
 The convergence of the non-linear fixed point method for the alpha-eigenvalue problem is determined by the Jacobian of the fixed point method evaluated at the fixed point of interest (see Section~\ref{sec:FPI}). To be more precise, if the spectral radius of the Jacobian matrix at the fixed point is greater than one, the fixed point is a point of repulsion and the fixed point method cannot converge to the fixed point. If the spectral radius of the Jacobian matrix is less than one at the fixed point, the fixed point method is guaranteed to converge to the fixed point as long as the iterates are within some neighborhood of the fixed point. If the spectral radius is equal to one, then the fixed point might or might not converge. To determine the behavior of the fixed point method at the fixed point of interest, we determine the Jacobian of the non-linear fixed point iteration.
 

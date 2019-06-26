@@ -2,12 +2,6 @@
 
 In this section we describe the performance of the Rayleigh quotient methods for various infinite medium problem selected from the \textit{Analytical Benchmark Test Set for Criticality Code Verification} \cite{sood2003analytical} or analytical benchmark solutions. Some problems were selected that did not meet the assumptions used in deriving the methods to test the general applicability of the Rayleigh quotient methods. The Rayleigh quotient method was compared to the critical search method \cite{hill_efficient_1983} for alpha-eigenvalue problems and to standard power iteration for $k$-effective eigenvalue problems. The total number of transport sweeps was compared for each method as they represent the majority of computational expensive in standard transport codes. The methods were implemented in ARDRA, a 1D, 2D, and 3D deterministic discrete ordinates neutron and gamma transport code developed and maintained by Lawrence Livermore National Laboratory \cite{hanebutte_ardra_1999}.
 
-%These problems represented a spectrum of common nuclear engineering problem characteristics including infinite medium, slab geometry, reflected slab, spherical geometry, heterogeneous media, and anisotropic scattering. 
-
-
-
-%\section{Eigenvalues for Infinite Medium Problems}
-
 \section{Criticality Benchmark One-Speed Verification for Various Critical and Supercritical Problems}
 
 A set of six infinite medium supercritical problems were selected from the \textit{Analytical Benchmark Test Set for Criticality Code Verification} \cite{sood2003analytical} to test the Rayleigh quotient fixed point method for both alpha-eigenvalue and $k$-effective eigenvalue problems. These problems were selected as they contained cross sections of commonly used fissile isotopes in nuclear engineering applications such as plutonium-239 and uranium-235 (Table~\ref{table:SoodInf}). The reference eigenvalues for these problems can be seen in Table~\ref{table:InfMed}. For one-speed problems, the velocity was set to $1$ cm/s unless otherwise noted.
@@ -24,7 +18,7 @@ A set of six infinite medium supercritical problems were selected from the \text
 	PUa & 0.32640 & 0.264384 & 0.225216 & 1.0 \\
 	PUb & 0.231744 & 0.264384 & 0.225216 & 1.0 \\
         \bottomrule
-    \end{tabular}
+    \end{tabular}%
 	\caption{PU Cross Section Sets}
 	\label{table:PU}
 	\end{subtable}%
@@ -40,41 +34,11 @@ A set of six infinite medium supercritical problems were selected from the \text
 	Uc & 0.32640 & 0.17673306624 & 0.248064 & 1.0 \\
 	Ud & 0.32640 & 0.17489804544 & 0.248064 & 1.0 \\
         \bottomrule
-    \end{tabular}
+    \end{tabular}%
 	\caption{U Cross Section Sets}
 	\label{table:U}
 	\end{subtable}
 \end{table}
-
-%\begin{table}[!htbp]
-%    \centering
-%    \caption{Reference Eigenvalues for Infinite Medium Problems in \cite{sood2003analytical}}
-%\label{table:InfMed}
-%    \scalebox{1.00}{
-%    \begin{tabular}{*3c}
-%        \toprule
-%        & \multicolumn{2}{c}{Eigenvalues} \\
-%        \cmidrule(lr){2-3}
-%        Cross Section & Reference & Reference \\    
-%        Set   & $k_{\infty}$  & $\alpha_{\infty}$ (s$^{-1}$) \\
-%        \midrule
-%        PUa &  2.612903 & 0.1632 \\
-%        PUb & 2.290323 & 0.1306 \\
-%        Ua &  2.25 & 0.1265 \\
-%        Ub & 2.330917 & 0.1347 \\
-%        Uc & 2.256083 & 0.1271 \\
-%        Ud & 2.232667 & 0.1247 \\
-%%        PUa-1-0-IN &  2.612903 & 0.1632 \\
-%%        PUb-1-0-IN & 2.290323 & 0.1306 \\
-%%	Ua-1-0-IN &  2.25 & 0.1265 \\
-%%	Ub-1-0-IN & 2.330917 & 0.1347 \\
-%%	Uc-1-0-IN & 2.256083 & 0.1271 \\
-%%	Ud-1-0-IN & 2.232667 & 0.1247 \\
-%        \bottomrule
-%    \end{tabular}
-%    }
-%\end{table}
-
 \begin{table}[!htbp]
 	\caption{Reference Eigenvalues and Transport Sweep Comparisons for Infinite Medium Problems in \cite{sood2003analytical}}
 	\label{table:InfMed}
@@ -121,17 +85,17 @@ For the supercritical one-speed criticality benchmark problems, the alpha-eigenv
 
 \begin{figure}[!htbp]
 	\centering
-	\begin{subfigure}[!htbp]{0.5\textheight}
+	\noindent\begin{subfigure}[!htbp]{0.5\textheight}
 		\centering
-		\resizebox{!}{0.45\textheight}{
+		\resizebox{1.0\textwidth}{!}{
 		\input{Figures/InfiniteMediumEigenvalues/alphainf.tex}
 	}
 	\caption{Convergence of Rayleigh Quotient Fixed Point and Critical Search Methods for PUa Cross Section Set}
 	\label{fig:AlphaInfConv}
 	\end{subfigure}
-	\begin{subfigure}[!htbp]{0.5\textheight}
+	\noindent\begin{subfigure}[!htbp]{0.5\textheight}
 	\centering
-	\resizebox{!}{0.45\textheight}{
+	\resizebox{1.0\textwidth}{!}{
 		\input{Figures/InfiniteMediumEigenvalues/kinfPu.tex}
 	}
 	\caption{Eigenvector Residual as a Function of Transport Sweeps for Two Infinite Medium $k$-Effective Eigenvalue Problems}
@@ -364,7 +328,7 @@ Using the multigroup equations, the analytical expression for the alpha-eigenval
 \end{equation}
 The alpha-eigenvalues are located along a circle in the complex plane centered on the real axis at $\text{Re}(\alpha) = -(\sigma_{g} - \sigma_{f})$ with radius $r = \bar{\nu}^{G-1} \sigma_{gs,s+1}$. Using this expression, the fundamental alpha-eigenvalue is found to be $\alpha_{0} = 0.13765$ s$^{-1}$. 
 
-The number of transport sweep needed to converge to a eigenvalue residual of 10$^{-8}$ for Problem 2 can be seen in Table~\ref{table:G81a}. We note that the alpha-eigenvalue Rayleigh quotient fixed point method does not converge for this problem. The failure to converge for this problem can be explained as follows. The alpha-eigenvalue spectrum for Problem 5.2 can be seen in Figure~\ref{fig:G81Spec} and shows that all eigenvalue lie on a circle. Therefore, all eigenvalues are equal in magnitude. Since the Rayleigh quotient fixed point method is looking for the positive eigenvector corresponding to the dominant eigenvalue, it is unable to find the unique eigenvalue corresponding to the positive eigenvector. The spectral radius of the Jacobian matrix of the Rayleigh quotient fixed point method at the fixed point was found to be larger than one, implying the method will not converge as seen in practice. It is interesting to note the method cycles with period 81, indicating that it goes through every single eigenvalue unsuccessfully before failing to converge.
+The number of transport sweep needed to converge to a eigenvalue residual of 10$^{-8}$ for Problem 5.2.2.1 can be seen in Table~\ref{table:G81a}. We note that the alpha-eigenvalue Rayleigh quotient fixed point method does not converge for this problem. The failure to converge for this problem can be explained as follows. The alpha-eigenvalue spectrum for Problem 5.2.2.1 can be seen in Figure~\ref{fig:G81Spec} and shows that all eigenvalue lie on a circle. Therefore, all eigenvalues are equal in magnitude. Since the Rayleigh quotient fixed point method is looking for the positive eigenvector corresponding to the dominant eigenvalue, it is unable to find the unique eigenvalue corresponding to the positive eigenvector. The spectral radius of the Jacobian matrix of the Rayleigh quotient fixed point method at the fixed point was found to be larger than one, implying the method will not converge as seen in practice. It is interesting to note the method cycles with period 81, indicating that it goes through every single eigenvalue unsuccessfully before failing to converge.
 
 Both the $k$-effective eigenvalue Rayleigh quotient fixed point method and the power method converge for this particular problem requiring a similar number of iterations. The fact that the $k$-effective eigenvalue is the dominant eigenvalue with a corresponding positive eigenvector allows the Rayleigh quotient method fixed method to converge to the right eigenvalue and eigenvector. In this particular problem, all other eigenvalues except for the dominant eigenvalue are zero. Both methods require a large amount of iterations, reflecting the unphysical nature of the problem cross sections. 
 
@@ -408,7 +372,7 @@ Both the $k$-effective eigenvalue Rayleigh quotient fixed point method and the p
 	\multicolumn{3}{l}{*Did Not Converge}
 	\end{tabular}
 	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Sweeps}
-	\label{table:AlphaProb5222}
+	\label{table:AlphaProb5221}
 	\end{subtable}%
 	\vspace{0.25cm}
 	\begin{subtable}[h]{1.0\textwidth}
@@ -421,7 +385,7 @@ Both the $k$-effective eigenvalue Rayleigh quotient fixed point method and the p
 	\bottomrule
 	\end{tabular}
 	\caption{$k$-Effective: Comparison of RQFP and Critical Search Sweeps}
-	\label{table:kProb5222}
+	\label{table:kProb5221}
 	\end{subtable}%
 \end{table}
 

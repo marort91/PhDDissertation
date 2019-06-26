@@ -4,7 +4,8 @@
 %
 % The Current Maintainer of this work is Paul Vojta.
 
-\documentclass{ucbthesis}
+%\documentclass{ucbthesis}
+\documentclass[draft]{ucbthesis}
 \usepackage[backend=bibtex]{biblatex}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -34,6 +35,14 @@
 
 \usepackage{xfrac}
 
+\usepackage{showframe}
+%\usepackage{pdflscape}
+%\usepackage{rotating}
+%\usepackage{geometry}
+\usepackage[export]{adjustbox}
+
+\usepackage{tabularx}
+
 \usetikzlibrary{shapes.misc}
 \tikzset{cross/.style={cross out, draw=black, minimum size=2*(#1-3.0\pgflinewidth), inner sep=0pt, outer sep=0pt},
 %default radius will be 1pt. 
@@ -54,6 +63,21 @@ cross/.default={1pt}}
 \newcommand*\CHECK{\ding{51}}
 
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+
+%\makeatletter
+%\def\ifGm@preamble#1{\@firstofone}
+%\appto\restoregeometry{%
+%  \pdfpagewidth=\paperwidth
+%  \pdfpageheight=\paperheight}
+%\apptocmd\newgeometry{%
+%  \pdfpagewidth=\paperwidth
+%  \pdfpageheight=\paperheight}{}{}
+%\makeatother
+
+\makeatletter
+  \renewcommand{\@pnumwidth}{3em}
+  \renewcommand{\@tocrmarg}{4em}
+\makeatother
 
 % To compile this file, run "latex thesis", then "biber thesis"
 % (or "bibtex thesis", if the output from latex asks for that instead),
@@ -79,6 +103,8 @@ cross/.default={1pt}}
 \hyphenation{bra-va-do}
 
 \newcommand{\diff}{\mathop{}\!d}
+
+\hbadness 10000
 
 \begin{document}
 
