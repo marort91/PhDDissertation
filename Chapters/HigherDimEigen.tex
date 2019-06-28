@@ -115,15 +115,27 @@ The number of transport sweeps necessary for convergence for the RQFP and power 
 	\end{subtable}
 \end{table}
 
+\clearpage
+
 \section{Two- and Three-Dimensional Cartesian Benchmark Problems}
 
-%\newgeometry{landscape}
-\begin{figure}
+We consider three versions of the MOX Fuel Assembly 3D Extension Case from the \textit{Benchmark on Deterministic Transport Calculations Without Spatial Homogenisation} \cite{lewis2001benchmark}. The benchmark geometry is a three-dimensional representation of sixteen assembly (quarter core symmetry) C5 MOX fuel assembly problem described in \cite{cavarec1994oecd}. The benchmark problem is meant to provide a challenging test of the ability of three-dimensional methods to handle spatial heterogeneities. The benchmark problem materials consist of seven materials: UO$_{2}$ fuel-clad, 4.3\% MOX fuel, 7.0\% MOX fuel, 8.7\% MOX fuel, the fission chamber, the guide tube, and the moderator. The seven energy group, isotropic scattering cross sections for the UO$_{2}$ fuel-clad are provided in Table~\ref{table:MOX-FuelClad}. The seven energy group, isotropic scattering cross sections for the three enrichments of MOX are listed in Table~\ref{table:MOX-43}, Table~\ref{table:MOX-7}, and Table~\ref{table:MOX-87} while the cross sections for the fission chamber, guide tube, and moderator are listed in Table~\ref{table:MOX-Fission}, Table~\ref{table:MOX-Guide}, and Table~\ref{table:MOX-Mod}, respectively.
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.55\textwidth}{!}{
+	\input{Figures/HigherDimEigen/FuelPin.tex}
+	}
+	\caption{Fuel Pin Layout for MOX Fuel Assembly Benchmark}
+	\label{fig:Fuel}
+\end{figure}
+
+\begin{sidewaysfigure}
 \begin{table}[H]
 	\begin{subtable}[h]{1.0\textwidth}
     \centering
     \caption{UO$_{2}$ Fuel-Clad Cross Sections --  (cm$^{-1}$)}
-    \resizebox{1.00\textwidth}{!}{
+    \resizebox{1.0\textwidth}{!}{
     \begin{tabular}{*8c}
         \toprule
 	Energy Group $g$ & $\sigma_{g}$ & $\sigma_{g,tr}$ & $\sigma_{a,g}$ & $\sigma_{\gamma,g}$ & $\sigma_{f,g}$ & $\nu_{g}$ & $\chi_{g}$ \\ 
@@ -139,12 +151,11 @@ The number of transport sweeps necessary for convergence for the RQFP and power 
         & & & & & & & 
     \end{tabular}}
  \end{subtable} %
-%\end{table}
 \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
     \centering
     \caption{UO$_{2}$ Fuel-Clad Scattering Block (cm$^{-1}$)}
-    \resizebox{1.00\textwidth}{!}{
+    \resizebox{1.0\textwidth}{!}{
     \begin{tabular}{*8c}
         \toprule
 	$g'$, $g$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
@@ -161,11 +172,13 @@ The number of transport sweeps necessary for convergence for the RQFP and power 
     \end{tabular}}
   \end{subtable}
     \caption{C5G7MOX Cross Sections - UO$_{2}$ Fuel-Clad}
+    \label{table:MOX-FuelClad}
 \end{table}
-\end{figure}
-%\restoregeometry
+\end{sidewaysfigure}
 
-\begin{figure}
+
+
+\begin{sidewaysfigure}
 \begin{table}[H]
   \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
@@ -208,10 +221,11 @@ The number of transport sweeps necessary for convergence for the RQFP and power 
     \end{tabular}}
   \end{subtable}
     \caption{C5G7MOX Cross Sections - 4.3\% MOX Fuel}
+        \label{table:MOX-43}
 \end{table}
-\end{figure}
+\end{sidewaysfigure}
 
-\begin{figure}
+\begin{sidewaysfigure}
 \begin{table}[H]
     \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
@@ -254,10 +268,11 @@ The number of transport sweeps necessary for convergence for the RQFP and power 
     \end{tabular}}
   \end{subtable}
   \caption{C5G7MOX Cross Sections - 7.0\% MOX Fuel}
+          \label{table:MOX-7}
 \end{table}
-\end{figure}
+\end{sidewaysfigure}
 
-\begin{figure}
+\begin{sidewaysfigure}
 \begin{table}[H]
     \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
@@ -300,10 +315,11 @@ The number of transport sweeps necessary for convergence for the RQFP and power 
     \end{tabular}}
   \end{subtable}
   \caption{C5G7MOX Cross Sections - 8.7\% MOX Fuel}
+          \label{table:MOX-87}
 \end{table}
-\end{figure}
+\end{sidewaysfigure}
 
-\begin{figure}
+\begin{sidewaysfigure}
 \begin{table}[H]
     \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
@@ -346,16 +362,17 @@ The number of transport sweeps necessary for convergence for the RQFP and power 
     \end{tabular}}
   \end{subtable}
   \caption{C5G7MOX Cross Sections - Fission Chamber}
+      \label{table:MOX-Fission}
 \end{table}
-\end{figure}
+\end{sidewaysfigure}
 
-\begin{figure}
+\begin{sidewaysfigure}
 \begin{table}[H]
     \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
     \centering
     \caption{Guide Tube Cross Sections (cm$^{-1}$)}
-    \resizebox{1.00\textwidth}{!}{
+    %\resizebox{1.00\textwidth}{!}{
     \begin{tabular}{*5c}
         \toprule
 	Energy Group $g$ & $\sigma_{g}$ & $\sigma_{g,tr}$ & $\sigma_{a,g}$ & $\sigma_{\gamma,g}$ \\ 
@@ -369,7 +386,7 @@ The number of transport sweeps necessary for convergence for the RQFP and power 
 7 &	1.43450E+00 &	1.17215E+00 &	2.32420E-02 &	2.32420E-02 \\
         \bottomrule
         & & & &
-    \end{tabular}}
+    \end{tabular}%}
   \end{subtable}
   \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
@@ -392,16 +409,17 @@ The number of transport sweeps necessary for convergence for the RQFP and power 
     \end{tabular}}
   \end{subtable}
   \caption{C5G7MOX Cross Sections - Guide Tube}
+        \label{table:MOX-Guide}
 \end{table}
-\end{figure}
+\end{sidewaysfigure}
 
-\begin{figure}
+\begin{sidewaysfigure}
 \begin{table}[H]
     \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
     \centering
     \caption{Moderator Cross Sections (cm$^{-1}$)}
-    \resizebox{1.00\textwidth}{!}{
+    %\resizebox{1.00\textwidth}{!}{
     \begin{tabular}{*5c}
         \toprule
 	Energy Group $g$ & $\sigma_{g}$ & $\sigma_{g,tr}$ & $\sigma_{a,g}$ & $\sigma_{\gamma,g}$ \\ 
@@ -415,7 +433,7 @@ The number of transport sweeps necessary for convergence for the RQFP and power 
 7 &	3.30570E+00  &	2.65038E+00  &	3.72390E-02  &	3.72390E-02 \\
         \bottomrule
         & & & &
-    \end{tabular}}
+    \end{tabular}%}
   \end{subtable}
   \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
@@ -438,60 +456,168 @@ The number of transport sweeps necessary for convergence for the RQFP and power 
     \end{tabular}}
   \end{subtable}
   \caption{C5G7MOX Cross Sections - Moderator}
+          \label{table:MOX-Mod}
 \end{table}
-\end{figure}
+\end{sidewaysfigure}
 
-\begin{figure}[!htbp]
+%\begin{figure}[!htbp]
+%\centering
+%\begin{subfigure}[b]{0.75\textwidth}
+%        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=0}
+%        \caption{Scalar Flux for Energy Group 0}
+%   \label{fig:2DScalarFluxAlpha0} 
+%\end{subfigure}
+%
+%\begin{subfigure}[b]{0.75\textwidth}
+%        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=1}
+%        \caption{Scalar Flux for Energy Group 1}
+%   \label{fig:2DScalarFluxAlpha1} 
+%\end{subfigure}
+%\end{figure}
+%\begin{figure}[!htbp]\ContinuedFloat
+%\centering
+%\begin{subfigure}[b]{0.75\textwidth}
+%        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=2}
+%        \caption{Scalar Flux for Energy Group 2}
+%   \label{fig:2DScalarFluxAlpha2} 
+%\end{subfigure}
+%
+%\begin{subfigure}[b]{0.75\textwidth}
+%        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=3}
+%        \caption{Scalar Flux for Energy Group 3}
+%   \label{fig:2DScalarFluxAlpha3} 
+%\end{subfigure}
+%\end{figure}
+%\begin{figure}[!htbp]\ContinuedFloat
+%\centering
+%\begin{subfigure}[b]{0.75\textwidth}
+%        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=4}
+%        \caption{Scalar Flux for Energy Group 4}
+%   \label{fig:2DScalarFluxAlpha4} 
+%\end{subfigure}
+%
+%\begin{subfigure}[b]{0.75\textwidth}
+%        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=5}
+%        \caption{Scalar Flux for Energy Group 5}
+%   \label{fig:2DScalarFluxAlpha5} 
+%\end{subfigure}
+%\end{figure}
+%
+%\begin{figure}[!htbp]\ContinuedFloat
+%\centering
+%\begin{subfigure}[b]{0.75\textwidth}
+%        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=6}
+%        \caption{Scalar Flux for Energy Group 6}
+%   \label{fig:2DScalarFluxAlpha6} 
+%\end{subfigure}
+%\caption{Group Scalar Flux for Quadrant of MOX Assembly Benchmark Problem}
+%\end{figure}
+
+\begin{figure}
 \centering
-\begin{subfigure}[b]{0.75\textwidth}
-        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=0}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=0}}
         \caption{Scalar Flux for Energy Group 0}
-   \label{fig:2DScalarFluxAlpha0} 
-\end{subfigure}
-
-\begin{subfigure}[b]{0.75\textwidth}
-        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=1}
+  \label{fig:2DAlpha0}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=1}}
         \caption{Scalar Flux for Energy Group 1}
-   \label{fig:2DScalarFluxAlpha1} 
+  \label{fig:2DAlpha1}
 \end{subfigure}
-\end{figure}
-\begin{figure}[!htbp]\ContinuedFloat
-\centering
-\begin{subfigure}[b]{0.75\textwidth}
-        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=2}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=2}}
         \caption{Scalar Flux for Energy Group 2}
-   \label{fig:2DScalarFluxAlpha2} 
-\end{subfigure}
-
-\begin{subfigure}[b]{0.75\textwidth}
-        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=3}
+  \label{fig:2DAlpha2}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=3}}
         \caption{Scalar Flux for Energy Group 3}
-   \label{fig:2DScalarFluxAlpha3} 
+  \label{fig:2DAlpha3}
 \end{subfigure}
-\end{figure}
-\begin{figure}[!htbp]\ContinuedFloat
-\centering
-\begin{subfigure}[b]{0.75\textwidth}
-        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=4}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=4}}
         \caption{Scalar Flux for Energy Group 4}
-   \label{fig:2DScalarFluxAlpha4} 
-\end{subfigure}
-
-\begin{subfigure}[b]{0.75\textwidth}
-        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=5}
+  \label{fig:2DAlpha4}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=5}}
         \caption{Scalar Flux for Energy Group 5}
-   \label{fig:2DScalarFluxAlpha5} 
+  \label{fig:2DAlpha5}
 \end{subfigure}
+%\caption{A figure with two subfigures}
+%\label{fig:test}
 \end{figure}
 
 \begin{figure}[!htbp]\ContinuedFloat
 \centering
-\begin{subfigure}[b]{0.75\textwidth}
-        \includegraphics[width=\textwidth]{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=6}
+\begin{subfigure}{\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=6}}
         \caption{Scalar Flux for Energy Group 6}
-   \label{fig:2DScalarFluxAlpha6} 
+  \label{fig:2DAlpha6}
 \end{subfigure}
-\caption{Group Scalar Flux for Quadrant of MOX Assembly Benchmark Problem}
+\caption{Group Scalar Flux for MOX Fuel Assembly Benchmark Problem - Coarse Spatial Discretization}
 \end{figure}
+
+\begin{figure}
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g_fine=0}}
+        \caption{Scalar Flux for Energy Group 0}
+  \label{fig:2DAlpha0Fine}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g_fine=1}}
+        \caption{Scalar Flux for Energy Group 1}
+  \label{fig:2DAlpha1Fine}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g_fine=2}}
+        \caption{Scalar Flux for Energy Group 2}
+  \label{fig:2DAlpha2Fine}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g_fine=3}}
+        \caption{Scalar Flux for Energy Group 3}
+  \label{fig:2DAlpha3Fine}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g_fine=4}}
+        \caption{Scalar Flux for Energy Group 4}
+  \label{fig:2DAlpha4Fine}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g_fine=5}}
+        \caption{Scalar Flux for Energy Group 5}
+  \label{fig:2DAlpha5Fine}
+\end{subfigure}
+%\caption{A figure with two subfigures}
+%\label{fig:test}
+\end{figure}
+
+\begin{figure}[!htbp]\ContinuedFloat
+\centering
+\begin{subfigure}{\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g_fine=6}}
+        \caption{Scalar Flux for Energy Group 6}
+  \label{fig:2DAlpha6Fine}
+\end{subfigure}
+\caption{Group Scalar Flux for MOX Fuel Assembly Benchmark Problem - Fine Spatial Discretization}
+\end{figure}
+
 
 \section{Conclusion}

@@ -4,9 +4,9 @@
 %
 % The Current Maintainer of this work is Paul Vojta.
 
-%\documentclass{ucbthesis}
-\documentclass[draft]{ucbthesis}
-\usepackage[backend=bibtex]{biblatex}
+\documentclass{ucbthesis}
+%\documentclass[draft]{ucbthesis}
+\usepackage[backend=bibtex,sorting=none]{biblatex}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage[]{graphicx}
@@ -36,12 +36,19 @@
 \usepackage{xfrac}
 
 \usepackage{showframe}
-%\usepackage{pdflscape}
+
 %\usepackage{rotating}
-%\usepackage{geometry}
+
 \usepackage[export]{adjustbox}
 
+\usepackage[pass]{geometry}
+\usepackage{lscape}
+\usepackage[absolute]{textpos}
+\usepackage{fancyhdr}
+
 \usepackage{tabularx}
+
+\usepackage{rotating}
 
 \usetikzlibrary{shapes.misc}
 \tikzset{cross/.style={cross out, draw=black, minimum size=2*(#1-3.0\pgflinewidth), inner sep=0pt, outer sep=0pt},
@@ -50,6 +57,11 @@ cross/.default={1pt}}
 
 \setcounter{tocdepth}{2}
 \setcounter{secnumdepth}{2}
+
+\makeatletter
+  \renewcommand{\@pnumwidth}{3em}
+  \renewcommand{\@tocrmarg}{4em}
+\makeatother
 
 \DeclareMathOperator*{\argmin}{arg\,min}
 %\newcommand{\diff}{\mathop{}\!d}
@@ -63,21 +75,6 @@ cross/.default={1pt}}
 \newcommand*\CHECK{\ding{51}}
 
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
-
-%\makeatletter
-%\def\ifGm@preamble#1{\@firstofone}
-%\appto\restoregeometry{%
-%  \pdfpagewidth=\paperwidth
-%  \pdfpageheight=\paperheight}
-%\apptocmd\newgeometry{%
-%  \pdfpagewidth=\paperwidth
-%  \pdfpageheight=\paperheight}{}{}
-%\makeatother
-
-\makeatletter
-  \renewcommand{\@pnumwidth}{3em}
-  \renewcommand{\@tocrmarg}{4em}
-\makeatother
 
 % To compile this file, run "latex thesis", then "biber thesis"
 % (or "bibtex thesis", if the output from latex asks for that instead),
@@ -193,7 +190,8 @@ And exposition? Of go. No upstairs do fingering.
 \include{Chapters/InfiniteMediumEigenvalues}
 \include{Chapters/SlabEigenvalue}
 \include{Chapters/HigherDimEigen}
-%\include{Chapters/AndersonAccceleration.tex}
+\include{Chapters/AndersonAccceleration}
+\include{Chapters/Conclusion}
 
 \appendix
 \include{Chapters/Appen_1DMatrix}

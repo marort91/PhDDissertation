@@ -693,12 +693,12 @@ The alpha-eigenvalue of the system was calculated to be $\alpha = -1.28364 \time
 	\end{subtable}
 \end{table}
 
-\textbf{Sood Criticality Benchmark Problem 51}: The eigenvalues of critical slab consisting of a uranium/aluminum mixture similar to those seen in nuclear reactor applications were calculated. The material cross sections (Table~\ref{table:TwoGroupU-Al}) consist of two energy groups with fission occurring in the lower energy ("thermal") group. All fission neutrons are born in the fast energy group. The material does not allow for upscattering (Table~\ref{table:TwoGroupU-Al_ScatterXS}) but does have a large self-scattering cross section in the lowest energy group.
+\textbf{Sood Criticality Benchmark Problem 51}: The eigenvalues of critical slab consisting of a uranium/aluminum (U/Al) mixture similar to those seen in nuclear reactor applications were calculated. The material cross sections (Table~\ref{table:TwoGroupU-Al}) consist of two energy groups with fission occurring in the lower energy ("thermal") group. All fission neutrons are born in the fast energy group. The material does not allow for upscattering (Table~\ref{table:TwoGroupU-Al_ScatterXS}) but does have a large self-scattering cross section in the lowest energy group.
 
 The alpha-eigenvalue was calculated to be $-6.39646 \times 10^{-6}$ s$^{-1}$ and required 492 transport sweeps to converge (Table~\ref{table:MG-U-Al-alpha}). The increase in transport sweeps as compared to the plutonium and uranium problem is due to the increased scattering present in this problem. The increase in scattering, caused by the inclusion of aluminum in the cross sections, increases the number of iterations necessary to suppress higher eigenmodes in the problem. The critical search method was unable to converge the eigenvalue/eigenvector pair. The $k$-effective eigenvalue was determined to be $k=0.99985$ for the system. The RQFP method required a substantially larger number of transport sweeps as compared to power method. The RQFP method required 592 iterations as compared to 82 (Table~\ref{table:MG-U-Al-k}). The degradation of the performance of the RQFP method is due to the fact that the method converges the eigenvector as opposed to the fission source. Converging the eigenvector requires removing higher eigenmodes which require more sweeps due to the increased scattering present in the system. 
 
 \begin{table}[!htbp]
-	\caption{Two-Group Uranium/Aluminum Problem Cross Sections (cm$^{-1}$)}
+	\caption{Two-Group U/Al Problem Cross Sections (cm$^{-1}$)}
 	\label{table:U-Al}
 	\begin{subtable}[!htbp]{1.0\textwidth}
 		\centering\ra{1.3}
@@ -709,7 +709,7 @@ The alpha-eigenvalue was calculated to be $-6.39646 \times 10^{-6}$ s$^{-1}$ and
 			2 & 1.27698 & 2.83 & 0.06070636042 & 0.0 & 1.0 \\
 			\bottomrule
 		\end{tabular}
-	\caption{U/Aluminum Cross Sections}
+	\caption{U/Al Cross Sections}
 	\label{table:TwoGroupU-Al}
 	\end{subtable}%
 	\vspace{0.25cm}
@@ -722,13 +722,13 @@ The alpha-eigenvalue was calculated to be $-6.39646 \times 10^{-6}$ s$^{-1}$ and
 	2 & 0.0 & 1.21313 \\
 	\bottomrule
 	\end{tabular}
-	\caption{U/Aluminum Scattering Block}
+	\caption{U/Al Scattering Block}
 	\label{table:TwoGroupU-Al_ScatterXS}
 	\end{subtable}
 \end{table}
 
 \begin{table}[!htbp]
-	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Two-Group U/Aluminum Mixture Cross Sections in \cite{sood2003analytical}}
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Two-Group U/Al Mixture Cross Sections in \cite{sood2003analytical}}
 	\label{table:SlabMG-U-Al}
 	\begin{subtable}[!htbp]{1.0\textwidth}
 	\centering\ra{1.3}
@@ -1518,10 +1518,10 @@ The $k$-effective eigenvalue was determined to be $k = 0.998474$. For this parti
 
 \section{Conclusion}
 
-The RQFP method for alpha-eigenvalue performs well for various slab and spherical geometry benchmark problems. Through the various benchmark problems examined in this chapter, the correctness of the method was verified by comparisons to methods such as Green's Function Method and and to other codes such as PARTISN. The RQFP method is able to converge problems which violate the assumptions of slab geometry, isotropic scattering, and fissile regions used in deriving the method. The method, applied to spherical systems, successfully obtained the eigenpair of interest. The RQFP method was able to obtain analytical and measured alpha-eigenvalues of various benchmark problems from the literature and substantially reduced the number of transport sweeps necessary to obtain the alpha-eigenvalue/eigenvector as compared to the traditional critical search method. For various subcritical problems, the RQFP method was able to converge the eigenpair when the critical search failed. This gives us confidence that the Rayleigh quotient fixed point method for alpha-eigenvalue problems is robust enough to handle large one-dimensional, multigroup-in-energy problems where the assumptions made in deriving the method might not be true.
+The RQFP method for alpha-eigenvalue performs well for various slab and spherical geometry benchmark problems. Through the various benchmark problems examined in this chapter, the correctness of the method was verified by comparisons to other methods such as Green's Function Method and to other codes such as PARTISN. The RQFP method is able to converge problems which violate the assumptions of slab geometry, isotropic scattering, and fissile regions used in deriving the method. The method, applied to spherical systems, successfully obtained the eigenpair of interest. The RQFP method was able to obtain analytical and measured alpha-eigenvalues of various benchmark problems from the literature and substantially reduced the number of transport sweeps necessary to obtain the alpha-eigenvalue/eigenvector as compared to the traditional critical search method. For various subcritical problems, the RQFP method was able to converge the eigenpair when the critical search failed. This gives evidence that the Rayleigh quotient fixed point method for alpha-eigenvalue problems is robust enough to handle large one-dimensional, multigroup-in-energy problems where the assumptions made in deriving the method might not be true.
 
 The RQFP method for $k$-effective problems was found to be less successful. The RQFP method for $k$-effective eigenvalue problems underperforms for most problems considered in this chapter. The method appears to be more sensitive to the violation of assumptions made in its derivation as compared to the RQFP method for alpha-eigenvalue problems. 
-%Nevertheless, the RQFP method provides another option to solve $k$-effective eigenvalue problems.
+Nevertheless, the RQFP method provides another option to solve $k$-effective eigenvalue problems.
 
 %\begin{table*}
 %\centering\ra{1.3}
