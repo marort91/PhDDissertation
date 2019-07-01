@@ -119,42 +119,79 @@ The number of transport sweeps necessary for convergence for the RQFP and power 
 
 \section{Two- and Three-Dimensional Cartesian Benchmark Problems}
 
-We consider three versions of the MOX Fuel Assembly 3D Extension Case from the \textit{Benchmark on Deterministic Transport Calculations Without Spatial Homogenisation} \cite{lewis2001benchmark}. The benchmark geometry is a three-dimensional representation of sixteen assembly (quarter core symmetry) C5 MOX fuel assembly problem described in \cite{cavarec1994oecd}. The benchmark problem is meant to provide a challenging test of the ability of three-dimensional methods to handle spatial heterogeneities. The benchmark problem materials consist of seven materials: UO$_{2}$ fuel-clad, 4.3\% MOX fuel, 7.0\% MOX fuel, 8.7\% MOX fuel, the fission chamber, the guide tube, and the moderator. The seven energy group, isotropic scattering cross sections for the UO$_{2}$ fuel-clad are provided in Table~\ref{table:MOX-FuelClad}. The seven energy group, isotropic scattering cross sections for the three enrichments of MOX are listed in Table~\ref{table:MOX-43}, Table~\ref{table:MOX-7}, and Table~\ref{table:MOX-87} while the cross sections for the fission chamber, guide tube, and moderator are listed in Table~\ref{table:MOX-Fission}, Table~\ref{table:MOX-Guide}, and Table~\ref{table:MOX-Mod}, respectively.
+We consider three versions of the MOX Fuel Assembly 3D Extension Case from the \textit{Benchmark on Deterministic Transport Calculations Without Spatial Homogenisation} \cite{lewis2001benchmark}. The benchmark geometry is a three-dimensional representation of sixteen assembly (quarter core symmetry) C5 MOX fuel assembly problem described in \cite{cavarec1994oecd}. The benchmark problem is meant to provide a challenging test of the ability of three-dimensional methods to handle spatial heterogeneities. 
+
+The benchmark problem materials consist of seven materials: UO$_{2}$ fuel-clad, 4.3\% MOX fuel, 7.0\% MOX fuel, 8.7\% MOX fuel, the fission chamber, the guide tube, and the moderator. Each material has a seven energy cross section set with energy group boundaries and group speeds listed in Table~\ref{table:SevenGrpBounds}.The seven energy group, isotropic scattering cross sections for the UO$_{2}$ fuel-clad are provided in Table~\ref{table:MOX-FuelClad}. The seven energy group, isotropic scattering cross sections for the three enrichments of MOX are listed in Table~\ref{table:MOX-43}, Table~\ref{table:MOX-7}, and Table~\ref{table:MOX-87} while the cross sections for the fission chamber, guide tube, and moderator are listed in Table~\ref{table:MOX-Fission}, Table~\ref{table:MOX-Guide}, and Table~\ref{table:MOX-Mod}, respectively.
+
+The quarter core has dimensions 64.26 cm by 64.26 cm by 214.20 cm. Each fuel pin cell has width 1.26 cm and the radius of the fuel cylinder is 0.54cm.The quarter core model consists to two types of assembly, UO$_{2}$ and MOX surrounded by moderator as seen in Figure~\ref{fig:CoreConfig}. Each fuel assembly has a pin layout as shown in Figure~\ref{fig:FuelPinAssembly}. Reflected boundary conditions are imposed on the bottom and right quarter core boundaries. Vacuum boundary conditions are imposed on the top and left edges of the quarter core. The $k$-effective eigenvalue of the system benchmark problem is $k = 1.186550$.
+
+Three variations of the benchmark problem were considered. Two two-dimensional variants of the benchmark problem were modeled where reflective boundary conditions were placed on the top and bottom of the quarter core. In the first problem, a coarse spatial homogenization was done on a high-fidelity geometric model created for the LLNL Monte Carlo code COG \cite{buck1993cog} and the problem solved using ARDRA. In the second case, a finer spatial homogenization was done the high-fidelity geometric model. Finally, a full three-dimensional calculation with coarse spatial homogenization was done. The performance of the RQFP method for alpha- and $k$-effective eigenvalues was investigated for all problems and compared to traditional eigenvalue solution methods in the field.
 
 \begin{figure}[!htbp]
 \centering
 \resizebox{0.55\textwidth}{!}{
-	\input{Figures/HigherDimEigen/FuelPin.tex}
+	\input{Figures/HigherDimEigen/CoreConfig.tex}
 	}
-	\caption{Fuel Pin Layout for MOX Fuel Assembly Benchmark}
-	\label{fig:Fuel}
+	\caption{Assembly Layout for MOX Fuel Assembly Benchmark}
+	\label{fig:CoreConfig}
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+  \includegraphics[trim=2cm 4cm 2cm 4cm,clip=true,width=.55\linewidth]{Figures/HigherDimEigen/FuelPinAssembly}
+\caption{Fuel Pin Layout for MOX Fuel Assembly Benchmark From \cite{lewis2001benchmark}}
+  \label{fig:FuelPinAssembly}
 \end{figure}
 
 \begin{sidewaysfigure}
 \begin{table}[H]
+    \centering
+    \caption{C5G7MOX Energy Group Boundaries (MeV) and Speeds (cm/s)}
+    \label{table:SevenGrpBounds}
+    \resizebox{1.0\textwidth}{!}{
+    \begin{tabular}{*5c}
+        \toprule
+	Energy Group $g$ & Upper Energy Boundary & Midpoint Energy & Lower Energy Boundary & Speed \\
+        \midrule
+ 0 & 2.000000E+01 & 1.750000E+01 & 1.500000E+01 & 5.692375E+03 \\
+ 1 & 1.500000E+01 & 1.250000E+01 & 1.000000E+01 & 4.817827E+03 \\
+ 2 & 1.000000E+01 & 7.500000E+00 & 5.000000E+00 & 3.711626E+03 \\
+ 3 & 5.000000E+00 & 2.550000E+00 & 1.000000E-01 & 1.762394E+03 \\
+ 4 & 1.000000E-01 & 5.050000E-02 & 1.000000E-03 & 2.405592e+02 \\
+ 5 & 1.000000E-03 & 5.050000E-04 & 1.000000E-05 & 2.405663E+01 \\
+ 6 & 1.000000E-05 & 5.000500e-06 & 1.000000E-09 & 2.208836E+00 \\
+        \bottomrule
+        & & & &
+    \end{tabular}}
+ \end{table}
+ \end{sidewaysfigure}
+
+\begin{sidewaysfigure}
+\begin{table}[H]
+    \caption{C5G7MOX Cross Sections - UO$_{2}$ Fuel-Clad}
+    \label{table:MOX-FuelClad}
 	\begin{subtable}[h]{1.0\textwidth}
     \centering
-    \caption{UO$_{2}$ Fuel-Clad Cross Sections --  (cm$^{-1}$)}
     \resizebox{1.0\textwidth}{!}{
     \begin{tabular}{*8c}
         \toprule
 	Energy Group $g$ & $\sigma_{g}$ & $\sigma_{g,tr}$ & $\sigma_{a,g}$ & $\sigma_{\gamma,g}$ & $\sigma_{f,g}$ & $\nu_{g}$ & $\chi_{g}$ \\ 
         \midrule
-1 & 2.12450E-01 & 1.77949E-01 & 8.02480E-03 & 8.12740E-04 & 7.21206E-03 & 2.78145E+00 & 5.87910E-01 \\
-2 & 3.55470E-01 & 3.29805E-01 & 3.71740E-03 & 2.89810E-03 & 8.19301E-04 & 2.47443E+00 & 4.11760E-01 \\
-3 & 4.85540E-01 & 4.80388E-01 & 2.67690E-02 & 2.03158E-02 & 6.45320E-03 & 2.43383E+00 & 3.39060E-04 \\
-4 & 5.59400E-01 & 5.54367E-01 & 9.62360E-02 & 7.76712E-02 & 1.85648E-02 & 2.43380E+00 & 1.17610E-07 \\
-5 & 3.18030E-01 & 3.11801E-01 & 3.00200E-02 & 1.22116E-02 & 1.78084E-02 & 2.43380E+00 & 0.00000E+00 \\
-6 & 4.01460E-01 & 3.95168E-01 & 1.11260E-01 & 2.82252E-02 & 8.30348E-02 & 2.43380E+00 & 0.00000E+00 \\
-7 & 5.70610E-01 & 5.64406E-01 & 2.82780E-01 & 6.67760E-02 & 2.16004E-01 & 2.43380E+00 & 0.00000E+00 \\
+0 & 2.12450E-01 & 1.77949E-01 & 8.02480E-03 & 8.12740E-04 & 7.21206E-03 & 2.78145E+00 & 5.87910E-01 \\
+1 & 3.55470E-01 & 3.29805E-01 & 3.71740E-03 & 2.89810E-03 & 8.19301E-04 & 2.47443E+00 & 4.11760E-01 \\
+2 & 4.85540E-01 & 4.80388E-01 & 2.67690E-02 & 2.03158E-02 & 6.45320E-03 & 2.43383E+00 & 3.39060E-04 \\
+3 & 5.59400E-01 & 5.54367E-01 & 9.62360E-02 & 7.76712E-02 & 1.85648E-02 & 2.43380E+00 & 1.17610E-07 \\
+4 & 3.18030E-01 & 3.11801E-01 & 3.00200E-02 & 1.22116E-02 & 1.78084E-02 & 2.43380E+00 & 0.00000E+00 \\
+5 & 4.01460E-01 & 3.95168E-01 & 1.11260E-01 & 2.82252E-02 & 8.30348E-02 & 2.43380E+00 & 0.00000E+00 \\
+6 & 5.70610E-01 & 5.64406E-01 & 2.82780E-01 & 6.67760E-02 & 2.16004E-01 & 2.43380E+00 & 0.00000E+00 \\
         \bottomrule
         & & & & & & & 
     \end{tabular}}
+        \caption{UO$_{2}$ Fuel-Clad Cross Sections --  (cm$^{-1}$)}
  \end{subtable} %
 \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
     \centering
-    \caption{UO$_{2}$ Fuel-Clad Scattering Block (cm$^{-1}$)}
     \resizebox{1.0\textwidth}{!}{
     \begin{tabular}{*8c}
         \toprule
@@ -170,67 +207,65 @@ We consider three versions of the MOX Fuel Assembly 3D Extension Case from the \
         \bottomrule
         & & & & & & & 
     \end{tabular}}
+        \caption{UO$_{2}$ Fuel-Clad Scattering Block (cm$^{-1}$)}
   \end{subtable}
-    \caption{C5G7MOX Cross Sections - UO$_{2}$ Fuel-Clad}
-    \label{table:MOX-FuelClad}
 \end{table}
 \end{sidewaysfigure}
 
-
-
 \begin{sidewaysfigure}
 \begin{table}[H]
+    \caption{C5G7MOX Cross Sections - 4.3\% MOX Fuel}
+        \label{table:MOX-43}
   \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
     \centering
-    \caption{4.3\% MOX Fuel -- Clad Cross Sections (cm$^{-1}$)}
     \resizebox{1.00\textwidth}{!}{
     \begin{tabular}{*8c}
         \toprule
 	Energy Group $g$ & $\sigma_{g}$ & $\sigma_{g,tr}$ & $\sigma_{a,g}$ & $\sigma_{\gamma,g}$ & $\sigma_{f,g}$ & $\nu_{g}$ & $\chi_{g}$ \\ 
         \midrule
-1 & 2.11920E-01	 &	1.78731E-01 &	8.43390E-03 &	8.06860E-04 &	7.62704E-03 &	2.85209E+00 &	5.87910E-01 \\
-2 & 3.55810E-01	 &	3.30849E-01 &	3.75770E-03 &	2.88080E-03 &	8.76898E-04 &	2.89099E+00 &	4.11760E-01 \\
-3 & 4.88900E-01	 &	4.83772E-01 &	2.79700E-02 &	2.22717E-02 &	5.69835E-03 &	2.85486E+00 &	3.39060E-04 \\
-4 & 5.71940E-01	 &	5.66922E-01 &	1.04210E-01 &	8.13228E-02 &	2.28872E-02 &	2.86073E+00 &	1.17610E-07 \\
-5 & 4.32390E-01	 &	4.26227E-01 &	1.39940E-01 &	1.29177E-01 &	1.07635E-02 &	2.85447E+00 &	0.00000E+00 \\
-6 & 6.84950E-01	 &	6.78997E-01 &	4.09180E-01 &	1.76423E-01 &	2.32757E-01 &	2.86415E+00 &	0.00000E+00 \\
-7 & 6.88910E-01	 &	6.82852E-01 &	4.09350E-01 &	1.60382E-01 &	2.48968E-01 &	2.86780E+00 &	0.00000E+00 \\
+0 & 2.11920E-01	 &	1.78731E-01 &	8.43390E-03 &	8.06860E-04 &	7.62704E-03 &	2.85209E+00 &	5.87910E-01 \\
+1 & 3.55810E-01	 &	3.30849E-01 &	3.75770E-03 &	2.88080E-03 &	8.76898E-04 &	2.89099E+00 &	4.11760E-01 \\
+2 & 4.88900E-01	 &	4.83772E-01 &	2.79700E-02 &	2.22717E-02 &	5.69835E-03 &	2.85486E+00 &	3.39060E-04 \\
+3 & 5.71940E-01	 &	5.66922E-01 &	1.04210E-01 &	8.13228E-02 &	2.28872E-02 &	2.86073E+00 &	1.17610E-07 \\
+4 & 4.32390E-01	 &	4.26227E-01 &	1.39940E-01 &	1.29177E-01 &	1.07635E-02 &	2.85447E+00 &	0.00000E+00 \\
+5 & 6.84950E-01	 &	6.78997E-01 &	4.09180E-01 &	1.76423E-01 &	2.32757E-01 &	2.86415E+00 &	0.00000E+00 \\
+6 & 6.88910E-01	 &	6.82852E-01 &	4.09350E-01 &	1.60382E-01 &	2.48968E-01 &	2.86780E+00 &	0.00000E+00 \\
         \bottomrule
         & & & & & & & 
     \end{tabular}}
+        \caption{4.3\% MOX Fuel -- Clad Cross Sections (cm$^{-1}$)}
   \end{subtable}
   \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
     \centering
-    \caption{4.3\% MOX Fuel Scattering Block (cm$^{-1}$)}
     \resizebox{1.00\textwidth}{!}{
     \begin{tabular}{*8c}
         \toprule
 	$g'$, $g$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
         \midrule
-1 & 1.28876E-01	 &	4.14130E-02 &	8.22900E-06 &	5.04050E-09 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 \\
-2 & 0.00000E+00	 &	3.25452E-01 &	1.63950E-03 &	1.59820E-09 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 \\
-3 & 0.00000E+00	 &	0.00000E+00 &	4.53188E-01 &	2.61420E-03 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 \\
-4 & 0.00000E+00	 &	0.00000E+00 &	0.00000E+00 &	4.57173E-01 &	5.53940E-03 &	0.00000E+00 &	0.00000E+00 \\
-5 & 0.00000E+00	 &	0.00000E+00 &	0.00000E+00 &	1.60460E-04 &	2.76814E-01 &	9.31270E-03 &	9.16560E-09 \\
-6 & 0.00000E+00	 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	2.00510E-03 &	2.52962E-01 &	1.48500E-02 \\
-7 & 0.00000E+00	 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	8.49480E-03 &	2.65007E-01 \\
+0 & 1.28876E-01	 &	4.14130E-02 &	8.22900E-06 &	5.04050E-09 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 \\
+1 & 0.00000E+00	 &	3.25452E-01 &	1.63950E-03 &	1.59820E-09 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 \\
+2 & 0.00000E+00	 &	0.00000E+00 &	4.53188E-01 &	2.61420E-03 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 \\
+3 & 0.00000E+00	 &	0.00000E+00 &	0.00000E+00 &	4.57173E-01 &	5.53940E-03 &	0.00000E+00 &	0.00000E+00 \\
+4 & 0.00000E+00	 &	0.00000E+00 &	0.00000E+00 &	1.60460E-04 &	2.76814E-01 &	9.31270E-03 &	9.16560E-09 \\
+5 & 0.00000E+00	 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	2.00510E-03 &	2.52962E-01 &	1.48500E-02 \\
+6 & 0.00000E+00	 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	8.49480E-03 &	2.65007E-01 \\
         \bottomrule
         & & & & & & & 
     \end{tabular}}
+        \caption{4.3\% MOX Fuel Scattering Block (cm$^{-1}$)}
   \end{subtable}
-    \caption{C5G7MOX Cross Sections - 4.3\% MOX Fuel}
-        \label{table:MOX-43}
 \end{table}
 \end{sidewaysfigure}
 
 \begin{sidewaysfigure}
 \begin{table}[H]
+  \caption{C5G7MOX Cross Sections - 7.0\% MOX Fuel}
+          \label{table:MOX-7}
     \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
     \centering
-    \caption{7.0\% MOX Fuel -- Clad Cross Sections (cm$^{-1}$)}
     \resizebox{1.00\textwidth}{!}{
     \begin{tabular}{*8c}
         \toprule
@@ -246,217 +281,216 @@ We consider three versions of the MOX Fuel Assembly 3D Extension Case from the \
         \bottomrule
         & & & & & & & 
     \end{tabular}}
+        \caption{7.0\% MOX Fuel -- Clad Cross Sections (cm$^{-1}$)}
   \end{subtable}
   \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
     \centering
-    \caption{7.0\% MOX Fuel Scattering Block (cm$^{-1}$)}
     \resizebox{1.00\textwidth}{!}{
     \begin{tabular}{*8c}
         \toprule
 	$g'$, $g$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
         \midrule
-1 &	1.30457E-01	 &	4.17920E-02 &	8.51050E-06 &	5.13290E-09 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 \\
-2 &	0.00000E+00	 &	3.28428E-01 &	1.64360E-03 &	2.20170E-09 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 \\
-3 &	0.00000E+00	 &	0.00000E+00 &	4.58371E-01 &	2.53310E-03 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 \\
-4 &	0.00000E+00	 &	0.00000E+00 &	0.00000E+00 &	4.63709E-01 &	5.47660E-03 &	0.00000E+00 &	0.00000E+00 \\
-5 &	0.00000E+00	 &	0.00000E+00 &	0.00000E+00 &	1.76190E-04 &	2.82313E-01 &	8.72890E-03 &	9.00160E-09 \\
-6 &	0.00000E+00	 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	2.27600E-03 &	2.49751E-01 &	1.31140E-02 \\
-7 &	0.00000E+00	 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	8.86450E-03 &	2.59529E-01 \\
+0 &	1.30457E-01	 &	4.17920E-02 &	8.51050E-06 &	5.13290E-09 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 \\
+1 &	0.00000E+00	 &	3.28428E-01 &	1.64360E-03 &	2.20170E-09 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 \\
+2 &	0.00000E+00	 &	0.00000E+00 &	4.58371E-01 &	2.53310E-03 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 \\
+3 &	0.00000E+00	 &	0.00000E+00 &	0.00000E+00 &	4.63709E-01 &	5.47660E-03 &	0.00000E+00 &	0.00000E+00 \\
+4 &	0.00000E+00	 &	0.00000E+00 &	0.00000E+00 &	1.76190E-04 &	2.82313E-01 &	8.72890E-03 &	9.00160E-09 \\
+5 &	0.00000E+00	 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	2.27600E-03 &	2.49751E-01 &	1.31140E-02 \\
+6 &	0.00000E+00	 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	8.86450E-03 &	2.59529E-01 \\
         \bottomrule
         & & & & & & & 
     \end{tabular}}
+        \caption{7.0\% MOX Fuel Scattering Block (cm$^{-1}$)}
   \end{subtable}
-  \caption{C5G7MOX Cross Sections - 7.0\% MOX Fuel}
-          \label{table:MOX-7}
 \end{table}
 \end{sidewaysfigure}
 
 \begin{sidewaysfigure}
 \begin{table}[H]
-    \begin{subtable}[h]{1.0\textwidth}
-%\begin{table}[H]
-    \centering
-    \caption{8.7\% MOX Fuel -- Clad Cross Sections (cm$^{-1}$)}
-    \resizebox{1.00\textwidth}{!}{
-    \begin{tabular}{*8c}
-        \toprule
-	Energy Group $g$ & $\sigma_{g}$ & $\sigma_{g,tr}$ & $\sigma_{a,g}$ & $\sigma_{\gamma,g}$ & $\sigma_{f,g}$ & $\nu_{g}$ & $\chi_{g}$ \\ 
-        \midrule
-1 &	2.16280E-01	 &	1.83045E-01 &	9.48620E-03 &	8.14110E-04 &	8.67209E-03 &	2.90426E+00 &	5.87910E-01 \\
-2 &	3.61700E-01	 &	3.36705E-01 &	4.65560E-03 &	3.03134E-03 &	1.62426E-03 &	2.91795E+00 &	4.11760E-01 \\
-3 &	5.05630E-01	 &	5.00507E-01 &	3.62400E-02 &	2.59684E-02 &	1.02716E-02 &	2.86986E+00 &	3.39060E-04 \\
-4 &	6.11170E-01	 &	6.06174E-01 &	1.32720E-01 &	9.36753E-02 &	3.90447E-02 &	2.87491E+00 &	1.17610E-07 \\
-5 &	5.08900E-01	 &	5.02754E-01 &	2.08400E-01 &	1.89142E-01 &	1.92576E-02 &	2.87175E+00 &	0.00000E+00 \\
-6 &	9.26670E-01	 &	9.21028E-01 &	6.58700E-01 &	2.83812E-01 &	3.74888E-01 &	2.86752E+00 &	0.00000E+00 \\
-7 &	9.60990E-01	 &	9.55231E-01 &	6.90170E-01 &	2.59571E-01 &	4.30599E-01 &	2.87808E+00 &	0.00000E+00 \\
-        \bottomrule
-        & & & & & & & 
-    \end{tabular}}
-  \end{subtable}
-  \begin{subtable}[h]{1.0\textwidth}
-%\begin{table}[H]
-    \centering
-    \caption{8.7\% MOX Fuel Scattering Block (cm$^{-1}$)}
-    \resizebox{1.00\textwidth}{!}{
-    \begin{tabular}{*8c}
-        \toprule
-	$g'$, $g$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
-        \midrule
-1 &	1.31504E-01 &	4.20460E-02 &	8.69720E-06	& 5.19380E-09	& 0.00000E+00	& 0.00000E+00	& 0.00000E+00 \\
-2 &	0.00000E+00 &	3.30403E-01 &	1.64630E-03	& 2.60060E-09	& 0.00000E+00	& 0.00000E+00	& 0.00000E+00 \\
-3 &	0.00000E+00 &	0.00000E+00 &	4.61792E-01	& 2.47490E-03	& 0.00000E+00	& 0.00000E+00	& 0.00000E+00 \\
-4 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00	& 4.68021E-01	& 5.43300E-03	& 0.00000E+00	& 0.00000E+00 \\
-5 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00	& 1.85970E-04	& 2.85771E-01	& 8.39730E-03	& 8.92800E-09 \\
-6 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00	& 0.00000E+00	& 2.39160E-03	& 2.47614E-01	& 1.23220E-02 \\
-7 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00	& 0.00000E+00	& 0.00000E+00	& 8.96810E-03	& 2.56093E-01 \\
-        \bottomrule
-        & & & & & & & 
-    \end{tabular}}
-  \end{subtable}
   \caption{C5G7MOX Cross Sections - 8.7\% MOX Fuel}
           \label{table:MOX-87}
-\end{table}
-\end{sidewaysfigure}
-
-\begin{sidewaysfigure}
-\begin{table}[H]
     \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
     \centering
-    \caption{Fission Chamber -- Cross Sections (cm$^{-1}$)}
     \resizebox{1.00\textwidth}{!}{
     \begin{tabular}{*8c}
         \toprule
 	Energy Group $g$ & $\sigma_{g}$ & $\sigma_{g,tr}$ & $\sigma_{a,g}$ & $\sigma_{\gamma,g}$ & $\sigma_{f,g}$ & $\nu_{g}$ & $\chi_{g}$ \\ 
         \midrule
-1 &	1.90730E-01	&	1.26032E-01 &	5.11320E-04 &	5.11315E-04 &	4.79002E-09 &	2.76283E+00	& 5.87910E-01 \\
-2 &	4.56520E-01	&	2.93160E-01 &	7.58130E-05 &	7.58072E-05 &	5.82564E-09 &	2.46239E+00	& 4.11760E-01 \\
-3 &	6.40700E-01	&	2.84250E-01 &	3.16430E-04 &	3.15966E-04 &	4.63719E-07 &	2.43380E+00	& 3.39060E-04 \\
-4 &	6.49840E-01	&	2.81020E-01 &	1.16750E-03 &	1.16226E-03 &	5.24406E-06 &	2.43380E+00	& 1.17610E-07 \\
-5 &	6.70630E-01	&	3.34460E-01 &	3.39770E-03 &	3.39755E-03 &	1.45390E-07 &	2.43380E+00	& 0.00000E+00 \\
-6 &	8.75060E-01	&	5.65640E-01 &	9.18860E-03 &	9.18789E-03 &	7.14972E-07 &	2.43380E+00	& 0.00000E+00 \\
-7 &	1.43450E+00	&	1.17214E+00 &	2.32440E-02 &	2.32419E-02 &	2.08041E-06 &	2.43380E+00	& 0.00000E+00 \\
+0 &	2.16280E-01	 &	1.83045E-01 &	9.48620E-03 &	8.14110E-04 &	8.67209E-03 &	2.90426E+00 &	5.87910E-01 \\
+1 &	3.61700E-01	 &	3.36705E-01 &	4.65560E-03 &	3.03134E-03 &	1.62426E-03 &	2.91795E+00 &	4.11760E-01 \\
+2 &	5.05630E-01	 &	5.00507E-01 &	3.62400E-02 &	2.59684E-02 &	1.02716E-02 &	2.86986E+00 &	3.39060E-04 \\
+3 &	6.11170E-01	 &	6.06174E-01 &	1.32720E-01 &	9.36753E-02 &	3.90447E-02 &	2.87491E+00 &	1.17610E-07 \\
+4 &	5.08900E-01	 &	5.02754E-01 &	2.08400E-01 &	1.89142E-01 &	1.92576E-02 &	2.87175E+00 &	0.00000E+00 \\
+5 &	9.26670E-01	 &	9.21028E-01 &	6.58700E-01 &	2.83812E-01 &	3.74888E-01 &	2.86752E+00 &	0.00000E+00 \\
+6 &	9.60990E-01	 &	9.55231E-01 &	6.90170E-01 &	2.59571E-01 &	4.30599E-01 &	2.87808E+00 &	0.00000E+00 \\
         \bottomrule
         & & & & & & & 
     \end{tabular}}
+        \caption{8.7\% MOX Fuel -- Clad Cross Sections (cm$^{-1}$)}
   \end{subtable}
   \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
     \centering
-    \caption{Fission Chamber Scattering Block (cm$^{-1}$)}
     \resizebox{1.00\textwidth}{!}{
     \begin{tabular}{*8c}
         \toprule
 	$g'$, $g$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
         \midrule
-1 &	6.61659E-02 &	5.90700E-02 &	2.83340E-04 &	1.46220E-06 &	2.06420E-08 &	0.00000E+00 &	0.00000E+00 \\
-2 &	0.00000E+00 &	2.40377E-01 &	5.24350E-02 &	2.49900E-04 &	1.92390E-05 &	2.98750E-06 &	4.21400E-07 \\
-3 &	0.00000E+00 &	0.00000E+00 &	1.83425E-01 &	9.22880E-02 &	6.93650E-03 &	1.07900E-03 &	2.05430E-04 \\
-4 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	7.90769E-02 &	1.69990E-01 &	2.58600E-02 &	4.92560E-03 \\
-5 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	3.73400E-05 &	9.97570E-02 &	2.06790E-01 &	2.44780E-02 \\
-6 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	9.17420E-04 &	3.16774E-01 &	2.38760E-01 \\
-7 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	4.97930E-02 &	1.09910E+00 \\
+0 &	1.31504E-01 &	4.20460E-02 &	8.69720E-06	& 5.19380E-09	& 0.00000E+00	& 0.00000E+00	& 0.00000E+00 \\
+1 &	0.00000E+00 &	3.30403E-01 &	1.64630E-03	& 2.60060E-09	& 0.00000E+00	& 0.00000E+00	& 0.00000E+00 \\
+2 &	0.00000E+00 &	0.00000E+00 &	4.61792E-01	& 2.47490E-03	& 0.00000E+00	& 0.00000E+00	& 0.00000E+00 \\
+3 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00	& 4.68021E-01	& 5.43300E-03	& 0.00000E+00	& 0.00000E+00 \\
+4 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00	& 1.85970E-04	& 2.85771E-01	& 8.39730E-03	& 8.92800E-09 \\
+5 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00	& 0.00000E+00	& 2.39160E-03	& 2.47614E-01	& 1.23220E-02 \\
+6 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00	& 0.00000E+00	& 0.00000E+00	& 8.96810E-03	& 2.56093E-01 \\
         \bottomrule
         & & & & & & & 
     \end{tabular}}
+        \caption{8.7\% MOX Fuel Scattering Block (cm$^{-1}$)}
   \end{subtable}
+\end{table}
+\end{sidewaysfigure}
+
+\begin{sidewaysfigure}
+\begin{table}[H]
   \caption{C5G7MOX Cross Sections - Fission Chamber}
       \label{table:MOX-Fission}
-\end{table}
-\end{sidewaysfigure}
-
-\begin{sidewaysfigure}
-\begin{table}[H]
     \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
     \centering
-    \caption{Guide Tube Cross Sections (cm$^{-1}$)}
-    %\resizebox{1.00\textwidth}{!}{
-    \begin{tabular}{*5c}
+    \resizebox{1.00\textwidth}{!}{
+    \begin{tabular}{*8c}
         \toprule
-	Energy Group $g$ & $\sigma_{g}$ & $\sigma_{g,tr}$ & $\sigma_{a,g}$ & $\sigma_{\gamma,g}$ \\ 
+	Energy Group $g$ & $\sigma_{g}$ & $\sigma_{g,tr}$ & $\sigma_{a,g}$ & $\sigma_{\gamma,g}$ & $\sigma_{f,g}$ & $\nu_{g}$ & $\chi_{g}$ \\ 
         \midrule
-1 &	1.90730E-01 &	1.26032E-01 &	5.11320E-04 &	5.11320E-04 \\
-2 &	4.56520E-01 &	2.93160E-01 &	7.58010E-05 &	7.58010E-05 \\
-3 &	6.40670E-01 &	2.84240E-01 &	3.15720E-04 &	3.15720E-04 \\
-4 &	6.49670E-01 &	2.80960E-01 &	1.15820E-03 &	1.15820E-03 \\
-5 &	6.70580E-01 &	3.34440E-01 &	3.39750E-03 &	3.39750E-03 \\
-6 &	8.75050E-01 &	5.65640E-01 &	9.18780E-03 &	9.18780E-03 \\
-7 &	1.43450E+00 &	1.17215E+00 &	2.32420E-02 &	2.32420E-02 \\
+0 &	1.90730E-01	&	1.26032E-01 &	5.11320E-04 &	5.11315E-04 &	4.79002E-09 &	2.76283E+00	& 5.87910E-01 \\
+1 &	4.56520E-01	&	2.93160E-01 &	7.58130E-05 &	7.58072E-05 &	5.82564E-09 &	2.46239E+00	& 4.11760E-01 \\
+2 &	6.40700E-01	&	2.84250E-01 &	3.16430E-04 &	3.15966E-04 &	4.63719E-07 &	2.43380E+00	& 3.39060E-04 \\
+3 &	6.49840E-01	&	2.81020E-01 &	1.16750E-03 &	1.16226E-03 &	5.24406E-06 &	2.43380E+00	& 1.17610E-07 \\
+4 &	6.70630E-01	&	3.34460E-01 &	3.39770E-03 &	3.39755E-03 &	1.45390E-07 &	2.43380E+00	& 0.00000E+00 \\
+5 &	8.75060E-01	&	5.65640E-01 &	9.18860E-03 &	9.18789E-03 &	7.14972E-07 &	2.43380E+00	& 0.00000E+00 \\
+6 &	1.43450E+00	&	1.17214E+00 &	2.32440E-02 &	2.32419E-02 &	2.08041E-06 &	2.43380E+00	& 0.00000E+00 \\
         \bottomrule
-        & & & &
-    \end{tabular}%}
+        & & & & & & & 
+    \end{tabular}}
+        \caption{Fission Chamber -- Cross Sections (cm$^{-1}$)}
   \end{subtable}
   \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
     \centering
-    \caption{Guide Tube Scattering Block (cm$^{-1}$)}
     \resizebox{1.00\textwidth}{!}{
     \begin{tabular}{*8c}
         \toprule
 	$g'$, $g$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
         \midrule
-1	& 6.61659E-02 &	5.90700E-02 &	2.83340E-04 &	1.46220E-06 &	2.06420E-08 &	0.00000E+00 &	0.00000E+00 \\
-2	& 0.00000E+00 &	2.40377E-01 &	5.24350E-02 &	2.49900E-04 &	1.92390E-05 &	2.98750E-06 &	4.21400E-07 \\
-3	& 0.00000E+00 &	0.00000E+00 &	1.83297E-01 &	9.23970E-02 &	6.94460E-03 &	1.08030E-03 &	2.05670E-04 \\
-4	& 0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	7.88511E-02 &	1.70140E-01 &	2.58810E-02 &	4.92970E-03 \\
-5	& 0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	3.73330E-05 &	9.97372E-02 &	2.06790E-01 &	2.44780E-02 \\
-6	& 0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	9.17260E-04 &	3.16765E-01 &	2.38770E-01 \\
-7	& 0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	4.97920E-02 &	1.09912E+00 \\
+0 &	6.61659E-02 &	5.90700E-02 &	2.83340E-04 &	1.46220E-06 &	2.06420E-08 &	0.00000E+00 &	0.00000E+00 \\
+1 &	0.00000E+00 &	2.40377E-01 &	5.24350E-02 &	2.49900E-04 &	1.92390E-05 &	2.98750E-06 &	4.21400E-07 \\
+2 &	0.00000E+00 &	0.00000E+00 &	1.83425E-01 &	9.22880E-02 &	6.93650E-03 &	1.07900E-03 &	2.05430E-04 \\
+3 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	7.90769E-02 &	1.69990E-01 &	2.58600E-02 &	4.92560E-03 \\
+4 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	3.73400E-05 &	9.97570E-02 &	2.06790E-01 &	2.44780E-02 \\
+5 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	9.17420E-04 &	3.16774E-01 &	2.38760E-01 \\
+6 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	4.97930E-02 &	1.09910E+00 \\
         \bottomrule
         & & & & & & & 
     \end{tabular}}
+        \caption{Fission Chamber Scattering Block (cm$^{-1}$)}
   \end{subtable}
+\end{table}
+\end{sidewaysfigure}
+
+\begin{sidewaysfigure}
+\begin{table}[H]
   \caption{C5G7MOX Cross Sections - Guide Tube}
         \label{table:MOX-Guide}
-\end{table}
-\end{sidewaysfigure}
-
-\begin{sidewaysfigure}
-\begin{table}[H]
     \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
     \centering
-    \caption{Moderator Cross Sections (cm$^{-1}$)}
     %\resizebox{1.00\textwidth}{!}{
     \begin{tabular}{*5c}
         \toprule
 	Energy Group $g$ & $\sigma_{g}$ & $\sigma_{g,tr}$ & $\sigma_{a,g}$ & $\sigma_{\gamma,g}$ \\ 
         \midrule
-1 &	2.30070E-01  &	1.59206E-01  &	6.01050E-04  &	6.01050E-04 \\
-2 &	7.76460E-01  &	4.12970E-01  &	1.57930E-05  &	1.57930E-05 \\
-3 &	1.48420E+00  &	5.90310E-01  &	3.37160E-04  &	3.37160E-04 \\
-4 &	1.50520E+00  &	5.84350E-01  &	1.94060E-03  &	1.94060E-03 \\
-5 &	1.55920E+00  &	7.18000E-01  &	5.74160E-03  &	5.74160E-03 \\
-6 &	2.02540E+00  &	1.25445E+00  &	1.50010E-02  &	1.50010E-02 \\
-7 &	3.30570E+00  &	2.65038E+00  &	3.72390E-02  &	3.72390E-02 \\
+0 &	1.90730E-01 &	1.26032E-01 &	5.11320E-04 &	5.11320E-04 \\
+1 &	4.56520E-01 &	2.93160E-01 &	7.58010E-05 &	7.58010E-05 \\
+2 &	6.40670E-01 &	2.84240E-01 &	3.15720E-04 &	3.15720E-04 \\
+3 &	6.49670E-01 &	2.80960E-01 &	1.15820E-03 &	1.15820E-03 \\
+4 &	6.70580E-01 &	3.34440E-01 &	3.39750E-03 &	3.39750E-03 \\
+5 &	8.75050E-01 &	5.65640E-01 &	9.18780E-03 &	9.18780E-03 \\
+6 &	1.43450E+00 &	1.17215E+00 &	2.32420E-02 &	2.32420E-02 \\
         \bottomrule
         & & & &
     \end{tabular}%}
+        \caption{Guide Tube Cross Sections (cm$^{-1}$)}
   \end{subtable}
   \begin{subtable}[h]{1.0\textwidth}
 %\begin{table}[H]
     \centering
-    \caption{Moderator Scattering Block (cm$^{-1}$)}
     \resizebox{1.00\textwidth}{!}{
     \begin{tabular}{*8c}
         \toprule
 	$g'$, $g$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
         \midrule
-1 &	4.44777E-02  &	1.13400E-01  &	7.23470E-04  &	3.74990E-06  &	5.31840E-08  &	0.00000E+00  &	0.00000E+00 \\
-2 &	0.00000E+00  &	2.82334E-01  &	1.29940E-01  &	6.23400E-04  &	4.80020E-05  &	7.44860E-06  &	1.04550E-06 \\
-3 &	0.00000E+00  &	0.00000E+00  &	3.45256E-01  &	2.24570E-01  &	1.69990E-02  &	2.64430E-03  &	5.03440E-04 \\
-4 &	0.00000E+00  &	0.00000E+00  &	0.00000E+00  &	9.10284E-02  &	4.15510E-01  &	6.37320E-02  &	1.21390E-02 \\
-5 &	0.00000E+00  &	0.00000E+00  &	0.00000E+00  &	7.14370E-05  &	1.39138E-01  &	5.11820E-01  &	6.12290E-02 \\
-6 &	0.00000E+00  &	0.00000E+00  &	0.00000E+00  &	0.00000E+00  &	2.21570E-03  &	6.99913E-01  &	5.37320E-01 \\
-7 &	0.00000E+00  &	0.00000E+00  &	0.00000E+00  &	0.00000E+00  &	0.00000E+00  &	1.32440E-01  &	2.48070E+00 \\
+0	& 6.61659E-02 &	5.90700E-02 &	2.83340E-04 &	1.46220E-06 &	2.06420E-08 &	0.00000E+00 &	0.00000E+00 \\
+1	& 0.00000E+00 &	2.40377E-01 &	5.24350E-02 &	2.49900E-04 &	1.92390E-05 &	2.98750E-06 &	4.21400E-07 \\
+2	& 0.00000E+00 &	0.00000E+00 &	1.83297E-01 &	9.23970E-02 &	6.94460E-03 &	1.08030E-03 &	2.05670E-04 \\
+3	& 0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	7.88511E-02 &	1.70140E-01 &	2.58810E-02 &	4.92970E-03 \\
+4	& 0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	3.73330E-05 &	9.97372E-02 &	2.06790E-01 &	2.44780E-02 \\
+5	& 0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	9.17260E-04 &	3.16765E-01 &	2.38770E-01 \\
+6	& 0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	0.00000E+00 &	4.97920E-02 &	1.09912E+00 \\
         \bottomrule
         & & & & & & & 
     \end{tabular}}
+        \caption{Guide Tube Scattering Block (cm$^{-1}$)}
   \end{subtable}
+\end{table}
+\end{sidewaysfigure}
+
+\begin{sidewaysfigure}
+\begin{table}[H]
   \caption{C5G7MOX Cross Sections - Moderator}
           \label{table:MOX-Mod}
+    \begin{subtable}[h]{1.0\textwidth}
+%\begin{table}[H]
+    \centering
+    %\resizebox{1.00\textwidth}{!}{
+    \begin{tabular}{*5c}
+        \toprule
+	Energy Group $g$ & $\sigma_{g}$ & $\sigma_{g,tr}$ & $\sigma_{a,g}$ & $\sigma_{\gamma,g}$ \\ 
+        \midrule
+0 &	2.30070E-01  &	1.59206E-01  &	6.01050E-04  &	6.01050E-04 \\
+1 &	7.76460E-01  &	4.12970E-01  &	1.57930E-05  &	1.57930E-05 \\
+2 &	1.48420E+00  &	5.90310E-01  &	3.37160E-04  &	3.37160E-04 \\
+3 &	1.50520E+00  &	5.84350E-01  &	1.94060E-03  &	1.94060E-03 \\
+4 &	1.55920E+00  &	7.18000E-01  &	5.74160E-03  &	5.74160E-03 \\
+5 &	2.02540E+00  &	1.25445E+00  &	1.50010E-02  &	1.50010E-02 \\
+6 &	3.30570E+00  &	2.65038E+00  &	3.72390E-02  &	3.72390E-02 \\
+        \bottomrule
+        & & & &
+    \end{tabular}%}
+        \caption{Moderator Cross Sections (cm$^{-1}$)}
+  \end{subtable}
+  \begin{subtable}[h]{1.0\textwidth}
+%\begin{table}[H]
+    \centering
+    \resizebox{1.00\textwidth}{!}{
+    \begin{tabular}{*8c}
+        \toprule
+	$g'$, $g$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+        \midrule
+0 &	4.44777E-02  &	1.13400E-01  &	7.23470E-04  &	3.74990E-06  &	5.31840E-08  &	0.00000E+00  &	0.00000E+00 \\
+1 &	0.00000E+00  &	2.82334E-01  &	1.29940E-01  &	6.23400E-04  &	4.80020E-05  &	7.44860E-06  &	1.04550E-06 \\
+2 &	0.00000E+00  &	0.00000E+00  &	3.45256E-01  &	2.24570E-01  &	1.69990E-02  &	2.64430E-03  &	5.03440E-04 \\
+3 &	0.00000E+00  &	0.00000E+00  &	0.00000E+00  &	9.10284E-02  &	4.15510E-01  &	6.37320E-02  &	1.21390E-02 \\
+4 &	0.00000E+00  &	0.00000E+00  &	0.00000E+00  &	7.14370E-05  &	1.39138E-01  &	5.11820E-01  &	6.12290E-02 \\
+5 &	0.00000E+00  &	0.00000E+00  &	0.00000E+00  &	0.00000E+00  &	2.21570E-03  &	6.99913E-01  &	5.37320E-01 \\
+6 &	0.00000E+00  &	0.00000E+00  &	0.00000E+00  &	0.00000E+00  &	0.00000E+00  &	1.32440E-01  &	2.48070E+00 \\
+        \bottomrule
+        & & & & & & & 
+    \end{tabular}}
+        \caption{Moderator Scattering Block (cm$^{-1}$)}
+  \end{subtable}
 \end{table}
 \end{sidewaysfigure}
 
@@ -513,42 +547,97 @@ We consider three versions of the MOX Fuel Assembly 3D Extension Case from the \
 %\caption{Group Scalar Flux for Quadrant of MOX Assembly Benchmark Problem}
 %\end{figure}
 
-\begin{figure}
+\clearpage
+
+\subsection{Two-Dimensional MOX Fuel Core with Coarse Spatial Discretization}
+
+A coarse spatial homogenization of the benchmark problem led to the assembly geometry shown in Figure~\ref{fig:CoarseGeo}. In particular, the coarse homogenization procedure led to the inclusion of moderator in assembly regions where there was none previously. Twenty spatial cells in both the $x$- and $y$- directions and S$_{16}$ discrete ordinates quadrature were used to model the two-dimensional problem.
+
+Given the coarse spatial homogenization, it was expected the the $k$-effective eigenvalue of the system would be less than the reference $k = 1.184977$. The $k$-effective eigenvalue of the problem was found to be $k = 1.185404$. The alpha-eigenvalue was found to be $\alpha = 1.492999 \times 10^{-1}$ $\mu s^{-1}$. 
+
+\begin{figure}[!htbp]
+\centering
+  \centering
+  \includegraphics[width=.75\linewidth]{{Figures/HigherDimEigen/MOXAssembly_CoarseMaterial}}
+        \caption{Coarse Spatial Homogenization of MOX Fuel Assembly Benchmark Problem}\label{fig:CoarseGeo}
+        \caption*{Each material is given a number which corresponds to the color shown in the figure: UO$_{2}$ = 0, 4.3\% MOX Fuel = 1, 7.0\% MOX Fuel = 2, 8.7\% MOX Fuel = 3, Guide Tube = 4, Fission Chamber = 5, Moderator = 6.}
+\end{figure}
+
+\clearpage
+
+For the alpha-eigenvalue, the RQFP method required 6776 transport sweeps to converge the eigenvalue/eigenvector residual to a tolerance of $10^{-6}$ as seen in Table~\ref{table:2DMoxCoarseAlpha}. The critical search method required 81445 transport sweeps after requiring seven intermediate $k$-effective calculations. The group scalar fluxes for the seven groups can be seen in Figure~\ref{fig:ScalarFluxCoarse}. The RQFP method was able to converge the alpha-eigenvalue/eigenvector despite the system being highly supercritical. Despite the fact that not all cells contained fissile material and the moderator contained only downscattering, the violation of the primitivity condition did not affect the ability of the method to converge.
+
+For the $k$-effective eigenvalue, the RQFP method required 9064 transport sweeps as compared to 9681 transport sweeps for the power method with fission source norm update (Table~\ref{table:2DMoxCoarseK}). As the problem was substantially supercritical, the performance of the RQFP method was not degraded by the large amounts of scattering in the moderator regions of the problem and converges the solution is fewer iteration than the power method. The $k$-effective eigenvalue group scalar fluxes were substantially different from the alpha-eigenvalue group scalar fluxes as expected since the problem was not close to critical. The absolute difference between the alpha-eigenvalue and $k$-effective eigenvectors for energy group six is seen in Figure~\ref{fig:EigScalarFluxDiff}. The number of transport sweeps necessary to converge the two eigenproblems were noticeable different with the $k$-effective eigenvalue requiring approximately 33\% more sweeps.
+
+\begin{table}[!htbp]
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Two-Dimensional MOX Fuel Core with Coarse Spatial Discretization}
+	\label{table:2DMOXCoarseRes}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} Benchmark Problem & Calculated $\alpha$ [$\mu$s$^{-1}$] & RQFP & Critical Search\\
+	\midrule
+	2D MOX Coarse Discretization & $1.492999 \times 10^{-1}$ & 6776 & 81445 \\
+	\bottomrule
+	\end{tabular}
+	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
+	\label{table:2DMoxCoarseAlpha}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} Benchmark Problem & Calculated $k_{\text{eff}}$ & RQFP & Power Method \\
+	\midrule
+	2D MOX Coarse Discretization  & 1.184977 & 9064 & 9681 \\
+	\bottomrule
+	\multicolumn{4}{l}{$M = 20 \times 20$, $L = 16$, Tolerance = $10^{-6}$} \\
+	\end{tabular}
+	\caption{$k$-Effective: Comparison of RQFP and Power Method Transport Sweeps}
+	\label{table:2DMoxCoarseK}
+	\end{subtable}
+\end{table}
+
+\clearpage
+
+\begin{figure}[!htbp]
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=0}}
-        \caption{Scalar Flux for Energy Group 0}
+        \caption{Scalar Flux for Energy Group Zero}
   \label{fig:2DAlpha0}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=1}}
-        \caption{Scalar Flux for Energy Group 1}
+        \caption{Scalar Flux for Energy Group One}
   \label{fig:2DAlpha1}
 \end{subfigure}
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=2}}
-        \caption{Scalar Flux for Energy Group 2}
+        \caption{Scalar Flux for Energy Group Two}
   \label{fig:2DAlpha2}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=3}}
-        \caption{Scalar Flux for Energy Group 3}
+        \caption{Scalar Flux for Energy Group Three}
   \label{fig:2DAlpha3}
 \end{subfigure}
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=4}}
-        \caption{Scalar Flux for Energy Group 4}
+        \caption{Scalar Flux for Energy Group Four}
   \label{fig:2DAlpha4}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=5}}
-        \caption{Scalar Flux for Energy Group 5}
+        \caption{Scalar Flux for Energy Group Five}
   \label{fig:2DAlpha5}
 \end{subfigure}
 %\caption{A figure with two subfigures}
@@ -559,49 +648,107 @@ We consider three versions of the MOX Fuel Assembly 3D Extension Case from the \
 \centering
 \begin{subfigure}{\textwidth}
   \centering
-  \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=6}}
-        \caption{Scalar Flux for Energy Group 6}
+  \includegraphics[width=.7\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g=6}}
+        \caption{Scalar Flux for Energy Group Six}
   \label{fig:2DAlpha6}
 \end{subfigure}
-\caption{Group Scalar Flux for MOX Fuel Assembly Benchmark Problem - Coarse Spatial Discretization}
+\caption{Alpha-Eigenvalue Group Scalar Flux for MOX Fuel Assembly Benchmark Problem - Coarse Spatial Discretization}
+\label{fig:ScalarFluxCoarse}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!htbp]
+\centering
+\begin{subfigure}{\textwidth}
+  \centering
+  \includegraphics[width=.7\linewidth]{Figures/HigherDimEigen/Alpha_g6_k_g6_AbsDiff}
+\end{subfigure}
+\caption{Absolute Difference between Alpha-Eigenvalue and $k$-Effective Eigenvalue Group Six Scalar Flux (Coarse Homogenization)}
+\label{fig:EigScalarFluxDiff}
+\end{figure}
+
+\clearpage
+\subsection{Two-Dimensional MOX Fuel Core with Fine Spatial Discretization}
+
+A fine spatial homogenization of the benchmark led to the assembly geometry shown in Figure~\ref{fig:FineGeo}. The fine spatial homogenization allowed for high-fidelity modeling of the assembly, with individual fuel pins, guide tubes, and fission chambers resolved in the model. For the fine spatial discretization, 340 spatial cells were used in both the $x$- and $y$-direction. The problem used S$_{16}$ discrete ordinates angular quadrature. For the fine spatial homogenization, the $k$-effective eigenvalue of the problem was found to be $k = 1.185303$. The alpha-eigenvalue was found to be $\alpha = 1.396240 \times 10^{-1}$ $\mu s^{-1}$. 
+
+\begin{figure}[!htbp]
+\centering
+  \centering
+  \includegraphics[width=.75\linewidth]{{Figures/HigherDimEigen/MOXAssembly_FineMaterial}}
+        \caption{Coarse Spatial Homogenization of MOX Fuel Assembly Benchmark Problem}\label{fig:FineGeo}
+        \caption*{The color in each cell corresponds to the material in that cell. Each material is given a number which corresponds to the color shown in the figure: UO$_{2}$ = 0, 4.3\% MOX Fuel = 1, 7.0\% MOX Fuel = 2, 8.7\% MOX Fuel = 3, Guide Tube = 4, Fission Chamber = 5, Moderator = 6.}
+        \label{fig:FineGeo}
+\end{figure}
+
+\clearpage
+
+\begin{table}[!htbp]
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Two-Dimensional MOX Fuel Core with Fine Spatial Discretization}
+	\label{table:2DMOXFineRes}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} Benchmark Problem & Calculated $\alpha$ [$\mu$s$^{-1}$] & RQFP & Critical Search\\
+	\midrule
+	2D MOX Fine Discretization & $1.396240 \times 10^{-1}$ & 4046 & 39942 \\
+	\bottomrule
+	\end{tabular}
+	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
+	\label{table:2DMoxFineAlpha}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} Benchmark Problem & Calculated $k_{\text{eff}}$ & RQFP & Power Method \\
+	\midrule
+	2D MOX Fine Discretization  & 1.185303 & 5579 & 5523 \\
+	\bottomrule
+	\multicolumn{4}{l}{$M = 340 \times 340$, $L = 16$, Tolerance = $10^{-6}$} \\
+	\end{tabular}
+	\caption{$k$-Effective: Comparison of RQFP and Power Method Transport Sweeps}
+	\label{table:2DMoxFineK}
+	\end{subtable}
+\end{table}
+
+\begin{figure}[!htbp]
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g_fine=0}}
-        \caption{Scalar Flux for Energy Group 0}
+        \caption{Scalar Flux for Energy Group Zero}
   \label{fig:2DAlpha0Fine}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g_fine=1}}
-        \caption{Scalar Flux for Energy Group 1}
+        \caption{Scalar Flux for Energy Group One}
   \label{fig:2DAlpha1Fine}
 \end{subfigure}
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g_fine=2}}
-        \caption{Scalar Flux for Energy Group 2}
+        \caption{Scalar Flux for Energy Group Two}
   \label{fig:2DAlpha2Fine}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g_fine=3}}
-        \caption{Scalar Flux for Energy Group 3}
+        \caption{Scalar Flux for Energy Group Three}
   \label{fig:2DAlpha3Fine}
 \end{subfigure}
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g_fine=4}}
-        \caption{Scalar Flux for Energy Group 4}
+        \caption{Scalar Flux for Energy Group Four}
   \label{fig:2DAlpha4Fine}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g_fine=5}}
-        \caption{Scalar Flux for Energy Group 5}
+        \caption{Scalar Flux for Energy Group Five}
   \label{fig:2DAlpha5Fine}
 \end{subfigure}
 %\caption{A figure with two subfigures}
@@ -612,11 +759,21 @@ We consider three versions of the MOX Fuel Assembly 3D Extension Case from the \
 \centering
 \begin{subfigure}{\textwidth}
   \centering
-  \includegraphics[width=.8\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g_fine=6}}
-        \caption{Scalar Flux for Energy Group 6}
+  \includegraphics[width=.7\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ_g_fine=6}}
+        \caption{Scalar Flux for Energy Group Six}
   \label{fig:2DAlpha6Fine}
 \end{subfigure}
 \caption{Group Scalar Flux for MOX Fuel Assembly Benchmark Problem - Fine Spatial Discretization}
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\begin{subfigure}{\textwidth}
+  \centering
+  \includegraphics[width=.7\linewidth]{Figures/HigherDimEigen/Alpha_g6_k_g6_FineAbsDiff}
+\end{subfigure}
+\caption{Absolute Difference between Alpha-Eigenvalue and $k$-Effective Eigenvalue Group Six Scalar Flux (Fine Homogenization)}
+\label{fig:EigScalarFluxDiffFine}
 \end{figure}
 
 
