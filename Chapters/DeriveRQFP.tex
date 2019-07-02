@@ -15,11 +15,11 @@ Solution of Eq.~\ref{eq:AlphaMatrixRQ} consists of finding the eigenpair ($\alph
 	\mathbf{\Psi_{z}} = \mathbf{H}^{-1}_{\mathbf{z}} \big ( -\alpha \mathbf{V}_{\mathbf{z}}^{-1} + \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \big ) \mathbf{\Psi_{z}} \equiv \mathbf{A}(\alpha) \mathbf{\Psi_{z}}.
 	\label{eq:AlphaRQFP}
 \end{equation}
-For all subcritical and critical systems, the righthand side of Eq.~\ref{eq:AlphaRQFP} is nonnegative since for isotropic scattering the scattering matrix is nonnegative. For supercritical systems, there is an $\alpha_{\text{max}}$ such that the righthand side is still nonnegative. Various fixed point equations can be written for the angular flux eigenvector $\mathbf{\Psi_{z}}$. However, this form was selected as it only requires the inversion of the matrix $\mathbf{H_{z}}$. In standard neutron transport codes \cite{hanebutte_ardra_1999} \cite{alcouffe2005partisn}, the matrix $\mathbf{H_{z}}$ is inverted without being formed by sweeping across the domain in space and angle. The updated eigenvector iterate is obtained by the action of the inverted operator on the source. By writing the fixed point in this way, the Rayleigh quotient fixed point method can be implemented easily in production neutron transport codes.
+For all subcritical and critical systems, the righthand side of Eq.~\ref{eq:AlphaRQFP} is nonnegative since for isotropic scattering the scattering matrix is nonnegative. For supercritical systems, there is an $\alpha_{\text{max}}$ such that the righthand side is still nonnegative. Various fixed point equations can be written for the angular flux eigenvector $\mathbf{\Psi_{z}}$. However, this form was selected as it only requires the inversion of the matrix $\mathbf{H_{z}}$. In standard neutron transport codes \cite{hanebutte_ardra_1999} \cite{alcouffe2005partisn}, the matrix $\mathbf{H_{z}}$ is inverted without being formed by sweeping across the domain in space and angle. The updated eigenvector iterate is obtained by the action of the inverted operator on the source. By writing the fixed point in this way, the Rayleigh quotient fixed point method can be implemented easily without need to form the matrices. Instead, all that is required is the action of the matrix $\mathbf{H}^{-1}_{\mathbf{z}}$ on the source vector adjusted by the alpha-eigenvalue, inverse velocity vector. This matrix-free form of the algorithm can be easily implemented easily in production neutron transport codes.
 
 We define an iterative method to find the fixed point (see Section~\ref{sec:FPI}) of Eq.~\ref{eq:AlphaRQFP} as
 \begin{equation}
-	\mathbf{\Psi_{z}}^{(i+1)} = \mathbf{A}(\alpha^{(i)}) \mathbf{\Psi_{z}}^{(i)}.
+	\mathbf{\Psi_{z}}^{(i+1)} = \mathbf{A}(\alpha_{(i)}) \mathbf{\Psi_{z}}^{(i)}.
 \end{equation}
 From some initial positive starting vector $\mathbf{\Psi_{z}}^{(0)}$, the subsequent eigenvector iterate is determined by the action of inversion of the matrix $\mathbf{H_{z}}$ on the scattering and fission source adjusted by the alpha-eigenvalue. At each iteration, an update for the eigenvalue is required. A natural choice of update is that the eigenvalue be a function of the eigenvector iterate. Given an eigenpair, $(\alpha_{*}, \mathbf{\Psi_{z}^{*}})$ to Eq.~\ref{eq:AlphaMatrixRQ}, it follows that
 \begin{equation}
@@ -153,7 +153,7 @@ Once again, we search for the eigenpair $(k, \mathbf{\Psi})$ that satisfies Eq.~
 For all systems, the righthand side of Eq.~\ref{eq:kRQFP} is nonnegative for isotropic scattering and $k$ is nonnegative \cite{warsa_krylov_2004}. The fixed point form is selected to only require the inversion of the matrix $\mathbf{H}_{\mathbf{z}}$.
 We define an iterative method to find the fixed point of Eq.~\ref{eq:kRQFP} as
 \begin{equation}
-	\mathbf{\Psi_{z}}^{(i+1)} = \mathbf{T}(k^{(i)}) \mathbf{\Psi_{z}}^{(i)}.
+	\mathbf{\Psi_{z}}^{(i+1)} = \mathbf{T}(k_{(i)}) \mathbf{\Psi_{z}}^{(i)}.
 	\label{eq:FPk}
 \end{equation}
 From some initial positive starting vector $\mathbf{\Psi_{z}}^{(0)}$, the subsequent eigenvector iterate is determined by the action of inversion of the matrix $\mathbf{H_{z}}$ on the scattering and fission source where the fission source is adjusted by the $k$-effective eigenvalue. At each iteration, an update for the eigenvalue is required. If $(k_{*},\mathbf{\Psi}_\mathbf{z}^{*})$ is an eigenpair of Eq.~\ref{eq:FPk}, it follows that
@@ -266,15 +266,16 @@ We introduce Algorithm~\ref{algo:kOne}, a one-sweep variant of Algorithm~\ref{al
 \clearpage
 
 \section{Jacobian of the Rayleigh Quotient Fixed Point \newline Method for Alpha-Eigenvalue Problems}
+\label{sec:JacobAlpha}
 
 The convergence of the non-linear fixed point method for the alpha-eigenvalue problem is determined by the Jacobian of the fixed point method evaluated at the fixed point of interest (see Section~\ref{sec:FPI}). To be more precise, if the spectral radius of the Jacobian matrix at the fixed point is greater than one, the fixed point is a point of repulsion and the fixed point method cannot converge to the fixed point. If the spectral radius of the Jacobian matrix is less than one at the fixed point, the fixed point method is guaranteed to converge to the fixed point as long as the iterates are within some neighborhood of the fixed point. If the spectral radius is equal to one, then the fixed point might or might not converge. To determine the behavior of the fixed point method at the fixed point of interest, we determine the Jacobian of the non-linear fixed point iteration.
 
  We begin by defining the matrices $\mathbf{U}$ and $\mathbf{W}$ as
 \begin{equation}
-	\mathbf{U} = \mathbf{H_{z}}^{-1} \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} ) \mathbf{L},
+	\mathbf{U} = \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} ) \mathbf{L},
 \end{equation} 
 \begin{equation}
-	\mathbf{W} = \mathbf{H_{z}}^{-1} \mathbf{V_{z}}^{-1},
+	\mathbf{W} = \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{V_{z}}^{-1},
 \end{equation}
 and writing Eq.~\ref{eq:AlphaRQFP} as
 \begin{equation}
@@ -310,10 +311,10 @@ The Jacobian matrix for the Rayleigh quotient fixed point method can then be wri
 Similar to the Rayleigh quotient method for the alpha-eigenvalue problem, we determine the Jacobian of the fixed point iteration for the $k$-effective eigenvalue problem. We define the matrices $\mathbf{X}$ and $\mathbf{Y}$
 
 \begin{equation}
-	\mathbf{X} = \mathbf{H_{z}}^{-1} \mathbf{L}^{+} \mathbf{\Sigma_{s}} \mathbf{L},
+	\mathbf{X} = \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{L}^{+} \mathbf{\Sigma_{s}} \mathbf{L},
 \end{equation}
 \begin{equation}
-	\mathbf{Y} = \mathbf{H_{z}}^{-1} \mathbf{L}^{+} \mathbf{\Sigma_{f}} \mathbf{L}.
+	\mathbf{Y} = \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{L}^{+} \mathbf{\Sigma_{f}} \mathbf{L}.
 \end{equation}
 Equation~\ref{eq:kRQFP} can then be written as
 \begin{equation}

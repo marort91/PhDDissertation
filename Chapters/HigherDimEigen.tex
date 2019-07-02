@@ -682,6 +682,10 @@ A fine spatial homogenization of the benchmark led to the assembly geometry show
 
 \clearpage
 
+Determining the alpha-eigenvalue and eigenvector using the RQFP method required 4096 transport sweeps while the critical search method required 39942 transport sweeps as shown in Table~\ref{table:2DMoxFineAlpha}. The RQFP method reduced the number of transport sweeps necessary to converge the eigenpair to a tolerance of $10^{-6}$ by approximately a factor of ten. The critical search required 12 intermediate $k$-effective eigenvalue calculations. The alpha-eigenvalue group scalar fluxes for all seven groups are shown in Figure~\ref{fig:2DAlphaFine}. Similar to the coarse spatial homogenization problem, the RQFP method is able to resolve the alpha-eigenvalue and eigenvector despite the presence of cells which violate the assumptions made in deriving the method.
+
+For the $k$-effective eigenvalue, the RQFP method required 5579 transport sweeps to converge as compared to 5523 transport sweep for the power method with fission norm update. Unlike the coarse spatial homogenization, the RQFP method underperformed the power method slightly. Despite this, the RQFP method provides another competitive solution method to the eigenvalue problem. As compared to the alpha-eigenvalue RQFP method, the $k$-effective RQFP method required approximately 40\% more transport sweeps to converge the eigenvalue/eigenvector to the same tolerance. This is expected as the fundamental modes are expected to be substantially different as the positive alpha-eigenvalue hardens the neutron energy spectra while the $k$-effective eigenvalue softens the spectrum. The absolute difference between the thermal energy alpha-eigenvalue scalar flux and the thermal energy $k$-effective scalar flux is seen in Figure~\ref{fig:EigScalarFluxDiffFine}.
+
 \begin{table}[!htbp]
 	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Two-Dimensional MOX Fuel Core with Fine Spatial Discretization}
 	\label{table:2DMOXFineRes}
@@ -764,6 +768,7 @@ A fine spatial homogenization of the benchmark led to the assembly geometry show
   \label{fig:2DAlpha6Fine}
 \end{subfigure}
 \caption{Group Scalar Flux for MOX Fuel Assembly Benchmark Problem - Fine Spatial Discretization}
+\label{fig:2DAlphaFine}
 \end{figure}
 
 \begin{figure}[!htbp]
@@ -776,5 +781,46 @@ A fine spatial homogenization of the benchmark led to the assembly geometry show
 \label{fig:EigScalarFluxDiffFine}
 \end{figure}
 
+\subsection{Three-Dimensional MOX Fuel Core with Coarse Spatial Discretization}
+
+\begin{figure}[!htbp]
+\centering
+  \centering
+  \includegraphics[width=.75\linewidth]{{Figures/HigherDimEigen/MOXAssembly_3d_small}}
+        \caption{Coarse Spatial Homogenization of Three-Dimensional MOX Fuel Assembly Benchmark Problem}\label{fig:FineGeo}
+        \caption*{The color in each cell corresponds to the material in that cell. Each material is given a number which corresponds to the color shown in the figure: UO$_{2}$ = 0, 4.3\% MOX Fuel = 1, 7.0\% MOX Fuel = 2, 8.7\% MOX Fuel = 3, Guide Tube = 4, Fission Chamber = 5, Moderator = 6.}
+        \label{fig:CoarseGeo3D}
+\end{figure}
+
+\begin{table}[!htbp]
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Three-Dimensional MOX Fuel Core with Coarse Spatial Discretization}
+	\label{table:3DMOXCoarseRes}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}cccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} Benchmark Problem & Calculated $\alpha$ [$\mu$s$^{-1}$] & RQFP & Critical Search\\
+	\midrule
+	2D MOX Fine Discretization & $1.467369 \times 10^{-1}$ & 38521 & 286566 \\
+	\bottomrule
+	\end{tabular}
+	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
+	\label{table:3DMOXCoarseAlpha}
+	\end{subtable}%
+	\vspace{0.25cm}
+	\begin{subtable}[h]{1.0\textwidth}
+	\centering\ra{1.3}
+	\begin{tabular}{@{}ccccc@{}}\toprule
+	& & \multicolumn{2}{c}{Transport Sweeps} \\
+	\cmidrule{3-4} Benchmark Problem & Calculated $k_{\text{eff}}$ & RQFP & Power Method \\
+	\midrule
+	2D MOX Fine Discretization & 1.182330 & 43309 & 43666 \\
+	\bottomrule
+	\multicolumn{4}{l}{$M = 20 \times 20 \times 20$, $L = 8$, Tolerance = $10^{-6}$} \\
+	\end{tabular}
+	\caption{$k$-Effective: Comparison of RQFP and Power Method Transport Sweeps}
+	\label{table:3DMOXCoarseK}
+	\end{subtable}
+\end{table}
 
 \section{Conclusion}
