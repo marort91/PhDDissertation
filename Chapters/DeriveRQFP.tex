@@ -88,7 +88,7 @@ where $\mathbf{q}$ is the scattering and fission source vector, we can write Eq.
 	\alpha_{(i)} = \frac{ \mathbf{\Psi}^{T}_{(i)} \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \mathbf{\Psi}_{(i)} -  \mathbf{\Psi}^{T}_{(i)}  \mathbf{q}_{(i-1)}}{  \mathbf{\Psi}^{T}_{(i)} \mathbf{V}^{-1}_{\mathbf{z}}  \mathbf{\Psi}_{(i)}}.
 	%\label{eq:AlphaUp}
 \end{equation}
-We introduce a one-sweep variant of Algorithm~\ref{algo:alpha} in Algorithm~\ref{algo:alpha_one}. For the first iteration ($i=0$), the source $\mathbf{q}_{(-1)} = \mathbf{0}$ where $\mathbf{0}$ is the zero vector. Algorithm~\ref{algo:alpha_one} requires only one transport sweep per iteration of the method. However, the method requires two vectors per iteration, one to store the angular flux vector and another to store the previous fission and scattering source vector.
+We introduce a one-sweep variant of Algorithm~\ref{algo:alpha} in Algorithm~\ref{algo:alpha_one}. For the first iteration ($i=0$), $\alpha_{(0)}$ = 0. Algorithm~\ref{algo:alpha_one} requires only one transport sweep per iteration of the method. However, the method requires two vectors per iteration, one to store the angular flux vector and another to store the previous fission and scattering source vector.
 \begin{algorithm}[ht]
 	\caption{One-Sweep Rayleigh Quotient Fixed Point Method for the Alpha-Eigenvalue Problem}
 	\label{algo:alpha_one}
@@ -96,14 +96,15 @@ We introduce a one-sweep variant of Algorithm~\ref{algo:alpha} in Algorithm~\ref
 		\WHILE{$\text{residual} > \text{tolerance}$}
 		\IF{$i = 0$}
 			\STATE{ 
-			\begin{equation*}
-	\alpha_{(i)} = \frac{ \mathbf{\Psi}^{T}_{(i)} \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \mathbf{\Psi}_{(i)}}{  \mathbf{\Psi}^{T}_{(i)} \mathbf{V}^{-1}_{\mathbf{z}}  \mathbf{\Psi}_{(i)}}.
+			%\begin{equation*}
+				%\alpha_{(i)} = \0.
+%	\alpha_{(i)} = \frac{ \mathbf{\Psi}^{T}_{(i)} \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \mathbf{\Psi}_{(i)}}{  \mathbf{\Psi}^{T}_{(i)} \mathbf{V}^{-1}_{\mathbf{z}}  \mathbf{\Psi}_{(i)}}.
 	%\label{eq:AlphaUp}
-			\end{equation*}
+			%\end{equation*}
 }
 		\STATE{
 		\begin{equation*}
-		\mathbf{q}_{(i)} =  \bigg (-\alpha_{(i)} \mathbf{V}_{\mathbf{z}}^{-1} + \mathbf{L}^{+}  \big ( \mathbf{\Sigma_{s}}  + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \bigg )\mathbf{\Psi}_{(i)}
+		\mathbf{q}_{(i)} =  \bigg ( \mathbf{L}^{+}  \big ( \mathbf{\Sigma_{s}}  + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \bigg )\mathbf{\Psi}_{(i)}
 		\end{equation*}
 		}
 		\STATE{
