@@ -313,7 +313,7 @@ We also note that Eq.~\ref{eq:alphamax} gives the maximum time eigenvalue for a 
 \subsubsection{Calculating the Alpha-Eigenvalue}
 \label{sec:CalcAlpha}
 
-In this section we describe various numerical methods use to determine the alpha-eigenvalue and eigenvector in discrete ordinates neutron transport codes. These methods are used to benchmark the correctness and performance of the Rayleigh quotient fixed point for alpha-eigenvalue problems. Methods other than those described in this section exist and this by no means is a full review of all methods. However, the methods presented here are those used predominantly in neutron transport codes or methods used to determine analytical eigenvalues and eigenvectors for benchmarking.
+In this section we describe various numerical methods use to determine the alpha-eigenvalue and eigenvector in discrete ordinates neutron transport codes. These methods are used to benchmark the correctness and performance of the Rayleigh Quotient Fixed Point method for alpha-eigenvalue problems. Methods other than those described in this section exist and this by no means is a full review of all methods. However, the methods presented here are those used predominantly in neutron transport codes or methods used to determine analytical eigenvalues and eigenvectors for benchmarking.
 
 \textbf{The Critical Search Method}: The workhorse method in neutron transport codes for the numerical solution of the the alpha-eigenvalue problem is the critical search method \cite{hill_efficient_1983}. The critical search method is the primary alpha-eigenvalue solver for supercritical problems in codes such as ARDRA \cite{hanebutte_ardra_1999} and PARTISN \cite{alcouffe2005partisn}. For Eq.~\ref{eq:CritSearch}, the critical search performs multiple $k$-effective calculations for various values of $\alpha$:
 \begin{multline}
@@ -611,10 +611,14 @@ Kronecker products have various interesting properties. We list the ones relevan
 	\item $\mathbf{A} \otimes (\mathbf{B} + \mathbf{C}) = \mathbf{A} \otimes \mathbf{B} + \mathbf{A} \otimes \mathbf{C}.$
 \end{itemize}
 
-\section{Review of Fixed Point Iteration}
+\section{Review of Fixed-Point Iteration}
 \label{sec:FPI}
 
-In this section we review fixed point iteration methods. We begin by defining a \textit{fixed point} of some equation $g(x)$:
+In this section we review fixed-point iteration methods. Definitions and theorems are from \cite{ortega_numerical_1990}. Many nonlinear equations can be naturally formulated as a fixed-point problem
+\begin{equation}
+	x = g(x)
+\end{equation}
+where $g$, called the fixed-point map, may be nonlinear. We begin by defining a \textit{fixed point} of some equation $g(x)$:
 \begin{definition}
 A point $x_{0}$ is called a fixed point of $g(x)$ if it satisfies
 \begin{equation}
@@ -633,7 +637,7 @@ Given these two definitions, we can define an iterative method to find the fixed
 \begin{equation}
 x_{n+1} = g(x_{n}).
 \end{equation}
-The convergence of this fixed point iteration method depends on the existence and uniqueness of the fixed point in the domain of the function $g(x)$. We introduce and prove the following theorem
+The convergence of this fixed-point iteration method depends on the existence and uniqueness of the fixed point in the domain of the function $g(x)$. We introduce and prove the following theorem
 \begin{theorem}{Existence and Uniqueness of Fixed Point}
 	\begin{enumerate}
 		\item Existence: If $g \in C[a,b]$ and $g(x) \in [a,b]$ for all $x \in [a,b]$, then $g$ has a fixed point in $[a,b]$.
@@ -696,9 +700,9 @@ We now introduce Ostrowki's Theorem \cite{ostrowski_solution_2016}, the local co
 	Assume that $F: \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$ is differentiable at the fixed point $x_{*}$ and that $\rho(J(x_{*})) < 1$. Then $x_{*}$ is a point of attraction for the general iteration given by Eq.~\ref{eq:FPV}.
 \end{theorem}
 
-It is important to note that the previous theorem is a sufficient but not necessary condition for the convergence of the non-linear fixed point iteration. 
+It is important to note that the previous theorem is a sufficient but not necessary condition for the convergence of the non-linear fixed-point iteration. 
 
-%, a fixed point iteration method of the form
+%, a fixed-point iteration method of the form
 %\begin{equation}
 %	x_{n+1} = F(x_{n})
 %\end{equation}

@@ -2,7 +2,7 @@
 %\chaptermark{Discretization and Primitivity of the Neutron Transport Criticality Eigenvalue Problems}
 \label{Discrete}
 
-In this section we describe the discretization of the neutron transport criticality eigenvalue equations for three-dimensional Cartesian geometry. The discretization follows a similar approach to that of \cite{brown_linear_1995} \cite{brown_POI_2008} \cite{brown_POI_2012}. First, we derive semi-discretized forms of the eigenvalue equations by applying the \textit{multigroup} in energy approximation and a spherical harmonics expansion for the scattering integral. We then discretize the spatial and angular variables using step differencing and the discrete ordinates approach. Finally, we write down the discretized matrix forms of the criticality eigenvalue equations for three-dimensional Cartesian geometry. For the one-dimensional slab geometry discretized alpha-eigenvalue problem, we show by example the fixed point matrix is primitive. A similar result can be shown for the two-dimensional and three-dimensional Cartesian discretized eigenvalue equations.
+In this section we describe the discretization of the neutron transport criticality eigenvalue equations for three-dimensional Cartesian geometry. The discretization follows a similar approach to that of \cite{brown_linear_1995} \cite{brown_POI_2008} \cite{brown_POI_2012}. First, we derive semi-discretized forms of the eigenvalue equations by applying the \textit{multigroup} in energy approximation and a spherical harmonics expansion for the scattering integral. We then discretize the spatial and angular variables using step differencing and the discrete ordinates approach. Finally, we write down the discretized matrix forms of the criticality eigenvalue equations for three-dimensional Cartesian geometry. For the one-dimensional slab geometry discretized alpha-eigenvalue problem, we show by example the fixed-point iteration matrix is primitive. A similar result can be shown for the two-dimensional and three-dimensional Cartesian discretized eigenvalue equations.
 
 We begin with the linear alpha-eigenvalue neutron transport equation in a three-dimen\-sional box geometry with scattering. The spatial domain is the box $\mathcal{D} \equiv \{\vec{r} = (x, y, z) \, \vert \, a_{x} \leq x \leq b_{x}, a_{y} \leq y \leq b_{y}, \text{ and } a_{z} \leq z \leq b_{z} \},$ the direction variable is $\hat{\Omega} \in \mathcal{S}^{2}$, the unit sphere in $\mathbb{R}^{3}$, the energy variable is $E \in (0, \infty)$, and the equation for the angular flux $\psi(\vec{r}, \hat{\Omega}, E)$ is given by
 
@@ -472,7 +472,7 @@ Equation~\ref{eq:AlphaMatrix} is the discretized alpha-eigenvalue neutron transp
 	\label{eq:kMatrix}
 \end{equation}
 
-Equations~\ref{eq:AlphaMatrix} and \ref{eq:kMatrix} are eigenvalue equations for the criticality eigenvalue and the node-centered angular flux eigenvector. In the derivation of the Rayleigh quotient fixed point method, we require an inner product. However, the inner product is defined for zone-centered vectors, whereas the unknown angular flux eigenvectors in Eqns.~\ref{eq:AlphaMatrix} and \ref{eq:kMatrix} are node-centered. To satisfy this requirement, we write Eqns.~\ref{eq:AlphaMatrix} and \ref{eq:kMatrix} using zone-centered angular flux eigenvectors. We denote $\mathbf{\Psi_{z}}$ as the zone-centered unknown and $\mathbf{H_{z}}$ as the zone-centered version of $\mathbf{H}$. To write Eqns.~\ref{eq:AlphaMatrix} and \ref{eq:kMatrix}, we use the following lemma.
+Equations~\ref{eq:AlphaMatrix} and \ref{eq:kMatrix} are eigenvalue equations for the criticality eigenvalue and the node-centered angular flux eigenvector. In the derivation of the Rayleigh Quotient Fixed Point method, we require an inner product. However, the inner product is defined for zone-centered vectors, whereas the unknown angular flux eigenvectors in Eqns.~\ref{eq:AlphaMatrix} and \ref{eq:kMatrix} are node-centered. To satisfy this requirement, we write Eqns.~\ref{eq:AlphaMatrix} and \ref{eq:kMatrix} using zone-centered angular flux eigenvectors. We denote $\mathbf{\Psi_{z}}$ as the zone-centered unknown and $\mathbf{H_{z}}$ as the zone-centered version of $\mathbf{H}$. To write Eqns.~\ref{eq:AlphaMatrix} and \ref{eq:kMatrix}, we use the following lemma.
 \begin{lemma}
 For all $\ell = 1, 2, \dots, L$,
 	\begin{equation}
@@ -548,7 +548,7 @@ and
 	\mathbf{V}_{\mathbf{z}}^{-1} \equiv \mathbf{V}^{-1} \mathbf{S} (\mathbf{ZS} + \mathbf{Z_{B}B})^{-1}\mathbf{Z}.
 \end{equation}
 
-We consider Eqns.~\ref{eq:AlphaZ} and \ref{eq:kZ} in the derivation of the Rayleigh quotient fixed point method.
+We consider Eqns.~\ref{eq:AlphaZ} and \ref{eq:kZ} in the derivation of the Rayleigh Quotient Fixed Point method.
 
 % Cell-centered angular flux unknown
 

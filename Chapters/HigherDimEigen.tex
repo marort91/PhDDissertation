@@ -1,6 +1,6 @@
 \chapter{Higher Dimensional Eigenvalues}
 
-In this chapter we verify the correctness and examine the performance of the Rayleigh quotient fixed point methods for higher-dimensional problems. We consider realistic two- and three-dimensional problems involving fuel rods and fuel assemblies. For higher dimensions, the phase space of the neutron transport equation is a function of two $(x, y)$ or three $(x, y, z)$ spatial variables and two $\hat{\Omega} = (\mu, \eta)$ or three $\hat{\Omega} =  (\mu, \eta, \xi)$ angular variables defined as the $x$-, $y$-, and $z$-direction cosines. For higher-dimensional Cartesian geometry, the two-dimensional and three-dimensional alpha-eigenvalue neutron transport equations are given by Eq.~\ref{eq:2DAlpha} and Eq.~\ref{eq:3DAlpha}, respectively:
+In this chapter we verify the correctness and examine the performance of the Rayleigh Quotient Fixed Point methods for higher-dimensional problems. We consider realistic two- and three-dimensional problems involving fuel rods and fuel assemblies. For higher dimensions, the phase space of the neutron transport equation is a function of two $(x, y)$ or three $(x, y, z)$ spatial variables and two $\hat{\Omega} = (\mu, \eta)$ or three $\hat{\Omega} =  (\mu, \eta, \xi)$ angular variables defined as the $x$-, $y$-, and $z$-direction cosines. For higher-dimensional Cartesian geometry, the two-dimensional and three-dimensional alpha-eigenvalue neutron transport equations are given by Eq.~\ref{eq:2DAlpha} and Eq.~\ref{eq:3DAlpha}, respectively:
 
 \begin{multline}
 \bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \frac{\alpha}{v(E)} + \sigma(x,y,E) \bigg ] \psi(x,y,\hat{\Omega},E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,E') \int_{2\pi} \diff \hat{\Omega}' \, \psi(x,y, \hat{\Omega}', E) \\ + \frac{1}{2\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(x, y, E' \rightarrow E) \int_{2\pi} \diff \hat{\Omega}' \, \psi(x,y, \hat{\Omega}',E),
@@ -37,11 +37,11 @@ where $\rho$ is the radial distance from the origin and $\mu = (1-\xi^{2})^{1/2}
 \end{figure}
 %Various homogeneous and heterogeneous slab geometry problems with vacuum boundary conditions were modeled in ARDRA. These slab media problems consist of multiplying and non-multiplying materials with thicknesses $\Delta$. Alpha- and $k$-effective eigenvalues were calculated and the number of transport sweeps compared to various methods such as the critical search method and the power method. To verify the correctness of the Rayleigh quotient fixed point method (RQFP), the method was compared to various methods such as Green's Function Method (GFM) and Direct Evaluation (DE) and compared to other discrete ordinate neutron transport codes such as PARTISN/DANT.
 
-Reactor fuel assemblies and fuel pins were modeled in ARDRA. These benchmark problems consisted of detailed heterogeneous domains with many nuclei of interest to reactor design and physics. The higher dimension geometry of the problems along with the many energy-group cross section libraries allowed for analysis of the Rayleigh quotient method for alpha- and $k$-effective eigenvalue problems in situations where assumptions of positivity might no longer be valid.
+Reactor fuel assemblies and fuel pins were modeled in ARDRA. These benchmark problems consisted of detailed heterogeneous domains with many nuclei of interest to reactor design and physics. The higher dimension geometry of the problems along with the many energy-group cross section libraries allowed for analysis of the Rayleigh Quotient Fixed Point method for alpha- and $k$-effective eigenvalue problems in situations where assumptions of positivity might no longer be valid.
 
 \section{Critical Cylinder Benchmark Problems}
 
-We consider homogeneous and heterogeneous two-dimensional cylindrical problems in this section. In the homogeneous case, a critical "infinite cylinder" domain is modeled with critical radius $r_{c}$ and height $z_{c}$ to approximate an infinite cylinder in the $z$-direction (Figure~\ref{fig:CylCritRadius}). In the heterogeneous case, an infinite cylinder is surrounded by some reflector (such as water). The inclusion of the reflector introduces regions in the problem domain where fission is not possible and only downscattering is allowed. This violates the conditions necessary for primitivity (see Section~\ref{sec:PrimPos}). We find that the inclusion of non-fissile reflector material does not impact the ability of the Rayleigh quotient fixed point method for alpha- and $k$-effective eigenvalue problems to obtain the fundamental eigenpair.
+We consider homogeneous and heterogeneous two-dimensional cylindrical problems in this section. In the homogeneous case, a critical "infinite cylinder" domain is modeled with critical radius $r_{c}$ and height $z_{c}$ to approximate an infinite cylinder in the $z$-direction (Figure~\ref{fig:CylCritRadius}). In the heterogeneous case, an infinite cylinder is surrounded by some reflector (such as water). The inclusion of the reflector introduces regions in the problem domain where fission is not possible and only downscattering is allowed. This violates the conditions necessary for primitivity (see Section~\ref{sec:PrimPos}). We find that the inclusion of non-fissile reflector material does not impact the ability of the Rayleigh Quotient Fixed Point method for alpha- and $k$-effective eigenvalue problems to obtain the fundamental eigenpair.
 
 \begin{figure}[!htbp]
 	\centering
@@ -551,7 +551,7 @@ Three variations of the benchmark problem were considered. Two two-dimensional v
 
 \subsection{Two-Dimensional MOX Fuel Core with Coarse Spatial Discretization}
 
-A coarse spatial homogenization of the benchmark problem led to the assembly geometry shown in Figure~\ref{fig:CoarseGeo}. In particular, the coarse homogenization procedure led to the inclusion of moderator in assembly regions where there was none previously. Twenty spatial cells in both the $x$- and $y$- directions and S$_{16}$ discrete ordinates quadrature were used to model the two-dimensional problem.
+A coarse spatial homogenization of the benchmark problem led to the assembly geometry shown in Figure~\ref{fig:CoarseGeo}. In particular, the coarse homogenization procedure led to the inclusion of moderator in assembly regions where there was none previously. Spatial discretization was done using diamond differencing with twenty spatial cells in both the $x$- and $y$- directions. S$_{16}$ discrete ordinates quadrature was used to model the two-dimensional problem.
 
 Given the coarse spatial homogenization, it was expected the the $k$-effective eigenvalue of the system would be less than the reference $k = 1.184977$. The $k$-effective eigenvalue of the problem was found to be $k = 1.185404$. The alpha-eigenvalue was found to be $\alpha = 1.492999 \times 10^{-1}$ $\mu s^{-1}$. 
 
@@ -652,7 +652,7 @@ For the $k$-effective eigenvalue, the RQFP method required 9064 transport sweeps
         \caption{Scalar Flux for Energy Group Six}
   \label{fig:2DAlpha6}
 \end{subfigure}
-\caption{Alpha-Eigenvalue Group Scalar Flux for MOX Fuel Assembly Benchmark Problem - Coarse Spatial Discretization}
+\caption{Alpha-Eigenvalue Group Scalar Flux for 2D MOX Fuel Assembly Benchmark Problem - Coarse Spatial Discretization}
 \label{fig:ScalarFluxCoarse}
 \end{figure}
 
@@ -669,15 +669,15 @@ For the $k$-effective eigenvalue, the RQFP method required 9064 transport sweeps
 \clearpage
 \subsection{Two-Dimensional MOX Fuel Core with Fine Spatial Discretization}
 
-A fine spatial homogenization of the benchmark led to the assembly geometry shown in Figure~\ref{fig:FineGeo}. The fine spatial homogenization allowed for high-fidelity modeling of the assembly, with individual fuel pins, guide tubes, and fission chambers resolved in the model. For the fine spatial discretization, 340 spatial cells were used in both the $x$- and $y$-direction. The problem used S$_{16}$ discrete ordinates angular quadrature. For the fine spatial homogenization, the $k$-effective eigenvalue of the problem was found to be $k = 1.185303$. The alpha-eigenvalue was found to be $\alpha = 1.396240 \times 10^{-1}$ $\mu s^{-1}$. 
+A fine spatial homogenization of the benchmark led to the assembly geometry shown in Figure~\ref{fig:FineGeo}. The fine spatial homogenization allowed for high-fidelity modeling of the assembly, with individual fuel pins, guide tubes, and fission chambers resolved in the model. For the fine spatial discretization diamond differencing was used with 340 spatial cells in both the $x$- and $y$-direction. The problem used S$_{16}$ discrete ordinates angular quadrature. For the fine spatial homogenization, the $k$-effective eigenvalue of the problem was found to be $k = 1.185303$. The alpha-eigenvalue was found to be $\alpha = 1.396240 \times 10^{-1}$ $\mu s^{-1}$. 
 
 \begin{figure}[!htbp]
 \centering
   \centering
   \includegraphics[width=.75\linewidth]{{Figures/HigherDimEigen/MOXAssembly_FineMaterial}}
-        \caption{Coarse Spatial Homogenization of MOX Fuel Assembly Benchmark Problem}\label{fig:FineGeo}
+        \caption{Fine Spatial Homogenization of MOX Fuel Assembly Benchmark Problem}\label{fig:FineGeo}
         \caption*{The color in each cell corresponds to the material in that cell. Each material is given a number which corresponds to the color shown in the figure: UO$_{2}$ = 0, 4.3\% MOX Fuel = 1, 7.0\% MOX Fuel = 2, 8.7\% MOX Fuel = 3, Guide Tube = 4, Fission Chamber = 5, Moderator = 6.}
-        \label{fig:FineGeo}
+       % \label{fig:FineGeo}
 \end{figure}
 
 \clearpage
@@ -767,7 +767,7 @@ For the $k$-effective eigenvalue, the RQFP method required 5579 transport sweeps
         \caption{Scalar Flux for Energy Group Six}
   \label{fig:2DAlpha6Fine}
 \end{subfigure}
-\caption{Group Scalar Flux for MOX Fuel Assembly Benchmark Problem - Fine Spatial Discretization}
+\caption{Alpha-Eigenvalue Group Scalar Flux for 2D MOX Fuel Assembly Benchmark Problem - Fine Spatial Discretization}
 \label{fig:2DAlphaFine}
 \end{figure}
 
@@ -783,14 +783,21 @@ For the $k$-effective eigenvalue, the RQFP method required 5579 transport sweeps
 
 \subsection{Three-Dimensional MOX Fuel Core with Coarse Spatial Discretization}
 
+A coarse spatial homogenization of the three-dimensional quarter core benchmark led to the assembly geometry shown in Figure~\ref{fig:CoarseGeo3D}. Spatial discretization was done using the diamond difference method with the coarse spatial homogenization using twenty cells in the x-, y-, and z-directions each. This benchmark problem used S$_{8}$ discrete ordinates angular quadrature. A reflective boundary condition was placed on the bottom of the assembly and a vacuum boundary condition was placed on the top of the assembly. The $k$-effective eigenvalue of this assembly benchmark model was $k = 1.182340$, slightly more subcritical than the benchmark $k$-effective of $k = 1.186550$. The alpha-eigenvalue of the benchmark was $\alpha = 1.467369 \times 10^{-1}$ $\mu s^{-1}$.
+
 \begin{figure}[!htbp]
 \centering
   \centering
   \includegraphics[width=.75\linewidth]{{Figures/HigherDimEigen/MOXAssembly_3d_small}}
-        \caption{Coarse Spatial Homogenization of Three-Dimensional MOX Fuel Assembly Benchmark Problem}\label{fig:FineGeo}
+        \caption{Coarse Spatial Homogenization of Three-Dimensional MOX Fuel Assembly Benchmark Problem}        \label{fig:CoarseGeo3D}
         \caption*{The color in each cell corresponds to the material in that cell. Each material is given a number which corresponds to the color shown in the figure: UO$_{2}$ = 0, 4.3\% MOX Fuel = 1, 7.0\% MOX Fuel = 2, 8.7\% MOX Fuel = 3, Guide Tube = 4, Fission Chamber = 5, Moderator = 6.}
-        \label{fig:CoarseGeo3D}
 \end{figure}
+
+\clearpage
+
+To determine the alpha-eigenvalue and eigenvector of the three-dimensional assembly problem to a tolerance of $10^{-6}$, the RQFP method required 38521 transport sweeps as compared to 286566 transport sweeps for the critical search method as shown in Table~\ref{table:3DMOXCoarseAlpha}. The critical search method required 12 $k$-effective eigenvalue calculations in order to converge the alpha-eigenvalue and eigenvector, with some individual $k$-effective calculations requiring a similar number of transport sweeps as the RQFP method. The alpha-eigenvalue group scalar fluxes are seen in Figure~\ref{fig:3DAlphaCoarse}.
+
+The RQFP method required 43309 transport sweeps to converge the $k$-effective eigenvalue and eigenvector (Table~\ref{table:3DMOXCoarseK}). The power method with fission source update required 43666 transport sweeps. Both methods were converged to a tolerance of $10^{-6}$. The RQFP method performed slightly better than the power method for the three-dimensional fuel assembly benchmark problem. Compared to the alpha-eigenvalue problem, the RQFP method required approximately 12\% more transport sweeps to converge the $k$-effective eigenvalue and eigenvector to the same tolerance.
 
 \begin{table}[!htbp]
 	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Three-Dimensional MOX Fuel Core with Coarse Spatial Discretization}
@@ -801,7 +808,7 @@ For the $k$-effective eigenvalue, the RQFP method required 5579 transport sweeps
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{3-4} Benchmark Problem & Calculated $\alpha$ [$\mu$s$^{-1}$] & RQFP & Critical Search\\
 	\midrule
-	2D MOX Fine Discretization & $1.467369 \times 10^{-1}$ & 38521 & 286566 \\
+	3D MOX Coarse Discretization & $1.467369 \times 10^{-1}$ & 38521 & 286566 \\
 	\bottomrule
 	\end{tabular}
 	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
@@ -814,7 +821,7 @@ For the $k$-effective eigenvalue, the RQFP method required 5579 transport sweeps
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{3-4} Benchmark Problem & Calculated $k_{\text{eff}}$ & RQFP & Power Method \\
 	\midrule
-	2D MOX Fine Discretization & 1.182330 & 43309 & 43666 \\
+	3D MOX Coarse Discretization & 1.182330 & 43309 & 43666 \\
 	\bottomrule
 	\multicolumn{4}{l}{$M = 20 \times 20 \times 20$, $L = 8$, Tolerance = $10^{-6}$} \\
 	\end{tabular}
@@ -822,5 +829,61 @@ For the $k$-effective eigenvalue, the RQFP method required 5579 transport sweeps
 	\label{table:3DMOXCoarseK}
 	\end{subtable}
 \end{table}
+
+\begin{figure}[!htbp]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ3D_g_coarse=0}}
+        \caption{Scalar Flux for Energy Group Zero}
+  \label{fig:3DAlpha0Coarse}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ3D_g_coarse=1}}
+        \caption{Scalar Flux for Energy Group One}
+  \label{fig:3DAlpha1Coarse}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ3D_g_coarse=2}}
+        \caption{Scalar Flux for Energy Group Two}
+  \label{fig:3DAlpha2Coarse}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ3D_g_coarse=3}}
+        \caption{Scalar Flux for Energy Group Three}
+  \label{fig:3DAlpha3Coarse}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ3D_g_coarse=4}}
+        \caption{Scalar Flux for Energy Group Four}
+  \label{fig:3DAlpha4Coarse}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ3D_g_coarse=5}}
+        \caption{Scalar Flux for Energy Group Five}
+  \label{fig:3DAlpha5Coarse}
+\end{subfigure}
+%\caption{A figure with two subfigures}
+%\label{fig:test}
+\end{figure}
+
+\begin{figure}[!htbp]\ContinuedFloat
+\centering
+\begin{subfigure}{\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{{Figures/HigherDimEigen/AlphaScalarFluxRQ3D_g_coarse=6}}
+        \caption{Scalar Flux for Energy Group Six}
+  \label{fig:3DAlpha6Coarse}
+\end{subfigure}
+\caption{Alpha-Eigenvalue Group Scalar Flux for 3D MOX Fuel Assembly Benchmark Problem - Coarse Spatial Discretization}
+\label{fig:3DAlphaCoarse}
+\end{figure}
+
+\subsection{Three-Dimensional MOX Fuel Core with Fine Spatial Discretization}
 
 \section{Conclusion}

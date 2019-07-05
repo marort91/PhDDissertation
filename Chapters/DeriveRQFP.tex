@@ -1,7 +1,7 @@
 \chapter{The Rayleigh Quotient Fixed Point Method}
 \label{ch3}
 
-In this chapter we derive the Rayleigh Quotient Fixed Point (RQFP) method for alpha- and $k$-effective eigenvalue problems. We begin with the matrix form of the eigenvalue equations and proceed to develop a fixed point method for the angular flux eigenvector. Since the eigenvector corresponds to the alpha- or $k$-effective eigenvalue, we require an update for the eigenvalue at each iteration. We derive an eigenvalue update that is optimal in the least squares sense by relating the alpha- or $k$-effective eigenvalue to the dominant eigenvalue of a primitive matrix (see Section~\ref{sec:LinAlg}). This primitive matrix serves as the fixed point function to determine the solution of the eigenvalue problem. Since the dominant eigenvalue of a primitive matrix corresponds to the only positive eigenvector of the matrix, this eigenvector also solves the discretized criticality eigenvalue neutron transport problem. We end this chapter with a discussion of the primitivity of the discretized alpha- and $k$-effective eigenvalue matrix equations.
+In this chapter we derive the Rayleigh Quotient Fixed Point method for alpha- and $k$-effective eigenvalue problems. We begin with the matrix form of the eigenvalue equations and proceed to develop a fixed point method for the angular flux eigenvector. Since the eigenvector corresponds to the alpha- or $k$-effective eigenvalue, we require an update for the eigenvalue at each iteration. We derive an eigenvalue update that is optimal in the least squares sense by relating the alpha- or $k$-effective eigenvalue to the dominant eigenvalue of a primitive matrix (see Section~\ref{sec:LinAlg}). This primitive matrix serves as the fixed point function to determine the solution of the eigenvalue problem. Since the dominant eigenvalue of a primitive matrix corresponds to the only positive eigenvector of the matrix, this eigenvector also solves the discretized criticality eigenvalue neutron transport problem. We end this chapter with a discussion of the primitivity of the discretized alpha- and $k$-effective eigenvalue matrix equations.
 
 \section{Derivation of the Rayleigh Quotient Fixed Point \newline Method for Alpha-Eigenvalue Problems}
 
@@ -15,7 +15,7 @@ Solution of Eq.~\ref{eq:AlphaMatrixRQ} consists of finding the eigenpair ($\alph
 	\mathbf{\Psi_{z}} = \mathbf{H}^{-1}_{\mathbf{z}} \big ( -\alpha \mathbf{V}_{\mathbf{z}}^{-1} + \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \big ) \mathbf{\Psi_{z}} \equiv \mathbf{A}(\alpha) \mathbf{\Psi_{z}}.
 	\label{eq:AlphaRQFP}
 \end{equation}
-For all subcritical and critical systems, the righthand side of Eq.~\ref{eq:AlphaRQFP} is nonnegative since for isotropic scattering the scattering matrix is nonnegative. For supercritical systems, there is an $\alpha_{\text{max}}$ such that the righthand side is still nonnegative. Various fixed point equations can be written for the angular flux eigenvector $\mathbf{\Psi_{z}}$. However, this form was selected as it only requires the inversion of the matrix $\mathbf{H_{z}}$. In standard neutron transport codes \cite{hanebutte_ardra_1999} \cite{alcouffe2005partisn}, the matrix $\mathbf{H_{z}}$ is inverted without being formed by sweeping across the domain in space and angle. The updated eigenvector iterate is obtained by the action of the inverted operator on the source. By writing the fixed point in this way, the Rayleigh quotient fixed point method can be implemented easily without need to form the matrices. Instead, all that is required is the action of the matrix $\mathbf{H}^{-1}_{\mathbf{z}}$ on the source vector adjusted by the alpha-eigenvalue, inverse velocity vector. This matrix-free form of the algorithm can be easily implemented easily in production neutron transport codes.
+For all subcritical and critical systems, the righthand side of Eq.~\ref{eq:AlphaRQFP} is nonnegative since for isotropic scattering the scattering matrix is nonnegative. For supercritical systems, there is an $\alpha_{\text{max}}$ such that the righthand side is still nonnegative. Various fixed point equations can be written for the angular flux eigenvector $\mathbf{\Psi_{z}}$. However, this form was selected as it only requires the inversion of the matrix $\mathbf{H_{z}}$. In standard neutron transport codes \cite{hanebutte_ardra_1999} \cite{alcouffe2005partisn}, the matrix $\mathbf{H_{z}}$ is inverted without being formed by sweeping across the domain in space and angle. The updated eigenvector iterate is obtained by the action of the inverted operator on the source. By writing the fixed point in this way, the Rayleigh Quotient Fixed Point method can be implemented easily without need to form the matrices. Instead, all that is required is the action of the matrix $\mathbf{H}^{-1}_{\mathbf{z}}$ on the source vector adjusted by the alpha-eigenvalue, inverse velocity vector. This matrix-free form of the algorithm can be easily implemented easily in production neutron transport codes.
 
 We define an iterative method to find the fixed point (see Section~\ref{sec:FPI}) of Eq.~\ref{eq:AlphaRQFP} as
 \begin{equation}
@@ -288,7 +288,7 @@ The alpha-eigenvalue update is then given by
 	\alpha(\mathbf{\Psi}) =  \frac{\mathbf{\Psi}^{T} \mathbf{U} \mathbf{\Psi} - \mathbf{\Psi}^{T} \mathbf{\Psi}}{\mathbf{\Psi}^{T} \mathbf{W} \mathbf{\Psi}}.
 	\label{eq:AlphaRQJ}
 \end{equation}
-We obtain the Jacobian of the Rayleigh quotient fixed point method for the alpha-eigenvalue problem by differentiating Eq.~\ref{eq:AlphaRQFP} with respect to the vector $\mathbf{\Psi}$:
+We obtain the Jacobian of the Rayleigh quotient Fixed Point method for the alpha-eigenvalue problem by differentiating Eq.~\ref{eq:AlphaRQFP} with respect to the vector $\mathbf{\Psi}$:
 \begin{equation}
 	\mathbf{J_{\alpha}}(\mathbf{\Psi}) = -\mathbf{W} \mathbf{\Psi} \alpha'(\mathbf{\Psi})^{T} - \alpha(\mathbf{\Psi}) \mathbf{W} + \mathbf{U}.
 \end{equation}
@@ -302,14 +302,14 @@ Using Eq.~\ref{eq:AlphaRQJ}, Eq.~\ref{eq:AlphaRQJacob} can be written as
 	\alpha'(\mathbf{\Psi}) = \frac{[(\mathbf{U}+\mathbf{U}^{T})\mathbf{\Psi} - 2\mathbf{\Psi}] - \alpha(\mathbf{\Psi})[(\mathbf{W} + \mathbf{W}^{T})\mathbf{\Psi}]}{(\mathbf{\Psi}^{T} \mathbf{W} \mathbf{\Psi})}.
 	\label{eq:SimAlphaRQ}
 \end{equation}
-The Jacobian matrix for the Rayleigh quotient fixed point method can then be written as
+The Jacobian matrix for the Rayleigh Quotient Fixed Point method can then be written as
 \begin{equation}
 	\mathbf{J_{\alpha}}(\mathbf{\Psi}) = -\mathbf{W} \mathbf{\Psi} \bigg [ \frac{[(\mathbf{U}+\mathbf{U}^{T})\mathbf{\Psi} - 2\mathbf{\Psi}] - \alpha(\mathbf{\Psi})[(\mathbf{W} + \mathbf{W}^{T})\mathbf{\Psi}]}{(\mathbf{\Psi}^{T} \mathbf{W} \mathbf{\Psi})} \bigg ]^{T} - \alpha(\mathbf{\Psi}) \mathbf{W} + \mathbf{U}.
 \end{equation}
 
 \section{Jacobian of the Rayleigh Quotient Fixed Point Method for $k$-Effective Eigenvalue Problems}
 
-Similar to the Rayleigh quotient method for the alpha-eigenvalue problem, we determine the Jacobian of the fixed point iteration for the $k$-effective eigenvalue problem. We define the matrices $\mathbf{X}$ and $\mathbf{Y}$
+Similar to the Rayleigh Quotient Fixed Point method for the alpha-eigenvalue problem, we determine the Jacobian of the fixed-point iteration for the $k$-effective eigenvalue problem. We define the matrices $\mathbf{X}$ and $\mathbf{Y}$
 
 \begin{equation}
 	\mathbf{X} = \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{L}^{+} \mathbf{\Sigma_{s}} \mathbf{L},
@@ -326,7 +326,7 @@ where the $k$-effective eigenvalue update (Eq.~\ref{eq:TwoSweepkUpdate}) is give
 \begin{equation}
 	\gamma(\mathbf{\Psi}) = \frac{ \mathbf{\Psi}^{T} \mathbf{\Psi} - \mathbf{\Psi}^{T} \mathbf{X} \mathbf{\Psi}}{\mathbf{\Psi}^{T}\mathbf{Y} \mathbf{\Psi}} = \frac{1}{k(\mathbf{\Psi})}.
 \end{equation}
-Differentiating Eq.~\ref{eq:kFPJ} with respect to the vector $\mathbf{\Psi}$, we obtain the Jacobian of the Rayleigh quotient fixed point method for $k$-effective eigenvalue problems:
+Differentiating Eq.~\ref{eq:kFPJ} with respect to the vector $\mathbf{\Psi}$, we obtain the Jacobian of the Rayleigh quotient Fixed Point method for $k$-effective eigenvalue problems:
 \begin{equation}
 	\mathbf{J_{k}}(\mathbf{\Psi}) = \mathbf{Y\Psi} \gamma'(\mathbf{\Psi})^{T} + \mathbf{X} + \gamma(\mathbf{\Psi}) \mathbf{Y}.
 \end{equation}
@@ -338,7 +338,7 @@ Simplifying, we obtain
 \begin{equation}
 	\gamma'(\mathbf{\Psi}) = \frac{[2 \mathbf{\Psi} - (\mathbf{X} + \mathbf{X}^{T}) \mathbf{\Psi}]  -\gamma(\mathbf{\Psi})[(\mathbf{Y} + \mathbf{Y}^{T})\mathbf{\Psi}]}{(\mathbf{\Psi}^{T} \mathbf{Y} \mathbf{\Psi})}.
 \end{equation}
-The Jacobian matrix for the Rayleigh quotient fixed point method for $k$-effective eigenvalue problems can then be written as
+The Jacobian matrix for the Rayleigh Quotient Fixed Point method for $k$-effective eigenvalue problems can then be written as
 \begin{equation}
 	\mathbf{J_{k}}(\mathbf{\Psi}) = \mathbf{Y\Psi} \bigg [ \frac{[2 \mathbf{\Psi} - (\mathbf{X} + \mathbf{X}^{T}) \mathbf{\Psi}]  -\gamma(\mathbf{\Psi})[(\mathbf{Y} + \mathbf{Y}^{T})\mathbf{\Psi}]}{(\mathbf{\Psi}^{T} \mathbf{Y} \mathbf{\Psi})} \bigg] ^{T} + \mathbf{X} + \gamma(\mathbf{\Psi}) \mathbf{Y}
 \end{equation}
