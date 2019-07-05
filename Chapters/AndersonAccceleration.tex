@@ -1,4 +1,81 @@
-\chapter{Acceleration of the Alpha-Eigenvalue Rayleigh Quotient Fixed Point Method by Anderson Acceleration}
+\chapter[Acceleration of the Alpha-Eigenvalue Rayleigh Quotient Fixed Point Method by Anderson Acceleration][Anderson Acceleration]{Acceleration of the Alpha-Eigenvalue Rayleigh Quotient Fixed Point Method by Anderson Acceleration}
 \label{sec:AndAcc}
 
-Like all fixed point methods, the alpha-eigenvalue Rayleigh Quotient Fixed Point method exhibits only linear convergence. In most cases, this rate of convergence is acceptable when other methods are unable to converge the alpha-eigenvalue and eigenvector of interest. However, there exists a set of problems where the alpha-eigenvalue Rayleigh Quotient Fixed Point method converges unacceptably slow. These problems are characterized by large domains where neutrons experience a large amount of scattering before finally being absorbed in or leaking out of the domain.
+Like all fixed point methods, the alpha-eigenvalue Rayleigh Quotient Fixed Point method exhibits only linear convergence. In most cases, this rate of convergence is acceptable when other methods are unable to converge the alpha-eigenvalue and eigenvector of interest. However, there exists a set of problems where the alpha-eigenvalue Rayleigh Quotient Fixed Point method converges unacceptably slow. These problems are characterized by large domains where neutrons experience a large amount of scattering before finally being absorbed or leaking out of the domain. For these problems, it might become necessary to use acceleration methods to mitigate slow convergence. In this chapter, we discuss the use of \textit{Anderson acceleration} on the Rayleigh Quotient Fixed Point method for alpha-eigenvalue problems. We examine various slow converging criticality problems of interest and describe the performance of Anderson acceleration. We discuss the reduction in transport sweeps, the associated memory costs of the method, and the practical considerations when using Anderson acceleration.
+
+\section{Anderson Acceleration}
+
+We begin by describing Anderson acceleration. Anderson acceleration originated in the work of Anderson \cite{anderson1965iterative} for the solution of nonlinear integral equations. More recently, work by Walker and Ni \cite{walker_anderson_2011} and Toth and Kelley \cite{toth_convergence_2015} have focused on the use of Anderson acceleration in other applications such as multiphysics problems. 
+
+Consider the fixed point problem
+\begin{equation*}
+	G(u) = u, \quad G: \mathbb{R}^{N} \rightarrow \mathbb{R}^{N}.
+	\label{eq:AAFP}
+\end{equation*}
+We assume that the iteration converges ($\rho(G'(u^{*})) < 1$) \cite{ostrowski_solution_2016}. Anderson acceleration maintains a history of residuals
+\begin{equation}
+	f(u) = G(u) - u
+\end{equation}
+of depth at most $m + 1$, where $m$ is a parameter in the algorithm. An Anderson acceleration iteration that uses $m$ residual histories is referred to as Anderson($m$). Anderson(0) is fixed point iteration by definition. Anderson acceleration for the fixed point problem, Eq.~\ref{eq:AAFP}, is given by Algorithm~\ref{algo:AA1}. 
+\begin{algorithm}[!htbp]
+	\caption{Anderson Acceleration}
+	\label{algo:AA1}
+	\begin{algorithmic}
+		\STATE{Set $u_{0} =$ an initial guess and $m \geq 1$}
+		\STATE{$u_{1} = G(u_{0})$}
+		\FOR{$n = 0, 1, 2, \cdots$ until convergence}
+			\STATE{Set $m_{n} = \min(m,n)$}
+			\STATE{Set $F_{n} = (f_{n-m_{n}}, \cdots, f_{n}),$ where $f_{i} = G(u_{i}) - u_{i}$}
+			\STATE{Determine $\alpha^{n} = (\alpha_{0}^{(n)}, \cdots, \alpha_{m_{n}}^{(n)})$ that solves $\min_{\alpha} \norm{F_{n} \alpha^{T}}_{2}$ such that $\sum_{i=0}^{m_{n}} \alpha_{i} = 1$}
+			\STATE{Set $u_{n+1} = \sum_{i=0}^{m_{n}} \alpha_{i}^{(n)}G(u_{n-m_{n}+i})$}
+			\STATE{Test for convergence}
+		\ENDFOR
+	\end{algorithmic}
+\end{algorithm}
+
+Any norm can be used in the minimization step. However, the $\ell_{2}$ is typically used so that the minimization problem can be formulated as a linear least squares problem \cite{walker_anderson_2011}.
+
+In practice, each $m_{n}$ may be further modified to maintain acceptable conditioning of $F_{n}$. In most applications $m_{n}$ is small. $m_{n} = 1$ or $m_{n} = 2$ is common for large systems due to memory constraints and conditioning requirements.
+
+In the original formulation of Anderson acceleration \cite{anderson1965iterative}, the formulation of the next iterate can be made more general using the expression
+\begin{equation}
+	u_{n+1} = (1-\beta_{n}) \sum_{i=0}^{m_{n}} \alpha_{i}^{(n)} u_{n-m_{n}+i} + \beta_{n} \sum_{i=0}^{m_{n}} \alpha_{i}^{(n)}G(u_{n-m_{n}+i}),
+\end{equation}
+where $\beta_{n}$ is a relaxation parameter. The relaxation parameters $\beta_{n}$ are usually determined heuristically. Setting $\beta_{n} = 1$ gives the update in Algorithm~\ref{algo:AA1}.
+
+Algorithm~\ref{algo:AA1} requires solving the constrained linear least-squares problem:
+\begin{equation}
+	min_{\alpha} \norm{F_{n} \alpha^{T}}_{2} \, s.t.\, \sum_{i=0}^{m_{n}} \alpha_{i} = 1.
+\end{equation}
+Instead, the least squares problem can be formulated \cite{anderson1965iterative} into an equivalent unconstrained problem. This unconstrained Anderson acceleration algorithm is shown in Algorithm~\ref{algo:AA2}.
+
+\clearpage
+
+\begin{algorithm}[!htbp]
+	\caption{Unconstrained Anderson Acceleration}
+	\label{algo:AA2}
+	\begin{algorithmic}
+		\STATE{Set $u_{0} =$ an initial guess and $m \geq 1$}
+		\STATE{$u_{1} = G(u_{0})$}
+		\FOR{$n = 0, 1, 2, \cdots$ until convergence}
+			\STATE{Set $m_{n} = \min(m,n)$}
+			\STATE{$\Delta F_{n} = (\Delta f_{n-m_{n}}, \cdots, \Delta f_{n-1})$ where $\Delta f_{i} = f_{i+1} - f_{i}$ and $f_{i} = G(u_{i}) - u_{i}$}
+			\STATE{Determine $\gamma^{(n)} = (\gamma_{0}^{(n)}, \cdots, \gamma_{m_{n}-1}^{(n)})$ that solves $\min_{\gamma} \norm{f_{n} - \Delta F_{n} \gamma^{T}}_{2}$}
+			\STATE{Set $u_{n+1} = G(u_{n}) - \sum_{i=0}^{m_{n}-1} \gamma_{i}^{(n)} \Delta g_{n - m_{n} + i}$ with $\Delta g_{i} = G(u_{i+1}) - G(u_{i})$}
+			\STATE{Test for convergence}
+		\ENDFOR
+	\end{algorithmic}
+\end{algorithm}
+
+Determining the coefficients $\gamma^{(n)} = (\gamma_{0}^{(n)}, \cdots, \gamma_{m_{n}-1}^{(n)})$ is done by a QR factorization
+\begin{equation}
+	\Delta F_{n} = Q_{n}R_{n},
+\end{equation}
+\begin{equation}
+	R_{n} \gamma^{(n)} = Q_{n}^{T}f_{n}.
+\end{equation}
+The need for a QR factorization increases the computation cost of one iteration of Anderson acceleration. However, various fast and inexpensive QR factorization methods are available. Despite the increased cost per iteration, if Anderson acceleration substantially reduces the number of iterations required for convergence then this cost may be acceptable.
+
+It is Algorithm~\ref{algo:AA2} that is applied to the acceleration of the alpha-eigenvalue Rayleigh Quotient Fixed Point method.
+
+\section{Anderson Acceleration of Slowly Converging Alpha-Eigenvalue Rayleigh Quotient Fixed Point Problems}
