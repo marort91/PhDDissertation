@@ -7,10 +7,10 @@
 
 #open -a Preview thesis.pdf
 
-pdflatex -interaction scrollmode thesis 
+pdflatex -shell-escape -interaction scrollmode thesis 
 bibtex thesis 
-pdflatex -interaction scrollmode thesis 
-pdflatex -interaction scrollmode thesis 
+pdflatex -shell-escape -interaction scrollmode thesis 
+pdflatex -shell-escape -interaction scrollmode thesis 
 open -a Preview thesis.pdf
 
 #latex thesis && \
