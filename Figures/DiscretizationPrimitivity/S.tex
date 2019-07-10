@@ -1,0 +1,64 @@
+\begin{filecontents}{S.dat}
+1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0
+1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0
+1	0	0	0	0	1	0	0	0	0	1	0	0	0	0	1	0	0	0	0
+0	1	0	0	0	0	1	0	0	0	0	1	0	0	0	0	1	0	0	0
+0	0	1	0	0	0	0	1	0	0	0	0	1	0	0	0	0	1	0	0
+0	0	0	1	0	0	0	0	1	0	0	0	0	1	0	0	0	0	1	0
+0	0	0	0	1	0	0	0	0	1	0	0	0	0	1	0	0	0	0	1
+1	0	0	0	0	1	0	0	0	0	1	0	0	0	0	1	0	0	0	0
+0	1	0	0	0	0	1	0	0	0	0	1	0	0	0	0	1	0	0	0
+0	0	1	0	0	0	0	1	0	0	0	0	1	0	0	0	0	1	0	0
+0	0	0	1	0	0	0	0	1	0	0	0	0	1	0	0	0	0	1	0
+0	0	0	0	1	0	0	0	0	1	0	0	0	0	1	0	0	0	0	1
+\end{filecontents}
+\pgfplotstableread{S.dat}\mytable
+\def\nrows{19}
+\def\ncols{19}
+\begin{tikzpicture}[trim left=3pt]
+\centering
+\foreach \i in {0,...,\nrows}{
+    \foreach \j in {0,...,\ncols}{
+    \pgfplotstablegetelem{\i}{\j}\of\mytable
+    \ifnum\pgfplotsretval=1
+        \node[circle, minimum size=.5pt, inner sep=0pt, fill=red] at (\j pt,-\i pt) {};
+        \else\relax
+    \fi
+    };
+};
+\foreach \i in {0,...,\nrows}{
+    \foreach \j in {0,...,\ncols}{
+    \pgfplotstablegetelem{\i}{\j}\of\mytable
+    \ifnum\pgfplotsretval=-1
+        \node[circle, minimum size=.5pt, inner sep=0pt, fill=blue] at (\j pt,-\i pt) {};
+        \else\relax
+    \fi
+    };
+};
+
+\draw [line width = 0.05mm] (-0.5pt,0.5pt) -- (19.5pt,0.5pt) {};
+\draw [line width = 0.05mm] (-0.5pt,0.5pt) -- (-0.5pt,-19.5pt) {};
+\draw [line width = 0.05mm] (-0.5pt,-19.5pt) -- (19.5pt,-19.5pt) {};
+\draw [line width = 0.05mm] (19.5pt,0.5pt) -- (19.5pt,-19.5pt) {};
+
+\draw [line width = 0.05mm] (9.5pt,0.5pt) -- (9.5pt,-19.5pt) {};
+\draw [line width = 0.05mm] (-0.5pt,-9.5pt) -- (19.5pt,-9.5pt) {};
+
+\draw [line width = 0.05mm] (4.5pt,0.5pt) -- (4.5pt,-9.5pt) {};
+\draw [line width = 0.05mm] (-0.5pt,-4.5pt) -- (9.5pt,-4.5pt) {};
+
+\node[scale=0.1] at (-1.5pt,-9.5pt) {$g$};
+\node[scale=0.1] at (9.5pt,-20.5pt) {$g'$};
+
+\node[scale=0.1] at (-1.5pt,-4.5pt) {$\ell$};
+\node[scale=0.1] at (4.5pt,1.5pt) {$\ell'$};
+
+\end{tikzpicture}

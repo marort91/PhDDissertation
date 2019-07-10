@@ -1,0 +1,20 @@
+\begin{filecontents}{SparseS.dat}
+1   0   1   0
+0   1   0   1
+1   0   1   0
+0   1   0   1
+\end{filecontents}
+
+\pgfplotstableread{SparseS.dat}\mytable
+\def\nrows{3}
+\def\ncols{3}
+\begin{tikzpicture}[scale=1.0]
+\foreach \i in {0,...,\nrows}{
+    \foreach \j in {0,...,\ncols}{
+    \pgfplotstablegetelem{\i}{\j}\of\mytable
+    \ifnum\pgfplotsretval=0\relax\else
+    \node[circle, minimum size=.5cm, inner sep=0cm, fill=red!\pgfplotsretval!purple, opacity=0.\pgfplotsretval] at (\j cm, -\i cm) {};
+    \fi
+    };
+};
+\end{tikzpicture}

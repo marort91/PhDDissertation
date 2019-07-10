@@ -228,12 +228,63 @@ Defining the following matrices
 then Eq.~\ref{eq:AlphaMGg} can be written as
 \begin{equation}
 	\big ( \mathbf{H} + \alpha \mathbf{V}^{-1} \big ) \mathbf{\Psi} = \mathbf{Z} \mathbf{L}^{+}  \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big )\mathbf{L} \mathbf{S} \mathbf{\Psi}.
-	\label{AlphaMG}
+	\label{eq:AlphaMG1D}
 \end{equation}
 Similarly, the discretized $k$-eigenvalue problem can be written as
 \begin{equation}
 	\mathbf{H}\mathbf{\Psi}  = \mathbf{Z} \mathbf{L}^{+} \bigg ( \mathbf{\Sigma_{s}} + \frac{1}{k} \mathbf{\Sigma_{f}} \bigg ) \mathbf{L} \mathbf{S} \mathbf{\Psi}.
-	\label{kMG}
+	\label{eq:kMG1D}
 \end{equation}
 
-Equations~\ref{AlphaMG} and \ref{kMG} are eigenvalue equations for the criticality eigenvalue and the node-centered angular flux eigenvector. In the derivation of the Rayleigh Quotient Fixed Point method, an inner product is required. However, the inner product is defined for zone-centered vectors, whereas the unknown angular flux vectors in Eqns.~\ref{AlphaMG} and \ref{kMG} are node-centered. To satisfy this requirement, Eqns.~\ref{AlphaMG} and \ref{kMG} are rewritten using zone-centered angular flux eigenvectors. We denote $\mathbf{\Psi_{z}}$ as the zone-centered unknown and $\mathbf{H_{z}}$ as the zone-centered version of $\mathbf{H}$.
+Equations~\ref{eq:AlphaMG1D} and \ref{eq:kMG1D} are eigenvalue equations for the criticality eigenvalue and the node-centered angular flux eigenvector. In the derivation of the Rayleigh Quotient Fixed Point method, an inner product is required. However, the inner product is defined for zone-centered vectors, whereas the unknown angular flux vectors in Eqns.~\ref{AlphaMG} and \ref{kMG} are node-centered. To satisfy this requirement, Eqns.~\ref{AlphaMG} and \ref{kMG} are rewritten using zone-centered angular flux eigenvectors. We denote $\mathbf{\Psi_{z}}$ as the zone-centered unknown and $\mathbf{H_{z}}$ as the zone-centered version of $\mathbf{H}$.
+
+Given a zone-centered angular flux vector $\mathbf{\Psi_{z}}$, the nodal angular flux vector $\mathbf{\Psi}$ defined by
+\begin{equation}
+	\Psi_{g,\ell} \equiv (ZS + Z_{b}B_{\ell})^{-1}Z \Psi_{z,g,\ell} \text{ for all } g = 1, 2, \dots, G \text{ and } \ell = 1, 2, \dots, L,
+\end{equation}
+satisfies $B_{\ell} \Psi_{g,\ell} = 0$ and $S \Psi_{g,\ell} = \Psi_{z,g,\ell}$ for all $g$ and $\ell$. Defining the matrices
+\begin{equation}
+	\mathbf{C} \equiv I_{G} \otimes C,
+\end{equation}
+\begin{equation}
+	\mathbf{B} \equiv I_{G} \otimes B,
+\end{equation}
+\begin{equation}
+	\mathbf{Z_{B}} \equiv I_{G} \otimes \bar{Z}_{B},
+\end{equation}
+and
+\begin{equation}
+	\mathbf{\Sigma} \equiv \text{diag}(\bar{\Sigma}_{1}, \bar{\Sigma}_{2}, \dots, \bar{\Sigma}_{G}),
+\end{equation}
+then $\mathbf{H}$ and $\mathbf{V}^{-1}$ can be rewritten as
+\begin{equation}
+	\mathbf{H} = \mathbf{Z}(\mathbf{C} + \mathbf{\Sigma S}) + \mathbf{Z_{B} B},
+\end{equation}
+and
+\begin{equation}
+	\mathbf{V}^{-1} = \mathbf{Z}\mathbf{V}^{-1} \mathbf{S}.
+\end{equation}
+For the nodal-centered angular flux $\mathbf{\Psi}$, we have from Lemma~\ref{lemma:Hz} that
+\begin{equation}
+	\mathbf{\Psi} = (\mathbf{ZS} + \mathbf{Z_{B}B})^{-1}\mathbf{Z}\mathbf{\Psi_{z}}.
+	\label{eq:PsiPsiz1D}
+\end{equation}
+Substituting Eq.~\ref{eq:PsiPsiz1D} into Eq.~\ref{eq:AlphaMG1D} and \ref{eq:kMG1D} and multiplying on the left by $\mathbf{Z}^{T}$ gives
+\begin{equation}
+	\big ( \alpha \mathbf{V}_\mathbf{z}^{-1} + \mathbf{H_{z}} \big ) \mathbf{\Psi_{z}} = \mathbf{L}^{+}( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}}) \mathbf{L} \mathbf{\Psi_{z}},
+	\label{eq:AlphaZ1D}
+\end{equation}
+and
+\begin{equation}
+	\mathbf{H_{z}} \mathbf{\Psi_{z}} = \mathbf{L}^{+} \bigg ( \mathbf{\Sigma_{s}} + \frac{1}{k}\mathbf{\Sigma_{f}} \bigg ) \mathbf{L} \mathbf{\Psi_{z}},
+	\label{eq:kZ1D}
+\end{equation}
+where
+\begin{equation}
+	\mathbf{H_{z}} \equiv \mathbf{C}(\mathbf{ZS} + \mathbf{Z_{B}B})^{-1}\mathbf{Z} + \mathbf{\Sigma},
+\end{equation}
+and
+\begin{equation}
+	\mathbf{V}_{\mathbf{z}}^{-1} \equiv \mathbf{V}^{-1} \mathbf{S} (\mathbf{ZS} + \mathbf{Z_{B}B})^{-1}\mathbf{Z}.
+\end{equation}
+Equations~\ref{eq:AlphaZ1D} and \ref{eq:kZ1D} are the cell-centered eigenvalue equations for one-dimensional slab geometry.

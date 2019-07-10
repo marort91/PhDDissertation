@@ -2,7 +2,7 @@
 %\chaptermark{Discretization and Primitivity of the Neutron Transport Criticality Eigenvalue Problems}
 \label{Discrete}
 
-In this section we describe the discretization of the neutron transport criticality eigenvalue equations for three-dimensional Cartesian geometry. The discretization follows a similar approach to that of \cite{brown_linear_1995} \cite{brown_POI_2008} \cite{brown_POI_2012}. First, we derive semi-discretized forms of the eigenvalue equations by applying the \textit{multigroup} in energy approximation and a spherical harmonics expansion for the scattering integral. We then discretize the spatial and angular variables using step differencing and the discrete ordinates approach. Finally, we write down the discretized matrix forms of the criticality eigenvalue equations for three-dimensional Cartesian geometry. For the one-dimensional slab geometry discretized alpha-eigenvalue problem, we show by example the fixed-point iteration matrix is primitive. A similar result can be shown for the two-dimensional and three-dimensional Cartesian discretized eigenvalue equations.
+In this section we describe the discretization of the neutron transport criticality eigenvalue equations for three-dimensional Cartesian geometry. The discretization follows a similar approach to that of \cite{brown_linear_1995} \cite{brown_POI_2008} \cite{brown_POI_2012}. First, we derive semi-discretized forms of the eigenvalue equations by applying the \textit{multigroup} in energy approximation and a spherical harmonics expansion for the scattering integral. We then discretize the spatial and angular variables using step differencing and the discrete ordinates approach. Finally, we write down the discretized matrix forms of the criticality eigenvalue equations for three-dimensional Cartesian geometry. For the one-dimensional slab geometry discretized alpha-eigenvalue problem, we prove that the discretize transport equation matrix is primitive. A similar result can be shown for the two-dimensional and three-dimensional Cartesian discretized eigenvalue equations.
 
 We begin with the linear alpha-eigenvalue neutron transport equation in a three-dimen\-sional box geometry with scattering. The spatial domain is the box $\mathcal{D} \equiv \{\vec{r} = (x, y, z) \, \vert \, a_{x} \leq x \leq b_{x}, a_{y} \leq y \leq b_{y}, \text{ and } a_{z} \leq z \leq b_{z} \},$ the direction variable is $\hat{\Omega} \in \mathcal{S}^{2}$, the unit sphere in $\mathbb{R}^{3}$, the energy variable is $E \in (0, \infty)$, and the equation for the angular flux $\psi(\vec{r}, \hat{\Omega}, E)$ is given by
 
@@ -563,129 +563,366 @@ We consider Eqns.~\ref{eq:AlphaZ} and \ref{eq:kZ} in the derivation of the Rayle
 %	\label{fig:3DBox}
 %\end{figure}
 
-\section{Primitivity of the Discretized Eigenvalue Equations}
+\section{Primitivity of the Discretized Alpha-Eigenvalue and $k$-Effective Eigenvalue Equations}
 \label{sec:PrimPos}
 
-Assuming isotropic fission and scattering, we show by example that the matrix $\mathbf{A}(\alpha)$ is a primitive matrix (Section~\ref{PrimMatrix}). Consider a two energy group problem with discrete ordinates $S_{2}$ angular quadrature from \cite{lewis_computational_1984} and two spatial cells ($G, L, M = 2$). The scattering matrix is then
-\begin{multline}
-	\mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} = \begin{pmatrix}
-											L^{0,+} & 0 \\
-											0 & L^{0,+}
-										     \end{pmatrix}
-										     \begin{pmatrix}
-											\Sigma_{s,11}^{0} & \Sigma_{s,12}^{0} \\
-											\Sigma_{s,21}^{0} & \Sigma_{s,22}^{0}
-										     \end{pmatrix}
-										     \begin{pmatrix}
-											L^{0} & 0 \\
-											0 & L^{0}
-										     \end{pmatrix} \\= 
-											\begin{pmatrix}
-											L^{0,+}\Sigma_{s,11}^{0}L^{0} & L^{0,+}\Sigma_{s,12}^{0}L^{0} \\
-											L^{0,+}\Sigma_{s,21}^{0}L^{0} & L^{+,0}\Sigma_{s,22}^{0}L^{0}
-										     \end{pmatrix}.
-\end{multline}
-Each block matrix can be written as
-\begin{multline}
-	L^{0,+}  \Sigma_{s,11}^{0} L = (\ell_{0}^{T} \otimes I_{M})\Sigma_{s,11,0} (\ell_{0} W \otimes I_{M}) \\ = 
-	\begin{pmatrix}
-		1 & 0 \\
-		0 & 1 \\
-		1 & 0 \\
-		0 & 1
-	\end{pmatrix}
-	\begin{pmatrix}
-		\sigma_{s,1,1,0,1} & 0 \\
-		0 & \sigma_{s,1,1,0,2}
-	\end{pmatrix}
-	\begin{pmatrix}
-		1/2 & 0 & 1/2 & 0 \\
-		0 & 1/2 & 0 & 1/2
-	\end{pmatrix} \\ =
-	\begin{pmatrix}
-		\frac{1}{2} \sigma_{s,1,1,0,1} & 0 & \frac{1}{2} \sigma_{s,1,1,0,1} & 0 \\
-		0 & \frac{1}{2} \sigma_{s,1,1,0,2} & 0 & \frac{1}{2} \sigma_{s,1,1,0,2}  \\
-		\frac{1}{2} \sigma_{s,1,1,0,1} & 0 & \frac{1}{2} \sigma_{s,1,1,0,1} & 0 \\
-		0 & \frac{1}{2} \sigma_{s,1,1,0,2} & 0 & \frac{1}{2} \sigma_{s,1,1,0,2}
-	\end{pmatrix}.
-\end{multline}
-
-%\begin{figure}[H]
-%	\centering
-%	\input{Figures/DiscretizationPrimitivity/SparseS.tex}
-%	\input{Figures/DiscretizationPrimitivity/SparseScatter.tex}
-%	\input{Figures/DiscretizationPrimitivity/SparsityPatterns.tex}
-%	\label{fig:SpyScatter}
-%	\caption{Sparsity Plot-Scattering Block Matrix}
-%\end{figure}
-
-Similarly, for $L^{0,+}  \Sigma_{f,11}^{0} L$ we have
+In this section we show that the matrices 
 \begin{equation}
-L^{0,+}  \Sigma_{f,11}^{0} L = 
-		\begin{pmatrix}
-			\frac{1}{2} \chi_{1}\nu\sigma_{f,1,1} & 0 & \chi_{1}\frac{1}{2} \nu\sigma_{f,1,1} & 0 \\
-			0 & \frac{1}{2} \chi_{1}\nu\sigma_{f,1,2} & 0 & \frac{1}{2} \chi_{1}\nu\sigma_{f,1,2}  \\
-			\frac{1}{2} \chi_{1}\nu\sigma_{f,1,1} & 0 & \frac{1}{2} \chi_{1}\nu\sigma_{f,1,1} & 0 \\
-			0 & \frac{1}{2} \chi_{1}\nu\sigma_{f,1,2} & 0 & \frac{1}{2}\chi_{1} \nu\sigma_{f,1,2}
-	\end{pmatrix}.
+\mathbf{A}(\alpha) = \mathbf{H}_{\mathbf{z}}^{-1} \big (-\alpha \mathbf{V}_{\mathbf{z}}^{-1} + \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big)
+\end{equation}
+and
+\begin{equation}
+\mathbf{T}(k) = \mathbf{H}_{\mathbf{z}}^{-1} \bigg (\mathbf{\Sigma_{s}} + \frac{1}{k}\mathbf{\Sigma_{f}} \bigg)
+\end{equation}
+are primitive for the one-dimensional slab geometry problem. Though there are various definitions of a primitive matrix (see Section~\ref{PrimMatrix}), it suffices to show that for some nonnegative matrix $\mathbf{A}$, if there is some$n$ such that $\mathbf{A}^{n} > \mathbf{0}$, then $\mathbf{A}$ is primitive.
+
+It is assumed that there is fissile material in all spatial cells and spatial cell widths are small enough to guarantee the positivity of $\mathbf{H}_{\mathbf{z}}^{-1}$ for diamond differencing \cite{greenbaum1997iterative}. Step differencing also guarantees this condition is met. In practice, the requirement for fissile material in all cells can be relaxed as long as sum of the fission and scattering matrices couple all energy and direction groups. It also assumed that a symmetric about the origin angular quadrature is used.
+
+Given these assumptions, we begin with matrix $\mathbf{A}(\alpha)$. To prove the primitivity of $\mathbf{A}(\alpha)$, we first specify the location of positive elements in each of the matrices $\mathbf{H}_{\mathbf{z}}^{-1}, \mathbf{V}^{-1}, \mathbf{\Sigma_{s}}$, and $\mathbf{\Sigma_{f}}$.
+
+The matrix $\mathbf{H}_\mathbf{z}^{-1}$ can be partitioned into $G$ block matrices corresponding to the total number of energy groups in the following manner
+\begin{equation}
+	\mathbf{H}_{z}^{-1} = \begin{pmatrix}
+						H_{1}^{-1} & & \\
+						& \ddots & \\
+						& & H_{G}^{-1} 
+					\end{pmatrix}.
 \end{equation}
 
-For our model problem, $\mathbf{H_{z}^{-1}} \geq 0$ and has the form \cite{greenbaum1997iterative}
+Each energy block matrix can be further partitioned into $L$ block matrices, with each block matrix corresponding to one angular ordinate:
 \begin{equation}
-	\mathbf{H_{z}^{-1}} = \begin{pmatrix}
-  \begin{pmatrix}
-  x & 0 \\
-  x & x
-  \end{pmatrix} & \bigzero & \bigzero & \bigzero \\
-  \bigzero & 
-  \begin{pmatrix}
-  x & x \\
-  0 & x
-  \end{pmatrix} & \bigzero & \bigzero \\
-  \bigzero & \bigzero & \begin{pmatrix}
-  x & 0 \\
-  x & x
-  \end{pmatrix} & \bigzero \\
-  \bigzero & \bigzero & \bigzero & \begin{pmatrix}
-  x & x \\
-  0 & x
-  \end{pmatrix}
-\end{pmatrix},
+	H_{g}^{-1} = \begin{pmatrix}
+						H_{g,-L/2}^{-1} & & \\
+						& \ddots & \\
+						& & H_{g,L/2}^{-1} 
+					\end{pmatrix}.
 \end{equation}
-and $\mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ has the form
+Let $g = 1, 2, \dots, G$ and $\ell = -L/2, -L/2+1, \dots, L/2$, then the block matrix corresponding to energy group $g$ and direction $\ell$ is given by $H^{-1}_{g,\ell}$.
+
+The block matrices $H^{-1}_{g,\ell}$ are of size $M$ where $M$ is the number of spatial cells. The block matrices are either nonnegative lower or upper triangular matrices:
 \begin{equation}
-\mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L} = \frac{1}{2}
-	\begin{pmatrix}
-		\chi_{1} \nu \sigma_{f,1} I_{L} & \chi_{1}\nu \sigma_{f,1} I_{L}& \chi_{1}\nu \sigma_{f,2} I_{L} & \chi_{1} \nu \sigma_{f,2} I_{L} \\
-		\chi_{1}\nu \sigma_{f,1} I_{L} & \chi_{1}\nu \sigma_{f,1} I_{L}& \chi_{1}\nu \sigma_{f,2} I_{L} & \chi_{1}\nu \sigma_{f,2} I_{L} \\
-		\chi_{2}\nu \sigma_{f,1} I_{L} & \chi_{2}\nu \sigma_{f,1} I_{L}& \chi_{2}\nu \sigma_{f,2} I_{L} & \chi_{2}\nu \sigma_{f,2} I_{L} \\
-		\chi_{2}\nu \sigma_{f,1} I_{L} & \chi_{2}\nu \sigma_{f,1} I_{L}& \chi_{2}\nu \sigma_{f,2} I_{L} & \chi_{2}\nu \sigma_{f,2} I_{L}
-	\end{pmatrix}.
+	H^{-1}_{g,\ell,ij} = \begin{cases}
+					> 0 \quad \text{if } \mu_{\ell} > 0 \text{ and } i \leq j \\
+					> 0 \quad \text{if } \mu_{\ell} < 0 \text{ and } i \geq j.
+				\end{cases}
 \end{equation}
-Therefore, the matrix $\mathbf{H_{z}^{-1}} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ has the form
+
+Given that the angular quadrature is symmetric about the origin, we have
 \begin{equation}
-	\mathbf{H_{z}^{-1}} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L} = \begin{pmatrix}
-		\LTx & \LTx & \LTx & \LTx \\
-		\UTx & \UTx & \UTx & \UTx \\
-		\LTx & \LTx & \LTx & \LTx \\
-		\UTx & \UTx & \UTx & \UTx
-	\end{pmatrix},
+	\mu_{-\ell} = -\mu_{\ell}, \quad \ell = 1, 2, \dots, L/2.
 \end{equation}
-where $x > 0$ represents a positive entry, and where $I_{L}$ is the identity matrix of size $L$. It follows that each block of the matrix $(\mathbf{H_{z}^{-1}}\mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L})^{2}$ is
+Using this fact, we have the following
+\begin{lemma}
+\label{lemma:ell}
 \begin{equation}
-	\begin{pmatrix}
-		x & 0 \\ x & x
-	\end{pmatrix}
-\begin{pmatrix}
-		x & x \\ 0 & x
-	\end{pmatrix} =
-\begin{pmatrix}
-		x^2 & x^2 \\ x^2 & x^{2}
-	\end{pmatrix} > 0 \text{ because }
-\begin{pmatrix}
-	\chi_{1} \nu\sigma_{f,1} & \chi_{1}\nu\sigma_{f,2} \\ \chi_{2}\nu\sigma_{f,1} & \chi_{2}\nu\sigma_{f,2}
-	\end{pmatrix} > 0
+	H_{g,\ell}^{-1} + H_{g,-\ell}^{-1} > 0.
 \end{equation}
-and $\mathbf{H_{z}^{-1}} \geq 0$. Therefore, $\mathbf{H_{z}^{-1}} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ is primitive and it follows that $\mathbf{A}(\alpha)$ is primitive since $\mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} \geq 0$ for isotropic scattering. For anisotropic scattering, as long as $\mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} \geq 0$, the previous fact remains valid. When the system is subcritical, $\alpha < 0$ and the matrix $\mathbf{A}(\alpha)$ is primitive. For supercritical systems, $\alpha > 0$ and there is an upper limit $\alpha_{\text{max}}$ such that the matrix $\mathbf{A}(\alpha)$ remains primitive. For $k$-effective eigenvalue problems, $k$ is always positive and therefore the matrix $\mathbf{T}(k)$ is primitive.
-%There are other eigenvalue problems useful for various applications \cite{ronen_comparison_1976}, however 
+\end{lemma}
+From the previous fact, we have the following for the elements of the matrix $\mathbf{H}_{\mathbf{z}}^{-1}$
+\begin{equation}
+		(\mathbf{H}_{\mathbf{z}}^{-1})_{g,\ell, ij}
+	\begin{cases}
+ 		= 0, \quad \text{if } \mu_{\ell} < 0, \text{ and } i < j, \\
+ 		= 0, \quad \text{if } \mu_{\ell} > 0, \text{ and } i > j, \\
+		> 0, \quad \text{otherwise.}
+	\end{cases}
+\end{equation}
+An example of the $\mathbf{H}_{\mathbf{z}}^{-1}$ for five spatial cells ($M=5$), S$_{2}$ discrete ordinates angular quadrature ($L=2$), and two energy groups ($G=2$) can be seen in Figure~\ref{fig:iHz}.
+
+\begin{figure}[!htbp]
+	\centering
+	\resizebox{0.75\textwidth}{!}{\input{Figures/DiscretizationPrimitivity/iHSparsity.tex}}
+	\caption{Structure of $\mathbf{H}_{\mathbf{z}}^{-1}$}\label{fig:iHz}
+	\caption*{The structure of $\mathbf{H}_{\mathbf{z}}^{-1}$. The matrix is blocked into block matrices corresponding to energy groups.The block energy are indexed using $g, g' = 1, 2, \dots, G$. There are a total of $(GL)^{2}$ block matrices each of size $M$. Each energy block matrix can be blocked into direction matrices with indices $\ell, \ell' = 1, 2, \dots, L$. The block lower and upper triangular matrices correspond to positive (blue) and negative (red) directions, respectively.}
+\end{figure}
+
+\clearpage
+
+For the fission matrix $\mathbf{\Sigma_{f}}$ if the problem domain of interest has fissile material throughout the domain and fission is possible in any energy group, we have the following for the elements of the matrix
+\begin{equation}
+		(\mathbf{\Sigma_{f}})_{gg',\ell \ell', ij}
+	\begin{cases}
+ 		= 0, \quad \text{if } i \neq j, \\
+		> 0, \quad \text{otherwise},
+	\end{cases}
+\end{equation}
+for all $g, g' = 1,2,\dots, G$ and $\ell, \ell' = -L/2, -L/2+1, \dots, L/2$. We assume fission is isotropic. The fission matrix $\mathbf{\Sigma_{f}}$ is a block matrix with square block matrices size $M$ that are only nonzero on the diagonal (see Figure~\ref{fig:F}). For isotropic fission, we have the following for the block matrices of $\mathbf{\Sigma_{f}}$
+
+\begin{lemma}
+\label{lemma:sigf}
+\begin{equation}
+	(\Sigma_{f})_{gg',\ell \ell'} = (\Sigma_{f})_{gg',-\ell -\ell'}. 
+\end{equation}
+\end{lemma}
+
+An example of the matrix $\mathbf{\Sigma_{f}}$ for five spatial cells and fission possible in all energy groups is seen in Figure~\ref{fig:F}
+
+\begin{figure}[!htbp]
+	\begin{center}\resizebox{0.75\textwidth}{!}{\input{Figures/DiscretizationPrimitivity/F.tex}} \end{center}
+	\caption{Structure of $\mathbf{\Sigma_{f}}$}\label{fig:F}
+\end{figure}
+
+\clearpage
+
+For a positive scattering kernel in the entire problem domain where only downscattering is allowed, we have the following for the elements of the matrix $\mathbf{\Sigma_{s}}$
+\begin{equation}
+		(\mathbf{\Sigma_{s}})_{gg',\ell \ell', ij}
+	\begin{cases}
+ 		= 0, \quad \text{if } g < g', \\
+ 		= 0, \quad \text{if } i \neq j, \\
+		> 0, \quad \text{otherwise},
+	\end{cases}
+\end{equation}
+for $\ell, \ell' = -L/2, -L/2+1, \dots, L/2$. $\mathbf{\Sigma_{s}}$ is composed of block diagonal matrices on and under the diagonal each with size $M$ that are only nonzero on the diagonal of that block matrix.
+
+An example of the matrix $\mathbf{\Sigma_{s}}$ for five spatial cells and only downscattering is possible is seen in Figure~\ref{fig:S}.
+
+\begin{figure}[!htbp]
+	\centering
+	\resizebox{0.75\textwidth}{!}{\input{Figures/DiscretizationPrimitivity/S.tex}}
+	\caption{Structure of $\mathbf{\Sigma_{s}}$}\label{fig:S}
+\end{figure}
+
+For all energy groups, the inverse velocity matrix is a diagonal matrix. For the matrix $\mathbf{V}_{\mathbf{z}}^{-1}$ we have the following
+
+\begin{equation}
+		(\mathbf{V}_{\mathbf{z}}^{-1})_{gg',\ell \ell', ij}
+	\begin{cases}
+ 		= 0, \quad \text{if } g \neq g', \ell \neq \ell', i \neq j \\
+		> 0, \quad \text{otherwise}
+	\end{cases},
+\end{equation}
+An example of the matrix $\mathbf{V}_{\mathbf{z}}^{-1}$ is seen in Figure~\ref{fig:iVz}.
+
+\begin{figure}[!htbp]
+	\centering
+	\resizebox{0.75\textwidth}{!}{\input{Figures/DiscretizationPrimitivity/iV.tex}}
+	\caption{Structure of $\mathbf{V}_{\mathbf{z}}^{-1}$}\label{fig:iVz}
+\end{figure}
+
+Given the location of nonzero elements in the transport, fission, scattering, and inverse velocity matrices, we set out to prove the primitivity of the matrix $\mathbf{H}_\mathbf{z}^{-1}\mathbf{\Sigma_{f}}$. The block matrix of size $M$ of the matrix $ \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}}$ is given by the product of the block matrices of $\mathbf{H}_{\mathbf{z}}^{-1}$ and $\mathbf{\Sigma_{f}}$
+
+\begin{equation}
+	\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \big )_{gg',\ell\ell'} = \sum_{g'',\ell''} \big (\mathbf{H}_{\mathbf{z}}^{-1} \big )_{gg'',\ell \ell''}  \big (\mathbf{\Sigma_{f}} \big)_{g''g',\ell'' \ell'} = \big ( \mathbf{H}_{\mathbf{z}}^{-1} \big )_{g,\ell} \big ( \mathbf{\Sigma_{f}} \big )_{gg',\ell \ell'}
+ \end{equation}
+The matrices are either lower or upper triangular block matrices depending on the sign of $\mu_{\ell}$:
+\begin{equation}
+		\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \big )_{gg',\ell \ell'}
+	\begin{cases}
+ 		= a_{ij} > 0, \quad \text{if } \mu_{\ell} < 0 \text{ and } i \geq j \\
+ 		= a_{ij} > 0, \quad \text{if } \mu_{\ell} > 0 \text{ and } i \leq j
+	\end{cases}
+\end{equation}
+for all $g, g' = 1, 2, \dots, G$ and $\ell, \ell' = -L/2, -L/2+1, \dots, L/2$ (see Figure~\ref{fig:iHF}). 
+
+\clearpage
+
+\begin{figure}[!htbp]
+	\centering
+	\resizebox{0.75\textwidth}{!}{\input{Figures/DiscretizationPrimitivity/iHF.tex}}
+	\caption{Structure of $\mathbf{H}_{\mathbf{z}}^{-1}\mathbf{\Sigma_{f}}$}\label{fig:iHF}
+\end{figure}
+
+With these facts, we prove the following lemma:
+
+\begin{lemma}
+	The matrix $\mathbf{\Sigma_{f}}\mathbf{H}_{\mathbf{z}}^{-1}\mathbf{\Sigma_{f}}$ is positive.
+	\label{lemma:FiHF}
+\end{lemma}
+
+\begin{proof}
+	The block matrix of size $M$, $\mathbf{\Sigma_{f}} \mathbf{H}^{-1} \mathbf{\Sigma_{f}}$, is given by
+	\begin{equation}
+		\big ( \mathbf{\Sigma_{f}} \mathbf{H}^{-1} \mathbf{\Sigma_{f}} \big )_{gg',\ell \ell'} = \sum_{g'', \ell''} \big (\mathbf{\Sigma_{f}} \big )_{gg'',\ell \ell''} \big (\mathbf{H}^{-1} \mathbf{\Sigma_{f}} \big )_{g''g',\ell''\ell'}
+	\end{equation}
+We can further simplify the previous expression to
+	\begin{equation}
+		\big ( \mathbf{\Sigma_{f}} \mathbf{H}^{-1} \mathbf{\Sigma_{f}} \big )_{gg',\ell \ell'} = \sum_{g'',\ell''} \big ( \mathbf{\Sigma_{f}} \big )_{gg'',\ell \ell''} \big ( \mathbf{H}_{\mathbf{z}}^{-1} \big )_{g'',\ell''} \big ( \mathbf{\Sigma_{f}} \big )_{g''g',\ell''\ell'}.
+	\end{equation}
+	We can rearrange the sum into opposite-signed direction and write
+	\begin{equation}
+		\sum_{g''} \sum_{\ell''=-L/2}^{L/2} \big ( \mathbf{\Sigma_{f}} \big )_{gg'',\ell\ell''} \bigg [ \big ( \mathbf{H}_{\mathbf{z}}^{-1} \big )_{g'',-\ell''} + \big ( \mathbf{H}_{\mathbf{z}}^{-1} \big )_{g'',\ell''} \bigg ] \big ( \mathbf{\Sigma_{f}} \big )_{g'',g',\ell'',\ell'},
+	\end{equation}
+	where we have used Lemma~\ref{lemma:sigf}. Using Lemma~\ref{lemma:ell}, we have
+		\begin{equation}
+			\bigg [ \big ( \mathbf{H}_{\mathbf{z}}^{-1} \big )_{g'',-\ell''} + \big ( \mathbf{H}_{\mathbf{z}}^{-1} \big )_{g'',\ell''} \bigg ] > \mathbf{0}. 		\end{equation}
+			Since the matrices $\big ( \mathbf{\Sigma_{f}} \big )_{gg'',\ell\ell''}$ and $ \big ( \mathbf{\Sigma_{f}} \big )_{g'',g',\ell'',\ell'}$ are nonnegative block diagonal matrices with positive entries on the main diagonal, then the product of the positive matrix times the nonnegative matrices is entirely positive. Therefore $\mathbf{\Sigma_{f}}\mathbf{H}_{\mathbf{z}}^{-1}\mathbf{\Sigma_{f}}$ is positive. 
+\end{proof}
+
+Using Lemma~\ref{lemma:FiHF}, we prove the following lemma:
+\begin{lemma}
+	The nonnegative matrix $\mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}}$ is primitive with index of primitivity of two.
+\end{lemma}
+\begin{proof}
+	Multiplying, we obtain
+	\begin{equation}
+	\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \big )_{gg',\ell \ell'} = \sum_{g'',\ell''} \big ( \mathbf{H}_{\mathbf{z}}^{-1} \big )_{g'',\ell''} \big ( \mathbf{\Sigma_{f}}\mathbf{H}_{\mathbf{z}}^{-1}\mathbf{\Sigma_{f}} \big )_{g''g',\ell'' \ell'}.
+	\end{equation}
+Since every element of $\mathbf{\Sigma_{f}}\mathbf{H}_{\mathbf{z}}^{-1}\mathbf{\Sigma_{f}}$ is positive, a zero element in $\mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}}$ is possible only if the elements of $\big ( \mathbf{H}_{\mathbf{z}}^{-1} \big )_{g'',\ell'',ij} = 0 \, \forall \, i = 1, 2, \dots, M$ which is not possible since the elements on row $i$ of $\big ( \mathbf{H}_{\mathbf{z}}^{-1} \big )_{gg,\ell\ell,ij'}$ are not all zero. Therefore, $\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \big )_{gg',\ell \ell''} > 0 \, \forall \, (g,g',\ell, \ell')$ which implies the matrix $\mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}}$ is primitive with index of primitivity of two.
+\end{proof}
+
+Using the previous results, we prove the primitivity of the matrix $\mathbf{H}_{\mathbf{z}}^{-1}( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} )$:
+\begin{theorem}
+	If $\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \big )^{2} > \mathbf{0}$ and $\mathbf{\Sigma_{s}} \geq \mathbf{0}$, then $\mathbf{H}_{\mathbf{z}}^{-1}( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} )$ is primitive.
+\end{theorem}
+\begin{proof}
+By multiplication
+	\begin{multline}
+		\big [ \mathbf{H}_{\mathbf{z}}^{-1}( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} ) \big ]^{2} = \big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{s}} \big )^{2} + \big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \big )\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{s}} \big ) \\ + \big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{s}} \big )\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \big ) + \big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \big )^{2} > \mathbf{0},
+	\end{multline}
+	since $\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \big )^{2} > \mathbf{0}$ and the matrices $\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \big )$ and $\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{s}} \big )$ are nonnegative.
+\end{proof}
+
+We now show that for $\alpha < \alpha_{\text{max}}$, where $\alpha_{\text{max}}$ is defined as 
+\begin{equation}
+\alpha_{\text{max}} = \max \{ \alpha \mid -\alpha \mathbf{V}_{\mathbf{z}}^{-1} + \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \geq \mathbf{0}, \alpha \in \mathbb{R} \},
+\end{equation}
+the matrix $\mathbf{A}(\alpha) = \mathbf{H}_{\mathbf{z}}^{-1}( -\alpha \mathbf{V}_{\mathbf{z}}^{-1} + \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} )$ is primitive with index of primitivity of two.
+\begin{theorem}
+	If $\mathbf{H}_{\mathbf{z}}^{-1}( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} )$ is primitive, then $\mathbf{H}_{\mathbf{z}}^{-1}( -\alpha \mathbf{V}_{\mathbf{z}}^{-1} + \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} )$ is primitive with index of primitivity equal to two.
+\end{theorem}
+\begin{proof}
+	Let $\mathbf{M} = -\alpha \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{V}_{\mathbf{z}}^{-1}$ and $\mathbf{N} = \mathbf{H}_{\mathbf{z}}^{-1}( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} )$. By multiplication,
+	\begin{equation}
+		\bigg [ \mathbf{H}_{\mathbf{z}}^{-1}( -\alpha \mathbf{V}_{\mathbf{z}}^{-1} + \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} ) \bigg ]^{2} = \bigg [ \mathbf{M} + \mathbf{N} \bigg ]^{2} = \mathbf{M}^{2} + \mathbf{MN} + \mathbf{NM} + \mathbf{N}^{2} > \mathbf{0},
+	\end{equation}
+	since $\mathbf{N}^{2} = \big [ \mathbf{H}_{\mathbf{z}}^{-1}( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} ) \big ]^{2} > \mathbf{0}$ and the matrices $\mathbf{M}^{2}$, $\mathbf{MN}$, and $\mathbf{NM}$ are nonnegative since $\alpha \leq \alpha_{\text{max}}$.
+\end{proof}
+
+Now we prove that the matrix $\mathbf{T}(k) = \mathbf{H}_{\mathbf{z}}^{-1} \big (\mathbf{\Sigma_{s}} + (1/k)\mathbf{\Sigma_{f}} \big)$ is primitive.
+\begin{theorem}
+	If $(\mathbf{H}_{\mathbf{z}}^{-1}\mathbf{\Sigma_{f}})^{2}$ is primitive, then $\mathbf{H}_{\mathbf{z}}^{-1}( \mathbf{\Sigma_{s}} + (1/k)\mathbf{\Sigma_{f}} )$ is primitive with index of primitivity equal to two.
+\end{theorem}
+\begin{proof}
+	By multiplication
+	\begin{multline}
+		\bigg [ \mathbf{H}_{\mathbf{z}}^{-1} \bigg ( \mathbf{\Sigma_{s}} + \frac{1}{k}\mathbf{\Sigma_{f}} \bigg ) \bigg ]^{2} = \big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{s}} \big )^{2} + (1/k)\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \big )\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{s}} \big ) \\ +(1/k) \big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{s}} \big )\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \big ) + (1/k)^{2}\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \big )^{2} > \mathbf{0},
+	\end{multline}
+	since $\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \big )^{2} > \mathbf{0}$, the matrices $\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \big )$ and $\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{s}} \big )$ are nonnegative, and $ k > 0$.
+
+\end{proof}
+
+
+%Assuming isotropic fission and scattering, we show by example that the matrix $\mathbf{A}(\alpha)$ is a primitive matrix (Section~\ref{PrimMatrix}). Consider a two energy group problem with discrete ordinates $S_{2}$ angular quadrature from \cite{lewis_computational_1984} and two spatial cells ($G, L, M = 2$). The scattering matrix is then
+%\begin{multline}
+%	\mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} = \begin{pmatrix}
+%											L^{0,+} & 0 \\
+%											0 & L^{0,+}
+%										     \end{pmatrix}
+%										     \begin{pmatrix}
+%											\Sigma_{s,11}^{0} & \Sigma_{s,12}^{0} \\
+%											\Sigma_{s,21}^{0} & \Sigma_{s,22}^{0}
+%										     \end{pmatrix}
+%										     \begin{pmatrix}
+%											L^{0} & 0 \\
+%											0 & L^{0}
+%										     \end{pmatrix} \\= 
+%											\begin{pmatrix}
+%											L^{0,+}\Sigma_{s,11}^{0}L^{0} & L^{0,+}\Sigma_{s,12}^{0}L^{0} \\
+%											L^{0,+}\Sigma_{s,21}^{0}L^{0} & L^{+,0}\Sigma_{s,22}^{0}L^{0}
+%										     \end{pmatrix}.
+%\end{multline}
+%Each block matrix can be written as
+%\begin{multline}
+%	L^{0,+}  \Sigma_{s,11}^{0} L = (\ell_{0}^{T} \otimes I_{M})\Sigma_{s,11,0} (\ell_{0} W \otimes I_{M}) \\ = 
+%	\begin{pmatrix}
+%		1 & 0 \\
+%		0 & 1 \\
+%		1 & 0 \\
+%		0 & 1
+%	\end{pmatrix}
+%	\begin{pmatrix}
+%		\sigma_{s,1,1,0,1} & 0 \\
+%		0 & \sigma_{s,1,1,0,2}
+%	\end{pmatrix}
+%	\begin{pmatrix}
+%		1/2 & 0 & 1/2 & 0 \\
+%		0 & 1/2 & 0 & 1/2
+%	\end{pmatrix} \\ =
+%	\begin{pmatrix}
+%		\frac{1}{2} \sigma_{s,1,1,0,1} & 0 & \frac{1}{2} \sigma_{s,1,1,0,1} & 0 \\
+%		0 & \frac{1}{2} \sigma_{s,1,1,0,2} & 0 & \frac{1}{2} \sigma_{s,1,1,0,2}  \\
+%		\frac{1}{2} \sigma_{s,1,1,0,1} & 0 & \frac{1}{2} \sigma_{s,1,1,0,1} & 0 \\
+%		0 & \frac{1}{2} \sigma_{s,1,1,0,2} & 0 & \frac{1}{2} \sigma_{s,1,1,0,2}
+%	\end{pmatrix}.
+%\end{multline}
+%
+%%\begin{figure}[H]
+%%	\centering
+%%	\input{Figures/DiscretizationPrimitivity/SparseS.tex}
+%%	\input{Figures/DiscretizationPrimitivity/SparseScatter.tex}
+%%	\input{Figures/DiscretizationPrimitivity/SparsityPatterns.tex}
+%%	\label{fig:SpyScatter}
+%%	\caption{Sparsity Plot-Scattering Block Matrix}
+%%\end{figure}
+%
+%Similarly, for $L^{0,+}  \Sigma_{f,11}^{0} L$ we have
+%\begin{equation}
+%L^{0,+}  \Sigma_{f,11}^{0} L = 
+%		\begin{pmatrix}
+%			\frac{1}{2} \chi_{1}\nu\sigma_{f,1,1} & 0 & \chi_{1}\frac{1}{2} \nu\sigma_{f,1,1} & 0 \\
+%			0 & \frac{1}{2} \chi_{1}\nu\sigma_{f,1,2} & 0 & \frac{1}{2} \chi_{1}\nu\sigma_{f,1,2}  \\
+%			\frac{1}{2} \chi_{1}\nu\sigma_{f,1,1} & 0 & \frac{1}{2} \chi_{1}\nu\sigma_{f,1,1} & 0 \\
+%			0 & \frac{1}{2} \chi_{1}\nu\sigma_{f,1,2} & 0 & \frac{1}{2}\chi_{1} \nu\sigma_{f,1,2}
+%	\end{pmatrix}.
+%\end{equation}
+%
+%For our model problem, $\mathbf{H_{z}^{-1}} \geq 0$ and has the form \cite{greenbaum1997iterative}
+%\begin{equation}
+%	\mathbf{H_{z}^{-1}} = \begin{pmatrix}
+%  \begin{pmatrix}
+%  x & 0 \\
+%  x & x
+%  \end{pmatrix} & \bigzero & \bigzero & \bigzero \\
+%  \bigzero & 
+%  \begin{pmatrix}
+%  x & x \\
+%  0 & x
+%  \end{pmatrix} & \bigzero & \bigzero \\
+%  \bigzero & \bigzero & \begin{pmatrix}
+%  x & 0 \\
+%  x & x
+%  \end{pmatrix} & \bigzero \\
+%  \bigzero & \bigzero & \bigzero & \begin{pmatrix}
+%  x & x \\
+%  0 & x
+%  \end{pmatrix}
+%\end{pmatrix},
+%\end{equation}
+%and $\mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ has the form
+%\begin{equation}
+%\mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L} = \frac{1}{2}
+%	\begin{pmatrix}
+%		\chi_{1} \nu \sigma_{f,1} I_{L} & \chi_{1}\nu \sigma_{f,1} I_{L}& \chi_{1}\nu \sigma_{f,2} I_{L} & \chi_{1} \nu \sigma_{f,2} I_{L} \\
+%		\chi_{1}\nu \sigma_{f,1} I_{L} & \chi_{1}\nu \sigma_{f,1} I_{L}& \chi_{1}\nu \sigma_{f,2} I_{L} & \chi_{1}\nu \sigma_{f,2} I_{L} \\
+%		\chi_{2}\nu \sigma_{f,1} I_{L} & \chi_{2}\nu \sigma_{f,1} I_{L}& \chi_{2}\nu \sigma_{f,2} I_{L} & \chi_{2}\nu \sigma_{f,2} I_{L} \\
+%		\chi_{2}\nu \sigma_{f,1} I_{L} & \chi_{2}\nu \sigma_{f,1} I_{L}& \chi_{2}\nu \sigma_{f,2} I_{L} & \chi_{2}\nu \sigma_{f,2} I_{L}
+%	\end{pmatrix}.
+%\end{equation}
+%Therefore, the matrix $\mathbf{H_{z}^{-1}} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ has the form
+%\begin{equation}
+%	\mathbf{H_{z}^{-1}} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L} = \begin{pmatrix}
+%		\LTx & \LTx & \LTx & \LTx \\
+%		\UTx & \UTx & \UTx & \UTx \\
+%		\LTx & \LTx & \LTx & \LTx \\
+%		\UTx & \UTx & \UTx & \UTx
+%	\end{pmatrix},
+%\end{equation}
+%where $x > 0$ represents a positive entry, and where $I_{L}$ is the identity matrix of size $L$. It follows that each block of the matrix $(\mathbf{H_{z}^{-1}}\mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L})^{2}$ is
+%\begin{equation}
+%	\begin{pmatrix}
+%		x & 0 \\ x & x
+%	\end{pmatrix}
+%\begin{pmatrix}
+%		x & x \\ 0 & x
+%	\end{pmatrix} =
+%\begin{pmatrix}
+%		x^2 & x^2 \\ x^2 & x^{2}
+%	\end{pmatrix} > 0 \text{ because }
+%\begin{pmatrix}
+%	\chi_{1} \nu\sigma_{f,1} & \chi_{1}\nu\sigma_{f,2} \\ \chi_{2}\nu\sigma_{f,1} & \chi_{2}\nu\sigma_{f,2}
+%	\end{pmatrix} > 0
+%\end{equation}
+%and $\mathbf{H_{z}^{-1}} \geq 0$. Therefore, $\mathbf{H_{z}^{-1}} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L}$ is primitive and it follows that $\mathbf{A}(\alpha)$ is primitive since $\mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} \geq 0$ for isotropic scattering. For anisotropic scattering, as long as $\mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} \geq 0$, the previous fact remains valid. When the system is subcritical, $\alpha < 0$ and the matrix $\mathbf{A}(\alpha)$ is primitive. For supercritical systems, $\alpha > 0$ and there is an upper limit $\alpha_{\text{max}}$ such that the matrix $\mathbf{A}(\alpha)$ remains primitive. For $k$-effective eigenvalue problems, $k$ is always positive and therefore the matrix $\mathbf{T}(k)$ is primitive.
+%%There are other eigenvalue problems useful for various applications \cite{ronen_comparison_1976}, however 
 
