@@ -50,6 +50,22 @@
 
 \usepackage{rotating}
 
+\usepackage[T1]{fontenc}
+\usepackage{bigfoot}
+\usepackage[numbered,frame]{matlab-prettifier}
+
+\usepackage{amsthm}
+
+\let\ph\mlplaceholder % shorter macro
+\lstMakeShortInline"
+
+\lstset{
+  style              = Matlab-editor,
+  basicstyle         = \mlttfamily,
+  escapechar         = ",
+  mlshowsectionrules = true,
+}
+
 \usetikzlibrary{plotmarks}
 
 \usetikzlibrary{shapes.misc}
@@ -93,11 +109,18 @@ cross/.default={1pt}}
 % be indented (like the others), then include this line:
 % \usepackage{indentfirst}
 
-\newtheorem{theorem}{Theorem}
-\newtheorem{corollary}{Corollary}
-\newtheorem{lemma}{Lemma}
-\newtheorem{proof}{Proof}
-\newtheorem{definition}{Definition}
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{corollary}{Corollary}
+%\newtheorem{lemma}{Lemma}
+%\newtheorem{proof}{Proof}
+%\newtheorem{definition}{Definition}
+
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}{Lemma}[chapter]
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
 
 \bibliography{Bibliography/EigProbsNeutronTransport}
 
@@ -200,6 +223,7 @@ And exposition? Of go. No upstairs do fingering.
 
 \appendix
 \include{Chapters/Appen_1DMatrix}
+\include{Chapters/Appen_AnderAccMATLAB}
 % \chapter{More Monticello Candidates}
 
 \printbibliography

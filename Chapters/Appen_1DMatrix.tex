@@ -2,7 +2,7 @@
 
 \label{Discrete1D}
 
-In this Appendix, we describe the discretization of the alpha-eigenvalue problem for one-dimensional slab geometry using a matrix formalism similar to that of three-dimensional Cartesian geometry. In one dimension, the discretization of the continuous eigenvalue equation is substantially simpler and may be helpful to reader to study this case before analyzing the three-dimensional problem.
+In Appendix~\ref{Discrete1D}, we describe the discretization of the alpha-eigenvalue problem for one-dimensional slab geometry using a matrix formalism similar to that of three-dimensional Cartesian geometry. In one dimension, the discretization of the continuous eigenvalue equation is substantially simpler and may be helpful to reader to study this case before analyzing the three-dimensional problem.
 
 We begin with the alpha-eigenvalue transport equation in one-dimensional slab geometry with isotropic scattering. The spatial domain is the interval $[a,b]$ in $x$, $\mu$ is the angle cosine in $[-1,1]$, the energy variable is $E \in [0, \infty)$, and the equations for the angular flux $\psi(x, \mu, E)$ are given by
 \begin{multline}
@@ -40,7 +40,7 @@ The integrals in angle in Eq.~\ref{eq:1DAlpha} are then approximated by
 \end{equation}
 Using diamond differencing in the spatial dimension \cite{lewis_computational_1984}, we obtain the fully discretized set of equations for the eigenvalue problems
 \begin{multline}
-	\mu_{\ell} \frac{ \psi_{g,\ell,i} - \psi_{g, \ell, i-1}}{\Delta x_{i}} + \frac{\alpha}{v_{g}} \frac{\psi_{g,\ell,i} + \psi_{g, \ell, i-1}}{2} + \sigma_{g,i} \frac{\psi_{g,\ell,i} + \psi_{g, \ell, i-1}}{2} \\ = \frac{\chi_{g}}{2} \sum_{g'=1}^{G} \frac{\nu_{g}\sigma_{f,g',i}}{2} \sum_{\ell' = 1}^{L} w_{\ell'} \psi_{g',\ell',i} + \sum_{g'=1}^{G} \frac{\sigma_{s,g,g',i}}{2} \sum_{\ell' = 1}^{L} w_{\ell'} \psi_{g',\ell',i},
+	\mu_{\ell} \frac{ \psi_{g,\ell,i} - \psi_{g, \ell, i-1}}{\Delta x_{i}} + \frac{\alpha}{v_{g}} \frac{\psi_{g,\ell,i} + \psi_{g, \ell, i-1}}{2} + \sigma_{g,i} \frac{\psi_{g,\ell,i} + \psi_{g, \ell, i-1}}{2} \\ = \frac{\chi_{g}}{2} \sum_{g'=1}^{G} \frac{\nu_{g}\sigma_{f,g',i}}{2} \sum_{\ell' = 1}^{L} w_{\ell'} \bigg ( \frac{\psi_{g',\ell',i} + \psi_{g',\ell',i-1} }{2} \bigg ) + \sum_{g'=1}^{G} \frac{\sigma_{s,g,g',i}}{2} \sum_{\ell' = 1}^{L} w_{\ell'} \bigg ( \frac{\psi_{g',\ell',i} + \psi_{g',\ell',i-1} }{2} \bigg ),
 \label{eq:AlphaSlab}
 \end{multline}
 for $g = 1, \dots, G$, $i = 1, \dots, M$, and $\ell = 1, \dots, L$. The discretized boundary conditions are given by
@@ -48,7 +48,7 @@ for $g = 1, \dots, G$, $i = 1, \dots, M$, and $\ell = 1, \dots, L$. The discreti
 \psi_{g,\ell,M} &= 0 \text{ for } \ell = 1, \dots, L/2,  \\
 \psi_{g,\ell,0} &= 0 \text{ for } \ell = L/2+1, \dots, L.
 \end{align}
-Using cell-centered flux values, it follows that Eq.~\ref{eq:AlphaSlab} is a system of $GLM$ equations for $GLM$ unknowns. 
+Using cell-centered flux values, it follows that Eq.~\ref{eq:AlphaSlab} is a system of $GL(M+1)$ equations for $GL(M+1)$ unknowns. 
 
 %\subsection{The Diamond Difference Operator Matrix Form}
 
@@ -59,17 +59,17 @@ To write Eq.~\ref{eq:AlphaSlab} in matrix form, we define the angular flux vecto
 \Psi_{g,1} \\
 \vdots \\
 \Psi_{g,L}
-\end{pmatrix} \in \mathbf{R}^{L(M+1)} \quad \text{ with } \quad
+\end{pmatrix} \in \mathbb{R}^{L(M+1)} \quad \text{ with } \quad
 \Psi_{g, \ell} \equiv 
 \begin{pmatrix}
-\Psi_{g,\ell,0} \\
+\psi_{g,\ell,0} \\
 \vdots \\
-\Psi_{g,L,M}
-\end{pmatrix} \in \mathbf{R}^{M+1}.
+\psi_{g,L,M}
+\end{pmatrix} \in \mathbb{R}^{M+1}.
 \end{equation}
 To write the matrix form of the diamond difference discretized operator $\mu_{\ell} \partial/\partial x + 1/v_{g} + \sigma_{g}$, we define the block diagonal matrix
 \begin{equation}
-\bar{S} \equiv \text{diag}(S_{1}, \dots, S_{L}) \in \mathbf{R}^{LM \times L(M+1)}
+\bar{S} \equiv \text{diag}(S_{1}, \dots, S_{L}) \in \mathbb{R}^{LM \times L(M+1)}
 \end{equation}
 with
 \begin{equation}
@@ -79,18 +79,18 @@ S_{\ell} = S = \frac{1}{2}
 1 & 1 & & \\
 & \ddots & \ddots & \\
 & & 1 & 1
-\end{pmatrix} \in \mathbf{R}^{M \times (M+1)},
+\end{pmatrix} \in \mathbb{R}^{M \times (M+1)},
 \end{equation}
 for all $\ell$. The matrix $S$ interpolates nodal vectors into zone-centered vectors by averaging the nodal values. Now we define the total cross section and inverse velocity matrices for energy group $g$ as
 \begin{equation}
-	\Sigma_{g}  \equiv \text{diag}(\sigma_{g,1},\dots,\sigma_{g,M}) \in \mathbf{R}^{M \times M},
+	\Sigma_{g}  \equiv \text{diag}(\sigma_{g,1},\dots,\sigma_{g,M}) \in \mathbb{R}^{M \times M},
 \end{equation}
 \begin{equation}
-	V^{-1}_{g}  \equiv \text{diag}(1/v_{g,1},\dots,1/v_{g,M}) \in \mathbf{R}^{M \times M}.
+	V^{-1}_{g}  \equiv \text{diag}(1/v_{g,1},\dots,1/v_{g,M}) \in \mathbb{R}^{M \times M}.
 \end{equation}
 We define the following matrices to describe the discretized derivative term
 \begin{equation}
-	\Delta x \equiv \text{diag}(\Delta x_{1}, \dots, \Delta x_{M}) \in \mathbf{R}^{M \times M}
+	\Delta x \equiv \text{diag}(\Delta x_{1}, \dots, \Delta x_{M}) \in \mathbb{R}^{M \times M}
 \end{equation}
 and
 \begin{equation}
@@ -100,21 +100,21 @@ D \equiv
 -1 & 1 & & \\
 & \ddots & \ddots & \\
 & & -1 & 1
-\end{pmatrix} \in \mathbf{R}^{M \times (M+1)}.
+\end{pmatrix} \in \mathbb{R}^{M \times (M+1)}.
 \end{equation}
 Boundary values are isolated by defining the row vector
 \begin{equation}
 	B_{\ell} \equiv \begin{cases}
 				e_{M}^{T} \quad \text{ if } \ell \leq L/2, \\
-				e_{0}^{T} \quad \text{ if } \ell > L/2
-                              \end{cases} \in \mathbf{R}^{M+1},
+				e_{0}^{T}  \quad \text{ if } \ell > L/2,
+                              \end{cases} \in \mathbb{R}^{M+1},
 \end{equation}
 where the indices on the standard basis vectors $e_{\ell}$ are from 0 to $M$. Finally, we define the matrices $Z$ and $Z_{b}$ as
 \begin{equation}
 	Z \equiv \begin{pmatrix}
 			I_{M} \\
 			0
-		     \end{pmatrix} \in \mathbf{R}^{(M+1) \times M} \quad \text{ and } \quad
+		     \end{pmatrix} \in \mathbb{R}^{(M+1) \times M} \quad \text{ and } \quad
 	Z_{b} \equiv  e_{M}.
 \end{equation}
 We can now define the matrix form of the diamond difference representation of  $\mu_{\ell} \partial/\partial x + \alpha/v_{g} + \sigma_{g}$ as 
@@ -127,14 +127,14 @@ where
 \end{equation}
 It can be shown that $H_{g} + \alpha V^{-1}_{g}$ is nonsingular for the diamond difference method if $\alpha$ is not too negative.
 
-We now define discretized representations of angular flux moment operators. The matrices operate on zone-centered vectors and are in $\mathbf{R}^{M \times LM}$. We define the matrix
+We now define discretized representations of angular flux moment operators. The matrices operate on zone-centered vectors and are in $\mathbb{R}^{M \times LM}$. We define the matrix
 \begin{equation}
 	L_{n} \equiv (l_{n}W) \otimes I_{M},
 \end{equation}
 where $l_{n} \equiv (P_{n}(\mu_{1}), P_{n}(\mu_{2}), \dots, P_{n}(\mu_{L}))$ are the Legendre polynomials and the quadrature weights are given by $W \equiv \text{diag}(w_{1}, \dots, w_{L})$.
 If the vector $\Psi_{g}$ approximates $\psi_{g}(x, \mu)$, then $L_{n}\Psi_{g}$ approximates taking the n$^{th}$ moment of the angular flux $\phi_{g,n}(x)$. We also define the matrix
 \begin{equation}
-	L_{n}^{+} \equiv (2n+1)l_{n}^{T} \otimes I_{M} \in \mathbf{R}^{LM \times M}.
+	L_{n}^{+} \equiv (2n+1)l_{n}^{T} \otimes I_{M} \in \mathbb{R}^{LM \times M}.
 \end{equation}
 If a vector $\Phi$ approximates $\phi(x)$, then $L_{n}^{+}\Psi$ will approximate $P_{n}(\mu)\phi(x)$. We define the grouped matrices for $N_{s}$ moments as
 \begin{equation}
@@ -147,31 +147,31 @@ L^{N,+} = (L_{0}^{+}, \dots, L_{N}^{+}).
 \end{equation}
 We can define the scattering and fission matrices as
 \begin{equation}
-	\Sigma_{s,g,g',n} \equiv \text{diag}(\sigma_{s,g,g',n,1}, \dots, \sigma_{s,g,g',n,M}) \in \mathbf{R}^{M \times M}
+	\Sigma_{s,g,g',n} \equiv \text{diag}(\sigma_{s,g,g',n,1}, \dots, \sigma_{s,g,g',n,M}) \in \mathbb{R}^{M \times M}
 \end{equation}
 and
 \begin{equation}
-	\Sigma_{f,g,g',n} \equiv \text{diag}(\chi_{g}\nu\sigma_{f,g',n,1}, \dots, \chi_{g}\nu\sigma_{f,g',n,M}) \in \mathbf{R}^{M \times M}.
+	\Sigma_{f,g,g',n} \equiv \text{diag}(\chi_{g}\nu\sigma_{f,g',n,1}, \dots, \chi_{g}\nu\sigma_{f,g',n,M}) \in \mathbb{R}^{M \times M}.
 \end{equation}
 We now define matrices that inject zone-centered vectors into nodal vector space and vice versa. We define the matrices
 \begin{equation}
-\bar{\Sigma}_{g} \equiv I_{L} \otimes \Sigma_{g} \in \mathbf{R}^{LM \times LM},
+\bar{\Sigma}_{g} \equiv I_{L} \otimes \Sigma_{g} \in \mathbb{R}^{LM \times LM},
 \end{equation}
 \begin{equation}
-\bar{V^{-1}}_{g} \equiv I_{L} \otimes V^{-1}_{g} \in \mathbf{R}^{LM \times LM},
+\bar{V^{-1}}_{g} \equiv I_{L} \otimes V^{-1}_{g} \in \mathbb{R}^{LM \times LM},
 \end{equation}
 \begin{equation}
-	\bar{Z} = I_{L} \otimes Z \in \mathbf{R}^{L(M+1) \times LM},
+	\bar{Z} = I_{L} \otimes Z \in \mathbb{R}^{L(M+1) \times LM},
 \end{equation}
 \begin{equation}
-	\bar{Z}_{B} = I_{L} \otimes Z_{b} \in \mathbf{R}^{L(M+1) \times L},
+	\bar{Z}_{B} = I_{L} \otimes Z_{b} \in \mathbb{R}^{L(M+1) \times L},
 \end{equation}
 \begin{equation}
-	B = \text{diag}(B_{1}, \dots, B_{L}) \in \mathbf{R}^{L \times L(M+1)},
+	B = \text{diag}(B_{1}, \dots, B_{L}) \in \mathbb{R}^{L \times L(M+1)},
 \end{equation}
 and
 \begin{equation}
-	C = \text{diag}(\mu_{1}\Delta x^{-1}D, \dots, \mu_{L} \Delta x^{-1}D) \in \mathbf{R}^{LM \times L(M+1)}.
+	C = \text{diag}(\mu_{1}\Delta x^{-1}D, \dots, \mu_{L} \Delta x^{-1}D) \in \mathbb{R}^{LM \times L(M+1)}.
 \end{equation}
 Using the above matrices, we can write the matrix $H_{g} + V^{-1}_{g}$ as
 \begin{multline}
@@ -227,11 +227,13 @@ Defining the following matrices
 \end{equation} 
 then Eq.~\ref{eq:AlphaMGg} can be written as
 \begin{equation}
-	\mathbf{H}\mathbf{\Psi} + \alpha \mathbf{V}^{-1}\mathbf{\Psi} = \mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} \mathbf{\Psi} + \mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L} \mathbf{\Psi}.
+	\big ( \mathbf{H} + \alpha \mathbf{V}^{-1} \big ) \mathbf{\Psi} = \mathbf{Z} \mathbf{L}^{+}  \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big )\mathbf{L} \mathbf{S} \mathbf{\Psi}.
 	\label{AlphaMG}
 \end{equation}
 Similarly, the discretized $k$-eigenvalue problem can be written as
 \begin{equation}
-	\mathbf{H}\mathbf{\Psi}  = \mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{s}} \mathbf{L} \mathbf{\Psi} + \frac{1}{k}\mathbf{Z} \mathbf{L}^{+}  \mathbf{\Sigma_{f}} \mathbf{L} \mathbf{\Psi}.
+	\mathbf{H}\mathbf{\Psi}  = \mathbf{Z} \mathbf{L}^{+} \bigg ( \mathbf{\Sigma_{s}} + \frac{1}{k} \mathbf{\Sigma_{f}} \bigg ) \mathbf{L} \mathbf{S} \mathbf{\Psi}.
 	\label{kMG}
 \end{equation}
+
+Equations~\ref{AlphaMG} and \ref{kMG} are eigenvalue equations for the criticality eigenvalue and the node-centered angular flux eigenvector. In the derivation of the Rayleigh Quotient Fixed Point method, an inner product is required. However, the inner product is defined for zone-centered vectors, whereas the unknown angular flux vectors in Eqns.~\ref{AlphaMG} and \ref{kMG} are node-centered. To satisfy this requirement, Eqns.~\ref{AlphaMG} and \ref{kMG} are rewritten using zone-centered angular flux eigenvectors. We denote $\mathbf{\Psi_{z}}$ as the zone-centered unknown and $\mathbf{H_{z}}$ as the zone-centered version of $\mathbf{H}$.
