@@ -2,9 +2,9 @@
 %\chaptermark{Discretization and Primitivity of the Neutron Transport Criticality Eigenvalue Problems}
 \label{Discrete}
 
-In this section we describe the discretization of the neutron transport criticality eigenvalue equations for three-dimensional Cartesian geometry. The discretization follows a similar approach to that of \cite{brown_linear_1995} \cite{brown_POI_2008} \cite{brown_POI_2012}. First, we derive semi-discretized forms of the eigenvalue equations by applying the \textit{multigroup} in energy approximation and a spherical harmonics expansion for the scattering integral. We then discretize the spatial and angular variables using step differencing and the discrete ordinates approach. Finally, we write down the discretized matrix forms of the criticality eigenvalue equations for three-dimensional Cartesian geometry. For the one-dimensional slab geometry discretized alpha-eigenvalue problem, we prove that the discretize transport equation matrix is primitive. A similar result can be shown for the two-dimensional and three-dimensional Cartesian discretized eigenvalue equations.
+In this section we describe the discretization of the neutron transport criticality eigenvalue equations for three-dimensional Cartesian geometry. The discretization follows a similar approach to that of Brown \cite{brown_linear_1995} \cite{brown_POI_2008} \cite{brown_POI_2012}. First, we derive semi-discretized forms of the eigenvalue equations by applying the \textit{multigroup} in energy approximation and a spherical harmonics expansion for the scattering integral. We then discretize the spatial and angular variables using step differencing and the discrete ordinates approach. Finally, we write down the discretized matrix forms of the criticality eigenvalue equations for three-dimensional Cartesian geometry. For the one-dimensional slab geometry discretized alpha-eigenvalue problem, we prove that the discretize transport equation matrix is primitive. A similar result can be shown for the two-dimensional and three-dimensional Cartesian discretized eigenvalue equations.
 
-We begin with the linear alpha-eigenvalue neutron transport equation in a three-dimen\-sional box geometry with scattering. The spatial domain is the box $\mathcal{D} \equiv \{\vec{r} = (x, y, z) \, \vert \, a_{x} \leq x \leq b_{x}, a_{y} \leq y \leq b_{y}, \text{ and } a_{z} \leq z \leq b_{z} \},$ the direction variable is $\hat{\Omega} \in \mathcal{S}^{2}$, the unit sphere in $\mathbb{R}^{3}$, the energy variable is $E \in (0, \infty)$, and the equation for the angular flux $\psi(\vec{r}, \hat{\Omega}, E)$ is given by
+We begin with the linear alpha-eigenvalue neutron transport equation in a three-dimen\-sional box geometry. For a description of the discretization process for the one-dimensional slab neutron transport eigenvalue equations see Appendix~\ref{Discrete1D}. The spatial domain is the box $\mathcal{D} \equiv \{\vec{r} = (x, y, z) \, \vert \, a_{x} \leq x \leq b_{x}, a_{y} \leq y \leq b_{y}, \text{ and } a_{z} \leq z \leq b_{z} \},$ the direction variable is $\hat{\Omega} \in \mathcal{S}^{2}$, the unit sphere in $\mathbb{R}^{3}$, the energy variable is $E \in (0, \infty)$, and the equation for the angular flux $\psi(\vec{r}, \hat{\Omega}, E)$ is given by
 
 \begin{multline}
 	\bigg [ \frac{\alpha}{v(E)} + \hat{\Omega} \cdot \nabla + \sigma(\vec{r},E) \bigg ] \psi(\vec{r},\hat{\Omega},E) \\ = \int_{0}^{\infty} \diff E' \, \int_{4\pi} \diff \hat{\Omega} \, \sigma_{s}(\vec{r},E'\rightarrow E,\hat{\Omega}' \cdot \hat{\Omega}) \psi(\vec{r},\hat{\Omega}',E') \\ + \int_{0}^{\infty} \diff E' \, \nu(E') \chi(E'\rightarrow E) \sigma_{f}(\vec{r},E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(\vec{r},\hat{\Omega}',E'), 
@@ -574,7 +574,7 @@ and
 \begin{equation}
 \mathbf{T}(k) = \mathbf{H}_{\mathbf{z}}^{-1} \bigg (\mathbf{\Sigma_{s}} + \frac{1}{k}\mathbf{\Sigma_{f}} \bigg)
 \end{equation}
-are primitive for the one-dimensional slab geometry problem. Though there are various definitions of a primitive matrix (see Section~\ref{PrimMatrix}), it suffices to show that for some nonnegative matrix $\mathbf{A}$, if there is some$n$ such that $\mathbf{A}^{n} > \mathbf{0}$, then $\mathbf{A}$ is primitive.
+are primitive for the one-dimensional slab geometry problem. Though there are various definitions of a primitive matrix (see Section~\ref{PrimMatrix}), it suffices to show that for some nonnegative matrix $\mathbf{A}$, if there is some $n$ such that $\mathbf{A}^{n} > \mathbf{0}$, then $\mathbf{A}$ is primitive.
 
 It is assumed that there is fissile material in all spatial cells and spatial cell widths are small enough to guarantee the positivity of $\mathbf{H}_{\mathbf{z}}^{-1}$ for diamond differencing \cite{greenbaum1997iterative}. Step differencing also guarantees this condition is met. In practice, the requirement for fissile material in all cells can be relaxed as long as sum of the fission and scattering matrices couple all energy and direction groups. It also assumed that a symmetric about the origin angular quadrature is used.
 
@@ -802,6 +802,9 @@ Now we prove that the matrix $\mathbf{T}(k) = \mathbf{H}_{\mathbf{z}}^{-1} \big 
 
 \end{proof}
 
+\section{Conclusion}
+
+Starting with a three-dimensional Cartesian geometry, the continuous neutron transport criticality eigenvalue equations were discretized using step differencing in space, discrete ordinates angular quadrature, and the multigroup-in-energy approximation. The matrix forms of the alpha- and $k$-effective eigenvalue equations were derived and the structure and properties of the transport, scattering, fission, and velocity matrices were described. Finally, the primitivity of the discretized one-dimensional slab alpha-eigenvalue equation was proven.
 
 %Assuming isotropic fission and scattering, we show by example that the matrix $\mathbf{A}(\alpha)$ is a primitive matrix (Section~\ref{PrimMatrix}). Consider a two energy group problem with discrete ordinates $S_{2}$ angular quadrature from \cite{lewis_computational_1984} and two spatial cells ($G, L, M = 2$). The scattering matrix is then
 %\begin{multline}
