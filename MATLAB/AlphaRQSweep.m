@@ -1,4 +1,4 @@
-function [y,alpha,q] = AlphaRQSweep(H,S,F,iV,x,q)
+function [x, alpha, q] = AlphaRQSweep(H, S, F, iV, x, q)
 
 %[y,alpha,q] = AlphaRQSweep(H,S,F,iV,x,q) is the one-sweep alpha-eigenvalue 
 %Rayleigh Quotient Fixed Point. The function performs one sweep 
@@ -11,7 +11,7 @@ function [y,alpha,q] = AlphaRQSweep(H,S,F,iV,x,q)
 %       x - Previous Angular Flux Vector Iterate
 %       q - Previous Scattering and Fission Source Vector
 
-%Output: y - New Angular Flux Iterate
+%Output: x - New Angular Flux Iterate
 %        alpha - New Alpha-Eigenvalue Iterate
 %        q - New Scattering and Fission Source Vector
 
@@ -26,6 +26,6 @@ function [y,alpha,q] = AlphaRQSweep(H,S,F,iV,x,q)
     %Set new source
     q = (-alpha*iV + S + F)*x;
     %Transport Sweep
-    y = H\q;
+    x = H\q;
     
 return

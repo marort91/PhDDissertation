@@ -59,11 +59,14 @@
 \let\ph\mlplaceholder % shorter macro
 \lstMakeShortInline"
 
+\definecolor{backcolor}{rgb}{0.95,0.95,0.92}
+
 \lstset{
   style              = Matlab-editor,
   basicstyle         = \mlttfamily,
   escapechar         = ",
   mlshowsectionrules = true,
+  backgroundcolor=\color{backcolor}
 }
 
 \usetikzlibrary{plotmarks}

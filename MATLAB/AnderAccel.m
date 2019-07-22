@@ -79,7 +79,8 @@ for k = 0:maxits
     
     residual(k+1) = norm(x-xold)/norm(x);
     
-    fprintf("Iter: %i alpha = %e residual = %e \n", k+1, alpha, residual(k+1));
+    fprintf('Iter: %i alpha = %e residual = %e \n,...
+            k+1, alpha, residual(k+1));
     
     %Termination Criterion
     if ( residual(k+1) < tol )
