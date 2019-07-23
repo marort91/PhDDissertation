@@ -1,8 +1,8 @@
 function [x, alpha, q] = AlphaRQSweep(H, S, F, iV, x, q)
 
-%[y,alpha,q] = AlphaRQSweep(H,S,F,iV,x,q) is the one-sweep alpha-eigenvalue 
-%Rayleigh Quotient Fixed Point. The function performs one sweep 
-%of the system.
+%[y,alpha,q] = AlphaRQSweep(H,S,F,iV,x,q) is the one-sweep 
+%alpha-eigenvalue Rayleigh Quotient Fixed Point. The function 
+%performs one sweep of the system.
 
 %Input: H - Leakage/Transport Matrix
 %       S - Scattering Matrix
@@ -25,6 +25,7 @@ function [x, alpha, q] = AlphaRQSweep(H, S, F, iV, x, q)
     
     %Set new source
     q = (-alpha*iV + S + F)*x;
+    
     %Transport Sweep
     x = H\q;
     
