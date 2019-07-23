@@ -570,7 +570,7 @@ For the alpha-eigenvalue, the RQFP method required 6776 transport sweeps to conv
 For the $k$-effective eigenvalue, the RQFP method required 9064 transport sweeps as compared to 9681 transport sweeps for the power method with fission source norm update (Table~\ref{table:2DMoxCoarseK}). As the problem was substantially supercritical, the performance of the RQFP method was not degraded by the large amounts of scattering in the moderator regions of the problem and converges the solution is fewer iteration than the power method. The $k$-effective eigenvalue group scalar fluxes were substantially different from the alpha-eigenvalue group scalar fluxes as expected since the problem was not close to critical. The absolute difference between the alpha-eigenvalue and $k$-effective eigenvectors for energy group six is seen in Figure~\ref{fig:EigScalarFluxDiff}. The number of transport sweeps necessary to converge the two eigenproblems were noticeable different with the $k$-effective eigenvalue requiring approximately 33\% more sweeps.
 
 \begin{table}[!htbp]
-	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Two-Dimensional MOX Fuel Core with Coarse Spatial Discretization}
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for 2D MOX Fuel Core with Coarse Spatial Discretization}
 	\label{table:2DMOXCoarseRes}
 	\begin{subtable}[h]{1.0\textwidth}
 	\centering\ra{1.3}
@@ -662,7 +662,7 @@ For the $k$-effective eigenvalue, the RQFP method required 9064 transport sweeps
   \centering
   \includegraphics[width=.7\linewidth]{Figures/HigherDimEigen/Alpha_g6_k_g6_AbsDiff}
 \end{subfigure}
-\caption{Absolute Difference between Alpha-Eigenvalue and $k$-Effective Eigenvalue Group Six Scalar Flux (Coarse Homogenization)}
+\caption{Absolute Difference between Alpha- and $k$-Effective Eigenvalue Group Six Scalar Fluxes (Coarse Homogenization)}
 \label{fig:EigScalarFluxDiff}
 \end{figure}
 
@@ -687,7 +687,7 @@ Determining the alpha-eigenvalue and eigenvector using the RQFP method required 
 For the $k$-effective eigenvalue, the RQFP method required 5579 transport sweeps to converge as compared to 5523 transport sweep for the power method with fission norm update. Unlike the coarse spatial homogenization, the RQFP method underperformed the power method slightly. Despite this, the RQFP method provides another competitive solution method to the eigenvalue problem. As compared to the alpha-eigenvalue RQFP method, the $k$-effective RQFP method required approximately 40\% more transport sweeps to converge the eigenvalue/eigenvector to the same tolerance. This is expected as the fundamental modes are expected to be substantially different as the positive alpha-eigenvalue hardens the neutron energy spectra while the $k$-effective eigenvalue softens the spectrum. The absolute difference between the thermal energy alpha-eigenvalue scalar flux and the thermal energy $k$-effective scalar flux is seen in Figure~\ref{fig:EigScalarFluxDiffFine}.
 
 \begin{table}[!htbp]
-	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Two-Dimensional MOX Fuel Core with Fine Spatial Discretization}
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for 2D MOX Fuel Core with Fine Spatial Discretization}
 	\label{table:2DMOXFineRes}
 	\begin{subtable}[h]{1.0\textwidth}
 	\centering\ra{1.3}
@@ -777,7 +777,7 @@ For the $k$-effective eigenvalue, the RQFP method required 5579 transport sweeps
   \centering
   \includegraphics[width=.7\linewidth]{Figures/HigherDimEigen/Alpha_g6_k_g6_FineAbsDiff}
 \end{subfigure}
-\caption{Absolute Difference between Alpha-Eigenvalue and $k$-Effective Eigenvalue Group Six Scalar Flux (Fine Homogenization)}
+\caption{Absolute Difference between Alpha- and $k$-Effective Eigenvalue Group Six Scalar Fluxes (Fine Homogenization)}
 \label{fig:EigScalarFluxDiffFine}
 \end{figure}
 
@@ -800,7 +800,7 @@ To determine the alpha-eigenvalue and eigenvector of the three-dimensional assem
 The RQFP method required 43309 transport sweeps to converge the $k$-effective eigenvalue and eigenvector (Table~\ref{table:3DMOXCoarseK}). The power method with fission source update required 43666 transport sweeps. Both methods were converged to a tolerance of $10^{-6}$. The RQFP method performed slightly better than the power method for the three-dimensional fuel assembly benchmark problem. Compared to the alpha-eigenvalue problem, the RQFP method required approximately 12\% more transport sweeps to converge the $k$-effective eigenvalue and eigenvector to the same tolerance.
 
 \begin{table}[!htbp]
-	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Three-Dimensional MOX Fuel Core with Coarse Spatial Discretization}
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for 3D MOX Fuel Core with Coarse Spatial Discretization}
 	\label{table:3DMOXCoarseRes}
 	\begin{subtable}[h]{1.0\textwidth}
 	\centering\ra{1.3}
