@@ -1,4 +1,4 @@
-function [alpha,x,residual] = AnderAccel(H,S,F,iV,maxits,tol,mmax,fpiters,beta)
+function [alpha,x,residual] = AndersonAcc(H,S,F,iV,maxits,tol,mmax,fpiters,beta)
 
 %[alpha,x,residual] = AnderAccel(H,S,F,iV,maxits,tol,mmax,fpiters,beta) is
 %the Anderson acceleration implementation for the alpha-eigenvalue Rayleigh
@@ -11,9 +11,9 @@ function [alpha,x,residual] = AnderAccel(H,S,F,iV,maxits,tol,mmax,fpiters,beta)
 %       maxits - Maximum Number of Iterations
 %       tol - L2 Norm Residual Tolerance
 %       mmax - Maximum Number of Residual Vectors used by Anderson
-%              acceleration
-%       fpiters - Initial fixed-point iteration function evaluations
-%       beta - Relaxation parameter
+%              Acceleration
+%       fpiters - Initial Fixed-point Iteration Function Evaluations
+%       beta - Relaxation Parameter
 
 %Output: alpha - Converged Alpha-Eigenvalue
 %        x - Converged Angular Flux Vector

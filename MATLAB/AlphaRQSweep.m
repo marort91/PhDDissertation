@@ -1,6 +1,6 @@
 function [x, alpha, q] = AlphaRQSweep(H, S, F, iV, x, q)
 
-%[y,alpha,q] = AlphaRQSweep(H,S,F,iV,x,q) is the one-sweep 
+%[x,alpha,q] = AlphaRQSweep(H,S,F,iV,x,q) is the one-sweep 
 %alpha-eigenvalue Rayleigh Quotient Fixed Point. The function 
 %performs one sweep of the system.
 

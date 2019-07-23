@@ -24,12 +24,12 @@ ylabel style={font=\color{white!15!black},font=\Huge},
 %ylabel={Norm},
 %ylabel={$\frac{\norm{\mathbf{\Psi}_{i+1} - \mathbf{\Psi}_{i}}_{2}}{\norm{\mathbf{\Psi}_{i+1}}_{2}}$},
 ylabel={$\ell_{2}$ Norm of Residual},
-axis background/.style={fill=white},
+axis background/.style={fill=gray!30},
 axis x line*=bottom,
 axis y line*=left,
 legend style={legend cell align=left, align=left, draw=white!15!black}
 ]
-\addplot [color=black]
+\addplot [color=blue, line width = 3.0pt]
   table[row sep=crcr]{%
 2	0.214434\\
 3	0.2283713\\
@@ -142,9 +142,9 @@ legend style={legend cell align=left, align=left, draw=white!15!black}
 110	1.239098e-12\\
 111	9.854729e-13\\
 };
-\addlegendentry{PUa-1-0-IN-Power Method}
+\addlegendentry{PUa-1-Power Method}
 
-\addplot [color=black, mark=square, mark options={solid, black}]
+\addplot [color=red, mark=square, mark options={red}, line width = 2.0pt]
   table[row sep=crcr]{%
 1	0.4089406\\
 2	0.1035325\\
@@ -187,9 +187,9 @@ legend style={legend cell align=left, align=left, draw=white!15!black}
 39	1.112123e-12\\
 40	4.171629e-13\\
 };
-\addlegendentry{PUa-1-0-IN-RQ}
+\addlegendentry{PUa-RQFP}
 
-\addplot [color=black, dashed]
+\addplot [color=blue, dashed, line width = 3.0pt]
   table[row sep=crcr]{%
 2	0.1507224\\
 3	0.2430688\\
@@ -287,9 +287,9 @@ legend style={legend cell align=left, align=left, draw=white!15!black}
 95	1.124064e-12\\
 96	8.490174e-13\\
 };
-\addlegendentry{PUb-1-0-IN-Power Method}
+\addlegendentry{PUb-Power Method}
 
-\addplot [color=black, mark=o, mark options={solid, black}]
+\addplot [color=red, mark=o, mark options={red}, line width = 2.0pt]
   table[row sep=crcr]{%
 1	0.3841113\\
 2	0.08129748\\
@@ -325,7 +325,7 @@ legend style={legend cell align=left, align=left, draw=white!15!black}
 32	2.146527e-12\\
 33	8.744363e-13\\
 };
-\addlegendentry{PUb-1-0-IN-RQ}
+\addlegendentry{PUb-RQFP}
 
 \end{axis}
 \end{tikzpicture}%

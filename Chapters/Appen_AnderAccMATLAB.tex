@@ -6,7 +6,9 @@ In Appendix~\ref{AnderAccMATLAB} we describe the implementation of Anderson acce
 
 \section{Alpha-Eigenvalue Rayleigh Quotient Fixed Point Method Matlab Implementation}
 
-The Matlab function \texttt{AlphaRQSweep} performs one iteration (transport sweep) of the Rayleigh Quotient Fixed Point method for alpha-eigenvalue problems. The function requires the matrices \texttt{H, S, F, iV}, the numerical matrix representations of the matrices $\mathbf{H}_{\mathbf{z}}$, $\mathbf{V}_{\mathbf{z}}^{-1}$, $\mathbf{\Sigma_{s}}$, and $\mathbf{\Sigma_{f}}$ described in Chapter~\ref{Discrete}. The function also requires input vectors \texttt{x} and \texttt{q}, the previous angular flux vector and previous source, respectively, as described in Chapter~\ref{DeriveRQ}. The function calculates the alpha-eigenvalue and returns it to \texttt{alpha} and determines the next angular flux iterate and source. \texttt{AlphaRQSweep} is used as the fixed point function evaluation in Anderson acceleration. The Matlab code is seen in Listing~\ref{AlphaRQCode}.
+\label{sec:AlphaRQSweep}
+
+The Matlab function \texttt{AlphaRQSweep} performs one iteration (transport sweep) of the Rayleigh Quotient Fixed Point method for alpha-eigenvalue problems. The function requires the matrices \texttt{H, S, F, iV}, the numerical matrix representations of the matrices $\mathbf{H}_{\mathbf{z}}$, $\mathbf{V}_{\mathbf{z}}^{-1}$, $\mathbf{\Sigma_{s}}$, and $\mathbf{\Sigma_{f}}$ described in Chapter~\ref{Discrete}. The function also requires input vectors \texttt{x} and \texttt{q}, the previous angular flux vector and previous source, respectively, as described in Chapter~\ref{DeriveRQ}. The function calculates the alpha-eigenvalue and returns it to \texttt{alpha} and determines the next angular flux iterate and source. \texttt{AlphaRQSweep} is used as the fixed point function evaluation in Anderson acceleration. The Matlab code is shown in Listing~\ref{AlphaRQCode}.
 
 \clearpage
 
@@ -15,4 +17,9 @@ The Matlab function \texttt{AlphaRQSweep} performs one iteration (transport swee
 \clearpage
 
 \section{Anderson Acceleration Matlab Implementation}
-\lstinputlisting[numbers=none, label=AACode, caption=\texttt{AnderAccel}-Anderson Acceleration Matlab Implementation, captionpos=b]{Matlab/AnderAccel.m}
+
+The Matlab function \texttt{AndersonAcc} performs the Anderson acceleration of the Rayleigh Quotient Fixed Point method for alpha-eigenvalue problems. The function requires the matrices \texttt{H, S, F, iV}, the number of maximum iterations, \texttt{maxits}, the $\ell_{2}$ norm tolerance, \texttt{tol}, the maximum number of residual vectors to be used in the method, \texttt{mmax}, the number of initial fixed-point iterations, \texttt{fpiters}, and the relaxation parameter, \texttt{beta}. These parameters are described in Chapter~\ref{sec:AndAcc}.
+
+The function \texttt{AndersonAcc} initializes the initial angular flux guess and source and then performs a fixed number of initial fixed-point function evaluations given by the input argument \texttt{fpiters} before beginning the acceleration of the fixed-point method. The fixed-point evaluation is done by calling the function \texttt{AlphaRQSweep}, described in Section~\ref{sec:AlphaRQSweep}. The function then performs a maximum number of iterations given by \texttt{maxiters} or until the residual tolerance is less than the value given by the input argument \texttt{tol}. The function then performs one fixed-point function evaluation of \texttt{AlphaRQSweep}, calculated the residual and sets the residual vector matrix, deletes old residual vector columns, performs a QR decomposition, and then sets the new angular flux iterate. The function returns the converged alpha-eigenvalue, the converged angular flux vector, and a vector of residuals. The Matlab code is shown in Listing~\ref{AACode}.
+
+\lstinputlisting[numbers=none, label=AACode, caption=\texttt{AndersonAcc}-Anderson Acceleration Matlab Implementation, captionpos=b]{Matlab/AndersonAcc.m}
