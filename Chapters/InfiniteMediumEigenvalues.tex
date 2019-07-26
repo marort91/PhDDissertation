@@ -4,7 +4,7 @@ In this chapter we describe the performance of the Rayleigh quotient methods for
 
 \section{Criticality Benchmark One-Speed Verification for Various Critical and Supercritical Problems}
 
-A set of six infinite medium supercritical problems were selected from the \textit{Analytical Benchmark Test Set for Criticality Code Verification} \cite{sood2003analytical} to test the Rayleigh quotient fixed point method for both alpha-eigenvalue and $k$-effective eigenvalue problems. Each problem was modeled as a slab with reflective boundary conditions on both sides. The slab was discretized using diamond differencing discretization in space ($M = 1000$) and S$_{60}$ discrete ordinates Legendre quadrature ($L = 60$) in angle \cite{lewis_computational_1984}. The eigenvector/eigenvalue residual was converge to a tolerance of $10^{-12}$. These problems were selected as they contained cross sections of commonly used fissile isotopes in nuclear engineering applications such as plutonium-239 and uranium-235 (Table~\ref{table:SoodInf}). The reference eigenvalues for these problems can be seen in Table~\ref{table:InfMed}. For one-speed problems, the velocity was set to $1$ cm/s unless otherwise noted.
+A set of six infinite medium supercritical problems were selected from the \textit{Analytical Benchmark Test Set for Criticality Code Verification} \cite{sood2003analytical} to test the Rayleigh quotient fixed point method for both alpha-eigenvalue and $k$-effective eigenvalue problems. Each problem was modeled as a slab with reflective boundary conditions on both sides. The slab was discretized using diamond differencing discretization in space ($M = 2$) and S$_{2}$ discrete ordinates Legendre quadrature ($L = 2$) in angle \cite{lewis_computational_1984}. The eigenvector/eigenvalue residual was converge to a tolerance of $10^{-12}$. These problems were selected as they contained cross sections of commonly used fissile isotopes in nuclear engineering applications such as plutonium-239 and uranium-235 (Table~\ref{table:SoodInf}). The reference eigenvalues for these problems can be seen in Table~\ref{table:InfMed}. For one-speed problems, the velocity was set to $1$ cm/s unless otherwise noted.
 
 \begin{table}[!htbp]
 	\caption{Plutonium and Uranium Cross Sections for Infinite Medium Problems (cm$^{-1}$) \cite{sood2003analytical}}
@@ -48,12 +48,12 @@ A set of six infinite medium supercritical problems were selected from the \text
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{3-4} Cross Section Set & Reference $\alpha_{\infty}$ & RQFP & Critical Search\\
 	\midrule
-        PUa & 0.1632 & 33 & 432 \\
-        PUb & 0.1306& 21 & 391   \\
-	Ua & 0.1265& 24 & 472\\
-	Ub & 0.1347& 24 & 464 \\
-	Uc & 0.1271& 24 & 474 \\
-	Ud & 0.1247& 24 & 472\\
+        PUa & 0.1632 & 29 & 10778 \\
+        PUb & 0.257856 & 40 & 65627   \\
+	Ua & 0.09792 & 28 & 8597 \\
+	Ub & 0.104258753 & 28 & 9112 \\
+	Uc & 0.0983970662 & 28 & 8664 \\
+	Ud & 0.0965620454 & 28 & 8491 \\
 	\bottomrule
 	%\multicolumn{6}{l}{*Did Not Converge} \\
 	\end{tabular}
