@@ -28,7 +28,9 @@ where $\vec{n}(\vec{r})$ is the outward pointing unit normal at $\vec{r} \in \pa
 
 \section{Discretization of the Alpha-Eigenvalue and $k$-Effective Eigenvalue Equations}
 
-\subsection{The Multigroup in Energy Discretization and Spherical Harmonics Expansion of the Angular Flux}
+In this section, we discuss the discretization of the alpha- and $k$-effective eigenvalue neutron transport equations. We begin by approximating the energy dependence of the neutron transport equations using the multigroup in energy approximation. We then discretize the angular flux and scattering cross sections using a surface harmonics expansion. Finally, the spatial and angular dependences of the eigenvalue equations are then approximated using step differencing in space and the discrete ordinates approach in angle.
+
+\subsection{The Multigroup in Energy Discretization and Surface Harmonics Expansion of the Angular Flux}
 
 \subsubsection{The Multigroup in Energy Approximation}
 
@@ -38,23 +40,43 @@ We begin by discretizing Eq.~\ref{eq:Alpha3DNeutronTransport} in energy using th
 \end{equation*}
 The eigenvalue equation is then integrated over each group $E_{g} < E < E_{g-1}$ and the cross sections are approximated by a flux-weighted average over each energy group to yield the following semi-discretization of Eq.~\ref{eq:Alpha3DNeutronTransport}:
 \begin{multline}
-	\bigg [ \frac{\alpha}{v_{g}} + \hat{\Omega} \cdot \nabla + \sigma_{g}(\vec{r}) \bigg ] \psi_{g}(\vec{r},\hat{\Omega}) = \sum_{g'=1}^{G} \int_{4\pi} \diff \hat{\Omega} \, \sigma_{s,g,g'}(\vec{r},\hat{\Omega}' \cdot \hat{\Omega}) \psi_{g'}(\vec{r},\hat{\Omega}') \\ + \chi_{g} \sum_{g'=1}^{G} \, \nu_{g'} \sigma_{f,g'}(\vec{r}) \int_{4\pi} \diff \hat{\Omega}' \, \psi_{g'}(\vec{r},\hat{\Omega}'), 
+	\bigg [ \frac{\alpha}{v_{g}} + \hat{\Omega} \cdot \nabla + \sigma_{g}(\vec{r}) \bigg ] \psi_{g}(\vec{r},\hat{\Omega}) = \sum_{g'=1}^{G} \int_{4\pi} \diff \hat{\Omega'} \, \sigma_{s,g,g'}(\vec{r},\hat{\Omega}' \cdot \hat{\Omega}) \psi_{g'}(\vec{r},\hat{\Omega}') \\ + \chi_{g} \sum_{g'=1}^{G} \, \nu\sigma_{f,g'}(\vec{r}) \int_{4\pi} \diff \hat{\Omega}' \, \psi_{g'}(\vec{r},\hat{\Omega}'), 
 	\label{eq:Alpha3DMG}
 \end{multline}
 for $g = 1, \dots, G$, where
 \begin{equation}
 	\psi_{g}(\vec{r},\hat{\Omega}) \equiv \int_{g} \diff E \, \psi(\vec{r},\hat{\Omega},E),
 \end{equation}
+\begin{equation}
+	 \sigma_{g}(\vec{r}) \equiv \frac{1}{\Delta E_{g}} \int_{g} \diff E \, \sigma(\vec{r},E),
+\end{equation}
+\begin{equation}
+	 \sigma_{s,g,g'}(\vec{r},\hat{\Omega}' \cdot \hat{\Omega}) \equiv \frac{1}{\Delta E_{g'}} \int_{g} \int_{g'} \diff E' \diff E \, \sigma_{s}(\vec{r},E'\rightarrow E,\hat{\Omega}' \cdot \hat{\Omega}),
+\end{equation}
+\begin{equation}
+	\nu\sigma_{f,g}(\vec{r}) \equiv \frac{1}{\Delta E_{g}} \int_{g} \diff E \, \nu(E) \sigma_{f}(E),
+\end{equation}
+\begin{equation}
+	\chi_{g} \equiv \int_{g} \diff E \, \chi(E),
+\end{equation}
 with
 \begin{equation}
 	\int_{g} \diff E \, = \int_{E_{g}}^{E_{g-1}} \diff E.
 \end{equation}
+We note that 
+\begin{equation}
+	\sum_{g=1}^{G} \chi_{g} = 1
+\end{equation}
+in the multigroup formulation since
+\begin{equation}
+	\int_{0}^{\infty} \diff E \, \chi(E) = 1.
+\end{equation}
 
-\subsubsection{The Spherical Harmonics Expansion of the Angular Flux}
+\subsubsection{The Surface Harmonics Expansion of the Angular Flux}
 
 For each flux $\psi_{g}(\vec{r},\hat{\Omega})$, the flux is expanded in surface harmonics according to
 \begin{equation}
-	\psi_{g}(\vec{r},\hat{\Omega}) = \sum_{n=0}^{\infty} \sum_{m=-n}^{\infty} \phi_{g,n,m}(\vec{r}) Y_{n}^{m}(\hat{\Omega}),
+	\psi_{g}(\vec{r},\hat{\Omega}) = \sum_{n=0}^{\infty} \sum_{m=-n}^{n} \phi_{g,n,m}(\vec{r}) Y_{n}^{m}(\hat{\Omega}),
 \end{equation}
 where $Y_{n}^{m}(\hat{\Omega})$ is a surface harmonic defined as
 \begin{equation}
@@ -69,7 +91,7 @@ where $Y_{n}^{m}(\hat{\Omega})$ is a surface harmonic defined as
 					\sin \abs{m} \varphi \quad \text{if } m < 0,
 				      \end{cases}
 \end{equation}
-and $P_{n}^{\abs{m}}$ is an \textit{associated Legendre polynomial}. The constants $a_{n}^{m}$ are defined by
+and $P_{n}^{\abs{m}}$ is an \textit{associated Legendre polynomial} \cite{duderstadt_nuclear_1976}. The constants $a_{n}^{m}$ are defined by
 \begin{equation}
 	a_{n}^{m} = \bigg [ \frac{2(2n+1)(n-\abs{m})!}{(1+\delta_{m0})(n + \abs{m})!} \bigg ]^{1/2}.
 \end{equation}
@@ -77,6 +99,7 @@ where $\delta_{n,n'}$ is the \textit{Kronecker delta}. The $(n,m)^{\text{th}}$ m
 \begin{equation}
 	\phi_{n,m}(\vec{r}) = \int_{4\pi} \diff \hat{\Omega} \, \psi(\vec{r},\hat{\Omega}) Y_{n}^{m}(\hat{\Omega}).
 \end{equation}
+
 From the properties of the surface harmonics, we have
 \begin{equation}
 	\int_{4\pi} \diff \hat{\Omega} \, Y_{n}^{m}(\hat{\Omega}) Y_{n'}^{m'}(\hat{\Omega}) = \delta_{n,n'} \delta_{m,m'}, \text{ for all } n, n' = 0, 1, \dots, \abs{m} \leq \abs{n}, \abs{m'} \leq \abs{n'}.
@@ -92,7 +115,7 @@ where
 \end{equation}
 and $\mu_{0}$ is the cosine of the scattering angle. The infinite series in Eq.~\ref{eq:ScattInt} is truncated to a finite number of terms $N_{s}$, where $N_{s}$ is the maximum value for $n$. The fission integral can be written similarly with the infinite series truncated after $N_{f}$ terms. The multigroup equations can then be written as
 \begin{multline}
-	\bigg [ \frac{\alpha}{v_{g}} + \hat{\Omega} \cdot \nabla + \sigma_{g}(\vec{r}) \bigg ] \psi_{g}(\vec{r},\hat{\Omega}) = \sum_{g'=1}^{G} \sum_{n=0}^{N_{s}} \sigma_{s,g,g',n}(\vec{r}) \sum_{m=-n}^{n} \phi_{g',n,m}(\vec{r}) Y_{n}^{m}(\hat{\Omega}) \\ + \chi_{g} \sum_{g'=1}^{G} \sum_{n=0}^{N_{f}} \nu_{g'} \sigma_{f,g',n}(\vec{r}) \sum_{m=-n}^{n} \phi_{g',n,m}(\vec{r}) Y_{n}^{m}(\hat{\Omega}), 
+	\bigg [ \frac{\alpha}{v_{g}} + \hat{\Omega} \cdot \nabla + \sigma_{g}(\vec{r}) \bigg ] \psi_{g}(\vec{r},\hat{\Omega}) = \sum_{g'=1}^{G} \sum_{n=0}^{N_{s}} \sigma_{s,g,g',n}(\vec{r}) \sum_{m=-n}^{n} \phi_{g',n,m}(\vec{r}) Y_{n}^{m}(\hat{\Omega}) \\ + \chi_{g} \sum_{g'=1}^{G} \sum_{n=0}^{N_{f}} \nu\sigma_{f,g',n}(\vec{r}) \sum_{m=-n}^{n} \phi_{g',n,m}(\vec{r}) Y_{n}^{m}(\hat{\Omega}), 
 	\label{eq:Alpha3DMGSPH}
 \end{multline}
 for $g = 1, \dots, G$.
@@ -101,7 +124,7 @@ for $g = 1, \dots, G$.
 
 \subsubsection{Step Differencing}
 
-We continue the discretization of Eq~.\ref{eq:Alpha3DMGSPH} by using a Step differencing method \cite{lewis_computational_1984} for the spatial variable $\vec{r}$. We start with the three-dimensional mono-energetic alpha-eigenvalue equation for group $g$ with scattering and fission source $f$:
+We continue the discretization of Eq.~\ref{eq:Alpha3DMGSPH} by using a Step differencing method \cite{lewis_computational_1984} for the spatial variable $\vec{r}$. We start with the three-dimensional mono-energetic alpha-eigenvalue equation for group $g$ with scattering and fission source $f$:
 
 \begin{equation}
 \begin{cases}
@@ -115,16 +138,18 @@ We discretize the domain $\mathcal{D}$ into zones and define
 	\Delta x_{i} = x_{i} - x_{i-1}, \text{ for } i = 1, \dots, M,
 \end{equation}
 \begin{equation}
-	\Delta y_{i} = y_{j} - y_{j-1}, \text{ for } j = 1, \dots, J,
+	\Delta y_{j} = y_{j} - y_{j-1}, \text{ for } j = 1, \dots, J,
 \end{equation}
 \begin{equation}
-	\Delta z_{i} = z_{k} - z_{k-1}, \text{ for } k = 1, \dots, K.
+	\Delta z_{k} = z_{k} - z_{k-1}, \text{ for } k = 1, \dots, K.
 \end{equation}
 We define the nodes $r_{ijk} = (x_{i}, y_{j}, z_{k})$ and the zone volume $\Delta r_{ijk} = \Delta x_{i} \Delta y_{j} \Delta z_{k}$. The function values at the set of nodes, $\{r_{ijk}\}$ are called \textit{nodal values}. We assume that $\sigma$ and $f$ have constant values, denoted as $\sigma_{ijk}$ and $f_{ijk}$ respectively, on each \textit{zone} defined as
 \begin{equation}
 	\mathcal{Z}_{ijk} \equiv \{ r \vert x_{i-1} < x < x_{i}, y_{j-1} < y < y_{j}, z_{k-1} < z < z_{k} \}.
 \end{equation}
-We define $\psi_{ijk}$ to denote the approximation to $\psi(r_{ijk})$, the true solution at the point $r_{ijk}$. For a direction in the positive orthant, $\hat{\Omega} = (\mu, \eta, \xi) > 0$, the Step differencing equation for the zone $\mathcal{Z}_{ijk}$ is
+We define $\psi_{ijk}$ to denote the approximation to $\psi(r_{ijk})$, the true solution at the point $r_{ijk}$. 
+
+For a direction in the positive orthant, $\hat{\Omega} = (\mu, \eta, \xi) > 0$, the Step differencing equation for the zone $\mathcal{Z}_{ijk}$ is
 \begin{equation}
 	\frac{\alpha}{v} \psi_{ijk} + \mu \frac{\psi_{ijk} - \psi_{i-1,jk}}{\Delta x_{i}} + \eta \frac{\psi_{ijk} - \psi_{i,j-1,k}}{\Delta y_{j}} + \xi \frac{\psi_{ijk} - \psi_{ij,k-1}}{\Delta z_{k}} + \sigma_{ijk} \psi_{ijk} = f_{ijk}.
 	\label{eq:Step3D}
@@ -230,9 +255,9 @@ where we define $E_{000}$ as
 				(0,I_{K}) \otimes (0,I_{J}) \otimes e_{0M}^{T}
 			\end{pmatrix},
 \end{equation}
-where the vectors $e_{0J}$ and $e_{0K}$ are the standard unit vectors. There are different $E$ matrices for other directions. For three-dimensional Cartesian geometry, there are eight different matrices, $E_{ijk}$, corresponding to boundary points $i=0,M$, $j=0,L$, and $k = 0,K$.
+where the vectors $e_{0J}$ and $e_{0K}$ are the standard unit vectors and $I$ is the identity matrix of size given by the subscript. There are different $E$ matrices for other directions. For three-dimensional Cartesian geometry, there are eight different matrices, $E_{ijk}$, corresponding to boundary points $i=0,M$, $j=0,L$, and $k = 0,K$.
 
-Equation~\ref{eq:Disc} is the discretized equation for quadrature point $\hat{\Omega}$ and energy group $g$. We generalize for multiple quadrature points and energy groups by introducing the indices $\ell$ and $g$, where $\ell$ is the index of quadrature point $\hat{\Omega} = \hat{\Omega}_{\ell}$ and $g$ is the energy group index.The vectors $\Psi$ and $\Psi_{B}$ and matrix $C$ of Eq.~\ref{eq:Disc} become $\Psi_{g,\ell}$, $\Psi_{B,g,\ell}$, and $C_{\ell}$.
+Equation~\ref{eq:Disc} is the discretized equation for quadrature point $\hat{\Omega}$ and energy group $g$. We generalize for multiple quadrature points and energy groups by introducing the indices $\ell$ and $g$, where $\ell$ is the index of quadrature point $\hat{\Omega} = \hat{\Omega}_{\ell}$ and $g$ is the energy group index. The vectors $\Psi$ and $\Psi_{B}$ and matrix $C$ of Eq.~\ref{eq:Disc} become $\Psi_{g,\ell}$, $\Psi_{B,g,\ell}$, and $C_{\ell}$.
 
 We define the matrices $Z$ and $Z_{b}$ by
 \begin{equation}
@@ -378,9 +403,9 @@ We note that properties of $Z$ and $Z_{b}$ remain true for the matrices $\bar{Z}
 	\bar{S} \equiv I_{L} \otimes S.
 \end{equation}
 
-Finally, we define the total cross section matrix for all quadrature points $\bar{\Sigma}$ as
+Finally, we define the total cross section matrix for all quadrature points $\bar{\Sigma}_{g}$ as
 \begin{equation}
-	\bar{\Sigma} \equiv I_{L} \otimes \Sigma,
+	\bar{\Sigma}_{g} \equiv I_{L} \otimes \Sigma_{g},
 \end{equation}
 and the inverse velocity matrix $\bar{V}^{-1}$ as
 \begin{equation}
@@ -531,13 +556,8 @@ For the nodal-centered angular flux $\mathbf{\Psi}$, we have from Lemma~\ref{lem
 \end{equation}
 Substituting Eq.~\ref{eq:PsiPsiz} into Eq.~\ref{eq:AlphaMatrix} and \ref{eq:kMatrix} and multiplying on the left by $\mathbf{Z}^{T}$ gives
 \begin{equation}
-	\big ( \alpha \mathbf{V}_\mathbf{z}^{-1} + \mathbf{H_{z}} \big ) \mathbf{\Psi_{z}} = \mathbf{L}^{+}( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}}) \mathbf{L} \mathbf{\Psi_{z}},
+	\boxed{\big ( \alpha \mathbf{V}_\mathbf{z}^{-1} + \mathbf{H_{z}} \big ) \mathbf{\Psi_{z}} = \mathbf{L}^{+}( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}}) \mathbf{L} \mathbf{\Psi_{z}},}
 	\label{eq:AlphaZ}
-\end{equation}
-and
-\begin{equation}
-	\mathbf{H_{z}} \mathbf{\Psi_{z}} = \mathbf{L}^{+} \bigg ( \mathbf{\Sigma_{s}} + \frac{1}{k}\mathbf{\Sigma_{f}} \bigg ) \mathbf{L} \mathbf{\Psi_{z}},
-	\label{eq:kZ}
 \end{equation}
 where
 \begin{equation}
@@ -546,6 +566,12 @@ where
 and
 \begin{equation}
 	\mathbf{V}_{\mathbf{z}}^{-1} \equiv \mathbf{V}^{-1} \mathbf{S} (\mathbf{ZS} + \mathbf{Z_{B}B})^{-1}\mathbf{Z}.
+\end{equation}
+
+Following the same procedure for the $k$-effective eigenvalue neutron transport equation yields the discretized equation:
+\begin{equation}
+	\boxed{\mathbf{H_{z}} \mathbf{\Psi_{z}} = \mathbf{L}^{+} \bigg ( \mathbf{\Sigma_{s}} + \frac{1}{k}\mathbf{\Sigma_{f}} \bigg ) \mathbf{L} \mathbf{\Psi_{z}}.}
+	\label{eq:kZ}
 \end{equation}
 
 We consider Eqns.~\ref{eq:AlphaZ} and \ref{eq:kZ} in the derivation of the Rayleigh Quotient Fixed Point method.
@@ -599,7 +625,7 @@ Each energy block matrix can be further partitioned into $L$ block matrices, wit
 \end{equation}
 Let $g = 1, 2, \dots, G$ and $\ell = -L/2, -L/2+1, \dots, L/2$, then the block matrix corresponding to energy group $g$ and direction $\ell$ is given by $H^{-1}_{g,\ell}$.
 
-The block matrices $H^{-1}_{g,\ell}$ are of size $M$ where $M$ is the number of spatial cells. The block matrices are either nonnegative lower or upper triangular matrices:
+The block matrices $H^{-1}_{g,\ell}$ are of size $M$ where $M$ is the number of spatial cells in the $x$-direction. The block matrices are either nonnegative lower or upper triangular matrices:
 \begin{equation}
 	H^{-1}_{g,\ell,ij} = \begin{cases}
 					> 0 \quad \text{if } \mu_{\ell} > 0 \text{ and } i \leq j \\
@@ -622,8 +648,8 @@ From the previous fact, we have the following for the elements of the matrix $\m
 \begin{equation}
 		(\mathbf{H}_{\mathbf{z}}^{-1})_{g,\ell, ij}
 	\begin{cases}
- 		= 0, \quad \text{if } \mu_{\ell} < 0, \text{ and } i < j, \\
  		= 0, \quad \text{if } \mu_{\ell} > 0, \text{ and } i > j, \\
+ 		= 0, \quad \text{if } \mu_{\ell} < 0, \text{ and } i < j, \\
 		> 0, \quad \text{otherwise.}
 	\end{cases}
 \end{equation}
@@ -633,12 +659,12 @@ An example of the $\mathbf{H}_{\mathbf{z}}^{-1}$ for five spatial cells ($M=5$),
 	\centering
 	\resizebox{0.75\textwidth}{!}{\input{Figures/DiscretizationPrimitivity/iHSparsity.tex}}
 	\caption{Structure of $\mathbf{H}_{\mathbf{z}}^{-1}$}\label{fig:iHz}
-	\caption*{The structure of $\mathbf{H}_{\mathbf{z}}^{-1}$. The matrix is blocked into block matrices corresponding to energy groups.The block energy are indexed using $g, g' = 1, 2, \dots, G$. There are a total of $(GL)^{2}$ block matrices each of size $M$. Each energy block matrix can be blocked into direction matrices with indices $\ell, \ell' = 1, 2, \dots, L$. The block lower and upper triangular matrices correspond to positive (blue) and negative (red) directions, respectively.}
+	\caption*{The structure of $\mathbf{H}_{\mathbf{z}}^{-1}$. The matrix is blocked into block matrices corresponding to energy groups. The block energy are indexed using $g, g' = 1, 2, \dots, G$. There are a total of $(GL)^{2}$ block matrices each of size $M$. Each energy block matrix can be blocked into direction matrices with indices $\ell, \ell' = 1, 2, \dots, L$. The block lower and upper triangular matrices correspond to positive (blue) and negative (red) directions, respectively.}
 \end{figure}
 
 \clearpage
 
-For the fission matrix $\mathbf{\Sigma_{f}}$ if the problem domain of interest has fissile material throughout the domain and fission is possible in any energy group, we have the following for the elements of the matrix
+For the fission matrix $\mathbf{\Sigma_{f}}$, if the problem domain of interest has fissile material throughout the domain and fission is possible in any energy group, we have the following for the elements of the matrix
 \begin{equation}
 		(\mathbf{\Sigma_{f}})_{gg',\ell \ell', ij}
 	\begin{cases}
@@ -646,7 +672,7 @@ For the fission matrix $\mathbf{\Sigma_{f}}$ if the problem domain of interest h
 		> 0, \quad \text{otherwise},
 	\end{cases}
 \end{equation}
-for all $g, g' = 1,2,\dots, G$ and $\ell, \ell' = -L/2, -L/2+1, \dots, L/2$. We assume fission is isotropic. The fission matrix $\mathbf{\Sigma_{f}}$ is a block matrix with square block matrices size $M$ that are only nonzero on the diagonal (see Figure~\ref{fig:F}). For isotropic fission, we have the following for the block matrices of $\mathbf{\Sigma_{f}}$
+for all $g, g' = 1,2,\dots, G$ and $\ell, \ell' = -L/2, -L/2+1, \dots, L/2$. We assume fission is isotropic. The fission matrix $\mathbf{\Sigma_{f}}$ is a block matrix with square block matrices size of $M$ that are only nonzero on the diagonal (see Figure~\ref{fig:F}). For isotropic fission, we have the following for the block matrices of $\mathbf{\Sigma_{f}}$
 
 \begin{lemma}
 \label{lemma:sigf}
@@ -659,7 +685,7 @@ An example of the matrix $\mathbf{\Sigma_{f}}$ for five spatial cells and fissio
 
 \begin{figure}[!htbp]
 	\begin{center}\resizebox{0.75\textwidth}{!}{\input{Figures/DiscretizationPrimitivity/F.tex}} \end{center}
-	\caption{Structure of $\mathbf{\Sigma_{f}}$}\label{fig:F}
+	\caption{Structure of $\mathbf{\Sigma_{f}}$ for Two Energy Groups, Five Spatial Cells, and Fission in All Energy Groups}\label{fig:F}
 \end{figure}
 
 \clearpage
@@ -680,7 +706,7 @@ An example of the matrix $\mathbf{\Sigma_{s}}$ for five spatial cells and only d
 \begin{figure}[!htbp]
 	\centering
 	\resizebox{0.75\textwidth}{!}{\input{Figures/DiscretizationPrimitivity/S.tex}}
-	\caption{Structure of $\mathbf{\Sigma_{s}}$}\label{fig:S}
+	\caption{Structure of $\mathbf{\Sigma_{s}}$ for Two Energy Groups, Five Spatial Cells, and Downscattering Only}\label{fig:S}
 \end{figure}
 
 For all energy groups, the inverse velocity matrix is a diagonal matrix. For the matrix $\mathbf{V}_{\mathbf{z}}^{-1}$ we have the following
@@ -697,7 +723,7 @@ An example of the matrix $\mathbf{V}_{\mathbf{z}}^{-1}$ is seen in Figure~\ref{f
 \begin{figure}[!htbp]
 	\centering
 	\resizebox{0.75\textwidth}{!}{\input{Figures/DiscretizationPrimitivity/iV.tex}}
-	\caption{Structure of $\mathbf{V}_{\mathbf{z}}^{-1}$}\label{fig:iVz}
+	\caption{Structure of $\mathbf{V}_{\mathbf{z}}^{-1}$ for Five Spatial Cells}\label{fig:iVz}
 \end{figure}
 
 Given the location of nonzero elements in the transport, fission, scattering, and inverse velocity matrices, we set out to prove the primitivity of the matrix $\mathbf{H}_\mathbf{z}^{-1}\mathbf{\Sigma_{f}}$. The block matrix of size $M$ of the matrix $ \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}}$ is given by the product of the block matrices of $\mathbf{H}_{\mathbf{z}}^{-1}$ and $\mathbf{\Sigma_{f}}$
@@ -720,7 +746,7 @@ for all $g, g' = 1, 2, \dots, G$ and $\ell, \ell' = -L/2, -L/2+1, \dots, L/2$ (s
 \begin{figure}[!htbp]
 	\centering
 	\resizebox{0.75\textwidth}{!}{\input{Figures/DiscretizationPrimitivity/iHF.tex}}
-	\caption{Structure of $\mathbf{H}_{\mathbf{z}}^{-1}\mathbf{\Sigma_{f}}$}\label{fig:iHF}
+	\caption{Structure of $\mathbf{H}_{\mathbf{z}}^{-1}\mathbf{\Sigma_{f}}$ For Two Energy Group Example}\label{fig:iHF}
 \end{figure}
 
 With these facts, we prove the following lemma:
@@ -733,7 +759,7 @@ With these facts, we prove the following lemma:
 \begin{proof}
 	The block matrix of size $M$, $\mathbf{\Sigma_{f}} \mathbf{H}^{-1} \mathbf{\Sigma_{f}}$, is given by
 	\begin{equation}
-		\big ( \mathbf{\Sigma_{f}} \mathbf{H}^{-1} \mathbf{\Sigma_{f}} \big )_{gg',\ell \ell'} = \sum_{g'', \ell''} \big (\mathbf{\Sigma_{f}} \big )_{gg'',\ell \ell''} \big (\mathbf{H}^{-1} \mathbf{\Sigma_{f}} \big )_{g''g',\ell''\ell'}
+		\big ( \mathbf{\Sigma_{f}} \mathbf{H}^{-1} \mathbf{\Sigma_{f}} \big )_{gg',\ell \ell'} = \sum_{g'', \ell''} \big (\mathbf{\Sigma_{f}} \big )_{gg'',\ell \ell''} \big (\mathbf{H}^{-1} \mathbf{\Sigma_{f}} \big )_{g''g',\ell''\ell'}.
 	\end{equation}
 We can further simplify the previous expression to
 	\begin{equation}
@@ -758,7 +784,7 @@ Using Lemma~\ref{lemma:FiHF}, we prove the following lemma:
 	\begin{equation}
 	\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \big )_{gg',\ell \ell'} = \sum_{g'',\ell''} \big ( \mathbf{H}_{\mathbf{z}}^{-1} \big )_{g'',\ell''} \big ( \mathbf{\Sigma_{f}}\mathbf{H}_{\mathbf{z}}^{-1}\mathbf{\Sigma_{f}} \big )_{g''g',\ell'' \ell'}.
 	\end{equation}
-Since every element of $\mathbf{\Sigma_{f}}\mathbf{H}_{\mathbf{z}}^{-1}\mathbf{\Sigma_{f}}$ is positive, a zero element in $\mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}}$ is possible only if the elements of $\big ( \mathbf{H}_{\mathbf{z}}^{-1} \big )_{g'',\ell'',ij} = 0 \, \forall \, i = 1, 2, \dots, M$ which is not possible since the elements on row $i$ of $\big ( \mathbf{H}_{\mathbf{z}}^{-1} \big )_{gg,\ell\ell,ij'}$ are not all zero. Therefore, $\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \big )_{gg',\ell \ell''} > 0 \, \forall \, (g,g',\ell, \ell')$ which implies the matrix $\mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}}$ is primitive with index of primitivity of two.
+Since every element of $\mathbf{\Sigma_{f}}\mathbf{H}_{\mathbf{z}}^{-1}\mathbf{\Sigma_{f}}$ is positive, a zero element in $\mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}}$ is possible only if the elements of $\big ( \mathbf{H}_{\mathbf{z}}^{-1} \big )_{g'',\ell'',ij} = 0 \, \forall \, i = 1, 2, \dots, M$ which is not possible since the elements on row $i$ of $\big ( \mathbf{H}_{\mathbf{z}}^{-1} \big )_{gg,\ell\ell,ij'}$ are not all zero. Therefore, $\big ( \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}} \big )_{gg',\ell \ell''} > 0 \, \forall \, (g,g',\ell, \ell')$, which implies the matrix $\mathbf{H}_{\mathbf{z}}^{-1} \mathbf{\Sigma_{f}}$ is primitive with index of primitivity of two.
 \end{proof}
 
 Using the previous results, we prove the primitivity of the matrix $\mathbf{H}_{\mathbf{z}}^{-1}( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} )$:
