@@ -16,13 +16,13 @@ Various homogeneous and heterogeneous slab geometry problems with vacuum boundar
 In one-dimensional spherical geometry, there is only one position variable $r$, the radial position from the center of the sphere, and one angular variable $\mu$ defined as the direction cosine with respect to the radial direction. For spherical geometry, the alpha- and $k$-effective eigenvalue neutron transport equations are given by Eq.~\ref{eq:1DAlphaSphere} and Eq.~\ref{eq:1DkSphere}, respectively:
 
 \begin{multline}
-\frac{\mu}{r^{2}} \frac{\partial}{\partial r} \bigg [r^{2} \psi(r,\mu,E) \bigg ] + \frac{1}{r} \frac{\partial}{\partial \mu} \bigg [(1-\mu^{2})\psi(r,\mu,E) \bigg ]+ \sigma(x,E) \psi(r,\mu,E) \\ = \frac{1}{k} \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \, \nu(E') \sigma_{f}(r,E') \int_{-1}^{1} \diff \mu' \, \psi(r,\mu',E) \\ + \frac{1}{2} \int_{0}^{\infty} \diff E' \, \sigma_{s}(r, E' \rightarrow E) \int_{-1}^{1} \diff \mu' \, \psi(r,\mu',E),
-\label{eq:1DAlphaSphere}
+\frac{\mu}{r^{2}} \frac{\partial}{\partial r} \bigg [r^{2} \psi(r,\mu,E) \bigg ] + \frac{1}{r} \frac{\partial}{\partial \mu} \bigg [(1-\mu^{2})\psi(r,\mu,E) \bigg ]+ \bigg [ \frac{\alpha}{v(E)} + \sigma(x,E) \bigg ] \psi(r,\mu,E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \, \nu(E') \sigma_{f}(r,E') \int_{-1}^{1} \diff \mu' \, \psi(r,\mu',E) \\ + \frac{1}{2} \int_{0}^{\infty} \diff E' \, \sigma_{s}(r, E' \rightarrow E) \int_{-1}^{1} \diff \mu' \, \psi(r,\mu',E).
+\label{eq:1DkSphere}
 \end{multline}
 
 \begin{multline}
-\frac{\mu}{r^{2}} \frac{\partial}{\partial r} \bigg [r^{2} \psi(r,\mu,E) \bigg ] + \frac{1}{r} \frac{\partial}{\partial \mu} \bigg [(1-\mu^{2})\psi(r,\mu,E) \bigg ]+ \bigg [ \frac{\alpha}{v(E)} + \sigma(x,E) \bigg ] \psi(r,\mu,E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \, \nu(E') \sigma_{f}(r,E') \int_{-1}^{1} \diff \mu' \, \psi(r,\mu',E) \\ + \frac{1}{2} \int_{0}^{\infty} \diff E' \, \sigma_{s}(r, E' \rightarrow E) \int_{-1}^{1} \diff \mu' \, \psi(r,\mu',E).
-\label{eq:1DkSphere}
+\frac{\mu}{r^{2}} \frac{\partial}{\partial r} \bigg [r^{2} \psi(r,\mu,E) \bigg ] + \frac{1}{r} \frac{\partial}{\partial \mu} \bigg [(1-\mu^{2})\psi(r,\mu,E) \bigg ]+ \sigma(x,E) \psi(r,\mu,E) \\ = \frac{1}{k} \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \, \nu(E') \sigma_{f}(r,E') \int_{-1}^{1} \diff \mu' \, \psi(r,\mu',E) \\ + \frac{1}{2} \int_{0}^{\infty} \diff E' \, \sigma_{s}(r, E' \rightarrow E) \int_{-1}^{1} \diff \mu' \, \psi(r,\mu',E),
+\label{eq:1DAlphaSphere}
 \end{multline}
 
 For one-dimensional spherical geometry, various homogeneous and heterogeneous spherical problems with vacuum boundary conditions were modeled in ARDRA. Using the same cross-sections for multiplying and non-multiplying materials as the slab media problems, equivalent spherical systems were created using the Davison sphere-equivalence theorem \cite{davison1957neutron} and the alpha-eigenvalue calculated. To verify the correctness of the RQFP for one-dimensional spherical geometry, the method was compared to GFM. Performance of the RQFP for one-dimensional spherical problems was measured by comparing the number of transport sweeps necessary for convergence as compared to the critical search method.
@@ -553,17 +553,18 @@ For leftmost fuel pin width of one mean free path, the $k$-effective eigenvalue 
 
 \section{Multigroup Verification for Slab Geometry}
 
-In this section, we examine the performance of the RQFP method for various multigroup-in-energy, homogeneous and heterogeneous slab benchmark problems listed in \cite{sood2003analytical}. These problems are exactly critical and problem cross sections and critical radii are given for all benchmarks. The benchmark problems provide a diverse set of nuclear system physics problem, including fast spectrum plutonium slabs, a uranium-aluminum system, highly-enriched uranium for research reactors system, and uranium-heavy water reactors.
+In this section, we examine the performance of the RQFP method for various multigroup-in-energy, homogeneous and heterogeneous slab benchmark problems listed in \cite{sood2003analytical}. These problems are exactly critical, though in practice some problems are found to be slightly subcritical or supercritical. Problem cross sections and critical radii are given for all benchmarks. The benchmark problems provide a diverse set of nuclear system physics problem, including fast spectrum plutonium slabs, a uranium-aluminum system, highly-enriched uranium for research reactors system, and uranium-heavy water reactors.
 
 \subsection{Multigroup Multiplying Homogeneous Slabs}
 \label{sec:MGMultSlabs}
 
 \textbf{Sood Criticality Benchmark Problem 45}: The alpha and $k$-effective eigenvalues for a two-group plutonium-239 critical slab were calculated and the RQFP method performance compared to the critical search and power methods. The plutonium-239 cross sections, listed in Table~\ref{table:TwoGroupPu239}, allowed for fission in both energy groups. Fission neutrons can be born in both energy groups with more neutrons being born in the highest energy group. The scattering cross sections of the problem do not allow for upscattering (Table~\ref{table:TwoGroupPu239_ScatterXS}).
 
-For the critical slab width given in Table~\ref{table:SlabMG-Pu239}, the alpha-eigenvalue of the system was found to be $\alpha = -4.64633 \times 10^{-5}$ s$^{-1}$, requiring 48 transport sweeps to converge the eigenvector residual norm to a tolerance of $10^{-12}$ (Table~\ref{table:MG-Pu239-alpha}). As the problem was slightly subcritical, the critical search method did not converge to the correct eigenvalue. The $k$-effective eigenvalue was determined to be $k=0.99988$ requiring 48 transport sweeps for the RQFP method as compared to 46 transport sweeps for the power method using the fission source normalization (Table~\ref{table:MG-Pu239-k}). As the system is incredibly close to critical, the number of transport sweeps required by the RQFP method for both eigenvalues is the same. This is due to the fact that the fundamental eigenvectors are equal for both the alpha- and $k$-effective eigenvalue problems when a nuclear system is exactly critical.
+For the critical slab width given in Table~\ref{table:SlabMG-Pu239}, the alpha-eigenvalue of the system was found to be $\alpha = -4.64633 \times 10^{-5}$ s$^{-1}$, requiring 48 transport sweeps to converge the eigenvector residual norm to a tolerance of $10^{-12}$ (Table~\ref{table:MG-Pu239-alpha}). As the problem was slightly subcritical because of numerical error, the critical search method did not converge to the correct eigenvalue. The $k$-effective eigenvalue was determined to be $k=0.99988$ requiring 48 transport sweeps for the RQFP method as compared to 46 transport sweeps for the power method using the fission source normalization (Table~\ref{table:MG-Pu239-k}). As the system is incredibly close to critical, the number of transport sweeps required by the RQFP method for both eigenvalues is the same. This is due to the fact that the fundamental eigenvectors are equal for both the alpha- and $k$-effective eigenvalue problems when a nuclear system is exactly critical.
 
 \begin{table}[!htbp]
-	\caption{Two-Group Plutonium-239 Problem Cross Sections (cm$^{-1}$)}
+	%\caption{Two-Group Plutonium-239 Problem Cross Sections (cm$^{-1}$)}
+	\caption{Sood Criticality Benchmark Problem 45 Cross Sections (cm$^{-1}$)}
 	\label{table:Pu239-TwoGroup}
 	\begin{subtable}[!htbp]{1.0\textwidth}
 		\centering\ra{1.3}
@@ -593,7 +594,7 @@ For the critical slab width given in Table~\ref{table:SlabMG-Pu239}, the alpha-e
 \end{table}
 
 \begin{table}[!htbp]
-	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Two-Group Pu-239 Cross Sections in \cite{sood2003analytical}}
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Sood Criticality Benchmark Problem 45 in \cite{sood2003analytical}}
 	\label{table:SlabMG-Pu239}
 	\begin{subtable}[!htbp]{1.0\textwidth}
 	\centering\ra{1.3}
@@ -603,7 +604,8 @@ For the critical slab width given in Table~\ref{table:SlabMG-Pu239}, the alpha-e
 	\midrule
 	1.795602 & $-4.64633 \times 10^{-5}$ & 48 & * \\
 	\bottomrule
-	\multicolumn{4}{l}{*Did Not Converge} \\
+	\multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$, *Did Not Converge} \\
+	%\multicolumn{4}{l}{*Did Not Converge} \\
 	\end{tabular}
 	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
 	\label{table:MG-Pu239-alpha}
@@ -631,7 +633,7 @@ For the critical slab width given in Table~\ref{table:SlabMG-Pu239}, the alpha-e
 The alpha-eigenvalue of the system was calculated to be $\alpha = -1.28364 \times 10^{-5}$ s$^{-1}$, requiring 62 transport sweeps to converge to a tolerance of $10^{-12}$ for the RQFP method. The critical search method was not able to converge (Table~\ref{table:MG-U235-alpha}). The $k$-effective eigenvalue was determined to be $k=0.99995$, requiring 62 transport sweeps for the RQFP method to converge the eigenvector. The power method required slightly fewer transport sweeps, requiring 58 transport sweeps. Similar to the plutonium-239 problem, the number of transport sweeps required by the RQFP method for both eigenvalues was the same. This was due to how close the problem was to being exactly critical.
 
 \begin{table}[!htbp]
-	\caption{Two-Group Uranium-235 Problem Cross Sections (cm$^{-1}$)}
+	\caption{Sood Criticality Benchmark Problem 48 Cross Sections (cm$^{-1}$)}
 	\label{table:U235-TwoGroup}
 	\begin{subtable}[!htbp]{1.0\textwidth}
 		\centering\ra{1.3}
@@ -663,7 +665,7 @@ The alpha-eigenvalue of the system was calculated to be $\alpha = -1.28364 \time
 \clearpage
 
 \begin{table}[!htbp]
-	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Two-Group U-235 Cross Sections in \cite{sood2003analytical}}
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Sood Criticality Benchmark Problem 48 in \cite{sood2003analytical}}
 	\label{table:SlabMG-U235}
 	\begin{subtable}[!htbp]{1.0\textwidth}
 	\centering\ra{1.3}
@@ -673,7 +675,8 @@ The alpha-eigenvalue of the system was calculated to be $\alpha = -1.28364 \time
 	\midrule
 	3.006375 & $-1.28364 \times 10^{-5}$ & 62 & * \\
 	\bottomrule
-	\multicolumn{4}{l}{*Did Not Converge} \\
+	\multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$, *Did Not Converge} \\
+	%\multicolumn{4}{l}{*Did Not Converge} \\
 	\end{tabular}
 	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
 	\label{table:MG-U235-alpha}
@@ -699,7 +702,7 @@ The alpha-eigenvalue of the system was calculated to be $\alpha = -1.28364 \time
 The alpha-eigenvalue was calculated to be $-6.39646 \times 10^{-6}$ s$^{-1}$ and required 492 transport sweeps to converge (Table~\ref{table:MG-U-Al-alpha}). The increase in transport sweeps as compared to the plutonium and uranium problem is due to the increased scattering present in this problem. The increase in scattering, caused by the inclusion of aluminum in the cross sections, increases the number of iterations necessary to suppress higher eigenmodes in the problem. The critical search method was unable to converge the eigenvalue/eigenvector pair. The $k$-effective eigenvalue was determined to be $k=0.99985$ for the system. The RQFP method required a substantially larger number of transport sweeps as compared to power method. The RQFP method required 592 iterations as compared to 82 (Table~\ref{table:MG-U-Al-k}). The degradation of the performance of the RQFP method is due to the fact that the method converges the eigenvector as opposed to the fission source. Converging the eigenvector requires removing higher eigenmodes which require more sweeps due to the increased scattering present in the system. 
 
 \begin{table}[!htbp]
-	\caption{Two-Group U/Al Problem Cross Sections (cm$^{-1}$)}
+	\caption{Sood Criticality Benchmark Problem 51 Cross Sections (cm$^{-1}$) in \cite{sood2003analytical}}
 	\label{table:U-Al}
 	\begin{subtable}[!htbp]{1.0\textwidth}
 		\centering\ra{1.3}
@@ -729,7 +732,7 @@ The alpha-eigenvalue was calculated to be $-6.39646 \times 10^{-6}$ s$^{-1}$ and
 \end{table}
 
 \begin{table}[!htbp]
-	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Two-Group U/Al Mixture Cross Sections in \cite{sood2003analytical}}
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Sood Criticality Benchmark Problem 51 in \cite{sood2003analytical}}
 	\label{table:SlabMG-U-Al}
 	\begin{subtable}[!htbp]{1.0\textwidth}
 	\centering\ra{1.3}
@@ -739,7 +742,8 @@ The alpha-eigenvalue was calculated to be $-6.39646 \times 10^{-6}$ s$^{-1}$ and
 	\midrule
 	7.830630 & $-6.39646 \times 10^{-6}$ & 492 & * \\
 	\bottomrule
-	\multicolumn{4}{l}{*Did Not Converge} \\
+	\multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$, *Did Not Converge} \\
+	%\multicolumn{4}{l}{*Did Not Converge} \\
 	\end{tabular}
 	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
 	\label{table:MG-U-Al-alpha}
@@ -762,12 +766,12 @@ The alpha-eigenvalue was calculated to be $-6.39646 \times 10^{-6}$ s$^{-1}$ and
 
 \clearpage
 
-\textbf{Sood Criticality Benchmark Problem 54}: A highly-enriched uranium slab was modeled and the number of transport sweeps required for convergence compared between the RQFP method and standard methods. The highly-enriched uranium cross sections are similar to those found in research reactors across the world. The cross section set (Table~\ref{table:TwoGroupU93}) consists of two energy groups. Fission occurs in both energy groups with most fissions taking place in the lower energy group. However, fission neutron are only born in the highest energy ("fast") group. The cross section set allows only for downscattering of neutrons through the two energy groups with a much larger inner-group scattering cross section in the low energy group (Table~\ref{table:TwoGroupU93_ScatterXS}).
+\textbf{Sood Criticality Benchmark Problem 54}: A highly-enriched uranium slab was modeled and the number of transport sweeps required for convergence compared between the RQFP method and standard methods. The highly-enriched uranium cross sections are similar to those found in research reactors across the world. The cross section set (Table~\ref{table:TwoGroupU93}) consists of two energy groups. Fission occurs in both energy groups, with most fissions taking place in the lower energy group. However, fission neutron are only born in the highest energy group. The cross section set allows only for downscattering of neutrons through the two energy groups with a much larger within-group scattering cross section in the low energy group (Table~\ref{table:TwoGroupU93_ScatterXS}).
 
 The alpha-eigenvalue of the slab was determined to be $-3.28714 \times 10^{-7}$ s$^{-1}$. The RQFP method required 1188 transport sweeps to converge the eigenvector, the increase in sweeps a product of the high amount of scattering in the system. The critical search method was not able to converge the eigenvector. The $k$-effective eigenvalue was found to be $k = 0.99999$. The RQFP method required 1188 transport sweeps to converge, similar to the alpha-eigenvalue calculation due to how close the system was to critical. The RQFP method for the $k$-effective eigenvalue required 10 times more iterations than the power method. The degradation of performance is caused by the increased scattering of the system.
 
 \begin{table}[!htbp]
-	\caption{Two-Group 93\% Enriched Uranium Problem Cross Sections (cm$^{-1}$)}
+	\caption{Sood Criticality Benchmark Problem 54 Cross Sections (cm$^{-1}$) in \cite{sood2003analytical}}
 	%\label{table:U93}
 	\begin{subtable}[!htbp]{1.0\textwidth}
 		\centering\ra{1.3}
@@ -797,7 +801,7 @@ The alpha-eigenvalue of the slab was determined to be $-3.28714 \times 10^{-7}$ 
 \end{table}
 
 \begin{table}[!htbp]
-	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Two-Group 93\% Enriched Uranium Mixture Cross Sections in \cite{sood2003analytical}}
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Sood Criticality Benchmark Problem 54 in \cite{sood2003analytical}}
 	\label{table:SlabMG-U93}
 	\begin{subtable}[!htbp]{1.0\textwidth}
 	\centering\ra{1.3}
@@ -807,7 +811,8 @@ The alpha-eigenvalue of the slab was determined to be $-3.28714 \times 10^{-7}$ 
 	\midrule
 	7.566853 & $-3.28714 \times 10^{-7}$ & 1188 & * \\
 	\bottomrule
-	\multicolumn{4}{l}{*Did Not Converge} \\
+	\multicolumn{4}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$, *Did Not Converge} \\
+%	\multicolumn{4}{l}{*Did Not Converge} \\
 	\end{tabular}
 	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
 	\label{table:MG-U93-alpha}
@@ -829,12 +834,12 @@ The alpha-eigenvalue of the slab was determined to be $-3.28714 \times 10^{-7}$ 
 \end{table}
 
 \pagebreak
-\textbf{Sood Criticality Benchmark Problem 68}: To analyze the performance of the RQFP method for highly scattering systems, a two-energy group uranium/heavy water critical slab problem with cross sections given in Table~\ref{table:D2O} was modeled. Fission occurs in both energy groups with all fission neutrons born in the higher energy group. However, the fission cross sections are substantially smaller than in previous systems. The system allows no upscattering but has large inner-group scattering cross sections for both groups (Table~\ref{table:TwoGroupUD2O_ScatterXS}). The critical radius of the slab is much larger than previous problems, due to the small fission cross sections and highly scattering nature of the problem.
+\textbf{Sood Criticality Benchmark Problem 68}: To analyze the performance of the RQFP method for highly scattering systems, a two-energy group uranium/heavy water critical slab problem with cross sections given in Table~\ref{table:D2O} was modeled. Fission occurs in both energy groups with all fission neutrons born in the higher energy group. However, the fission cross sections are substantially smaller than in previous systems. The system allows no upscattering but has large within-group scattering cross sections for both groups (Table~\ref{table:TwoGroupUD2O_ScatterXS}). The critical radius of the slab is much larger than previous problems, due to the small fission cross sections and highly scattering nature of the problem.
 
-For the critical radius listed in Table~\ref{table:MG-UD2O-alpha}, the alpha-eigenvalue was determined to be $-6.93314 \times 10^{-7}$ s$^{-1}$. The RQFP method required 451136 transport sweeps for convergence, a substantial increase as compared to the previous problems (Table~\ref{table:MG-UD2O-alpha}). The critical search method was unable to converge the eigenvalue and eigenvector pair. The $k$-effective eigenvalue was determined to be $k = 0.99887$. The RQFP method required 451136 transport sweeps, performing far worse than the power method which only required 52964 transport sweeps to converge (Table~\ref{table:MG-UD2O-k}). The sensitivity of the RQFP method to scattering cross sections implies the convergence of the fixed point iteration is determined by the scattering cross sections.
+For the critical radius listed in Table~\ref{table:MG-UD2O-alpha}, the alpha-eigenvalue was determined to be $-6.93314 \times 10^{-7}$ s$^{-1}$. The RQFP method required 451,136 transport sweeps for convergence, a substantial increase as compared to the previous problems (Table~\ref{table:MG-UD2O-alpha}). The critical search method was unable to converge the eigenvalue and eigenvector pair. The $k$-effective eigenvalue was determined to be $k = 0.99887$. The RQFP method required 451,136 transport sweeps, performing far worse than the power method which only required 52,964 transport sweeps to converge (Table~\ref{table:MG-UD2O-k}). The sensitivity of the RQFP method to scattering cross sections implies the convergence of the fixed point iteration is determined by the scattering cross sections.
 
 \begin{table}[!htbp]
-	\caption{Two-Group U-D$_{2}$O Problem Cross Sections (cm$^{-1}$)}
+	\caption{Sood Criticality Benchmark Problem 68 Cross Sections (cm$^{-1}$) in \cite{sood2003analytical}}
 	\label{table:D2O}
 	\begin{subtable}[!htbp]{1.0\textwidth}
 		\centering\ra{1.3}
@@ -864,7 +869,7 @@ For the critical radius listed in Table~\ref{table:MG-UD2O-alpha}, the alpha-eig
 \end{table}
 
 \begin{table}[!htbp]
-	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Two-Group U-D$_{2}$O Cross Sections in \cite{sood2003analytical}}
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Sood Criticality Benchmark Problem 68 in \cite{sood2003analytical}}
 	\label{table:SlabMG-UD2O}
 	\begin{subtable}[!htbp]{1.0\textwidth}
 	\centering\ra{1.3}
@@ -874,7 +879,8 @@ For the critical radius listed in Table~\ref{table:MG-UD2O-alpha}, the alpha-eig
 	\midrule
 	846.632726 & $-6.93314 \times 10^{-7}$ & 451140 & * \\
 	\bottomrule
-	\multicolumn{4}{l}{*Did Not Converge} \\
+	\multicolumn{4}{l}{$M = 2000$, $L = 64$, Tolerance = $10^{-12}$, *Did Not Converge} \\
+	%\multicolumn{4}{l}{*Did Not Converge} \\
 	\end{tabular}
 	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
 	\label{table:MG-UD2O-alpha}
@@ -898,14 +904,14 @@ For the critical radius listed in Table~\ref{table:MG-UD2O-alpha}, the alpha-eig
 \clearpage
 \subsection{Multigroup Reflected Slabs}
 
-Two water-reflected research reactor-like slab problems were considered. For the cross section sets shown in Table~\ref{table:Ub-H2O} and Table ~\ref{table:Uc}, fissile slabs were reflected by a water reflector on the right side of the slab that made the problem exactly critical. The two-group cross section sets allowed for upscattering. The fissile slab width along with slab and reflector width are listed in Table~\ref{table:SlabMG-RRH2O}.
+Two water-reflected research reactor-like slab problems, Sood Criticality Benchmark Problem 58 and Sood Criticality Benchmark Problem 60, were considered. For the cross section sets shown in Table~\ref{table:Ub-H2O} and Table ~\ref{table:Uc}, fissile material slabs were reflected by a water reflector on the right side of the slab that made the problem exactly critical. The two-group cross section sets allowed for upscattering. The fissile slab width along with slab and reflector width are listed in Table~\ref{table:SlabMG-RRH2O}.
 
-The reflected slab problems were found to be slightly subcritical (Table~\ref{table:MG-RRH2O-alpha}). Using the Rayleigh Quotient Fixed Point method for the alpha-eigenvalue, the alpha-eigenvalue and eigenvector were determined in 2042 and 3192 transport sweeps. Due to the large amounts of scattering in the reflector, the convergence rate of the method was slowed and required many more transport sweeps as compared to problems with less scattering. Attempting to calculate the alpha-eigenvalue with the critical search method was unsuccessful due to the negative alpha-eigenvalue. Despite the problems only being slightly subcritical, the critical search method was unable to converge the problems.
+The reflected slab problems were found to be slightly subcritical (Table~\ref{table:MG-RRH2O-alpha}). Using the Rayleigh Quotient Fixed Point method for the alpha-eigenvalue, the alpha-eigenvalue and eigenvector were determined in 2042 and 3192 transport sweeps, respectively. Due to the large amount of scattering in the reflector, the convergence rate of the method was slowed and required many more transport sweeps compared to problems with less scattering. Attempting to calculate the alpha-eigenvalue with the critical search method was unsuccessful due to the negative alpha-eigenvalue. Despite the problems only being slightly subcritical, the critical search method was unable to converge the problems.
 
 For the $k$-effective eigenvalue, the Rayleigh Quotient Fixed Point method underperformed the power method with fission source update dramatically (Table~\ref{table:MG-RRH2O-k}). The RQFP method required 20-30 times the number of iterations as compared to the default method. Since the reflected slabs were only slightly subcritical, the number of transport sweeps required to converge the alpha- and $k$-effective eigenvalues were similar. With convergence of the fixed point methods determined by the scattering present in the problems, the scattering in the water reflector slowed down convergence dramatically. With the fission source update only concerned with fissile regions of the problem, convergence was achieved faster as the water reflector had less of an impact on the convergence rate.
 
 \begin{table}[!htbp]
-	\caption{Two-Group Research Reactor (b) and Water Reflector Problem Cross Sections (cm$^{-1}$)}
+	\caption{Sood Criticality Benchmark Problem 58 Cross Sections (cm$^{-1}$) in \cite{sood2003analytical}}
 	\label{table:Ub-H2O}
 	\begin{subtable}[!htbp]{1.0\textwidth}
 		\centering\ra{1.3}
@@ -916,7 +922,7 @@ For the $k$-effective eigenvalue, the Rayleigh Quotient Fixed Point method under
 			2 & 2.9727  & 2.50 & 0.029564 & 0.0 & 1.0 \\
 			\bottomrule
 		\end{tabular}
-	\caption{Research Reactor (b) Cross Sections}
+	\caption{Fissile Material Cross Sections}
 	\label{table:TwoGroupUb-H2O}
 	\end{subtable}%
 	\vspace{0.25cm}
@@ -929,7 +935,7 @@ For the $k$-effective eigenvalue, the Rayleigh Quotient Fixed Point method under
 	2 & 0.000767 & 2.9183  \\
 	\bottomrule
 	\end{tabular}
-	\caption{Research Reactor (b) Scattering Block}
+	\caption{Fissile Material Scattering Block}
 	\label{table:TwoGroupUb_ScatterXS}
 	\end{subtable}%
 	\vspace{0.25cm}
@@ -961,7 +967,7 @@ For the $k$-effective eigenvalue, the Rayleigh Quotient Fixed Point method under
 \end{table}
 
 \begin{table}[!htbp]
-	\caption{Two-Group Research Reactor (c) Problem Cross Sections (cm$^{-1}$)}
+	\caption{Sood Criticality Benchmark Problem 60 Cross Sections (cm$^{-1}$) in \cite{sood2003analytical}}
 	\label{table:Uc}
 	\begin{subtable}[!htbp]{1.0\textwidth}
 		\centering\ra{1.3}
@@ -972,7 +978,7 @@ For the $k$-effective eigenvalue, the Rayleigh Quotient Fixed Point method under
 			2 & 2.9628  & 2.50 & 0.057296 & 0.0 & 1.0 \\
 			\bottomrule
 		\end{tabular}
-	\caption{Research Reactor (c) Cross Sections}
+	\caption{Fissile Material Cross Sections}
 	\label{table:TwoGroupUb}
 	\end{subtable}%
 	\vspace{0.25cm}
@@ -985,13 +991,13 @@ For the $k$-effective eigenvalue, the Rayleigh Quotient Fixed Point method under
 	2 & 0.00116 & 2.8751  \\
 	\bottomrule
 	\end{tabular}
-	\caption{Research Reactor (c) Scattering Block}
+	\caption{Fissile Material Scattering Block}
 	\label{table:TwoGroupUc_ScatterXS}
 	\end{subtable}%
 \end{table}
 
 \begin{table}[!htbp]
-	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for H$_{2}$O-Reflected Research Reactor Cross Sections in \cite{sood2003analytical}}
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Sood Criticality Benchmark Problem 60 in \cite{sood2003analytical}}
 	\label{table:SlabMG-RRH2O}
 	\begin{subtable}[!htbp]{1.0\textwidth}
 	\centering\ra{1.3}
@@ -1000,8 +1006,8 @@ For the $k$-effective eigenvalue, the Rayleigh Quotient Fixed Point method under
 	& & & & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{5-6} Cross Section Set & $r_{c}$ [cm] & $r_{c} + r_{\text{refl}}$ [cm] & Calculated $\alpha$ [s$^{-1}$] & RQFP & Critical Search\\
 	\midrule
-	 Research Reactor (b)/H$_{2}$O & 6.696802 & 7.822954 &  $-1.10466 \times 10^{-7}$ & 2042 & * \\
- 	 Research Reactor (c)/H$_{2}$O & 4.863392 & 10.494149 & $-5.92658 \times 10^{-9}$ & 3192 & * \\
+	Sood Prob. 58 & 6.696802 & 7.822954 &  $-1.10466 \times 10^{-7}$ & 2042 & * \\
+ 	Sood Prob. 60 & 4.863392 & 10.494149 & $-5.92658 \times 10^{-9}$ & 3192 & * \\
 	\bottomrule
 	\multicolumn{6}{l}{*Did Not Converge} \\
 	\end{tabular}}
@@ -1016,8 +1022,8 @@ For the $k$-effective eigenvalue, the Rayleigh Quotient Fixed Point method under
 	& & & & \multicolumn{2}{c}{Transport Sweeps} \\
 \cmidrule{5-6} Cross Section Set & $r_{c}$ [cm] & $r_{c} + r_{\text{refl}}$ [cm] & Calculated $k_{\text{eff}}$ & RQFP & Power Method\\
 	\midrule
-	 Research Reactor (b)/H$_{2}$O & 6.696802 & 7.822954 & 0.99999 & 2038 & 112 \\
-  	 Research Reactor (c)/H$_{2}$O & 4.863392 & 10.494149 & 0.99999 & 3280 & 94 \\
+	 Sood Prob. 58 & 6.696802 & 7.822954 & 0.99999 & 2038 & 112 \\
+  	 Sood Prob. 60 & 4.863392 & 10.494149 & 0.99999 & 3280 & 94 \\
 	\bottomrule%	
 	\multicolumn{6}{l}{$M = 2000$, $L = 64$, Tolerance = $10^{-12}$} \\
 	\end{tabular}}
@@ -1033,7 +1039,7 @@ In certain circumstances, alpha-eigenvalue results for slab geometry also apply 
 
 \subsection{Non-Multiplying Homogeneous Spheres}
 
-To verify the correctness of the RQFP method for one-dimensional spherical geometry, four non-multiplying homogeneous slab problems in \cite{kornreich_greens_1997} with a second eigenvalue listed were modeled as equivalent spherical problems with radii of $\Delta/2$ mfp \cite{}.The dominant alpha-eigenvalue of the equivalent spherical systems is the second eigenvalue of the slab problems. The calculated alpha-eigenvalues were then compared to the GFM-calculated eigenvalues. The purely homogeneous scattering spheres used the cross sections listed in Table~\ref{table:Betzler}. For all problems, the percent relative error between the RQFP- and GFM-calculated eigenvalues was less than 0.005 \% (Table~\ref{table:CompHomogScattSphere}) for diamond differencing discretization ($M=500$) and an S$_{64}$ discrete ordinates quadrature in angle ($L=64$). As the radius of the spheres increases, the system approaches the critical state and the alpha-eigenvalue approaches zero. However, as there is no fissile material, the eigenvalue can never reach zero.
+To verify the correctness of the RQFP method for one-dimensional spherical geometry, four non-multiplying homogeneous slab problems in \cite{kornreich_greens_1997} with a second eigenvalue listed were modeled as equivalent spherical problems with radii of $\Delta/2$ mfp.The dominant alpha-eigenvalue of the equivalent spherical systems is the second eigenvalue of the slab problems. The calculated alpha-eigenvalues were then compared to the GFM-calculated eigenvalues. The purely homogeneous scattering spheres used the cross sections listed in Table~\ref{table:Betzler}. For all problems, the percent relative error between the RQFP- and GFM-calculated eigenvalues was less than 0.005 \% (Table~\ref{table:CompHomogScattSphere}) for diamond differencing discretization ($M=500$) and an S$_{64}$ discrete ordinates quadrature in angle ($L=64$). As the radius of the spheres increases, the system approaches the critical state and the alpha-eigenvalue approaches zero. However, as there is no fissile material, the eigenvalue can never reach zero.
 
 \begin{table*}[!htbp]
 \centering\ra{1.3}
@@ -1054,7 +1060,7 @@ To verify the correctness of the RQFP method for one-dimensional spherical geome
 
 \subsection{Multiplying Homogeneous Spheres}
 
-For homogeneous slab problems with multiplication (Cross sections-Table~\ref{table:Betzler2}), the equivalent spherical problems were modeled and the performance and correctness of the RQFP methods for alpha- and $k$-effective eigenvalue calculations were examined.
+For homogeneous slab problems with multiplication (Cross sections Table~\ref{table:Betzler2}), the equivalent spherical problems were modeled and the performance and correctness of the RQFP methods for alpha- and $k$-effective eigenvalue calculations were examined.
 
 To verify the correctness of the RQFP method for alpha-eigenvalue problems, the RQFP-calculated eigenvalues were compared to the GFM-calculated eigenvalues listed in \cite{kornreich_greens_1997}. The problems were modeled using diamond differencing ($M=500$) and an S$_{64}$ discrete ordinates quadrature in angle ($L=64$). For spherical problems with diameters ranging from three to 50 mean free paths, it was found that the eigenvalues agreed within 0.02\% relative error (Table~\ref{table:CompHomogMultSphere}). Alpha-eigenvalue agreement increased as the spherical system became larger. In all cases, the RQFP method was able to correctly determine the criticality of the system, even for systems that were slightly subcritical or supercritical.
 
@@ -1096,13 +1102,13 @@ The RQFP method was compared to the power method with a fission norm update for 
 	& \multicolumn{2}{c}{Transport Sweeps} & & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{2-3} \cmidrule{5-6} $\Delta$ & RQFP & Critical Search \quad &  \Delta & RQFP & Critical Search\\
 	\midrule
-3 & 46 & * & 10 & 128 & 29645 \\
-4 & 46 & * & 15 & 227 & 61303 \\
-5 & 52 & * & 20 & 357 & 84353 \\
-6 & 67 & * & 30 & 707 & 100433 \\
-7 & 81 & * & 40 & 1176 & 99135 \\
-8 & 96 & 10865 & 50 & 1761 & 97037 \\
-9 & 111 & 21555 & & & \\ 
+3 & 46 & * & 10 & 128 & 29,645 \\
+4 & 46 & * & 15 & 227 & 61,303 \\
+5 & 52 & * & 20 & 357 & 84,353 \\
+6 & 67 & * & 30 & 707 & 100,433 \\
+7 & 81 & * & 40 & 1,176 & 99,135 \\
+8 & 96 & 10,865 & 50 & 1,761 & 97,037 \\
+9 & 111 & 21,555 & & & \\ 
 	\bottomrule
 	\multicolumn{6}{l}{*Did Not Converge} \\
 	\end{tabular}
@@ -1181,29 +1187,29 @@ The RQFP method was compared to the power method with a fission norm update for 
 
 \subsection{Multiplying Homogeneous Spheres with Anisotropic Scattering}
 
-Three exactly critical multiplying homogeneous spheres with anisotropic scattering were modeled to determine the impacts of higher scattering order cross sections on the performance of the RQFP methods. Three sets of uranium-heavy water cross sections sets (Table~\ref{table:SoodUD2OAniso}) were examined, each with different anisotropic scattering cross section orders. In particular, cross section set U-D$_{2}$O (c) had a negative anisotropic scattering cross section. The critical radii for the three problems are listed in Table~\ref{table:AnisoSphere}. These problems were modeled using the diamond differencing scheme in space (500 cells), and S$_{64}$ discrete ordinate angular quadrature.
+Three exactly critical multiplying homogeneous spheres with anisotropic scattering from \cite{sood2003analytical}, Sood Criticality Benchmark Problems 39, 41, and 43, were modeled to determine the impacts of higher scattering order cross sections on the performance of the RQFP methods. Three sets of uranium-heavy water cross sections sets (Table~\ref{table:SoodUD2OAniso}) were examined, each with different anisotropic scattering cross section orders. In particular, cross section set U-D$_{2}$O (c) had a negative anisotropic scattering cross section. The critical radii for the three problems are listed in Table~\ref{table:AnisoSphere}. These problems were modeled using the diamond differencing scheme in space (500 cells), and S$_{64}$ discrete ordinate angular quadrature.
 
-For alpha-eigenvalue problems, the RQFP method calculated alpha-eigenvalues that were within $10^{-7}$ of the true alpha-eigenvalue of zero. For two cases, U-D$_{2}$O (a) and U-D$_{2}$O (b), the problems were slightly supercritical, while for U-D$_{2}$O (c) the problem was subcritical. For the two supercritical cases, both the RQFP and critical search methods were able to converge to the same eigenvalue. The RQFP method required approximately half the transport sweeps as compared to the critical search method (Table~\ref{table:AnisoSphereAlpha}). For the subcritical case, the critical search method could not converge to the correct eigenvalue as the problem was too close to critical and subcritical. For the RQFP method, the number of transport sweeps required to converge the case with a negative anisotropic scattering cross section increased by a factor of 1.5 as compared to non-negative anisotropic cross sections. This suggests the negative anisotropic cross section can impact the rate of convergence.
+For alpha-eigenvalue problems, the RQFP method calculated alpha-eigenvalues that were within $10^{-7}$ of the true alpha-eigenvalue of zero. For two cases, Sood Criticality Benchmark Problem 39 and 41, the problems were slightly supercritical, while for Sood Criticality Benchmark Problem 43 the problem was subcritical. For the two supercritical cases, both the RQFP and critical search methods were able to converge to the same eigenvalue. The RQFP method required approximately half the transport sweeps as the critical search method (Table~\ref{table:AnisoSphereAlpha}). For the subcritical case, the critical search method could not converge to the correct eigenvalue as the problem was slightly subcritical. For the RQFP method, the number of transport sweeps required to converge the case with a negative anisotropic scattering cross section increased by a factor of 1.5 compared to non-negative anisotropic cross sections. This further suggests the negative anisotropic cross section can impact the rate of convergence of the RQFP method.
 
-For $k$-effective eigenvalue problems, the RQFP method calculated $k$-effective eigenvalues were within $10^{-7}$ of the true value of $k_{\text{eff}}=1.00000$. In all three cases, the RQFP method required approximately double the iterations as compared to the power method with fission norm update (Table~\ref{table:AnisoSpherek}). Similar to the alpha-eigenvalue problems, the inclusion of a negative anisotropic scattering cross section increased the number of transport sweeps necessary to converge to a tolerance of $10^{-12}$.
+For $k$-effective eigenvalue problems, the RQFP method calculated $k$-effective eigenvalues were within $10^{-7}$ of the true value of $k_{\text{eff}}=1.00000$. In all three cases, the RQFP method required approximately double the iterations the power method with fission norm update did. (Table~\ref{table:AnisoSpherek}). Similar to the alpha-eigenvalue problems, the inclusion of a negative anisotropic scattering cross section increased the number of transport sweeps necessary to converge to a tolerance of $10^{-12}$.
 
 \begin{table}[!htbp]
-	\caption{Uranium-Heavy Water Cross Sections with Anisotropic Scattering for Critical Sphere Problems (cm$^{-1}$) \cite{sood2003analytical}}
+	\caption{Sood Criticality Benchmark Problems 39, 41, and 43 Cross Sections (cm$^{-1}$) in \cite{sood2003analytical}}
 	\label{table:SoodUD2OAniso}
 	\centering\ra{1.3}
     \begin{tabular}{*6c}
         \toprule
 	Cross Section Set & $\sigma$ & $\nu \sigma_{f}$ & $\sigma_{s0}$  & $\sigma_{s1}$ & $v$ [cm/s] \\ 
         \midrule
-	U-D$_{2}$O (a)  & 0.54628 & 0.098788237268 & 0.464338 & 0.056312624 & 1 \\
-	U-D$_{2}$O (b)  & 0.54628 & 0.100574846008 & 0.464338 & 0.112982569 & 1 \\
-	U-D$_{2}$O (c)  & 0.54628 & 0.0926709392 & 0.464338 & -0.27850447 & 1 \\
+	Sood Prob. 39  & 0.54628 & 0.098788237268 & 0.464338 & 0.056312624 & 1 \\
+	Sood Prob. 41  & 0.54628 & 0.100574846008 & 0.464338 & 0.112982569 & 1 \\
+	Sood Prob. 43  & 0.54628 & 0.0926709392 & 0.464338 & -0.27850447 & 1 \\
         \bottomrule
     \end{tabular}
 \end{table}
 
 \begin{table}[!htbp]
-	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Critical Sphere Problems with Anisotropic Scattering in \cite{sood2003analytical}}
+	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for Sood Criticality Benchmark Problems 39, 41, and 43 in \cite{sood2003analytical}}
 	\label{table:AnisoSphere}
 	\begin{subtable}[!htbp]{1.0\textwidth}
 	\centering\ra{1.3}
@@ -1211,9 +1217,9 @@ For $k$-effective eigenvalue problems, the RQFP method calculated $k$-effective 
 	& & & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{4-5} Cross Section Set & r$_{c}$ [cm] & Calculated $\alpha$ [s$^{-1}$] & RQFP & Critical Search\\
 	\midrule
-	U-D$_{2}$O (a) & 18.30563081 & $3.165772 \times 10^{-7}$ & 299 & 513 \\
-	U-D$_{2}$O (b) & 18.30563081 & $3.930857 \times 10^{-7}$ & 270 & 476\\
-	U-D$_{2}$O (c) & 18.30563081 & $ -6.613381 \times 10^{-7}$ & 456 & *\\
+	Sood Prob. 39 & 18.30563081 & $3.165772 \times 10^{-7}$ & 299 & 513 \\
+	Sood Prob. 41 & 18.30563081 & $3.930857 \times 10^{-7}$ & 270 & 476\\
+	Sood Prob. 43 & 18.30563081 & $ -6.613381 \times 10^{-7}$ & 456 & *\\
 	\bottomrule
 	\multicolumn{5}{l}{*Did Not Converge} \\
 	\end{tabular}
@@ -1227,9 +1233,9 @@ For $k$-effective eigenvalue problems, the RQFP method calculated $k$-effective 
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{4-5} Cross Section Set & r$_{c}$ [cm] & Reference $k_{\text{eff}}$ & RQFP & Power Method \\
 	\midrule
-	U-D$_{2}$O (a) & 18.30563081 & 1.000003 & 301 & 118 \\
-	U-D$_{2}$O (b) & 18.30563081 & 1.000003 & 273 & 106 \\
-	U-D$_{2}$O (c) & 18.30563081 & 0.999993 & 456 & 207 \\
+	Sood Prob. 39 & 18.30563081 & 1.000003 & 301 & 118 \\
+	Sood Prob. 41 & 18.30563081 & 1.000003 & 273 & 106 \\
+	Sood Prob. 43 & 18.30563081 & 0.999993 & 456 & 207 \\
 	\bottomrule
 	\multicolumn{5}{l}{$M = 500$, $L = 64$, Tolerance = $10^{-12}$} \\
 	\end{tabular}
@@ -1242,9 +1248,9 @@ For $k$-effective eigenvalue problems, the RQFP method calculated $k$-effective 
 
 \subsection{A Spherical Shell Problem}
 
-To verify the correctness of the alpha-eigenvalue RQFP method, two spherical shell problems were modeled and the calculated alpha-eigenvalues compared to the GFM-calculated value in \cite{kornreich_greens_1997}. For any symmetric heterogeneous slab problem, an equivalent spherical shell problem can be modeled. As before, the second eigenvalue of the heterogeneous slab problem is the dominant eigenvalue of the spherical shell problem. Using the five-region fuel pin from Figure~\ref{fig:FiveRegionProblem} with the right fuel pin width set to one mean free path, an equivalent spherical problem shown in Figure~\ref{fig:FiveRegionSphereProblem} was modeled. For this particular problem, the width of each material section remained the same as in the five region slab case. Cross sections for the three materials were the same as the slab geometry problem (Table~\ref{table:BetzlerFive}). Similar to the five region slab problem, two cases were examined where $\nu \sigma_{f} = 0.3$ and $0.7$.
+To verify the correctness of the alpha-eigenvalue RQFP method in spherical geometry, two spherical shell problems were modeled and the calculated alpha-eigenvalues compared to the GFM-calculated value in \cite{kornreich_greens_1997}. For any symmetric heterogeneous slab problem, an equivalent spherical shell problem can be modeled. As before, the second eigenvalue of the heterogeneous slab problem is the dominant eigenvalue of the spherical shell problem. Using the five-region fuel pin from Figure~\ref{fig:FiveRegionProblem} with the right fuel pin width set to one mean free path, an equivalent spherical problem shown in Figure~\ref{fig:FiveRegionSphereProblem} was modeled. For this particular problem, the width of each material section remained the same as in the five region slab case. Cross sections for the three materials were the same as the slab geometry problem (Table~\ref{table:BetzlerFive}). Similar to the five region slab problem, two cases were examined where $\nu \sigma_{f} = 0.3$ and $0.7$.
 
-The RQFP- and GFM-calculated alpha-eigenvalues are listed in Table~\ref{table:FiveRegionCasesSphere}. For the $\nu \sigma_{f} = 0.3$ case, the alpha-eigenvalues matched within 0.5\%. For the $\nu \sigma_{f} = 0.7 $ case, agreement was within 2.2\%. The higher discrepancy in the eigenvalue was most likely due to the neutron angular redistribution of spherical geometry as compared to Cartesian coordinates in ARDRA. The GFM-calculated alpha-eigenvalue uses analytic Green's Functions and then determines the eigenvalues numerical through a search process and does not discretize the underlying integro-differential equation like ARDRA.
+The RQFP- and GFM-calculated alpha-eigenvalues are listed in Table~\ref{table:FiveRegionCasesSphere}. For the $\nu \sigma_{f} = 0.3$ case, the alpha-eigenvalues matched within 0.5\%. For the $\nu \sigma_{f} = 0.7 $ case, agreement was within 2.2\%. The higher discrepancy in the eigenvalue was most likely due to the neutron angular redistribution of spherical geometry as compared to Cartesian coordinates in ARDRA. The GFM-calculated alpha-eigenvalue uses analytic Green's Functions and then determines the eigenvalues numerically through a search process and does not discretize the underlying integro-differential equation like ARDRA.
 
 \begin{figure}[!htbp]
 	\centering
@@ -1275,13 +1281,13 @@ In this section, we examine the performance of the RQFP method for three multigr
 
 \subsection{A Plutonium-Nitrate Solution Critical Sphere}
 
-The alpha- and $k$-effective eigenvalues and eigenvectors of a plutonium-nitrate solution covered with cadmium were calculated and the number of transport sweeps required for convergence compared to standard eigensolver methods. The benchmark problem (Cross Section Evaluation Working Group (CSEWG) ID: \texttt{T-15} and International Criticality Safety Benchmark Evaluation Project (ICSBEP) ID: \texttt{PU\_SOL\_THERM\_011}) consisted of an 18-inch diameter sphere of a plutonium-nitrate solution with density 22.35 grams/liter covered with stainless steel and cadmium shells. The fissile sphere radius, $r_{\text{U}}$, and stainless steel and cadmium shell thicknesses, $\delta_{\text{SS}}$ and $\delta_{\text{Cd}}$, respectively, are listed in Table~\ref{table:PU_SOL_Dims} and material composition and number fractions in Table~\ref{table:PU_SOL}. The problem was modeled using a 230 neutron energy group cross section with a scattering order of five. 
+The alpha- and $k$-effective eigenvalues and eigenvectors of a plutonium-nitrate solution covered with cadmium were calculated and the number of transport sweeps required for convergence compared to standard eigensolver methods. The benchmark problem (Cross Section Evaluation Working Group (CSEWG) ID: \texttt{T-15} and International Criticality Safety Benchmark Evaluation Project (ICSBEP) ID: \texttt{PU\_SOL\_THERM\_011}) consisted of an 18-inch diameter sphere of a plutonium-nitrate solution with density 22.35 grams/liter covered with stainless steel and cadmium shells. The fissile sphere radius, $r_{\text{U}}$, and stainless steel and cadmium shell thicknesses, $\delta_{\text{SS}}$ and $\delta_{\text{Cd}}$, respectively, are listed in Table~\ref{table:PU_SOL_Dims} and material composition and number fractions in Table~\ref{table:PU_SOL}. The problem was modeled using a 230 neutron energy group cross section set with a scattering order of five. 
 
 %The library cross section was a legacy Nuclear Data File (NDF) within the Evaluated Nuclear Data Library (ENDL)
 
-For the alpha-eigenvalue problem, the RQFP method required 106200 transport sweeps to converge the alpha-eigenvalue and eigenvector to a tolerance of $10^{-6}$ (Table~\ref{table:PU_SOL_Alpha}). For the modeled problem, the system was found to be slightly supercritical with an alpha-eigenvalue of $2.287638 \times 10^{-4} $ $\mu s^{-1}$. The critical search method was able to converge the eigenpair, requiring 219650 transport sweeps to converge to to the same tolerance. The group scalar flux for the alpha-eigenvalue problem was compared to the benchmark reference solution. The absolute difference between the two  fluxes is seen in Figure~\ref{fig:ScalarFluxEDiff}. The largest differences were located in the fast region of the energy spectrum but were only on the order of $10^{-4}$. Overall, the absolute difference was less than $10^{-6}$, within the tolerance of the solution method.
+For the alpha-eigenvalue problem, the RQFP method required 106,200 transport sweeps to converge the alpha-eigenvalue and eigenvector to a tolerance of $10^{-6}$ (Table~\ref{table:PU_SOL_Alpha}). For the modeled problem, the system was found to be slightly supercritical with an alpha-eigenvalue of $2.287638 \times 10^{-4} $ $\mu s^{-1}$. The critical search method was able to converge the eigenpair, requiring 219,650 transport sweeps to converge to to the same tolerance. The group scalar flux for the alpha-eigenvalue problem was compared to the benchmark reference solution. The absolute difference between the two  fluxes is seen in Figure~\ref{fig:ScalarFluxEDiff}. The largest differences were located in the fast region of the energy spectrum but were only on the order of $10^{-4}$. Overall, the absolute difference was less than $10^{-6}$, within the tolerance of the solution method.
 
-For the $k$-effective eigenvalue problem, the problem was found to have an eigenvalue of $k = 1.012216$. For this particular problem, the RQFP method was unable to converge the $k$-effective eigenvalue and eigenvector (Table~\ref{table:PU_SOL_k}). At each iteration step, the eigenvalue iterate was found to be negative. Though this behavior has been seen before with the RQFP method, it is usually found that the eigenvalue eventually becomes positive and converges to a physically possible $k$-effective eigenvalue. In this particular problem that did not occur. It was found that a better initial guess for the eigenvector allowed for convergence but this required using the eigenvector solution from the power method. The power method with the fission source update assures the positivity of the eigenvalue at each iteration. For this particular problem, the power method with fission source update required 58650 transport sweeps.
+For the $k$-effective eigenvalue problem, the problem was found to have an eigenvalue of $k = 1.012216$. For this particular problem, the RQFP method was unable to converge the $k$-effective eigenvalue and eigenvector (Table~\ref{table:PU_SOL_k}). At each iteration step, the eigenvalue iterate was found to be negative. Though this behavior has been seen before with the RQFP method, it is usually found that the eigenvalue eventually becomes positive and converges to a physically possible $k$-effective eigenvalue. In this particular problem, that did not occur. It was found that a better initial guess for the eigenvector allowed for convergence, but this required using the eigenvector solution from the power method. The power method with the fission source update assures the positivity of the eigenvalue at each iteration. For this particular problem, the power method with fission source update required 58,650 transport sweeps.
 
 \begin{table}[!htbp]
 	\centering\ra{1.3}
@@ -1335,8 +1341,9 @@ For the $k$-effective eigenvalue problem, the problem was found to have an eigen
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{3-4} ICSBEP ID & Calculated $\alpha$ [$\mu s^{-1}$] & RQFP & Critical Search \\
 	\midrule
-	\texttt{PU\_SOL\_THERM\_011} & $2.287638 \times 10^{-4}$ & 106260 & 219650 \\
+	\texttt{PU\_SOL\_THERM\_011} & $2.287638 \times 10^{-4}$ & 106,260 & 219,650 \\
 	\bottomrule
+	\multicolumn{4}{l}{M = 137, L = 128, Tolerance = $10^{-6}$} \\
 	\end{tabular}
 	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
 	\label{table:PU_SOL_Alpha}
@@ -1348,10 +1355,10 @@ For the $k$-effective eigenvalue problem, the problem was found to have an eigen
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{3-4} ICSBEP ID & Calculated $k_{\text{eff}}$ & RQFP & Power Method \\
 	\midrule
-	\texttt{PU\_SOL\_THERM\_001} & 1.012216 & * & 58650 \\
+	\texttt{PU\_SOL\_THERM\_001} & 1.012216 & * & 58,650 \\
 	\bottomrule
-	\multicolumn{4}{l}{*Did Not Converge} \\
-	\multicolumn{4}{l}{M = 137, L = 128, Tolerance = $10^{-6}$} \\
+	%\multicolumn{4}{l}{*Did Not Converge} \\
+	\multicolumn{4}{l}{M = 137, L = 128, Tolerance = $10^{-6}$, *Did Not Converge} \\
 	\end{tabular}
 	\caption{$k$-Effective: Comparison of RQFP and Critical Search Transport Sweeps}
 	\label{table:PU_SOL_k}
@@ -1370,11 +1377,11 @@ For the $k$-effective eigenvalue problem, the problem was found to have an eigen
 \clearpage
 \subsection{A Plutonium/Highly Enriched Uranium Mixture Critical Sphere}
 
-The alpha- and $k$-effective eigenvalues and eigenvectors of a plutonium/highly enriched uranium (PU/HEU) mixture spherical assembly were calculated. The number of transport sweeps required by the Rayleigh Quotient Fixed Point method for convergence of the eigenpair was compared to the standard eigenvalue methods for the alpha- and $k$-effective eigenvalue problems. The benchmark problem (International Criticality Safety Benchmark Evaluation Project (ICSBEP) ID: \texttt{MIX\_MET\_FAST\_001}) consisted of a plutonium metal sphere surrounded by a uranium-235 and uranium-238 shell. The plutonium sphere radius and uranium shell thickness are listed in Table~\ref{table:MIX_MET_Dims}. Material compositions and number fractions are listed in Table~\ref{table:MIX}. The problem was modeled using a 230 neutron energy group cross section with a scattering order of five. 
+The alpha- and $k$-effective eigenvalues and eigenvectors of a plutonium/highly enriched uranium (PU/HEU) mixture spherical assembly were calculated. The number of transport sweeps required by the RQFP method for convergence of the eigenpair was compared to the standard eigenvalue methods for the alpha- and $k$-effective eigenvalue problems. The benchmark problem (International Criticality Safety Benchmark Evaluation Project (ICSBEP) ID: \texttt{MIX\_MET\_FAST\_001}) consisted of a plutonium metal sphere surrounded by a uranium-235 and uranium-238 shell. The plutonium sphere radius and uranium shell thickness are listed in Table~\ref{table:MIX_MET_Dims}. Material compositions and number fractions are listed in Table~\ref{table:MIX}. The problem was modeled using a 230 neutron energy group cross section set with a scattering order of five. 
 
-The problem as modeled in ARDRA was found be slightly subcritical with alpha-eigen\-value $\alpha = -4.114757 \times 10^{-1}$ $\mu s^{-1}$. The RQFP method required 22310 transport sweeps to converge the eigenvalue and eigenvector to a tolerance of $10^{-6}$ (Table~\ref{table:MIX_MET_Alpha}). The critical search method was unable to converge the eigenpair. Despite the slightly subcritical nature of the system, the alpha-eigenvalue was able to introduce negative absorption into various parts of the problem.
+The problem as modeled in ARDRA was found be slightly subcritical with alpha-eigen\-value $\alpha = -4.114757 \times 10^{-1}$ $\mu s^{-1}$. The RQFP method required 22,310 transport sweeps to converge the eigenvalue and eigenvector to a tolerance of $10^{-6}$ (Table~\ref{table:MIX_MET_Alpha}). The critical search method was unable to converge the eigenpair. Despite the slightly subcritical nature of the system, the alpha-eigenvalue introduced sufficient negative absorption to prevent the critical search method from converging.
 
-The $k$-effective eigenvalue was determined to be $k = 0.999063$. The RQFP method required 7130 transport sweeps to converge the eigenvalue/eigenvector pair to a tolerance of $10^{-6}$. The power method with fission source update only required 4370 transport sweeps Table~\ref{table:MIX_MET_k}). The high amount of scattering in this problem appears to degrade the performance of the RQFP method in comparison to the power method.
+The $k$-effective eigenvalue was determined to be $k = 0.999063$. The RQFP method required 7130 transport sweeps to converge the eigenvalue/eigenvector pair to a tolerance of $10^{-6}$. The power method with fission source update only required 4,370 transport sweeps Table~\ref{table:MIX_MET_k}). The high amount of scattering in this problem appears to degrade the performance of the RQFP method in comparison to the power method.
 
 \begin{table}[!htbp]
 	\centering\ra{1.3}
@@ -1422,7 +1429,8 @@ The $k$-effective eigenvalue was determined to be $k = 0.999063$. The RQFP metho
 	\midrule
 	\texttt{MIX\_MET\_FAST\_001} & $-4.114757 \times 10^{-1}$ & 22310 & * \\
 	\bottomrule
-	\multicolumn{4}{l}{*Did Not Converge} \\
+	\multicolumn{4}{l}{M = 1042, L = 128, Tolerance = $10^{-6}$, *Did Not Converge} \\
+	%\multicolumn{4}{l}{*Did Not Converge} \\
 	\end{tabular}
 	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
 	\label{table:MIX_MET_Alpha}
@@ -1448,9 +1456,9 @@ The $k$-effective eigenvalue was determined to be $k = 0.999063$. The RQFP metho
 
 The alpha- and $k$-effective eigenvalue and eigenvectors of a 0.481 inch uranium-233 sphere reflected by an HEU shell were calculated and the number of transport sweeps necessary for converge compared to standard eigenproblem solvers. The uranium-233 system was a fast energy spectrum critical benchmark problem (ICSBEP ID: \texttt{U233\_MET\_FAST\_002}). The critical sphere radius and shell thickness are listed in Table~\ref{table:U233_MET_Dims}. Material compositions and number fractions are shown in Table~\ref{table:U233}. This benchmark problem also used a 230 energy group cross section library.
 
-For the alpha-eigenvalue of the uranium-233 system, the eigenvalue was determined to be $-5.158602 \times 10^{-1}$ $\mu s^{-1}$ as listed in Table~\ref{table:U233_MET_Alpha}. For this subcritical system, the RQFP method required 30590 transport sweeps to converge the alpha eigenpair to a tolerance of $10^{-6}$. The critical search method was unable to converge the eigenpair.
+For the alpha-eigenvalue of the uranium-233 system, the eigenvalue was determined to be $-5.158602 \times 10^{-1}$ $\mu s^{-1}$ as listed in Table~\ref{table:U233_MET_Alpha}. For this subcritical system, the RQFP method required 30,590 transport sweeps to converge the alpha eigenpair to a tolerance of $10^{-6}$. The critical search method was unable to converge the eigenpair.
 
-The $k$-effective eigenvalue was determined to be $k = 0.998474$. For this particular benchmark problem, the RQFP method underperformed the power method with fission source update, requiring 15640 transport sweeps to the power method's 10580 (Table~\ref{table:U233_MET_k}).
+The $k$-effective eigenvalue was determined to be $k = 0.998474$. For this particular benchmark problem, the RQFP method underperformed the power method with fission source update, requiring 15,640 transport sweeps to the power method's 10,580 (Table~\ref{table:U233_MET_k}).
 
 \begin{table}[!htbp]
 	\centering\ra{1.3}
@@ -1494,9 +1502,10 @@ The $k$-effective eigenvalue was determined to be $k = 0.998474$. For this parti
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{3-4} ICSBEP ID & Calculated $\alpha$ [$\mu s^{-1}$] & RQFP & Critical Search \\
 	\midrule
-	\texttt{U233\_MET\_FAST\_002} & $-5.158602 \times 10^{-1}$ & 30590 & * \\
+	\texttt{U233\_MET\_FAST\_002} & $-5.158602 \times 10^{-1}$ & 30,590 & * \\
 	\bottomrule
-	\multicolumn{4}{l}{*Did Not Converge} \\
+	\multicolumn{4}{l}{M = 1042, L = 128, Tolerance = $10^{-6}$, *Did Not Converge} \\
+	%\multicolumn{4}{l}{*Did Not Converge} \\
 	\end{tabular}
 	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
 	\label{table:U233_MET_Alpha}
@@ -1508,7 +1517,7 @@ The $k$-effective eigenvalue was determined to be $k = 0.998474$. For this parti
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{3-4} ICSBEP ID & Calculated $k_{\text{eff}}$ & RQFP & Power Method \\
 	\midrule
-	\texttt{U233\_MET\_FAST\_002} & 0.998474 &15640 & 10580 \\
+	\texttt{U233\_MET\_FAST\_002} & 0.998474 &15,640 & 10,580 \\
 	\bottomrule
 	\multicolumn{4}{l}{M = 526, L = 128, Tolerance = $10^{-6}$} \\
 	\end{tabular}
