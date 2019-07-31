@@ -15,7 +15,7 @@ Solution of Eq.~\ref{eq:AlphaMatrixRQ} consists of finding the eigenpair ($\alph
 	\mathbf{\Psi_{z}} = \mathbf{H}^{-1}_{\mathbf{z}} \big ( -\alpha \mathbf{V}_{\mathbf{z}}^{-1} + \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \big ) \mathbf{\Psi_{z}} \equiv \mathbf{A}(\alpha) \mathbf{\Psi_{z}}.
 	\label{eq:AlphaRQFP}
 \end{equation}
-For all subcritical and critical systems, the righthand side of Eq.~\ref{eq:AlphaRQFP} is nonnegative since for isotropic scattering the scattering matrix is nonnegative. For supercritical systems, there is an $\alpha_{\text{max}}$ such that the righthand side is still nonnegative. Various fixed point equations can be written for the angular flux eigenvector $\mathbf{\Psi_{z}}$. However, this form was selected as it only requires the inversion of the matrix $\mathbf{H_{z}}$. In standard neutron transport codes \cite{hanebutte_ardra_1999} \cite{alcouffe2005partisn}, the matrix $\mathbf{H_{z}}$ is inverted without being formed by sweeping across the domain in space and angle. The updated eigenvector iterate is obtained by the action of the inverted operator on the source. By writing the fixed point in this way, the Rayleigh Quotient Fixed Point method can be implemented easily without need to form the matrices. Instead, all that is required is the action of the matrix $\mathbf{H}^{-1}_{\mathbf{z}}$ on the source vector adjusted by the alpha-eigenvalue, inverse velocity vector. This matrix-free form of the algorithm can be easily implemented easily in production neutron transport codes.
+For all subcritical and critical systems, the righthand side of Eq.~\ref{eq:AlphaRQFP} is nonnegative since for isotropic scattering the scattering matrix is nonnegative. For supercritical systems, there is an $\alpha_{\text{max}}$ such that the righthand side is still nonnegative. Various fixed point equations can be written for the angular flux eigenvector $\mathbf{\Psi_{z}}$. However, this form was selected as it only requires the inversion of the matrix $\mathbf{H_{z}}$. In standard neutron transport codes \cite{hanebutte_ardra_1999} \cite{alcouffe2005partisn}, the matrix $\mathbf{H_{z}}$ is inverted without being formed by sweeping across the domain in space and angle. The updated eigenvector iterate is obtained by the action of the inverted operator on the source. By writing the fixed point in this way, the Rayleigh Quotient Fixed Point method can be implemented easily without needing to form the matrices. Instead, all that is required is the action of the matrix $\mathbf{H}^{-1}_{\mathbf{z}}$ on the source vector, adjusted by the alpha-eigenvalue inverse velocity vector. This matrix-free form of the algorithm can be easily implemented easily in production neutron transport codes.
 
 We define an iterative method to find the fixed point (see Section~\ref{sec:FPI}) of Eq.~\ref{eq:AlphaRQFP} as
 \begin{equation}
@@ -25,7 +25,7 @@ From some initial positive starting vector $\mathbf{\Psi_{z}}^{(0)}$, the subseq
 \begin{equation}
 	\mathbf{\Psi_{z}^{*}} =  \mathbf{A}(\alpha_{*}) \mathbf{\Psi_{z}^{*}}
 \end{equation}
-is also an eigenvalue problem for the fixed matrix $\mathbf{A}(\alpha_{*})$ with eigenvector $\mathbf{\Psi}_{\mathbf{z}}^{*}$ and eigenvalue one.
+is also an eigenvalue problem for the fixed matrix $\mathbf{A}(\alpha_{*})$ with eigenpair $(1,\mathbf{\Psi}_{\mathbf{z}}^{*})$.
 
 If the matrix $\mathbf{A}(\alpha)$ is a primitive matrix, it follows from the Perron-Froebenius Theorem for Primitive Matrices that there is only one unique positive eigenvector of $\mathbf{A}(\alpha)$ corresponding to the dominant eigenvalue. This fact allows us to derive an update for the alpha-eigenvalue at each iteration.
 
@@ -41,7 +41,7 @@ This is a linear least squares problem in the variable $\mu$. It is found that \
 \begin{equation}
 	\hat{\lambda} = \frac{\mathbf{\Psi}^{T}_{(i)} \mathbf{A}\big (\alpha_{(i)} \big ) \mathbf{\Psi}_{(i)}}{\mathbf{\Psi}^{T}_{(i)} \mathbf{\Psi}_{(i)}},
 \end{equation}
-the Rayleigh quotient, minimizes the residual in the least squares sense. Setting the Rayleigh quotient to one and solving for the approximate alpha-eigenvalue $\alpha_{(i)}$, we obtain the alpha-eigenvalue update for an approximate eigenvector $\mathbf{\Psi}_{(i)}$
+the Rayleigh quotient, minimizes the residual in the least squares sense. Setting the Rayleigh quotient to one, the eigenvalue corresponding to the unique positive eigenvector, and solving for the approximate alpha-eigenvalue $\alpha_{(i)}$, we obtain the alpha-eigenvalue update for an approximate eigenvector $\mathbf{\Psi}_{(i)}$
 \begin{equation}
 	\alpha_{(i)} = \frac{ \mathbf{\Psi}^{T}_{(i)} \mathbf{H}^{-1}_{\mathbf{z}} \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \mathbf{\Psi}_{(i)} -  \mathbf{\Psi}^{T}_{(i)}  \mathbf{\Psi}_{(i)}}{  \mathbf{\Psi}^{T}_{(i)} \mathbf{H}^{-1}_{\mathbf{z}} \mathbf{V}^{-1}_{\mathbf{z}}  \mathbf{\Psi}_{(i)}}.
 	\label{eq:AlphaUpdateTwoSweep}
@@ -74,7 +74,7 @@ Given Eq.~\ref{eq:AlphaUpdateTwoSweep}, we introduce Algorithm \ref{algo:alpha},
 	\end{algorithmic}
 \end{algorithm}
 
-For each iteration in Algorithm \ref{algo:alpha} two transport sweeps (inversions of $\mathbf{H_{z}}$) are required. To reduce the number of transport sweeps required, we note that Eq.~\ref{eq:AlphaUpdateTwoSweep} can be written as
+For each iteration in Algorithm \ref{algo:alpha} two transport sweeps (inversions of $\mathbf{H_{z}}$) and three vectors of size $GLMJK$ are necessary to calculate the alpha-eigenvalue and angular flux iterates. To reduce the number of transport sweeps and vectors required, we note that Eq.~\ref{eq:AlphaUpdateTwoSweep} can be written as
 \begin{equation}
 	\alpha_{(i)} = \frac{ \mathbf{\Psi}^{T}_{(i)} \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \mathbf{\Psi}_{(i)} -  \mathbf{\Psi}^{T}_{(i)}  \mathbf{H_{z}} \mathbf{\Psi}_{(i)}}{  \mathbf{\Psi}^{T}_{(i)} \mathbf{V}^{-1}_{\mathbf{z}}  \mathbf{\Psi}_{(i)}}.
 	\label{eq:AlphaUp}
@@ -88,7 +88,7 @@ where $\mathbf{q}$ is the scattering and fission source vector, we can write Eq.
 	\alpha_{(i)} = \frac{ \mathbf{\Psi}^{T}_{(i)} \mathbf{L}^{+} \big ( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \mathbf{\Psi}_{(i)} -  \mathbf{\Psi}^{T}_{(i)}  \mathbf{q}_{(i-1)}}{  \mathbf{\Psi}^{T}_{(i)} \mathbf{V}^{-1}_{\mathbf{z}}  \mathbf{\Psi}_{(i)}}.
 	%\label{eq:AlphaUp}
 \end{equation}
-We introduce a one-sweep variant of Algorithm~\ref{algo:alpha} in Algorithm~\ref{algo:alpha_one}. For the first iteration ($i=0$), $\alpha_{(0)}$ = 0. Algorithm~\ref{algo:alpha_one} requires only one transport sweep per iteration of the method. However, the method requires two vectors per iteration, one to store the angular flux vector and another to store the previous fission and scattering source vector.
+We introduce a one-sweep variant of Algorithm~\ref{algo:alpha} in Algorithm~\ref{algo:alpha_one}. For the first iteration ($i=0$), $\alpha_{(0)}$ = 0. Algorithm~\ref{algo:alpha_one} requires only one transport sweep per iteration of the method. However, the method still requires two vectors per iteration, one to store the angular flux vector and another to store the previous fission and scattering source vector.
 \begin{algorithm}[ht]
 	\caption{One-Sweep Rayleigh Quotient Fixed Point Method for the Alpha-Eigenvalue Problem}
 	\label{algo:alpha_one}
@@ -104,12 +104,12 @@ We introduce a one-sweep variant of Algorithm~\ref{algo:alpha} in Algorithm~\ref
 }
 		\STATE{
 		\begin{equation*}
-		\mathbf{q}_{(i)} =  \bigg ( \mathbf{L}^{+}  \big ( \mathbf{\Sigma_{s}}  + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \bigg )\mathbf{\Psi}_{(i)}
+		\mathbf{q}_{(0)} =  \bigg ( \mathbf{L}^{+}  \big ( \mathbf{\Sigma_{s}}  + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \bigg )\mathbf{\Psi}_{(0)}
 		\end{equation*}
 		}
 		\STATE{
 		\begin{equation*}
-				\mathbf{\Psi}_{(i+1)} = \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{q}_{(i)}
+				\mathbf{\Psi}_{(1)} = \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{q}_{(0)}
 		\end{equation*}
 		}
 		\ELSE
@@ -141,7 +141,7 @@ We introduce a one-sweep variant of Algorithm~\ref{algo:alpha} in Algorithm~\ref
 
 \section{Derivation of the Rayleigh Quotient Fixed Point Method for $k$-Effective Problems}
 
-Derivation of the $k$-effective Rayleigh Quotient Fixed Point Method follows a similar procedure as the alpha-eigenvalue RQFP. We begin with the discretized $k$-effective eigenvalue matrix equation:
+Derivation of the $k$-effective RQFP method follows a similar procedure as the alpha-eigen\-value RQFP method. We begin with the discretized $k$-effective eigenvalue matrix equation:
 \begin{equation}
 	\mathbf{H_{z}} \mathbf{\Psi_{z}} = \mathbf{L}^{+} \bigg ( \mathbf{\Sigma_{s}} + \frac{1}{k}\mathbf{\Sigma_{f}} \bigg ) \mathbf{L} \mathbf{\Psi_{z}},
 	\label{eq:kZDerive}
@@ -151,17 +151,17 @@ Once again, we search for the eigenpair $(k, \mathbf{\Psi})$ that satisfies Eq.~
 	\mathbf{\Psi_{z}} = \mathbf{H}^{-1}_{\mathbf{z}} \bigg [ \mathbf{L}^{+} \bigg ( \mathbf{\Sigma_{s}} + \frac{1}{k} \mathbf{\Sigma_{f}} \bigg ) \mathbf{L} \bigg ] \mathbf{\Psi} \equiv \mathbf{T}(k) \mathbf{\Psi_{z}}.
 	\label{eq:kRQFP}
 \end{equation}
-For all systems, the righthand side of Eq.~\ref{eq:kRQFP} is nonnegative for isotropic scattering and $k$ is nonnegative \cite{warsa_krylov_2004}. The fixed point form is selected to only require the inversion of the matrix $\mathbf{H}_{\mathbf{z}}$.
+For all systems, the righthand side of Eq.~\ref{eq:kRQFP} is nonnegative for isotropic scattering and nonnegative $k$ \cite{warsa_krylov_2004}. The fixed point form is selected to only require the inversion of the matrix $\mathbf{H}_{\mathbf{z}}$.
 We define an iterative method to find the fixed point of Eq.~\ref{eq:kRQFP} as
 \begin{equation}
 	\mathbf{\Psi_{z}}^{(i+1)} = \mathbf{T}(k_{(i)}) \mathbf{\Psi_{z}}^{(i)}.
 	\label{eq:FPk}
 \end{equation}
-From some initial positive starting vector $\mathbf{\Psi_{z}}^{(0)}$, the subsequent eigenvector iterate is determined by the action of inversion of the matrix $\mathbf{H_{z}}$ on the scattering and fission source where the fission source is adjusted by the $k$-effective eigenvalue. At each iteration, an update for the eigenvalue is required. If $(k_{*},\mathbf{\Psi}_\mathbf{z}^{*})$ is an eigenpair of Eq.~\ref{eq:FPk}, it follows that
+From some initial positive starting vector $\mathbf{\Psi_{z}}^{(0)}$, the subsequent eigenvector iterate is determined by the action of inversion of the matrix $\mathbf{H_{z}}$ on the scattering and fission source, where the fission source is adjusted by the $k$-effective eigenvalue as seen in Eq.~\ref{eq:kRQFP}. At each iteration, an update for the eigenvalue is required. If $(k_{*},\mathbf{\Psi}_\mathbf{z}^{*})$ is an eigenpair of Eq.~\ref{eq:FPk}, it follows that
 \begin{equation}
 	\mathbf{\Psi}_\mathbf{z}^{*} = \mathbf{T}(k_{*}) \mathbf{\Psi}_\mathbf{z}^{*}
 \end{equation}
-is also an eigenvalue problem with eigenpair $(\mathbf{1},\mathbf{\Psi}_\mathbf{z}^{*})$.
+is also an eigenvalue problem with eigenpair $(1,\mathbf{\Psi}_\mathbf{z}^{*})$.
 
 Similar to the alpha-eigenvalue matrix $\mathbf{A}(\alpha)$, if the matrix $\mathbf{T}(k)$ is a primitive matrix, it follows from the Perron-Froebenius Theorem for Primitive Matrices that there is only one unique positive eigenvector of $\mathbf{T}(k)$ corresponding to the dominant eigenvalue. This fact allows us to derive an update for the $k$-effective eigenvalue at each iteration.
 
@@ -229,12 +229,12 @@ We introduce Algorithm~\ref{algo:kOne}, a one-sweep variant of Algorithm~\ref{al
 		\IF{$i = 0$}
 		\STATE{
 		\begin{equation*}
-		\mathbf{q}_{(i)} =  \big [ \mathbf{L}^{+}  \big ( \mathbf{\Sigma_{s}}  + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \big ]\mathbf{\Psi}_{(i)}
+		\mathbf{q}_{(0)} =  \big [ \mathbf{L}^{+}  \big ( \mathbf{\Sigma_{s}}  + \mathbf{\Sigma_{f}} \big ) \mathbf{L} \big ]\mathbf{\Psi}_{(0)}
 		\end{equation*}
 		}
 		\STATE{
 		\begin{equation*}
-				\mathbf{\Psi}_{(i+1)} = \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{q}_{(i)}
+				\mathbf{\Psi}_{(1)} = \mathbf{H}_{\mathbf{z}}^{-1} \mathbf{q}_{(i)}
 		\end{equation*}
 		}
 		\ELSE
@@ -345,4 +345,4 @@ The Jacobian matrix for the Rayleigh Quotient Fixed Point method for $k$-effecti
 
 \section{Conclusion}
 
-We have derived a Rayleigh quotient fixed point method for alpha- and $k$-effective eigenvalue problems. From the matrix form of the criticality eigenvalue equations, a fixed-point iteration that requires only a transport sweep was developed. Using the properties of primitive matrices, an eigenvalue update that is optimal in the least squares sense was obtained. This eigenvalue corresponds to the positive angular flux eigenvector that solves the criticality eigenvalue problems. The Jacobians of the fixed point methods were derived for the alpha- and $k$-effective Rayleigh Quotient Fixed Point methods.
+We have derived a Rayleigh quotient fixed point method for alpha- and $k$-effective eigenvalue problems. From the matrix form of the criticality eigenvalue equations, a fixed-point iteration that requires only a transport sweep was developed. Using the properties of primitive matrices, an eigenvalue update that is optimal in the least squares sense was obtained. This eigenvalue corresponds to the positive angular flux eigenvector that solves the criticality eigenvalue problems. The Jacobians of the fixed point methods were derived for the alpha- and $k$-effective Rayleigh Quotient Fixed Point methods to determine if a problem was expected to converge. In the next chapter, we examine various problems where the RQFP method does not converge and we use the spectral radius of the Jacobian to characterize this behavior. In practice, calculating the Jacobian requires forming the matrices. However, for simple problems, the Jacobian is a useful measure of the convergence behavior and rate of the RQFP methods.

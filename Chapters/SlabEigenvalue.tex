@@ -1211,8 +1211,8 @@ For $k$-effective eigenvalue problems, the RQFP method calculated $k$-effective 
 	& & & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{4-5} Cross Section Set & r$_{c}$ [cm] & Calculated $\alpha$ [s$^{-1}$] & RQFP & Critical Search\\
 	\midrule
-	U-D$_{2}$O (a) & 18.30563081 & $3.165772 \times 10^{-7}$ & 299 & 585 \\
-	U-D$_{2}$O (b) & 18.30563081 & $3.930857 \times 10^{-7}$ & 270 & 541\\
+	U-D$_{2}$O (a) & 18.30563081 & $3.165772 \times 10^{-7}$ & 299 & 513 \\
+	U-D$_{2}$O (b) & 18.30563081 & $3.930857 \times 10^{-7}$ & 270 & 476\\
 	U-D$_{2}$O (c) & 18.30563081 & $ -6.613381 \times 10^{-7}$ & 456 & *\\
 	\bottomrule
 	\multicolumn{5}{l}{*Did Not Converge} \\
@@ -1279,7 +1279,7 @@ The alpha- and $k$-effective eigenvalues and eigenvectors of a plutonium-nitrate
 
 %The library cross section was a legacy Nuclear Data File (NDF) within the Evaluated Nuclear Data Library (ENDL)
 
-For the alpha-eigenvalue problem, the RQFP method required 106200 transport sweeps to converge the alpha-eigenvalue and eigenvector to a tolerance of $10^{-6}$ (Table~\ref{table:PU_SOL_Alpha}). For the modeled problem, the system was found to be slightly supercritical with an alpha-eigenvalue of $2.287638 \times 10^{-4} $ $\mu s^{-1}$. The critical search method was able to converge the eigenpair, requiring 333500 transport sweeps to converge to to the same tolerance. The group scalar flux for the alpha-eigenvalue problem was compared to the benchmark reference solution. The absolute difference between the two  fluxes is seen in Figure~\ref{fig:ScalarFluxEDiff}. The largest differences were located in the fast region of the energy spectrum but were only on the order of $10^{-4}$. Overall, the absolute difference was less than $10^{-6}$, within the tolerance of the solution method.
+For the alpha-eigenvalue problem, the RQFP method required 106200 transport sweeps to converge the alpha-eigenvalue and eigenvector to a tolerance of $10^{-6}$ (Table~\ref{table:PU_SOL_Alpha}). For the modeled problem, the system was found to be slightly supercritical with an alpha-eigenvalue of $2.287638 \times 10^{-4} $ $\mu s^{-1}$. The critical search method was able to converge the eigenpair, requiring 219650 transport sweeps to converge to to the same tolerance. The group scalar flux for the alpha-eigenvalue problem was compared to the benchmark reference solution. The absolute difference between the two  fluxes is seen in Figure~\ref{fig:ScalarFluxEDiff}. The largest differences were located in the fast region of the energy spectrum but were only on the order of $10^{-4}$. Overall, the absolute difference was less than $10^{-6}$, within the tolerance of the solution method.
 
 For the $k$-effective eigenvalue problem, the problem was found to have an eigenvalue of $k = 1.012216$. For this particular problem, the RQFP method was unable to converge the $k$-effective eigenvalue and eigenvector (Table~\ref{table:PU_SOL_k}). At each iteration step, the eigenvalue iterate was found to be negative. Though this behavior has been seen before with the RQFP method, it is usually found that the eigenvalue eventually becomes positive and converges to a physically possible $k$-effective eigenvalue. In this particular problem that did not occur. It was found that a better initial guess for the eigenvector allowed for convergence but this required using the eigenvector solution from the power method. The power method with the fission source update assures the positivity of the eigenvalue at each iteration. For this particular problem, the power method with fission source update required 58650 transport sweeps.
 
@@ -1335,7 +1335,7 @@ For the $k$-effective eigenvalue problem, the problem was found to have an eigen
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{3-4} ICSBEP ID & Calculated $\alpha$ [$\mu s^{-1}$] & RQFP & Critical Search \\
 	\midrule
-	\texttt{PU\_SOL\_THERM\_001} & $2.287638 \times 10^{-4}$ & 106260 & 333500 \\
+	\texttt{PU\_SOL\_THERM\_011} & $2.287638 \times 10^{-4}$ & 106260 & 219650 \\
 	\bottomrule
 	\end{tabular}
 	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
