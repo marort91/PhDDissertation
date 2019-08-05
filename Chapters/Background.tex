@@ -196,39 +196,47 @@ The criticality of the system can be defined by the sign of $\alpha_{0}$
 The fundamental eigenvalue and eigenvector are real ($\alpha_{0} \in \mathbb{R}, \psi_{0} \in \mathbb{R}^{N}$) but any of the higher eigenvalues and eigenvectors may be negative and complex. 
 The $\alpha$-eigenvalues are ordered by their real part
 \begin{equation}
-	\alpha_{0} > Re(\alpha_{1}) > Re(\alpha_{2}) > \dots > Re(\alpha_{n}).
+	\alpha_{0} > Re(\alpha_{1}) \geq Re(\alpha_{2}) \geq \dots \geq Re(\alpha_{n}).
 \end{equation}
-Since complex eigenvalues are possible in the spectrum, for the real transport operator $\mathbf{T}$, it follows that the complex conjugate of these eigenvalues are also in the spectrum. We prove this as follows:
+Let $\mathcal{T}$ be the transport operator defined as
+\begin{equation}
+	\mathcal{T} = \mathcal{V}(\mathcal{S}+\mathcal{F} - \mathcal{H}),
+\end{equation}
+then it follows that the eigenvalue problem can be written as
+\begin{equation}
+	\alpha \psi = \mathcal{T} \psi.
+\end{equation}
+Since complex eigenvalues are possible in the spectrum for the real transport operator $\mathcal{T}$, it follows that the complex conjugate of these eigenvalues are also in the spectrum. We prove this as follows:
 \begin{theorem}
 If there exists a complex eigenvalue in the spectrum, then its complex conjugate is also in the spectrum.
 \end{theorem}
 \begin{proof}
-	Consider the linear transport operator $T \in \mathbb{R}$. If $\lambda \in \mathbb{C}$ is a complex eigenvalue of $T$ and $v \in \mathbb{C}^{n}$ is a non-zero eigenfunction of $T$, then by definition
+	Consider the linear transport operator $\mathcal{T} \in \mathbb{R}$. If $\lambda \in \mathbb{C}$ is a complex eigenvalue of $\mathcal{T}$ and $v \in \mathbb{C}^{n}$ is a non-zero eigenfunction of $\mathcal{T}$, then by definition
 	\begin{equation}
-		T v = \lambda v.
+		\mathcal{T} v = \lambda v.
 		\label{eq:ComConj}
 	\end{equation}
 Taking the complex conjugate of Equation \ref{eq:ComConj} yields
 \begin{equation}
-	\overline{T}\overline{v} = T \overline{v} = \overline{\lambda}\overline{v},
+	\overline{\mathcal{T}}\overline{v} = \mathcal{T} \overline{v} = \overline{\lambda}\overline{v},
 	\end{equation}
-since $T$ is real and linear.
+since $\mathcal{T}$ is real and linear.
 \end{proof}
 In addition, given the entire set of eigenvalue and eigenvectors for this eigenvalue problem, any initial condition angular flux can be expressed as a combination of the eigenvectors and eigenvalues. These eigenvalues $\alpha$ exist for systems without fissile material and have units of inverse time as they give a characteristic time of the slowest neutron to leak or be absorbed in the system. In the literature, these eigenvalues are also know as natural, time \cite{hill_efficient_1983}, or $\lambda$ \cite{duderstadt_nuclear_1976} eigenvalues. For simple problems such as one-speed slabs and multigroup-in energy slab and spherical problems, various features of the $\alpha$-eigenvalue spectrum have been identified. We discuss these results in Section~\ref{sec:AlphaSpec}. It must be noted that the existence of a fundamental eigenvalue is not guaranteed for all problems. In particular, optically thin slabs have been shown to have no fundamental eigenvalue \cite{kornreich_timeeigenvalue_2005}. In contrast to incredibly subcritical problems, for incredibly supercritical systems, two real, positive eigenvalues have been observed \cite{kornreich_timeeigenvalue_2005}. In general, the existence of a sole dominant eigenvalue has also yet to be proven for all cases of interest.
 
 \subsubsection{The $\alpha$-Eigenvalue Spectrum}
 \label{sec:AlphaSpec}
 
-In this section we examine previous work on the $\alpha$-eigenvalue spectrum. Initial examination of the spectrum by Lehner and Wing \cite{lehner_spectrum_1955} for the linear transport operator $T$ assumed the one-speed, slab geometry form
+In this section we examine previous work on the $\alpha$-eigenvalue spectrum. Initial examination of the spectrum by Lehner and Wing \cite{lehner_spectrum_1955} for the linear transport operator $\mathcal{T}$ assumed the one-speed, slab geometry form
 \begin{equation}
-	T(x,\mu) = -\mu \frac{\partial}{\partial x} + \frac{c}{2} \int_{-1}^{1} \diff \mu'.
+	\mathcal{T}(x,\mu) = -\mu \frac{\partial}{\partial x} + \frac{c}{2} \int_{-1}^{1} \diff \mu'.
 \end{equation}
 where
 \begin{equation}
 	c = \frac{\bar{\nu} \sigma_{f} + \sigma_{s}}{\sigma}.
 \end{equation}
 %It was found that for this particular case, the spectrum only consists of a few discrete eigenvalues. 
-Additional studies by J{\"o}rgens extended the spectral analysis to multi-energy media \cite{jorgens_asymptotic_1958}. Larsen extended the spectral analysis to more general geometries \cite{larsen_spectrum_1974}. Larsen found that the spectrum of $T$ for more general problems consists of points, line, and in some cases, a continuum of eigenvalues. An example of the spectrum of $T$ can be seen in Figure \ref{fig:AlphaEigSpectrum}. The spectrum of $T$ includes more scalars than just the $\alpha$-eigenvalues. The $\alpha$-eigenvalues are the point and line spectrum of $T$ \cite{duderstadt_transport_1979}. The point spectrum is finite, all-real set lying in the positive half-plane $\lambda > -\lambda^{*}$, where $\lambda^{*}$ is the minimum value of $v\sigma(v)$. The features of the spectrum of $T$ are highly dependent on the type of problem being examined. For example, for slab geometry problems, the continuum of eigenvalue occurs due to the possibility a neutron can travel parallel to one of the faces indefinitely before scattering or leaving the slab \cite{wing_transport_1962}. The continuous spectrum is contained in the negative half-plane Re $\lambda \le -\lambda^{*}$. The dividing limit, $-\lambda^{*}$, called the Corngold limit, marks the minimum physically-possible $\alpha$-eigenvalue.
+Additional studies by J{\"o}rgens extended the spectral analysis to multi-energy media \cite{jorgens_asymptotic_1958}. Larsen extended the spectral analysis to more general geometries \cite{larsen_spectrum_1974}. Larsen found that the spectrum of $\mathcal{T}$ for more general problems consists of points, line, and in some cases, a continuum of eigenvalues. An example of the spectrum of $\mathcal{T}$ can be seen in Figure \ref{fig:AlphaEigSpectrum}. The spectrum of $\mathcal{T}$ includes more scalars than just the $\alpha$-eigenvalues. The $\alpha$-eigenvalues are the point and line spectrum of $\mathcal{T}$ \cite{duderstadt_transport_1979}. The point spectrum is finite, all-real set lying in the positive half-plane $\lambda > -\lambda^{*}$, where $\lambda^{*}$ is the minimum value of $v\sigma(v)$. The features of the spectrum of $\mathcal{T}$ are highly dependent on the type of problem being examined. For example, for slab geometry problems, the continuum of eigenvalue occurs due to the possibility a neutron can travel parallel to one of the faces indefinitely before scattering or leaving the slab \cite{wing_transport_1962}. The continuous spectrum is contained in the negative half-plane Re $\lambda \le -\lambda^{*}$. The dividing limit, $-\lambda^{*}$, called the Corngold limit, marks the minimum physically-possible $\alpha$-eigenvalue.
 
 \begin{theorem}
 	The Corngold limit, $-\lambda^{*} = -v\sigma(v)$, is the minimum physically possible $\alpha$-eigenvalue.
@@ -254,7 +262,7 @@ The minimum possible $\alpha$-eigenvalue occurs when there is no fissile materia
 which is the Corngold limit.
 \end{proof}
 
-The minimum velocity, $v_{\text{min}}$, has interesting impacts on the spectrum of the operator $\mathbf{T}$. Studies on finite media problems where the mimimum velocity is greater than zero ($v_{\text{min}} > 0$) show that the continuous part of the spectrum disappears \cite{jorgens_asymptotic_1958}. Instead of a continuous spectrum, point and line spectra fill the half-space. If the minimum neutron velocity is allowed to approach small speeds, $v_{\text{min}} = 0$, the continuous part of the spectrum reappears. The presence of line spectra results from considering the continuous dependence of the $\alpha$-eigenvalues on neutron velocity. As the velocity varies from some $v$ to $v_{\text{min}}$, some eigenvalues trace out curves in the complex plane or remain stationary \cite{larsen_spectrum_1974}.
+The minimum velocity, $v_{\text{min}}$, has interesting impacts on the spectrum of the operator $\mathcal{T}$. Studies on finite media problems where the mimimum velocity is greater than zero ($v_{\text{min}} > 0$) show that the continuous part of the spectrum disappears \cite{jorgens_asymptotic_1958}. Instead of a continuous spectrum, point and line spectra fill the half-space. If the minimum neutron velocity is allowed to approach small speeds, $v_{\text{min}} = 0$, the continuous part of the spectrum reappears. The presence of line spectra results from considering the continuous dependence of the $\alpha$-eigenvalues on neutron velocity. As the velocity varies from some $v$ to $v_{\text{min}}$, some eigenvalues trace out curves in the complex plane or remain stationary \cite{larsen_spectrum_1974}.
 
 Studies suggest that the case where the minimum neutron velocity is bounded away from zero is the more physically valid representation. As the neutron velocity minimum is allowed to go to zero, the neutron wavelength is comparable to the mean free path, thus rendering the neutron transport equation invalid \cite{duderstadt_nuclear_1976}. In this disseration, the neutron transport equation is discretized and energy-dependent cross sections are bounded away from zero. $\alpha$-eigenvalue spectra will then contain only point spectra.
 
@@ -275,7 +283,7 @@ The alpha-eigenvalue and eigenvector are necessary to characterize the neutron f
 
 %For critical problems, the neutron flux distribution at long times is given by the eigenvector corresponding to the alpha-eigenvalues. 
 
-Another application of the alpha-eigenvalue is for nuclear systems that are supercritical for short periods of time like fast-burst nuclear reactors. Fast-burst reactors generate high-flux neutron pulses that are used in materials radiation testing, electronic hardware hardening testing, and other applications. These supercritical systems return to a subcritical through some sort of feedback, either geometric or thermal. Since the neutron flux is a time-dependent function, the alpha-eigenvalue gives a measure of the growth rate of the neutron flux. For purely supercritical systems, the neutron flux increases without bound in time and the alpha-eigenvalue measures the $e$-folding time, the time required by the exponentially growing neutron population to increase by a factor of $e$ \cite{duderstadt_nuclear_1976}. To see this, consider Eq.~\ref{eq:kinfalpha}
+Another application of the alpha-eigenvalue is for nuclear systems that are supercritical for short periods of time like fast-burst nuclear reactors. Fast-burst reactors generate high-flux neutron pulses that are used in materials radiation testing, electronic hardware hardening testing, and other applications. These supercritical systems return to a subcritical state through some sort of feedback, either geometric or thermal. Since the neutron flux is a time-dependent function, the alpha-eigenvalue gives a measure of the growth rate of the neutron flux. For purely supercritical systems, the neutron flux increases without bound in time and the alpha-eigenvalue measures the $e$-folding time, the time required by the exponentially growing neutron population to increase by a factor of $e$ \cite{duderstadt_nuclear_1976}. To see this, consider Eq.~\ref{eq:kinfalpha}
 \begin{equation*}
 	\frac{\alpha_{\infty}}{v\sigma} = (k_{\infty}-1) \bigg ( 1 - \frac{\sigma_{s}}{\sigma} \bigg ).
 \end{equation*}
@@ -283,7 +291,7 @@ Multiplying by $v\sigma$ and using the relation $\sigma_{a} = \sigma - \sigma_{s
 \begin{equation}
 	\alpha_{\infty} = v(\nu \sigma_{f} - \sigma_{a}).
 \end{equation}
-Noting that $k_{\infty} = \nu \sigma_{f} / \sigma_{a}$ and the neutron lifetime is given by $\ell = 1/v\sigma_{a}$, we obtain
+Noting that $k_{\infty} = \bar{\nu} \sigma_{f} / \sigma_{a}$ and the neutron lifetime is given by $\ell = 1/v\sigma_{a}$, we obtain
 \begin{equation}
 	\alpha_{\infty} = \frac{k_{\infty} - 1}{\ell}.
 	\label{eq:alphamax}
@@ -347,7 +355,7 @@ In this method, the alpha-eigenvalue introduces artificial absorption into the p
 \end{equation}
 Dividing by the total cross section we obtain
 \begin{equation}
-	\bigg [ \mu \frac{\partial}{\partial x} + \alpha' \bigg ] \psi(x,\mu) = \frac{c}{2} \int_{-1}^{1} \diff \mu' \, \psi(x,\mu'),
+	\bigg [ \frac{\mu}{\sigma} \frac{\partial}{\partial x} + \alpha' \bigg ] \psi(x,\mu) = \frac{c}{2} \int_{-1}^{1} \diff \mu' \, \psi(x,\mu'),
 	%\bigg [ \mu \frac{\partial}{\partial \Delta} + \alpha' \bigg ] \psi(\Delta,\mu) = \frac{c}{2} \int_{-1}^{1} \diff \mu' \, \psi(\Delta,\mu'),
 	\label{eq:MFPNTE}
 \end{equation}
@@ -565,6 +573,11 @@ Let $\mathbf{A} \ge \mathbf{0}$, $\mathbf{A}$ is \textit{primitive} if there is 
 \begin{definition}
 Let $\mathbf{A} \ge \mathbf{0}$ be an irreducible $n \times n$ matrix, and let $k$ be the number of eigenvalues of $\mathbf{A}$ with modulus $\rho(\mathbf{A})$. If $k > 1$, then $\mathbf{A}$ is \textit{cyclic of index k}.
 \end{definition}
+
+From the previous definitions, the following can be shown:
+\begin{lemma}
+	Let $\mathbf{A} \ge \mathbf{0}$ be a primitive $n \times n$ matrix. Then $\mathbf{A}$ is \textit{irreducible}.
+\end{lemma}
 
 \subsection{Perron-Froebenius Theorem for Irreducible Matrices}
 
