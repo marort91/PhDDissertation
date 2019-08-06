@@ -28,15 +28,15 @@ function [alpha,x,residual] = AndersonAcc(H,S,F,iV,maxits,tol,mmax,fpiters,beta)
     maa = 0;
     G = [];
 
-    %Initial fixed point iterations
+    %Initial fixed-point iterations
     for i = 1:fpiters
     [x,alpha,q] = AlphaRQSweep(H,S,F,iV,x,q);
     end
 
-    %Start Anderson Acceleration
+    %Start Anderson acceleration
     for k = 0:maxits
     
-        %Fixed Point Iteration Evaluation
+        %Fixed-point iteration evaluation
         xold = x;
         [gcur, alpha, q] = AlphaFcn(H,S,F,iV,x,q);
         fcur = gcur - x;
@@ -55,7 +55,7 @@ function [alpha,x,residual] = AndersonAcc(H,S,F,iV,maxits,tol,mmax,fpiters,beta)
         fold = fcur;
         gold = gcur;
     
-        %Gram-Schmidt Orthogonalization
+        %Gram-Schmidt orthogonalization
         if ( maa == 0 )
             x = gcur;
         else
@@ -82,7 +82,7 @@ function [alpha,x,residual] = AndersonAcc(H,S,F,iV,maxits,tol,mmax,fpiters,beta)
         fprintf('Iter: %i alpha = %e residual = %e \n',...
             k+1, alpha, residual(k+1));
     
-        %Termination Criterion
+        %Termination criterion
         if ( residual(k+1) < tol )
             break
         end

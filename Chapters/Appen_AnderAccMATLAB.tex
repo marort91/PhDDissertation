@@ -2,13 +2,13 @@
 
 \label{AnderAccMATLAB}
 
-In Appendix~\ref{AnderAccMATLAB} we describe the implementation of Anderson acceleration for the Rayleigh Quotient Fixed Point method for alpha-eigenvalue problems. We include the Matlab code for future use. First, we describe the one-sweep alpha-eigenvalue Rayleigh Quotient Fixed Point implementation and its input and outputs. We then describe the Anderson acceleration implementation of the unconstrained problem and describe the various features of the method. We describe the solution process for the update and the matrix deletion required to maintain acceptable conditioning of the system.
+In Appendix~\ref{AnderAccMATLAB} we describe the implementation of Anderson acceleration for the Rayleigh Quotient Fixed Point method for alpha-eigenvalue problems. We include the Matlab code for future use. First, we describe the one-sweep alpha-eigenvalue Rayleigh Quotient Fixed Point method implementation and its input and outputs. We then describe the Anderson acceleration implementation of the unconstrained problem and describe the various features of the method. We describe the solution process for the update and the matrix deletion required to maintain acceptable conditioning of the system.
 
 \section{Alpha-Eigenvalue Rayleigh Quotient Fixed Point Method Matlab Implementation}
 
 \label{sec:AlphaRQSweep}
 
-The Matlab function \texttt{AlphaRQSweep} performs one iteration (transport sweep) of the Rayleigh Quotient Fixed Point method for alpha-eigenvalue problems. The function requires the matrices \texttt{H, S, F, iV}, the numerical matrix representations of the matrices $\mathbf{H}_{\mathbf{z}}$, $\mathbf{V}_{\mathbf{z}}^{-1}$, $\mathbf{\Sigma_{s}}$, and $\mathbf{\Sigma_{f}}$ described in Chapter~\ref{Discrete}. The function also requires input vectors \texttt{x} and \texttt{q}, the previous angular flux vector and previous source, respectively, as described in Chapter~\ref{DeriveRQ}. The function calculates the alpha-eigenvalue and returns it to \texttt{alpha} and determines the next angular flux iterate and source. \texttt{AlphaRQSweep} is used as the fixed point function evaluation in Anderson acceleration. The Matlab code is shown in Listing~\ref{AlphaRQCode}.
+The Matlab function \texttt{AlphaRQSweep} performs one iteration (transport sweep) of the Rayleigh Quotient Fixed Point method for alpha-eigenvalue problems. The function requires the matrices \texttt{H, S, F, iV}, the numerical matrix representations of the matrices $\mathbf{H}_{\mathbf{z}}$, $\mathbf{V}_{\mathbf{z}}^{-1}$, $\mathbf{\Sigma_{s}}$, and $\mathbf{\Sigma_{f}}$ described in Chapter~\ref{Discrete}. The function also requires input vectors \texttt{x} and \texttt{q}, the previous angular flux vector and previous source, respectively, as described in Chapter~\ref{DeriveRQ}. The function calculates the alpha-eigenvalue and returns it to \texttt{alpha} and determines the next angular flux iterate and source. \texttt{AlphaRQSweep} is used as the fixed-point function evaluation in Anderson acceleration. The Matlab code is shown in Listing~\ref{AlphaRQCode}.
 
 \clearpage
 

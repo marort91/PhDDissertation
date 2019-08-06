@@ -3,25 +3,25 @@
 In this chapter we verify the correctness and examine the performance of the Rayleigh Quotient Fixed Point methods for higher-dimensional problems. We consider realistic two- and three-dimensional problems involving fuel rods and fuel assemblies. For higher dimensions, the phase space of the neutron transport equation is a function of two $(x, y)$ or three $(x, y, z)$ spatial variables and two $\hat{\Omega} = (\mu, \eta)$ or three $\hat{\Omega} =  (\mu, \eta, \xi)$ angular variables defined as the $x$-, $y$-, and $z$-direction cosines. For higher-dimensional Cartesian geometry, the two-dimensional and three-dimensional alpha-eigenvalue neutron transport equations are given by Eq.~\ref{eq:2DAlpha} and Eq.~\ref{eq:3DAlpha}, respectively:
 
 \begin{multline}
-\bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \frac{\alpha}{v(E)} + \sigma(x,y,E) \bigg ] \psi(x,y,\hat{\Omega},E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,E') \int_{2\pi} \diff \hat{\Omega}' \, \psi(x,y, \hat{\Omega}', E) \\ + \frac{1}{2\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(x, y, E' \rightarrow E) \int_{2\pi} \diff \hat{\Omega}' \, \psi(x,y, \hat{\Omega}',E),
+\bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \frac{\alpha}{v(E)} + \sigma(x,y,E) \bigg ] \psi(x,y,\hat{\Omega},E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,E') \int_{2\pi} \diff \hat{\Omega}' \, \psi(x,y, \hat{\Omega}', E') \\ + \frac{1}{2\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(x, y, E' \rightarrow E) \int_{2\pi} \diff \hat{\Omega}' \, \psi(x,y, \hat{\Omega}',E'),
 \label{eq:2DAlpha}
 \end{multline}
 
 \begin{multline}
-\bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \xi \frac{\partial}{\partial z} + \frac{\alpha}{v(E)} + \sigma(x,y,z,E) \bigg ] \psi(x,y,z,\hat{\Omega}, E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,z,E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E) \\ + \frac{1}{4\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(x, y, z, E' \rightarrow E) \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E).
+\bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \xi \frac{\partial}{\partial z} + \frac{\alpha}{v(E)} + \sigma(x,y,z,E) \bigg ] \psi(x,y,z,\hat{\Omega}, E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,z,E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E') \\ + \frac{1}{4\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(x, y, z, E' \rightarrow E) \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E').
 \label{eq:3DAlpha}
 \end{multline}
 The three-dimensional $k$-effective eigenvalue neutron transport equation is given by \ref{eq:3Dk}:
 
 \begin{multline}
-\bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \xi \frac{\partial}{\partial z} + \sigma(x,y,z,E) \bigg ] \psi(x,y,z,\hat{\Omega}, E) \\ = \frac{1}{k}\frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,z,E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E) \\ + \frac{1}{4\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(x, y, z, E' \rightarrow E) \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E).
+\bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \xi \frac{\partial}{\partial z} + \sigma(x,y,z,E) \bigg ] \psi(x,y,z,\hat{\Omega}, E) \\ = \frac{1}{k}\frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,z,E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E') \\ + \frac{1}{4\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(x, y, z, E' \rightarrow E) \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E').
 \label{eq:3Dk}
 \end{multline}
 
 We also consider two-dimensional cylindrical geometry problems. For cylindrical geometry problems, the complexity is increased due to the fact that for one spatial dimension, two angular variables are required to describe the angular flux. For two-dimensional cylindrical problems, the alpha-eigenvalue neutron transport equation is given by 
 
 \begin{multline}
-\frac{\mu}{\rho} \frac{\partial}{\partial \rho} (\rho \psi) + \xi \frac{\partial \psi}{\partial z} - \frac{1}{\rho} \frac{\partial}{\partial \omega} (\eta \psi) + \frac{\alpha}{v(E)} \psi(\rho,\hat{\Omega},E) + \sigma(\rho,E) \psi(\rho,\hat{\Omega}E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(\rho,E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(\rho, \hat{\Omega}',E) \\ + \frac{1}{4\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(\rho, E' \rightarrow E) \int_{4\pi} \diff \hat{\Omega}' \, \psi(\rho, \hat{\Omega}',E),
+\frac{\mu}{\rho} \frac{\partial}{\partial \rho} (\rho \psi) + \xi \frac{\partial \psi}{\partial z} - \frac{1}{\rho} \frac{\partial}{\partial \omega} (\eta \psi) + \frac{\alpha}{v(E)} \psi(\rho,\hat{\Omega},E) + \sigma(\rho,E) \psi(\rho,\hat{\Omega}E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(\rho,E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(\rho, \hat{\Omega}',E) \\ + \frac{1}{4\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(\rho, E' \rightarrow E) \int_{4\pi} \diff \hat{\Omega}' \, \psi(\rho, \hat{\Omega}',E'),
 \label{eq:2DCylAlpha}
 \end{multline}
 where $\rho$ is the radial distance from the origin and $\mu = (1-\xi^{2})^{1/2} \cos \omega$ and $\eta = (1-\xi^{2})^{1/2}\sin \omega$ (Figure \ref{fig:Cyl2D}).
@@ -52,25 +52,25 @@ We consider homogeneous and heterogeneous two-dimensional cylindrical problems i
 
 \subsection{Homogeneous Critical Cylinder Problems}
 
-Five exactly critical homogeneous cylinder problems from Sood \cite{sood2003analytical} were considered with cross sections listed in Table~\ref{table:SoodCyl}. These problems consisted of plutonium, uranium-235, and heavy-water/uranium mixture cylinders with critical radii listed in Table~\ref{table:SoodCylRes}. All problem cross-sections were one-group and two problems included anisotropic scattering.
+Five exactly critical homogeneous cylinder problems from Sood \cite{sood2003analytical} were considered with cross sections listed in Table~\ref{table:SoodCyl}. These problems consisted of plutonium (Sood Criticality Benchmark Problem 7), uranium-235 (Sood Criticality Benchmark Problems 13, 36, and 37) and heavy-water/uranium mixture (Sood Criticality Problem 23) cylinders with critical radii listed in Table~\ref{table:SoodCylRes}. All problem cross-sections were one-group and two problems included anisotropic scattering.
 
-The number of transport sweeps necessary for convergence for the RQFP and critical search method can be seen in Table~\ref{table:SoodCylAlpha}. For the plutonium problem, the RQFP method required 38 sweeps to converge the alpha-eigenvalue and eigenvector. The critical search method required 461 transport sweeps. In this particular problem the RQFP method reduced the number of transport sweeps necessary by a factor of 10. For the uranium-235 problem, the RQFP method required 45 transport sweeps as compared to 455 sweeps for the critical search method, a factor of 10 reduction. For the heavy-water/uranium mixture, the number of transport sweeps required to converge the eigenpair increased dramatically. For this set of cross section data, 319 transport sweeps were required by the RQFP method to converge the fundamental mode and eigenvalue. The critical search method was not able to converge the alpha-eigenvalue as the system as modeled was slightly subcritical. For the uranium-235 cross sections with anisotropic scattering, the RQFP method was found to take 41 and 53 transport sweeps each. The critical search method was unable to converge these methods despite the fact that the systems were slightly supercritical. The critical search method was unable to converge the alpha-eigenvalue and eigenvector due to the fact that the $k$-effective eigenvalue goes negative in the interpolation part of the algorithm.
+The number of transport sweeps necessary for convergence for the RQFP and critical search method can be seen in Table~\ref{table:SoodCylAlpha}. For the plutonium problem (Sood Prob.~7), the RQFP method required 38 sweeps to converge the alpha-eigenvalue and eigenvector. The critical search method required 461 transport sweeps. In this particular problem the RQFP method reduced the number of transport sweeps necessary by a factor of 10. For the uranium-235 with isotropic scattering problem (Sood Prob.~13), the RQFP method required 45 transport sweeps as compared to 455 sweeps for the critical search method, a factor of 10 reduction. For the heavy-water/uranium mixture (Sood Prob.~23), the number of transport sweeps required to converge the eigenpair increased dramatically. For this set of cross section data, 319 transport sweeps were required by the RQFP method to converge the fundamental mode and eigenvalue. The critical search method was not able to converge the alpha-eigenvalue as the system as modeled was slightly subcritical. For the uranium-235 cross sections with anisotropic scattering (Sood Prob.~36 and 37), the RQFP method was found to take 41 and 53 transport sweeps each. The critical search method was unable to converge these methods despite the fact that the systems were slightly supercritical. The critical search method was unable to converge the alpha-eigenvalue and eigenvector due to the fact that the $k$-effective eigenvalue becomes negative in the interpolation part of the algorithm.
 
-The number of transport sweeps necessary for convergence for the RQFP and power method with fission source update can be seen in Table~\ref{table:SoodCylK}. The RQFP method requires a similar number of sweeps to converge the $k$-effective eigenvalue problem except for the heavy-water/uranium mixture problem. In this case, the RQFP method requires 320 transport sweeps to only 121 transport sweeps for the power method with fission source update. This implies that the convergence rate of the RQFP method is much more strongly influenced by the amount of scattering in the system as compared to the power method. In all cases, the number of sweeps required by the RQFP method to converge the $k$-effective eigenvalue was similar to the number of sweeps required to converge the alpha-eigenvalue problem. 
+The number of transport sweeps necessary for convergence for the RQFP and power method with fission source update can be seen in Table~\ref{table:SoodCylK}. The RQFP method requires a similar number of sweeps to converge the $k$-effective eigenvalue problem except for the heavy-water/uranium mixture problem. In this case, the RQFP method requires 320 transport sweeps to only 121 transport sweeps for the power method with fission source update. This implies that the convergence rate of the RQFP method is much more strongly influenced by the amount of scattering in the system than the power method. In all cases, the number of sweeps required by the RQFP method to converge the $k$-effective eigenvalue was similar to the number of sweeps required to converge the alpha-eigenvalue problem. 
 
 \begin{table}[!htbp]
-	\caption{One-Group Cross Sections for Infinite Cylinder Critical Problems (cm$^{-1}$) \cite{sood2003analytical}}
+	\caption{One-Group Cross Sections for Infinite Cylinder Critical Problems (cm$^{-1}$) in \cite{sood2003analytical}}
 	\label{table:SoodCyl}
 	\centering\ra{1.3}
     \begin{tabular}{*6c}
         \toprule
 	Cross Section Set & $\sigma$ & $\nu \sigma_{f}$ & $\sigma_{s0}$ & $\sigma_{s1}$ & $v$ [cm/s] \\ 
         \midrule
-	PUb & 0.32640 & 0.231744 & 0.225216 & 0.0 & 1 \\
-	U-235a & 0.32640 & 0.176256 & 0.248064 & 0.0 & 1 \\
-	U-D$_{2}$O & 0.54628 & 0.0928676 & 0.464338 & 0.0 & 1 \\
-	U-235a Anisotropic & 0.32640 & 1.76256 & 0.248064 & 0.04432 & 1 \\
-	U-235b Anisotropic & 0.32640 & 1.76256 & 0.248064 & 0.212160 & 1 \\
+	Sood Prob. 7 & 0.32640 & 0.231744 & 0.225216 & 0.0 & 1 \\
+	Sood Prob. 13 & 0.32640 & 0.176256 & 0.248064 & 0.0 & 1 \\
+	Sood Prob. 23 & 0.54628 & 0.0928676 & 0.464338 & 0.0 & 1 \\
+	Sood Prob. 36 & 0.32640 & 1.76256 & 0.248064 & 0.042432 & 1 \\
+	Sood Prob. 37 & 0.32640 & 1.76256 & 0.248064 & 0.212160 & 1 \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -84,13 +84,13 @@ The number of transport sweeps necessary for convergence for the RQFP and power 
 	& & & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{4-5} Cross Section Set & r$_{c}$ [cm] & Calculated $\alpha$ [s$^{-1}$] & RQFP & Critical Search\\
 	\midrule
-	PUb & 4.279960 & $3.783833 \times 10^{-4}$ & 38 & 461 \\
-	U-235a & 5.284935 & $ 1.973082 \times 10^{-4}$ & 45 & 455 \\
-	U-D$_{2}$O & 16.554249 & $ -1.007328 \times 10^{-4}$ &  319 & * \\
-	U-235a Anisotropic & 5.514296811 & $ 2.012672 \times 10^{-4}$ & 41 & * \\
-	U-235b Anisotropic & 6.940205668 & $ 1.906997 \times 10^{-4}$ & 53 & * \\ 
+	Sood Prob. 7 & 4.279960 & $3.783833 \times 10^{-4}$ & 38 & 461 \\
+	Sood Prob. 13 & 5.284935 & $ 1.973082 \times 10^{-4}$ & 45 & 455 \\
+	Sood Prob. 23 & 16.554249 & $ -1.007328 \times 10^{-4}$ &  319 & * \\
+	Sood Prob. 36 & 5.514296811 & $ 2.012672 \times 10^{-4}$ & 41 & * \\
+	Sood Prob. 37 & 6.940205668 & $ 1.906997 \times 10^{-4}$ & 53 & * \\ 
 	\bottomrule
-	\multicolumn{5}{l}{*Did Not Converge} \\
+	\multicolumn{5}{l}{$M = 500$, $L = 10$, Tolerance = $10^{-12}$, *Did Not Converge} \\
 	\end{tabular}
 	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
 	\label{table:SoodCylAlpha}
@@ -102,11 +102,11 @@ The number of transport sweeps necessary for convergence for the RQFP and power 
 	& & & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{4-5} Cross Section Set & r$_{c}$ [cm] & Calculated $k_{\text{eff}}$ & RQFP & Power Method \\
 	\midrule
-	PUb & 4.279960 & 1.001419 & 43 & 40 \\
-	U-235a & 5.284935 & 1.000989 & 49 & 42 \\
-	U-D$_{2}$O & 16.554249 & 0.998935 & 320 & 121 \\
-	U-235a Anisotropic & 5.514296811 & 1.000997 & 48 & 40 \\
-	U-235b Anisotropic & 6.940205668 & 1.000870 & 37  & 43 \\
+	Sood Prob. 7 & 4.279960 & 1.001419 & 43 & 40 \\
+	Sood Prob. 13 & 5.284935 & 1.000989 & 49 & 42 \\
+	Sood Prob. 23 & 16.554249 & 0.998935 & 320 & 121 \\
+	Sood Prob. 36 & 5.514296811 & 1.000997 & 48 & 40 \\
+	Sood Prob. 37 & 6.940205668 & 1.000870 & 37  & 43 \\
 	\bottomrule
 	\multicolumn{5}{l}{$M = 500$, $L = 10$, Tolerance = $10^{-12}$} \\
 	\end{tabular}
@@ -119,13 +119,17 @@ The number of transport sweeps necessary for convergence for the RQFP and power 
 
 \section{Two- and Three-Dimensional Cartesian Benchmark Problems}
 
-We consider three versions of the MOX Fuel Assembly 3D Extension Case from the \textit{Benchmark on Deterministic Transport Calculations Without Spatial Homogenisation} \cite{lewis2001benchmark}. The benchmark geometry is a three-dimensional representation of sixteen assembly (quarter core symmetry) C5 MOX fuel assembly problem described in \cite{cavarec1994oecd}. The benchmark problem is meant to provide a challenging test of the ability of three-dimensional methods to handle spatial heterogeneities. 
+We consider three versions of the MOX Fuel Assembly 3D Extension Case from the \textit{Benchmark on Deterministic Transport Calculations Without Spatial Homogenisation} \cite{lewis2001benchmark}. The benchmark geometry is a three-dimensional representation of sixteen assembly (quarter core symmetry) C5G7 MOX fuel assembly problem described in \cite{cavarec1994oecd}. The benchmark problem is meant to provide a challenging test of the ability of three-dimensional methods to handle spatial heterogeneities. 
 
-The benchmark problem materials consist of seven materials: UO$_{2}$ fuel-clad, 4.3\% MOX fuel, 7.0\% MOX fuel, 8.7\% MOX fuel, the fission chamber, the guide tube, and the moderator. Each material has a seven energy cross section set with energy group boundaries and group speeds listed in Table~\ref{table:SevenGrpBounds}.The seven energy group, isotropic scattering cross sections for the UO$_{2}$ fuel-clad are provided in Table~\ref{table:MOX-FuelClad}. The seven energy group, isotropic scattering cross sections for the three enrichments of MOX are listed in Table~\ref{table:MOX-43}, Table~\ref{table:MOX-7}, and Table~\ref{table:MOX-87} while the cross sections for the fission chamber, guide tube, and moderator are listed in Table~\ref{table:MOX-Fission}, Table~\ref{table:MOX-Guide}, and Table~\ref{table:MOX-Mod}, respectively.
+The benchmark problem materials consist of seven materials: UO$_{2}$ fuel-clad, 4.3\% MOX fuel, 7.0\% MOX fuel, 8.7\% MOX fuel, the fission chamber, the guide tube, and the moderator. Each material has a seven-energy cross section set with energy group boundaries and group speeds listed in Table~\ref{table:SevenGrpBounds}. The seven-energy-group, isotropic scattering cross sections for the UO$_{2}$ fuel-clad are provided in Table~\ref{table:MOX-FuelClad}. The seven-energy-group, isotropic scattering cross sections for the three enrichments of MOX are listed in Table~\ref{table:MOX-43}, Table~\ref{table:MOX-7}, and Table~\ref{table:MOX-87}, respectively, while the cross sections for the fission chamber, guide tube, and moderator are listed in Table~\ref{table:MOX-Fission}, Table~\ref{table:MOX-Guide}, and Table~\ref{table:MOX-Mod}, respectively. We note that the material cross sections include a group transport cross section, $\sigma_{g,tr}$, defined as
+\begin{equation}
+	\sigma_{g,tr} = \sigma_{g} - \bar{\mu} \sum_{g'=0}^{6} \sigma_{s,g'g},
+\end{equation}
+where $\bar{\mu}$ is the average cosine of the neutron scattering angle. Also included is a group absorption cross section, $\sigma_{g,a}$, defined as the sum of the parasitic absorption cross section, $\sigma_{\gamma,g}$, and the fission cross section, $\sigma_{f,g}$.
 
-The quarter core has dimensions 64.26 cm by 64.26 cm by 214.20 cm. Each fuel pin cell has width 1.26 cm and the radius of the fuel cylinder is 0.54cm.The quarter core model consists to two types of assembly, UO$_{2}$ and MOX surrounded by moderator as seen in Figure~\ref{fig:CoreConfig}. Each fuel assembly has a pin layout as shown in Figure~\ref{fig:FuelPinAssembly}. Reflected boundary conditions are imposed on the bottom and right quarter core boundaries. Vacuum boundary conditions are imposed on the top and left edges of the quarter core. The $k$-effective eigenvalue of the system benchmark problem is $k = 1.186550$.
+The quarter core has dimensions 64.26 cm by 64.26 cm by 214.20 cm. Each fuel pin cell has width 1.26 cm and the radius of the fuel cylinder is 0.54cm.The quarter core model consists to two types of assemblies, UO$_{2}$ and MOX surrounded by moderator as seen in Figure~\ref{fig:CoreConfig}. Each fuel assembly has a pin layout as shown in Figure~\ref{fig:FuelPinAssembly}. Reflected boundary conditions are imposed on the bottom and right quarter core boundaries. Vacuum boundary conditions are imposed on the top and left edges of the quarter core. The $k$-effective eigenvalue of the system benchmark problem is $k = 1.186550$.
 
-Three variations of the benchmark problem were considered. Two two-dimensional variants of the benchmark problem were modeled where reflective boundary conditions were placed on the top and bottom of the quarter core. In the first problem, a coarse spatial homogenization was done on a high-fidelity geometric model created for the LLNL Monte Carlo code COG \cite{buck1993cog} and the problem solved using ARDRA. In the second case, a finer spatial homogenization was done the high-fidelity geometric model. Finally, a full three-dimensional calculation with coarse spatial homogenization was done. The performance of the RQFP method for alpha- and $k$-effective eigenvalues was investigated for all problems and compared to traditional eigenvalue solution methods in the field.
+Three variations of the benchmark problem were considered. Two two-dimensional variants of the benchmark problem were modeled where reflective boundary conditions were placed on the top and bottom of the quarter core. In the first problem, a coarse spatial homogenization was done on a high-fidelity geometric model created for the LLNL Monte Carlo code COG \cite{buck1993cog} and the problem solved using ARDRA. In the second case, a finer spatial homogenization was done on the high-fidelity geometric model. Finally, a full three-dimensional calculation with coarse spatial homogenization was done. The performance of the RQFP method for alpha- and $k$-effective eigenvalues was investigated for all problems and compared to traditional eigenvalue solution methods in the field.
 
 \begin{figure}[!htbp]
 \centering
@@ -553,21 +557,21 @@ Three variations of the benchmark problem were considered. Two two-dimensional v
 
 A coarse spatial homogenization of the benchmark problem led to the assembly geometry shown in Figure~\ref{fig:CoarseGeo}. In particular, the coarse homogenization procedure led to the inclusion of moderator in assembly regions where there was none previously. Spatial discretization was done using diamond differencing with twenty spatial cells in both the $x$- and $y$- directions. S$_{16}$ discrete ordinates quadrature was used to model the two-dimensional problem.
 
-Given the coarse spatial homogenization, it was expected the the $k$-effective eigenvalue of the system would be less than the reference $k = 1.184977$. The $k$-effective eigenvalue of the problem was found to be $k = 1.185404$. The alpha-eigenvalue was found to be $\alpha = 1.492999 \times 10^{-1}$ $\mu s^{-1}$. 
+Given the coarse spatial homogenization, it was expected the the $k$-effective eigenvalue of the system would be greater than the reference $k = 1.184977$ due to decreased absorption in the system caused by the coarse discretization. The $k$-effective eigenvalue of the problem was found to be $k = 1.185404$. The alpha-eigenvalue was found to be $\alpha = 1.492999 \times 10^{-1}$ $\mu s^{-1}$. The RQFP method for both the alpha- and $k$-effective eigenproblems obtained the same eigenvalue as the critical search method and power iteration.
 
 \begin{figure}[!htbp]
 \centering
   \centering
   \includegraphics[width=.75\linewidth]{{Figures/HigherDimEigen/MOXAssembly_CoarseMaterial}}
-        \caption{Coarse Spatial Homogenization of MOX Fuel Assembly Benchmark Problem}\label{fig:CoarseGeo}
-        \caption*{Each material is given a number which corresponds to the color shown in the figure: UO$_{2}$ = 0, 4.3\% MOX Fuel = 1, 7.0\% MOX Fuel = 2, 8.7\% MOX Fuel = 3, Guide Tube = 4, Fission Chamber = 5, Moderator = 6.}
+        \caption[Coarse Spatial Homogenization of MOX Fuel Assembly Benchmark Problem]{Coarse Spatial Homogenization of MOX Fuel Assembly Benchmark Problem\hspace{\textwidth}Each material is given a number which corresponds to the color shown in the figure: UO$_{2}$ = 0, 4.3\% MOX Fuel = 1, 7.0\% MOX Fuel = 2, 8.7\% MOX Fuel = 3, Guide Tube = 4, Fission Chamber = 5, Moderator = 6.}\label{fig:CoarseGeo}
+        %\caption*{Each material is given a number which corresponds to the color shown in the figure: UO$_{2}$ = 0, 4.3\% MOX Fuel = 1, 7.0\% MOX Fuel = 2, 8.7\% MOX Fuel = 3, Guide Tube = 4, Fission Chamber = 5, Moderator = 6.}
 \end{figure}
 
 \clearpage
 
-For the alpha-eigenvalue, the RQFP method required 6776 transport sweeps to converge the eigenvalue/eigenvector residual to a tolerance of $10^{-6}$ as seen in Table~\ref{table:2DMoxCoarseAlpha}. The critical search method required 81445 transport sweeps after requiring seven intermediate $k$-effective calculations. The group scalar fluxes for the seven groups can be seen in Figure~\ref{fig:ScalarFluxCoarse}. The RQFP method was able to converge the alpha-eigenvalue/eigenvector despite the system being highly supercritical. Despite the fact that not all cells contained fissile material and the moderator contained only downscattering, the violation of the primitivity condition did not affect the ability of the method to converge.
+For the alpha-eigenvalue, the RQFP method required 6,776 transport sweeps to converge the eigenvalue/eigenvector residual to a tolerance of $10^{-6}$ as seen in Table~\ref{table:2DMoxCoarseAlpha}. The critical search method required 81,445 transport sweeps after requiring seven intermediate $k$-effective calculations. The group scalar fluxes for the seven groups can be seen in Figures~\ref{fig:2DAlpha0}-\ref{fig:2DAlpha6}. The RQFP method was able to converge the alpha-eigenvalue/eigenvector despite the system being highly supercritical. While not all cells contained fissile material and the moderator contained only downscattering, the violation of the primitivity condition did not affect the ability of the method to converge.
 
-For the $k$-effective eigenvalue, the RQFP method required 9064 transport sweeps as compared to 9681 transport sweeps for the power method with fission source norm update (Table~\ref{table:2DMoxCoarseK}). As the problem was substantially supercritical, the performance of the RQFP method was not degraded by the large amounts of scattering in the moderator regions of the problem and converges the solution is fewer iteration than the power method. The $k$-effective eigenvalue group scalar fluxes were substantially different from the alpha-eigenvalue group scalar fluxes as expected since the problem was not close to critical. The absolute difference between the alpha-eigenvalue and $k$-effective eigenvectors for energy group six is seen in Figure~\ref{fig:EigScalarFluxDiff}. The number of transport sweeps necessary to converge the two eigenproblems were noticeable different with the $k$-effective eigenvalue requiring approximately 33\% more sweeps.
+For the $k$-effective eigenvalue, the RQFP method required 9,064 transport sweeps as compared to 9,681 transport sweeps for the power method with fission source norm update (Table~\ref{table:2DMoxCoarseK}). As the problem was substantially supercritical, the performance of the RQFP method was not degraded by the large amounts of scattering in the moderator regions of the problem because of the localization of the group eigenvectors in the fissile regions of the problem. This allowed the RQFP method to converge the solution in fewer iterations than the power method. The $k$-effective eigenvalue group scalar fluxes were substantially different from the alpha-eigenvalue group scalar fluxes as expected since the problem was not close to critical. This is expected as the fundamental modes are expected to be substantially different as the positive alpha-eigenvalue hardens the neutron energy spectra while the $k$-effective eigenvalue softens the spectrum. Unlike previous problems that were critical or close to critical, the number of transport sweeps required to converge both eigenvector problems was substantially different, with the $k$-effective eigenvector requiring approximately 33\% more sweeps. This result gives more evidence of the sensitivity of the RQFP method to the shape of the eigenvectors. An example of the difference in the alpha- and $k$-effective eigenvectors is shown for the thermal group ($g = 6$) in Figure~\ref{fig:EigScalarFluxDiff}. The absolute difference between the alpha-eigenvalue and $k$-effective eigenvectors for energy group six shows major differences in the boundaries of the core where neutron leakage is different for both eigenproblems.
 
 \begin{table}[!htbp]
 	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for 2D MOX Fuel Core with Coarse Spatial Discretization}
@@ -578,8 +582,9 @@ For the $k$-effective eigenvalue, the RQFP method required 9064 transport sweeps
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{3-4} Benchmark Problem & Calculated $\alpha$ [$\mu$s$^{-1}$] & RQFP & Critical Search\\
 	\midrule
-	2D MOX Coarse Discretization & $1.492999 \times 10^{-1}$ & 6776 & 81445 \\
+	2D MOX Coarse Discretization & $1.492999 \times 10^{-1}$ & 6,776 & 81,445 \\
 	\bottomrule
+	\multicolumn{4}{l}{$M = 20 \times 20$, $L = 16$, Tolerance = $10^{-6}$} \\
 	\end{tabular}
 	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
 	\label{table:2DMoxCoarseAlpha}
@@ -591,7 +596,7 @@ For the $k$-effective eigenvalue, the RQFP method required 9064 transport sweeps
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{3-4} Benchmark Problem & Calculated $k_{\text{eff}}$ & RQFP & Power Method \\
 	\midrule
-	2D MOX Coarse Discretization  & 1.184977 & 9064 & 9681 \\
+	2D MOX Coarse Discretization  & 1.184977 & 9,064 & 9,681 \\
 	\bottomrule
 	\multicolumn{4}{l}{$M = 20 \times 20$, $L = 16$, Tolerance = $10^{-6}$} \\
 	\end{tabular}
@@ -652,7 +657,7 @@ For the $k$-effective eigenvalue, the RQFP method required 9064 transport sweeps
         \caption{Scalar Flux for Energy Group Six}
   \label{fig:2DAlpha6}
 \end{subfigure}
-\caption{Alpha-Eigenvalue Group Scalar Flux for 2D MOX Fuel Assembly Benchmark Problem - Coarse Spatial Discretization}
+\caption{Alpha-Eigenvalue Group Scalar Fluxes for 2D MOX Fuel Assembly Benchmark Problem - Coarse Spatial Discretization}
 \label{fig:ScalarFluxCoarse}
 \end{figure}
 
@@ -669,22 +674,22 @@ For the $k$-effective eigenvalue, the RQFP method required 9064 transport sweeps
 \clearpage
 \subsection{Two-Dimensional MOX Fuel Core with Fine Spatial Discretization}
 
-A fine spatial homogenization of the benchmark led to the assembly geometry shown in Figure~\ref{fig:FineGeo}. The fine spatial homogenization allowed for high-fidelity modeling of the assembly, with individual fuel pins, guide tubes, and fission chambers resolved in the model. For the fine spatial discretization diamond differencing was used with 340 spatial cells in both the $x$- and $y$-direction. The problem used S$_{16}$ discrete ordinates angular quadrature. For the fine spatial homogenization, the $k$-effective eigenvalue of the problem was found to be $k = 1.185303$. The alpha-eigenvalue was found to be $\alpha = 1.396240 \times 10^{-1}$ $\mu s^{-1}$. 
+A fine spatial homogenization of the benchmark led to the assembly geometry shown in Figure~\ref{fig:FineGeo}. The fine spatial homogenization allowed for high-fidelity modeling of the assembly, with individual fuel pins, guide tubes, and fission chambers resolved in the model. For the fine spatial discretization, diamond differencing was used with 340 spatial cells in both the $x$- and $y$-direction. The problem used S$_{16}$ discrete ordinates angular quadrature. For the fine spatial homogenization, the $k$-effective eigenvalue of the problem was found to be $k = 1.185303$. The alpha-eigenvalue was found to be $\alpha = 1.396240 \times 10^{-1}$ $\mu s^{-1}$. The RQFP method for both the alpha- and $k$-effective eigenproblems obtained the same eigenvalue as the critical search method and power iteration. 
 
 \begin{figure}[!htbp]
 \centering
   \centering
   \includegraphics[width=.75\linewidth]{{Figures/HigherDimEigen/MOXAssembly_FineMaterial}}
-        \caption{Fine Spatial Homogenization of MOX Fuel Assembly Benchmark Problem}\label{fig:FineGeo}
-        \caption*{The color in each cell corresponds to the material in that cell. Each material is given a number which corresponds to the color shown in the figure: UO$_{2}$ = 0, 4.3\% MOX Fuel = 1, 7.0\% MOX Fuel = 2, 8.7\% MOX Fuel = 3, Guide Tube = 4, Fission Chamber = 5, Moderator = 6.}
+        \caption[Fine Spatial Homogenization of MOX Fuel Assembly Benchmark Problem]{Fine Spatial Homogenization of MOX Fuel Assembly Benchmark Problem\hspace{\textwidth}The color in each cell corresponds to the material in that cell. Each material is given a number which corresponds to the color shown in the figure: UO$_{2}$ = 0, 4.3\% MOX Fuel = 1, 7.0\% MOX Fuel = 2, 8.7\% MOX Fuel = 3, Guide Tube = 4, Fission Chamber = 5, Moderator = 6.}\label{fig:FineGeo}
+        %\caption*{The color in each cell corresponds to the material in that cell. Each material is given a number which corresponds to the color shown in the figure: UO$_{2}$ = 0, 4.3\% MOX Fuel = 1, 7.0\% MOX Fuel = 2, 8.7\% MOX Fuel = 3, Guide Tube = 4, Fission Chamber = 5, Moderator = 6.}
        % \label{fig:FineGeo}
 \end{figure}
 
 \clearpage
 
-Determining the alpha-eigenvalue and eigenvector using the RQFP method required 4096 transport sweeps while the critical search method required 39942 transport sweeps as shown in Table~\ref{table:2DMoxFineAlpha}. The RQFP method reduced the number of transport sweeps necessary to converge the eigenpair to a tolerance of $10^{-6}$ by approximately a factor of ten. The critical search required 12 intermediate $k$-effective eigenvalue calculations. The alpha-eigenvalue group scalar fluxes for all seven groups are shown in Figure~\ref{fig:2DAlphaFine}. Similar to the coarse spatial homogenization problem, the RQFP method is able to resolve the alpha-eigenvalue and eigenvector despite the presence of cells which violate the assumptions made in deriving the method.
+Determining the alpha-eigenvalue and eigenvector using the RQFP method required 4,096 transport sweeps while the critical search method required 39,942 transport sweeps as shown in Table~\ref{table:2DMoxFineAlpha}. The RQFP method reduced the number of transport sweeps necessary to converge the eigenpair to a tolerance of $10^{-6}$ by approximately a factor of ten. The critical search required 12 intermediate $k$-effective eigenvalue calculations. The alpha-eigenvalue group scalar fluxes for all seven groups are shown in Figures~\ref{fig:2DAlpha0Fine}-\ref{fig:2DAlpha6Fine}. Similar to the coarse spatial homogenization problem, the RQFP method is able to resolve the alpha-eigenvalue and eigenvector despite the presence of cells that violate the assumptions made in deriving the method.
 
-For the $k$-effective eigenvalue, the RQFP method required 5579 transport sweeps to converge as compared to 5523 transport sweep for the power method with fission norm update. Unlike the coarse spatial homogenization, the RQFP method underperformed the power method slightly. Despite this, the RQFP method provides another competitive solution method to the eigenvalue problem. As compared to the alpha-eigenvalue RQFP method, the $k$-effective RQFP method required approximately 40\% more transport sweeps to converge the eigenvalue/eigenvector to the same tolerance. This is expected as the fundamental modes are expected to be substantially different as the positive alpha-eigenvalue hardens the neutron energy spectra while the $k$-effective eigenvalue softens the spectrum. The absolute difference between the thermal energy alpha-eigenvalue scalar flux and the thermal energy $k$-effective scalar flux is seen in Figure~\ref{fig:EigScalarFluxDiffFine}.
+For the $k$-effective eigenvalue, the RQFP method required 5,579 transport sweeps to converge as compared to 5,523 transport sweep for the power method with fission norm update. Unlike the coarse spatial homogenization, the RQFP method underperformed the power method slightly. Despite this, the RQFP method provides another competitive solution method to the eigenvalue problem. As compared to the alpha-eigenvalue RQFP method, the $k$-effective RQFP method required approximately 40\% more transport sweeps to converge the eigenvalue/eigenvector to the same tolerance. The absolute difference between the thermal energy alpha-eigenvalue scalar flux and the thermal energy $k$-effective scalar flux is seen in Figure~\ref{fig:EigScalarFluxDiffFine}.
 
 \begin{table}[!htbp]
 	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for 2D MOX Fuel Core with Fine Spatial Discretization}
@@ -695,8 +700,9 @@ For the $k$-effective eigenvalue, the RQFP method required 5579 transport sweeps
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{3-4} Benchmark Problem & Calculated $\alpha$ [$\mu$s$^{-1}$] & RQFP & Critical Search\\
 	\midrule
-	2D MOX Fine Discretization & $1.396240 \times 10^{-1}$ & 4046 & 39942 \\
+	2D MOX Fine Discretization & $1.396240 \times 10^{-1}$ & 4,046 & 39,942 \\
 	\bottomrule
+	\multicolumn{4}{l}{$M = 340 \times 340$, $L = 16$, Tolerance = $10^{-6}$} \\
 	\end{tabular}
 	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
 	\label{table:2DMoxFineAlpha}
@@ -708,7 +714,7 @@ For the $k$-effective eigenvalue, the RQFP method required 5579 transport sweeps
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{3-4} Benchmark Problem & Calculated $k_{\text{eff}}$ & RQFP & Power Method \\
 	\midrule
-	2D MOX Fine Discretization  & 1.185303 & 5579 & 5523 \\
+	2D MOX Fine Discretization  & 1.185303 & 5,579 & 5,523 \\
 	\bottomrule
 	\multicolumn{4}{l}{$M = 340 \times 340$, $L = 16$, Tolerance = $10^{-6}$} \\
 	\end{tabular}
@@ -783,21 +789,21 @@ For the $k$-effective eigenvalue, the RQFP method required 5579 transport sweeps
 
 \subsection{Three-Dimensional MOX Fuel Core with Coarse Spatial Discretization}
 
-A coarse spatial homogenization of the three-dimensional quarter core benchmark led to the assembly geometry shown in Figure~\ref{fig:CoarseGeo3D}. Spatial discretization was done using the diamond difference method with the coarse spatial homogenization using twenty cells in the x-, y-, and z-directions each. This benchmark problem used S$_{8}$ discrete ordinates angular quadrature. A reflective boundary condition was placed on the bottom of the assembly and a vacuum boundary condition was placed on the top of the assembly. The $k$-effective eigenvalue of this assembly benchmark model was $k = 1.182340$, slightly more subcritical than the benchmark $k$-effective of $k = 1.186550$. The alpha-eigenvalue of the benchmark was $\alpha = 1.467369 \times 10^{-1}$ $\mu s^{-1}$.
+A coarse spatial homogenization of the three-dimensional quarter core benchmark led to the assembly geometry shown in Figure~\ref{fig:CoarseGeo3D}. Spatial discretization was done using the diamond difference method with the coarse spatial homogenization using twenty cells in the x-, y-, and z-directions each. This benchmark problem used S$_{8}$ discrete ordinates angular quadrature. A reflective boundary condition was placed on the bottom of the assembly and a vacuum boundary condition was placed on the top of the assembly. The $k$-effective eigenvalue of this assembly benchmark model was $k = 1.182340$, slightly less supercritical than the benchmark $k$-effective of $k = 1.186550$. Differences in the $k$-effective eigenvalue were caused by the spatial homogenization of the benchmark input model. The alpha-eigenvalue of the benchmark was $\alpha = 1.467369 \times 10^{-1}$ $\mu s^{-1}$. Once again, the RQFP-obtained eigenvalues agreed with those obtained by the critical search method and power iteration.
 
 \begin{figure}[!htbp]
 \centering
   \centering
   \includegraphics[width=.75\linewidth]{{Figures/HigherDimEigen/MOXAssembly_3d_small}}
-        \caption{Coarse Spatial Homogenization of Three-Dimensional MOX Fuel Assembly Benchmark Problem}        \label{fig:CoarseGeo3D}
-        \caption*{The color in each cell corresponds to the material in that cell. Each material is given a number which corresponds to the color shown in the figure: UO$_{2}$ = 0, 4.3\% MOX Fuel = 1, 7.0\% MOX Fuel = 2, 8.7\% MOX Fuel = 3, Guide Tube = 4, Fission Chamber = 5, Moderator = 6.}
+        \caption[Coarse Spatial Homogenization of Three-Dimensional MOX Fuel Assembly Benchmark Problem]{Coarse Spatial Homogenization of Three-Dimensional MOX Fuel Assembly Benchmark Problem \\ The color in each cell corresponds to the material in that cell. Each material is given a number which corresponds to the color shown in the figure: UO$_{2}$ = 0, 4.3\% MOX Fuel = 1, 7.0\% MOX Fuel = 2, 8.7\% MOX Fuel = 3, Guide Tube = 4, Fission Chamber = 5, Moderator = 6.}        \label{fig:CoarseGeo3D}
+        %\caption*{The color in each cell corresponds to the material in that cell. Each material is given a number which corresponds to the color shown in the figure: UO$_{2}$ = 0, 4.3\% MOX Fuel = 1, 7.0\% MOX Fuel = 2, 8.7\% MOX Fuel = 3, Guide Tube = 4, Fission Chamber = 5, Moderator = 6.}
 \end{figure}
 
 \clearpage
 
-To determine the alpha-eigenvalue and eigenvector of the three-dimensional assembly problem to a tolerance of $10^{-6}$, the RQFP method required 38521 transport sweeps as compared to 286566 transport sweeps for the critical search method as shown in Table~\ref{table:3DMOXCoarseAlpha}. The critical search method required 12 $k$-effective eigenvalue calculations in order to converge the alpha-eigenvalue and eigenvector, with some individual $k$-effective calculations requiring a similar number of transport sweeps as the RQFP method. The alpha-eigenvalue group scalar fluxes are seen in Figure~\ref{fig:3DAlphaCoarse}.
+To determine the alpha-eigenvalue and eigenvector of the three-dimensional assembly problem to a tolerance of $10^{-6}$, the RQFP method required 38,521 transport sweeps as compared to 286,566 transport sweeps for the critical search method as shown in Table~\ref{table:3DMOXCoarseAlpha}. The critical search method required 12 $k$-effective eigenvalue calculations in order to converge the alpha-eigenvalue and eigenvector, with some individual $k$-effective calculations requiring a similar number of transport sweeps as the RQFP method. The alpha-eigenvalue group scalar fluxes are seen in Figures~\ref{fig:3DAlpha0Coarse}-\ref{fig:3DAlpha6Coarse}.
 
-The RQFP method required 43309 transport sweeps to converge the $k$-effective eigenvalue and eigenvector (Table~\ref{table:3DMOXCoarseK}). The power method with fission source update required 43666 transport sweeps. Both methods were converged to a tolerance of $10^{-6}$. The RQFP method performed slightly better than the power method for the three-dimensional fuel assembly benchmark problem. Compared to the alpha-eigenvalue problem, the RQFP method required approximately 12\% more transport sweeps to converge the $k$-effective eigenvalue and eigenvector to the same tolerance.
+The RQFP method required 43,309 transport sweeps to converge the $k$-effective eigenvalue and eigenvector (Table~\ref{table:3DMOXCoarseK}). The power method with fission source update required 43,666 transport sweeps. Both methods were converged to a tolerance of $10^{-6}$. The RQFP method performed slightly better than the power method for the three-dimensional fuel assembly benchmark problem. Compared to the alpha-eigenvalue problem, the RQFP method required approximately 12\% more transport sweeps to converge the $k$-effective eigenvalue and eigenvector to the same tolerance.
 
 \begin{table}[!htbp]
 	\caption{Calculated Eigenvalues and Transport Sweep Comparisons for 3D MOX Fuel Core with Coarse Spatial Discretization}
@@ -808,8 +814,9 @@ The RQFP method required 43309 transport sweeps to converge the $k$-effective ei
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{3-4} Benchmark Problem & Calculated $\alpha$ [$\mu$s$^{-1}$] & RQFP & Critical Search\\
 	\midrule
-	3D MOX Coarse Discretization & $1.467369 \times 10^{-1}$ & 38521 & 286566 \\
+	3D MOX Coarse Discretization & $1.467369 \times 10^{-1}$ & 38,521 & 286,566 \\
 	\bottomrule
+	\multicolumn{4}{l}{$M = 20 \times 20 \times 20$, $L = 8$, Tolerance = $10^{-6}$} \\
 	\end{tabular}
 	\caption{Alpha-Eigenvalue: Comparison of RQFP and Critical Search Transport Sweeps}
 	\label{table:3DMOXCoarseAlpha}
@@ -821,7 +828,7 @@ The RQFP method required 43309 transport sweeps to converge the $k$-effective ei
 	& & \multicolumn{2}{c}{Transport Sweeps} \\
 	\cmidrule{3-4} Benchmark Problem & Calculated $k_{\text{eff}}$ & RQFP & Power Method \\
 	\midrule
-	3D MOX Coarse Discretization & 1.182330 & 43309 & 43666 \\
+	3D MOX Coarse Discretization & 1.182330 & 43,309 & 43,666 \\
 	\bottomrule
 	\multicolumn{4}{l}{$M = 20 \times 20 \times 20$, $L = 8$, Tolerance = $10^{-6}$} \\
 	\end{tabular}
@@ -890,6 +897,8 @@ The RQFP method required 43309 transport sweeps to converge the $k$-effective ei
 
 \section{Conclusion}
 
-The Rayleigh Quotient Fixed Point method was applied to alpha- and $k$-effective eigenvalue problems for higher dimensional benchmark problems. Homogeneous critical cylinder problems were examined and the performance of the RQFP method compared to traditional eigensolvers. For alpha-eigenvalue problems, the RQFP method required approximately ten times fewer transport sweeps for critical cylinder problems and was able to converge problems that the critical search method failed to converge. It was found that the rate of convergence of the RQFP method was influenced by the size of the critical system and the amount of scattering present. For $k$-effective eigenvalue problems, the RQFP method required a similar number of transport sweeps as the traditional power method with fission source update. Both the alpha-eigenvalue and $k$-effective eigenvalue RQFP methods required a similar number of iterations for each benchmark as expected due to the similarity of the eigenvectors for both eigenvalue problems.
+The Rayleigh Quotient Fixed Point method was applied to alpha- and $k$-effective eigenvalue problems for higher dimensional benchmark problems. Homogeneous critical cylinder problems were examined and the performance of the RQFP method compared to traditional eigensolvers. For alpha-eigenvalue problems, the RQFP method required approximately ten times fewer transport sweeps for critical cylinder problems and was able to converge problems that the critical search method failed to converge. It was found that the rate of convergence of the RQFP method was influenced by the size of the critical system and the amount of scattering present. For $k$-effective eigenvalue problems, the RQFP method required a similar number of transport sweeps as the traditional power method with fission source update. Both the alpha-eigenvalue and $k$-effective eigenvalue RQFP methods required a similar number of iterations for each benchmark, as expected due to the similarity of the eigenvectors for both eigenvalue problems.
 
-Three quarter core benchmarks consisting of MOX fuel assemblies were analyzed and the performance of the RQFP method compared to traditional eigensolvers. The criticality eigenvalues of two two-dimensional benchmark problems with coarse and fine spatial homogenization were determined and it was found that the alpha-eigenvalue RQFP method required approximately ten times fewer transport sweeps that the critical search method. The RQFP method for $k$-effective eigenvalues reduced the number of transport sweeps required for convergence by approximately 10\%. For a coarse spatial homogenization three-dimensional benchmark problem, the RQFP method for the alpha-eigenvalue required one-tenth of the transport sweeps required by the critical search method. For the $k$-effective eigenvalue, the RQFP method required fewer iterations than the power method. The RQFP methods were able to determine the fundamental angular flux eigenvector of highly heterogeneous systems. In particular, these systems do not meet all the primitivity requirement made in the derivation of the methods. However, the RQFP method still converges to the eigenvalue and eigenvector of interest and provides substantial reductions in the number of transport sweeps required to converge realistic reactor benchmark problems.
+Three quarter-core benchmarks consisting of MOX fuel assemblies were analyzed and the performance of the RQFP method compared to traditional eigensolvers. The criticality eigenvalues of two two-dimensional benchmark problems with coarse and fine spatial homogenizations were determined, and it was found that the alpha-eigenvalue RQFP method required approximately ten times fewer transport sweeps that the critical search method. The RQFP method for $k$-effective eigenvalues reduced the number of transport sweeps required for convergence by approximately 10\%. For a coarse spatial homogenization three-dimensional benchmark problem, the RQFP method for the alpha-eigenvalue required one-tenth of the transport sweeps required by the critical search method. For the $k$-effective eigenvalue, the RQFP method required fewer iterations than the power method. The RQFP methods were able to determine the fundamental angular flux eigenvector of highly heterogeneous systems. In particular, these systems do not meet all the primitivity requirement made in the derivation of the methods. However, the RQFP method still converges to the eigenvalue and eigenvector of interest and provides substantial reductions in the number of transport sweeps required to converge realistic reactor benchmark problems.
+
+The two- and three-dimensional benchmark problems used to test the RQFP method demonstrate that the RQFP method is robust enough to solve realistic nuclear reactor problems composed of many materials. The transport sweep reductions it provides for alpha-eigenvalue problems greatly reduce the computational cost of determining the alpha-eigenvalue and eigenvector of interest in comparison to the critical search method. For $k$-effective problems, the RQFP method provides another robust and competitive solution method when compared to the power method. In cases where the primitivity condition is not met by the discretized transport equations, the RQFP method is still able to determine the fundamental eigenvector. For highly supercritical problems, the RQFP method rapidly converges the eigenvector for both the alpha- and $k$-effective eigenvalue problems. However, for problems exhibiting large amounts of scattering, the RQFP method converges slowly. In these cases, it might be necessary to accelerate the RQFP method in some manner. 
