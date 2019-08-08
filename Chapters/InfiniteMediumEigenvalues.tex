@@ -1,13 +1,13 @@
-\chapter{Eigenvalues for Infinite Medium Problems}% for the Rayleigh Quotient Fixed Point Method}
+\chapter{Eigenvalues for Infinite-Medium Problems}% for the Rayleigh Quotient Fixed Point Method}
 
-In this chapter we describe the performance of the Rayleigh quotient methods for various infinite medium problem selected from the \textit{Analytical Benchmark Test Set for Criticality Code Verification} \cite{sood2003analytical} or analytical benchmark solutions. Some problems were selected that did not meet the assumptions used in deriving the RQFP methods to test the general applicability of the methods. For example, problems with anisotropic scattering and fissioning only in specific energy groups were selected to verify whether the RQFP methods would converge when the primitivity condition no longer applied. The Rayleigh quotient method was compared to the critical search method \cite{hill_efficient_1983} for alpha-eigenvalue problems and to standard power iteration for $k$-effective eigenvalue problems. The total number of transport sweeps, the action of $\mathbf{H}_{\mathbf{z}}^{-1}$ on the source vector, was compared for each method as they represent the majority of computational expense in standard transport codes. The methods were implemented in ARDRA, a 1D, 2D, and 3D deterministic discrete ordinates neutron and gamma transport code developed and maintained by Lawrence Livermore National Laboratory \cite{hanebutte_ardra_1999}.
+In this chapter we describe the performance of the Rayleigh quotient methods for various infinite-medium problem selected from the \textit{Analytical Benchmark Test Set for Criticality Code Verification} \cite{sood2003analytical} or analytical benchmark solutions. Some problems were selected that did not meet the assumptions used in deriving the RQFP methods to test the general applicability of the methods. For example, problems with anisotropic scattering and fissioning only in specific energy groups were selected to verify whether the RQFP methods would converge when the primitivity condition no longer applied. The Rayleigh quotient method was compared to the critical search method \cite{hill_efficient_1983} for alpha-eigenvalue problems and to standard power iteration for $k$-effective eigenvalue problems. The total number of transport sweeps, the action of $\mathbf{H}_{\mathbf{z}}^{-1}$ on the source vector, was compared for each method as they represent the majority of computational expense in standard transport codes. The methods were implemented in ARDRA, a 1D, 2D, and 3D deterministic discrete ordinates neutron and gamma transport code developed and maintained by Lawrence Livermore National Laboratory \cite{hanebutte_ardra_1999}.
 
 \section{Criticality Benchmark One-Speed Verification for Various Critical and Supercritical Problems}
 
-A set of six one-material infinite medium supercritical problems were selected from the \textit{Analytical Benchmark Test Set for Criticality Code Verification} \cite{sood2003analytical} to test the Rayleigh Quotient Fixed Point method for both alpha-eigenvalue and $k$-effective eigenvalue problems. Each problem was modeled as a slab with reflective boundary conditions on both sides. The slab was discretized using diamond differencing discretization in space ($M = 2$) and S$_{2}$ discrete ordinates Legendre quadrature ($L = 2$) in angle \cite{lewis_computational_1984}. The eigenvector/eigenvalue residual was converged to a tolerance of $10^{-12}$. These problems were selected as they contained cross sections of commonly used fissile isotopes in nuclear engineering applications such as plutonium-239 and uranium-235 (Table~\ref{table:SoodInf}). Sood Criticality Benchmark Problems 1 and 5 consisted of two sets of plutonium-239-like cross sections, each with a different $k_{\infty}$ values. Sood Criticality Benchmark Problems 11, 15, 17, and 19 consisted of four uranium-235-like cross section sets used to characterize a system approaching the critical state. The reference eigenvalues for these problems can be seen in Table~\ref{table:InfMed}. For one-speed problems, the velocity was set to $1$ cm/s unless otherwise noted.
+A set of six one-material infinite-medium supercritical problems were selected from the \textit{Analytical Benchmark Test Set for Criticality Code Verification} \cite{sood2003analytical} to test the Rayleigh Quotient Fixed Point method for both alpha-eigenvalue and $k$-effective eigenvalue problems. Each problem was modeled as a slab with reflective boundary conditions on both sides. The slab was discretized using diamond differencing discretization in space ($M = 2$) and S$_{2}$ discrete ordinates Legendre quadrature ($L = 2$) in angle \cite{lewis_computational_1984}. The eigenvector/eigenvalue residual was converged to a tolerance of $10^{-12}$. These problems were selected as they contained cross sections of commonly used fissile isotopes in nuclear engineering applications such as plutonium-239 and uranium-235 (Table~\ref{table:SoodInf}). Sood Criticality Benchmark Problems 1 and 5 consisted of two sets of plutonium-239-like cross sections, each with a different $k_{\infty}$ values. Sood Criticality Benchmark Problems 11, 15, 17, and 19 consisted of four uranium-235-like cross section sets used to characterize a system approaching the critical state. The reference eigenvalues for these problems can be seen in Table~\ref{table:InfMed}. For one-speed problems, the velocity was set to $1$ cm/s unless otherwise noted.
 
 \begin{table}[!t]
-	\caption{Sood Criticality Benchmark Infinite Medium Problem Cross Sections (cm$^{-1}$) in \cite{sood2003analytical}}
+	\caption{Sood Criticality Benchmark Infinite-Medium Problem Cross Sections (cm$^{-1}$) in \cite{sood2003analytical}}
 	\label{table:SoodInf}
 	\begin{subtable}[h]{1.0\textwidth}
 	\centering\ra{1.3}
@@ -40,12 +40,12 @@ A set of six one-material infinite medium supercritical problems were selected f
 	\end{subtable}
 \end{table}
 
-For the supercritical one-speed criticality benchmark problems, the alpha-eigenvalue Rayleigh Quotient Fixed Point method performed substantially better than the critical search method, reducing the number of transport sweeps by a factor of 30 (Table~\ref{table:CompInfSweeps}). Reductions in transport sweeps were achieved by removing the need for intermediate $k$-effective eigenvalue calculations. In the critical search method, two sets of $k$-effective eigenvalue calculations are required before the linear interpolation or extrapolation of the alpha-eigenvalue can be done. Subsequent updates of the alpha-eigenvalue are dependent on the bracketing procedure finding the correct alpha-eigenvalue. With each update of the alpha-eigenvalue requiring a converged $k$-effective eigenvalue calculation, the number of transport sweeps increases rapidly. The computation expense of one iteration of the alpha-eigenvalue RQFP method is the same as one iteration of the $k$-effective eigenvalue calculation. Since there is no need for any intermediate calculations, the Rayleigh Quotient Fixed Point method can calculate the eigenvalue/eigenvector pair directly, avoiding this drawback of the critical search method and drastically reducing the number of total sweeps necessary. In one particular instance, the bracketing procedure of the critical search method failed and the method did not converge. An example of the convergence behavior of the alpha-eigenvalue RQFP method is shown for the PUa cross section set infinite medium problem in Figure~\ref{fig:AlphaInfConv}. These plots show that the convergence rate for the RQFP methods is linear in general for all problems. For these very supercritical systems, the Rayleigh Quotient Fixed Point method was able to calculate the supercritical alpha-eigenvalues without issue.
+For the supercritical one-speed criticality benchmark problems, the alpha-eigenvalue Rayleigh Quotient Fixed Point method performed substantially better than the critical search method, reducing the number of transport sweeps by a factor of 30 (Table~\ref{table:CompInfSweeps}). Reductions in transport sweeps were achieved by removing the need for intermediate $k$-effective eigenvalue calculations. In the critical search method, two sets of $k$-effective eigenvalue calculations are required before the linear interpolation or extrapolation of the alpha-eigenvalue can be done. Subsequent updates of the alpha-eigenvalue are dependent on the bracketing procedure finding the correct alpha-eigenvalue. With each update of the alpha-eigenvalue requiring a converged $k$-effective eigenvalue calculation, the number of transport sweeps increases rapidly. The computation expense of one iteration of the alpha-eigenvalue RQFP method is the same as one iteration of the $k$-effective eigenvalue calculation. Since there is no need for any intermediate calculations, the Rayleigh Quotient Fixed Point method can calculate the eigenvalue/eigenvector pair directly, avoiding this drawback of the critical search method and drastically reducing the number of total sweeps necessary. In one particular instance, the bracketing procedure of the critical search method failed and the method did not converge. An example of the convergence behavior of the alpha-eigenvalue RQFP method is shown for the PUa cross section set infinite-medium problem in Figure~\ref{fig:AlphaInfConv}. These plots show that the convergence rate for the RQFP methods is linear in general for all problems. For these very supercritical systems, the Rayleigh Quotient Fixed Point method was able to calculate the supercritical alpha-eigenvalues without issue.
 
 The RQFP for the $k$-effective eigenvalue reduces the number of sweeps by a factor of three (Table~\ref{table:CompInfSweepsK}) as compared to the power method with the fission source norm update. In these particular problems, all cells contain fissile material and the angular flux is exactly equal to the fission source to some constant. The rapid convergence of the angular flux by the Rayleigh Quotient Fixed Point method as compared to the power method with fission source norm update results in a substantial reduction in the number of transport sweeps necessary to converge the eigenvector/eigenvalue. While the convergence of the method is linear, it appears in practice to have a lower asymptotic constant coefficient than the power method as seen in Figure \ref{fig:kRes}.
 
 \begin{table}[!htbp]
-	\caption{Reference Eigenvalues and Transport Sweep Comparisons for Sood Criticality Benchmark Infinite Medium Problems in \cite{sood2003analytical}}
+	\caption{Reference Eigenvalues and Transport Sweep Comparisons for Sood Criticality Benchmark Infinite-Medium Problems in \cite{sood2003analytical}}
 	\label{table:InfMed}
 	\begin{subtable}[h]{1.0\textwidth}
 	\centering\ra{1.3}
@@ -101,10 +101,10 @@ The RQFP for the $k$-effective eigenvalue reduces the number of sweeps by a fact
 	\resizebox{1.0\textwidth}{!}{
 		\input{Figures/InfiniteMediumEigenvalues/kinfPu.tex}
 	}
-	\caption{Eigenvector Residual as a Function of Transport Sweeps for Two Infinite Medium $k$-Effective Eigenvalue Problems}
+	\caption{Eigenvector Residual as a Function of Transport Sweeps for Two Infinite-Medium $k$-Effective Eigenvalue Problems}
 	\label{fig:kRes}
 	\end{subfigure}
-	\caption{Convergence Behavior for the Rayleigh Quotient Fixed Point Methods for Selected Infinite Medium Problems}
+	\caption{Convergence Behavior for the Rayleigh Quotient Fixed Point Methods for Selected Infinite-Medium Problems}
 \end{figure}
 
 %\begin{figure}[!htbp]
@@ -200,9 +200,9 @@ The RQFP for the $k$-effective eigenvalue reduces the number of sweeps by a fact
 %\end{table}
 
 \clearpage
-\section{Infinite Medium Multigroup Problems}
+\section{Infinite-Medium Multigroup Problems}
 
-In this section, we consider various analytical multigroup infinite medium problems with analytic expressions for the alpha- and $k$-effective eigenvalues. The problems are divided into subcritical, critical, and supercritical problems. The subcritical and critical problems consist of ten variations of a three energy-group problem cross section set. For the supercritical case, we examine three 81 energy-group cross section sets. We discuss the performance of the Rayleigh Quotient Fixed Point method for these problems and discuss various cases where the method fails to converge to the correct eigenvalue. The alpha-eigenvalue spectra of these problems are examined to demonstrate in what cases the method is expected to fail and how violating the assumptions used in deriving the methods affects the performance of the method.
+In this section, we consider various analytical multigroup infinite-medium problems with analytic expressions for the alpha- and $k$-effective eigenvalues. The problems are divided into subcritical, critical, and supercritical problems. The subcritical and critical problems consist of ten variations of a three energy-group problem cross section set. For the supercritical case, we examine three 81 energy-group cross section sets. We discuss the performance of the Rayleigh Quotient Fixed Point method for these problems and discuss various cases where the method fails to converge to the correct eigenvalue. The alpha-eigenvalue spectra of these problems are examined to demonstrate in what cases the method is expected to fail and how violating the assumptions used in deriving the methods affects the performance of the method.
 
 \subsection{Analytical Subcritical \& Critical Problems}
 
@@ -233,7 +233,7 @@ For $k$-effective eigenvalue problems, the Rayleigh Quotient Fixed Point method 
 
 \begin{table}[!htbp]
     \centering
-    \caption{Infinite Medium Subcritical Problem Cross Sections (cm$^{-1}$) for Problem 5.2.1.1}
+    \caption{Infinite-Medium Subcritical Problem Cross Sections (cm$^{-1}$) for Problem 5.2.1.1}
 \label{table:Betzler3}
     \begin{tabular}{*7c}
         \toprule
@@ -313,7 +313,7 @@ For $k$-effective eigenvalue problems, the Rayleigh Quotient Fixed Point method 
 %    }
 %\end{table}
 
-\subsection{Analytical Infinite Medium Supercritical Problems}
+\subsection{Analytical Infinite-Medium Supercritical Problems}
 
 %Reference Betzler
 
@@ -335,7 +335,7 @@ Both the $k$-effective eigenvalue Rayleigh Quotient Fixed Point method and the p
 
 \begin{table}[!htbp]
     \centering
-    \caption{Infinite Medium 81-Group Problem Cross Sections (cm$^{-1}$)}
+    \caption{Infinite-Medium 81-Group Problem Cross Sections (cm$^{-1}$)}
 \label{table:G81}
     \begin{tabular}{*7c}
         \toprule
@@ -400,7 +400,7 @@ Also similar to Problem 5.2.2.1, both the Rayleigh Quotient Fixed Point method a
 
 \begin{table}[!htbp]
     \centering
-    \caption{Infinite Medium 81-Group Problem Cross Sections (cm$^{-1}$), Velocity Modification}
+    \caption{Infinite-Medium 81-Group Problem Cross Sections (cm$^{-1}$), Velocity Modification}
 \label{table:G81v}
     \begin{tabular}{*7c}
         \toprule
@@ -539,7 +539,7 @@ Both the Rayleigh Quotient Fixed Point method and power method with fission norm
 
 \section{Conclusion}
 
-The RQFP method for alpha- and $k$-effective eigenvalues performs well for infinite medium problems, reducing in certain cases the number of iterations up to a factor of twenty. For the alpha-eigenvalue RQFP method, the method is able to converge subcritical systems without issue. For a certain class of problems with unphysical cross sections, the alpha-eigenvalue RQFP method fails to converge. This failure to converge is caused by the structure of the alpha-eigenvalue spectrum. However, these problems are special cases, with unphysical data such as unit velocity in all energy groups. For these particular problems, it is found that the spectral radius of the Jacobian matrix implies convergence is not possible. For this reason, we believe the alpha-eigenvalue RQFP method is robust for all infinite-medium problems of interest. The RQFP method for $k$-effective eigenvalue calculations performed better or similar to the power method with a fission norm update for the eigenvalue. For problems where only the number of neutrons emitted in fission was varied, the RQFP method took a similar number of iterations to converge for all problems, no matter the criticality of the system. This suggests that the method's convergence is determined by the eigenvector shape rather than the eigenvalue.
+The RQFP method for alpha- and $k$-effective eigenvalues performs well for infinite-medium problems, reducing in certain cases the number of iterations up to a factor of twenty. For the alpha-eigenvalue RQFP method, the method is able to converge subcritical systems without issue. For a certain class of problems with unphysical cross sections, the alpha-eigenvalue RQFP method fails to converge. This failure to converge is caused by the structure of the alpha-eigenvalue spectrum. However, these problems are special cases, with unphysical data such as unit velocity in all energy groups. For these particular problems, it is found that the spectral radius of the Jacobian matrix implies convergence is not possible. For this reason, we believe the alpha-eigenvalue RQFP method is robust for all infinite-medium problems of interest. The RQFP method for $k$-effective eigenvalue calculations performed better or similar to the power method with a fission norm update for the eigenvalue. For problems where only the number of neutrons emitted in fission was varied, the RQFP method took a similar number of iterations to converge for all problems, no matter the criticality of the system. This suggests that the method's convergence is determined by the eigenvector shape rather than the eigenvalue.
 
 %\begin{table}[H]
 %    \centering
