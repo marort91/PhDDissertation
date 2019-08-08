@@ -23,17 +23,17 @@ of depth at most $m + 1$, where $m$ is a parameter in the algorithm. An Anderson
 	\begin{algorithmic}
 		\STATE{Set $u_{0} =$ an initial guess and $m \geq 1$}
 		\STATE{$u_{1} = G(u_{0})$}
-		\FOR{$n = 0, 1, 2, \cdots$ until convergence}
+		\FOR{$n = 0, 1, 2, \dots$ until convergence}
 			\STATE{Set $m_{n} = \min(m,n)$}
-			\STATE{Set $F_{n} = (f_{n-m_{n}}, \cdots, f_{n}),$ where $f_{i} = G(u_{i}) - u_{i}$}
-			\STATE{Determine $\alpha^{n} = (\alpha_{0}^{(n)}, \cdots, \alpha_{m_{n}}^{(n)})$ that solves $\min_{\alpha} \norm{F_{n} \alpha^{T}}_{2}$ such that $\sum_{i=0}^{m_{n}} \alpha_{i} = 1$}
+			\STATE{Set $F_{n} = (f_{n-m_{n}}, \dots, f_{n}),$ where $f_{i} = G(u_{i}) - u_{i}$}
+			\STATE{Determine $\alpha^{n} = (\alpha_{0}^{(n)}, \dots, \alpha_{m_{n}}^{(n)})$ that solves $\min_{\alpha} \norm{F_{n} \alpha^{T}}_{2}$ such that $\sum_{i=0}^{m_{n}} \alpha_{i} = 1$}
 			\STATE{Set $u_{n+1} = \sum_{i=0}^{m_{n}} \alpha_{i}^{(n)}G(u_{n-m_{n}+i})$}
 			\STATE{Test for convergence}
 		\ENDFOR
 	\end{algorithmic}
 \end{algorithm}
 
-At each iteration step, Anderson acceleration determines $m_{n}$ weights,  $\alpha^{n} = (\alpha_{0}^{(n)}, \cdots, \alpha_{m_{n}}^{(n)})$, such that the sum of the residual vectors is minimized in some sense. Any norm can be used in the minimization step. However, the $\ell_{2}$ is typically used so that the minimization problem can be formulated as a linear least squares problem \cite{walker_anderson_2011}.
+At each iteration, Anderson acceleration determines $m_{n}$ weights,  $\alpha^{n} = (\alpha_{0}^{(n)}, \dots, \alpha_{m_{n}}^{(n)})$, such that the sum of the residual vectors is minimized in some sense. Any norm can be used in the minimization step. However, the $\ell_{2}$ is typically used so that the minimization problem can be formulated as a linear least squares problem \cite{walker_anderson_2011}.
 
 In practice, each $m_{n}$ may be further modified to maintain acceptable conditioning of $F_{n}$. In most applications $m_{n}$ is small. $m_{n} = 1$ or $m_{n} = 2$ is common for large systems due to memory constraints and conditioning requirements.
 
@@ -50,7 +50,7 @@ Algorithm~\ref{algo:AA1} requires solving the constrained linear least-squares p
 \end{equation}
 Instead, the least squares problem can be formulated \cite{anderson1965iterative} into an equivalent unconstrained problem. This unconstrained Anderson acceleration algorithm is shown in Algorithm~\ref{algo:AA2}.
 
-\clearpage
+%\clearpage
 
 \begin{algorithm}[!htbp]
 	\caption{Unconstrained Anderson Acceleration}
@@ -58,16 +58,16 @@ Instead, the least squares problem can be formulated \cite{anderson1965iterative
 	\begin{algorithmic}
 		\STATE{Set $u_{0} =$ an initial guess and $m \geq 1$}
 		\STATE{$u_{1} = G(u_{0})$}
-		\FOR{$n = 0, 1, 2, \cdots$ until convergence}
+		\FOR{$n = 0, 1, 2, \dots$ until convergence}
 			\STATE{Set $m_{n} = \min(m,n)$}
-			\STATE{$\Delta F_{n} = (\Delta f_{n-m_{n}}, \cdots, \Delta f_{n-1})$ where $\Delta f_{i} = f_{i+1} - f_{i}$ and $f_{i} = G(u_{i}) - u_{i}$}
-			\STATE{Determine $\gamma^{(n)} = (\gamma_{0}^{(n)}, \cdots, \gamma_{m_{n}-1}^{(n)})$ that solves $\min_{\gamma} \norm{f_{n} - \Delta F_{n} \gamma^{T}}_{2}$}
+			\STATE{$\Delta F_{n} = (\Delta f_{n-m_{n}}, \dots, \Delta f_{n-1})$ where $\Delta f_{i} = f_{i+1} - f_{i}$ and $f_{i} = G(u_{i}) - u_{i}$}
+			\STATE{Determine $\gamma^{(n)} = (\gamma_{0}^{(n)}, \dots, \gamma_{m_{n}-1}^{(n)})$ that solves $\min_{\gamma} \norm{f_{n} - \Delta F_{n} \gamma^{T}}_{2}$}
 			\STATE{Set $u_{n+1} = G(u_{n}) - \sum_{i=0}^{m_{n}-1} \gamma_{i}^{(n)} \Delta g_{n - m_{n} + i}$ with $\Delta g_{i} = G(u_{i+1}) - G(u_{i})$}
 			\STATE{Test for convergence}
 		\ENDFOR
 	\end{algorithmic}
 \end{algorithm}
-Determining the coefficients $\gamma^{(n)} = (\gamma_{0}^{(n)}, \cdots, \gamma_{m_{n}-1}^{(n)})$ is done by a QR factorization
+Determining the coefficients $\gamma^{(n)} = (\gamma_{0}^{(n)}, \dots, \gamma_{m_{n}-1}^{(n)})$ is done by a QR factorization
 \begin{equation}
 	\Delta F_{n} = Q_{n}R_{n},
 \end{equation}
@@ -103,15 +103,29 @@ In Section~\ref{sec:MGMultSlabs}, the uranium-heavy water critical slab problem,
 	\end{subtable}%
 \end{table}
 
-The number of iterations required to converge the eigenvalue/eigenvector fixed point is shown in Table~\ref{table:Sood68AA}. In this chapter, we define one iteration to equal the transport sweep plus the cost of the Anderson acceleration. It follows that for the alpha-eigenvalue Rayleigh Quotient Fixed Point Method, one iteration is equal to one transport sweep. Zero, five, ten, 20, 50, and 100 fixed point iterations were done before beginning acceleration. Table~\ref{table:Sood68AA} shows results for relaxation parameter $\beta_{n} = 1$. The Rayleigh Quotient Fixed Point method (Anderson(0)) required 23,796 transport sweeps to converge to the fixed point to a $\ell_{2}$ residual tolerance of $10^{-8}$. The tolerance for Anderson accelerated calculations was set to $10^{-12}$ to prevent false convergence as mentioned in \cite{walker_anderson_2011}. For zero initial fixed-point iterations, it is seen that Anderson(1), the variant of the method which only keeps the most current residual vector, does not converge to the correct eigenvalue. Increasing the number of residual vectors allows the method to converge to the correct eigenvalue and results in substantial reductions in the number of iterations required for convergence. Each additional residual vector is of size $GLM$ and using many residual vectors quickly becomes untenable for large problems. 
+The number of iterations required to converge the eigenvalue/eigenvector fixed point is shown in Table~\ref{table:Sood68AA}. In this chapter, we define one iteration to equal the transport sweep plus the cost of the Anderson acceleration. It follows that for the alpha-eigenvalue Rayleigh Quotient Fixed Point Method, one iteration is equal to one transport sweep. Zero, five, ten, 20, 50, and 100 fixed point iterations were done before beginning acceleration. Table~\ref{table:Sood68AA} shows results for relaxation parameter $\beta_{n} = 1$. The Rayleigh Quotient Fixed Point method (Anderson(0)) required 23,796 transport sweeps to converge to the fixed point to a $\ell_{2}$ residual tolerance of $10^{-8}$. The tolerance for Anderson accelerated calculations was set to $10^{-12}$ to prevent false convergence as mentioned in \cite{walker_anderson_2011}. For zero initial fixed-point iterations, it is seen that Anderson(1), the variant of the method which only keeps the most current residual vector, does not converge to the correct eigenvalue. By increasing number of initial fixed-point iterations, we see in Table~\ref{table:Sood68AA} that this resulted in the reduction of iterations required to converge to the fixed point and allowed Anderson acceleration variants to converge to the correct eigenvalue/eigenvector that would otherwise not converge. In other circumstances, we see some Anderson acceleration variants require more iterations than variants with fewer residual vectors or fixed-point iterations. This is caused by iterates leaving the region of convergence and requiring additional iterations to reenter the region. In most circumstances, the preliminary fixed-point iterations allowed for the iterates to approach the region of convergence of the fixed point thus allowing for convergence.
 
-Figure~\ref{fig:AASoodProb68} shows the convergence behavior of the Anderson acceleration variants that converge to the correct eigenvalue. Compared to the monotonic decrease in the residual of the Rayleigh Quotient Fixed Point method, the Anderson acceleration variants show significant oscillations. These oscillations make it possible to converge prematurely and for this reason a tighter tolerance is required. The increase of residual vectors used damped out the oscillations faster and allowed the acceleration method to converge with fewer iterations at the cost of additional memory.
+Increasing the number of residual vectors also allows the method to converge to the correct eigenvalue and results in substantial reductions in the number of iterations required for convergence. However, this comes at a cost as each additional residual vector is of size $GLM$ and using many residual vectors quickly becomes untenable for large problems. Additionally, the QR factorization increases the computational complexity at each iteration. The memory cost for each Anderson($m$) acceleration variant is given by
+\begin{equation}
+	memory\,cost = (2 + m)GLM,
+\end{equation}
+which for realistic transport problems might grow rapidly in size.
+
+The number of floating-point operations ($flops$) required by the Rayleigh Quotient Fixed Point method is determined as follows. At each iteration, the method requires three vector dot products each requiring $2GLM$ $flops$ and one inversion of the matrix $\mathbf{H_{\mathbf{z}}}$. Inversion of the matrix is done by the sweeping and is equivalent to solving $G$ upper or lower triangular matrices of size $LM$. For one-group problems, the floating-point operation cost is then approximately $(LM)^{2}$. For one iteration of the RQFP method, the number of floating-point operations can be roughly estimated as
+\begin{equation}
+	flops_{RQFP} \approx \mathcal{O} \big ( N^{2} \big ), %G \big (6LM + (LM)^2 \big ).
+\end{equation}
+where $N = LM$. Each iteration of Anderson acceleration requires a QR factorization of a matrix with size ($N \times m$). In Matlab, the QR factorization is done by the Householder algorithm \cite{trefethen_1997_numerical} and requires approximately $\mathcal{O}\big(N m^{2} \big )$ $flops$. The total number of $flops$ required by Anderson acceleration applied to the RQFP method for one iteration is then approximately
+\begin{equation}
+	flops_{Anderson\,RQFP} \approx \mathcal{O}\big(N m^{2} \big ) + \mathcal{O} \big ( N^{2} \big ) \approx \mathcal{O} \big ( N^{2} \big ),%G \big (6LM + (LM)^2 \big ).
+\end{equation}
+since $m \ll N$. From this analysis, we see that the number of $flops$ required are approximately the same and that memory is the major limitation of Anderson acceleration. Reduction in the number of iterations required to converge a problem results in large reductions of $flops$ as compared to the RQFP method. While additional residual vectors allow for convergence to the correct fixed point, it comes at the cost of additional very large vectors. Effective use of Anderson acceleration requires determining the least number of residual vectors that can be used to achieve convergence while minimizing the amount of memory required. Additional fixed-point iterations can be used to increase the robustness of the method without increasing memory costs.
+
+Figure~\ref{fig:AASoodProb68} shows the convergence behavior of the Anderson acceleration variants that converge to the correct eigenvalue for no initial fixed-point iterations. Compared to the monotonic decrease in the residual of the Rayleigh Quotient Fixed Point method, the Anderson acceleration variants show significant oscillations. These oscillations make it possible to converge prematurely and for this reason a tighter tolerance is required. The increase of residual vectors used damped out the oscillations faster and allowed the acceleration method to converge with fewer iterations at the cost of additional memory.
 
 Given the tendency of the acceleration method to oscillate, the relaxation parameter $\beta_{n}$ can be used to reduce these oscillations. For relaxation parameter $\beta_{n} = 0.5$, Figure~\ref{fig:AASoodProb68HalfBeta} shows the convergence of behavior of Anderson acceleration. The relaxation parameter increased the number of iterations required to converge the problem but also allowed for the Anderson(1) variant of the problem to converge to the correct eigenvalue though it underperformed Anderson(0) acceleration. This increase in iterations is seen in the shift of the residual to the right in Figure~\ref{fig:AASoodProb68HalfBeta}. The relaxation parameter $\beta_{n}$ can be used to force the method to converge to the correct fixed point at the cost of additional iterations.
 
-For an increasing number of initial fixed-point iterations, we see in Table~\ref{table:Sood68AA} that this resulted in the reduction of iterations required to converge to the fixed point. The preliminary fixed-point iterations allowed for the iterates to approach the region of convergence of the fixed point. The additional fixed-point iterations allow other Anderson acceleration variants to converge to the correct eigenvalue/eigenvector that would otherwise not converge to the the correct fixed point.
-
-In most variants of Anderson acceleration, we see that increasing the number of residual vectors improves the performance of the acceleration method. However, in certain circumstances we see that using five vectors degraded the performance of the method. In these cases, it is thought that the condition number of the system has become large. This can be avoid by deleting rows of the system. However, given this fact, for Sood Criticality Benchmark Problem 68, it is recommended that three or four residual vectors be used with any number of initial fixed-point iterations or relaxation parameter $\beta_{n}$. Anderson acceleration provides substantial reductions in the number of iterations required for converge despite it requiring a tighter tolerance and being more expensive than the alpha-eigenvalue Rayleigh Quotient Fixed Point method.
+In most variants of Anderson acceleration, we see that increasing the number of residual vectors improves the performance of the acceleration method. However, in certain circumstances we see that using five vectors degraded the performance of the method. In these cases, it is thought that the condition number of the system has become large. This can be avoid by deleting rows of the system. However, given this fact, for Sood Criticality Benchmark Problem 68, it is recommended that three or four residual vectors be used with any number of initial fixed-point iterations or relaxation parameter $\beta_{n}$. Anderson acceleration provides substantial reductions in the number of iterations required for converge despite it requiring a tighter tolerance than the alpha-eigenvalue Rayleigh Quotient Fixed Point method.
 
 \begin{table}[!htbp]
 \caption{Anderson Acceleration for Sood Criticality Problem 68 ($\beta_{n} = 1, M = 100, L = 16$)}
@@ -121,12 +135,12 @@ In most variants of Anderson acceleration, we see that increasing the number of 
 	\begin{tabular}{@{}ccc@{}}\toprule
 	Anderson($m_{n}$) & Calculated $\alpha$ [s$^{-1}$] & Iterations \\
 	\midrule
-	Anderson(0) & $-1.508539 \times 10^{-5}$ & 23796 \\
-	Anderson(1) & $-8.790638 \times 10^{-4}$ & 30872 \\
-	Anderson(2) & $-1.508539 \times 10^{-5}$ & 7130 \\
-	Anderson(3) & $-1.508539 \times 10^{-5}$ & 6976 \\
-	Anderson(4) & $-1.508539 \times 10^{-5}$ & 3596 \\
-	Anderson(5) & $-1.508539 \times 10^{-5}$ & 2668 \\
+	Anderson(0) & $-1.508539 \times 10^{-5}$ & 23,796 \\
+	Anderson(1) & $-8.790638 \times 10^{-4}$ & 30,872 \\
+	Anderson(2) & $-1.508539 \times 10^{-5}$ & 7,130 \\
+	Anderson(3) & $-1.508539 \times 10^{-5}$ & 6,976 \\
+	Anderson(4) & $-1.508539 \times 10^{-5}$ & 3,596 \\
+	Anderson(5) & $-1.508539 \times 10^{-5}$ & 2,668 \\
 	\bottomrule
 	Initial Fixed-Point Iterations = 0
 	\end{tabular}
@@ -137,11 +151,11 @@ In most variants of Anderson acceleration, we see that increasing the number of 
 	\begin{tabular}{@{}ccc@{}}\toprule
 	Anderson($m_{n}$) & Calculated $\alpha$ [s$^{-1}$] & Iterations \\
 	\midrule
-	Anderson(1) & $-8.790638 \times 10^{-4}$ & 19447 \\
-	Anderson(2) & $-1.508539 \times 10^{-5}$ & 8782 \\
-	Anderson(3) & $-1.508539 \times 10^{-5}$ & 3148 \\
-	Anderson(4) & $-1.508539 \times 10^{-5}$ & 1964 \\
-	Anderson(5) & $-1.508539 \times 10^{-5}$ & 2624 \\
+	Anderson(1) & $-8.790638 \times 10^{-4}$ & 19,447 \\
+	Anderson(2) & $-1.508539 \times 10^{-5}$ & 8,782 \\
+	Anderson(3) & $-1.508539 \times 10^{-5}$ & 3,148 \\
+	Anderson(4) & $-1.508539 \times 10^{-5}$ & 1,964 \\
+	Anderson(5) & $-1.508539 \times 10^{-5}$ & 2,624 \\
 	\bottomrule
 	Initial Fixed-Point Iterations = 5
 	\end{tabular}
@@ -152,11 +166,11 @@ In most variants of Anderson acceleration, we see that increasing the number of 
 	\begin{tabular}{@{}ccc@{}}\toprule
 	Anderson($m_{n}$) & Calculated $\alpha$ [s$^{-1}$] & Iterations \\
 	\midrule
-	Anderson(1) & $-1.508539 \times 10^{-5}$ & 18514 \\
-	Anderson(2) & $-1.508539 \times 10^{-5}$ & 5813 \\
-	Anderson(3) & $-1.508539 \times 10^{-5}$ & 4664 \\
-	Anderson(4) & $-1.508539 \times 10^{-5}$ & 2806 \\
-	Anderson(5) & $-1.508539 \times 10^{-5}$ & 4669 \\
+	Anderson(1) & $-1.508539 \times 10^{-5}$ & 18,514 \\
+	Anderson(2) & $-1.508539 \times 10^{-5}$ & 5,813 \\
+	Anderson(3) & $-1.508539 \times 10^{-5}$ & 4,664 \\
+	Anderson(4) & $-1.508539 \times 10^{-5}$ & 2,806 \\
+	Anderson(5) & $-1.508539 \times 10^{-5}$ & 4,669 \\
 	\bottomrule
 	Initial Fixed-Point Iterations = 10
 	\end{tabular}
@@ -169,11 +183,11 @@ In most variants of Anderson acceleration, we see that increasing the number of 
 	\begin{tabular}{@{}ccc@{}}\toprule
 	Anderson($m_{n}$) & Calculated $\alpha$ [s$^{-1}$] & Iterations \\
 	\midrule
-	Anderson(1) & $-1.508539 \times 10^{-5}$ & 16665 \\
-	Anderson(2) & $-1.508539 \times 10^{-5}$ & 5944 \\
-	Anderson(3) & $-1.508539 \times 10^{-5}$ & 5430 \\
-	Anderson(4) & $-1.508539 \times 10^{-5}$ & 1498 \\
-	Anderson(5) & $-1.508539 \times 10^{-5}$ & 1729 \\
+	Anderson(1) & $-1.508539 \times 10^{-5}$ & 16,665 \\
+	Anderson(2) & $-1.508539 \times 10^{-5}$ & 5,944 \\
+	Anderson(3) & $-1.508539 \times 10^{-5}$ & 5,430 \\
+	Anderson(4) & $-1.508539 \times 10^{-5}$ & 1,498 \\
+	Anderson(5) & $-1.508539 \times 10^{-5}$ & 1,729 \\
 	\bottomrule
 	Initial Fixed-Point Iterations = 20
 	\end{tabular}
@@ -184,11 +198,11 @@ In most variants of Anderson acceleration, we see that increasing the number of 
 	\begin{tabular}{@{}ccc@{}}\toprule
 	Anderson($m_{n}$) & Calculated $\alpha$ [s$^{-1}$] & Iterations \\
 	\midrule
-	Anderson(1) & $-1.508539 \times 10^{-5}$ & 13396 \\
-	Anderson(2) & $-1.508539 \times 10^{-5}$ & 10641 \\
-	Anderson(3) & $-1.599327 \times 10^{-4}$ & 8375 \\
-	Anderson(4) & $-1.508539 \times 10^{-5}$ & 3441 \\
-	Anderson(5) & $-1.508539 \times 10^{-5}$ & 2416 \\
+	Anderson(1) & $-1.508539 \times 10^{-5}$ & 13,396 \\
+	Anderson(2) & $-1.508539 \times 10^{-5}$ & 10,641 \\
+	Anderson(3) & $-1.599327 \times 10^{-4}$ & 8,375 \\
+	Anderson(4) & $-1.508539 \times 10^{-5}$ & 3,441 \\
+	Anderson(5) & $-1.508539 \times 10^{-5}$ & 2,416 \\
 	\bottomrule
 	Initial Fixed-Point Iterations = 50
 	\end{tabular}
@@ -199,11 +213,11 @@ In most variants of Anderson acceleration, we see that increasing the number of 
 	\begin{tabular}{@{}ccc@{}}\toprule
 	Anderson($m_{n}$) & Calculated $\alpha$ [s$^{-1}$] & Iterations \\
 	\midrule
-	Anderson(1) & $-1.508539 \times 10^{-5}$ & 11729 \\
-	Anderson(2) & $-1.508539 \times 10^{-5}$ & 7066 \\
-	Anderson(3) & $-1.508539 \times 10^{-5}$ & 4748 \\
-	Anderson(4) & $-1.508539 \times 10^{-5}$ & 1894 \\
-	Anderson(5) & $-1.508539 \times 10^{-5}$ & 3280 \\
+	Anderson(1) & $-1.508539 \times 10^{-5}$ & 11,729 \\
+	Anderson(2) & $-1.508539 \times 10^{-5}$ & 7,066 \\
+	Anderson(3) & $-1.508539 \times 10^{-5}$ & 4,748 \\
+	Anderson(4) & $-1.508539 \times 10^{-5}$ & 1,894 \\
+	Anderson(5) & $-1.508539 \times 10^{-5}$ & 3,280 \\
 	\bottomrule
 	Initial Fixed-Point Iterations = 100
 	\end{tabular}
@@ -214,9 +228,9 @@ In most variants of Anderson acceleration, we see that increasing the number of 
 \centering
 \begin{subfigure}{\textwidth}
   \centering
-  \includegraphics[width=.75\linewidth]{Figures/AndersonAcceleration/SoodProb68_FPI1}
+  \includegraphics[width=.73\linewidth]{Figures/AndersonAcceleration/SoodProb68_FPI1}
 \end{subfigure}
-\caption{Anderson Acceleration Convergence for Sood Criticality Problem 68 ($\beta_{n} = 1$)}
+\caption{Anderson Acceleration Convergence for Sood Criticality Problem 68 ($\beta_{n} = 1$), No Initial Fixed-Point Iterations}
 \label{fig:AASoodProb68}
 \end{figure}
 
@@ -224,9 +238,9 @@ In most variants of Anderson acceleration, we see that increasing the number of 
 \centering
 \begin{subfigure}{\textwidth}
   \centering
-  \includegraphics[width=.75\linewidth]{Figures/AndersonAcceleration/SoodProb68_FPI1_HalfBeta}
+  \includegraphics[width=.73\linewidth]{Figures/AndersonAcceleration/SoodProb68_FPI1_HalfBeta}
 \end{subfigure}
-\caption{Anderson Acceleration Convergence for Sood Criticality Problem 68 ($\beta_{n} = 0.5$)}
+\caption{Anderson Acceleration Convergence for Sood Criticality Problem 68 ($\beta_{n} = 0.5$), No Initial Fixed-Point Iterations}
 \label{fig:AASoodProb68HalfBeta}
 \end{figure}
 
@@ -238,11 +252,11 @@ In this section we examine another uranium-heavy water critical slab problem tha
 
 The number of iterations required to converge the eigenvalue/eigenvector is shown in Table~\ref{table:Sood73AA}. Zero, five, ten, 20, 50, and 100 preliminary fixed-point iteration variants were studied with relaxation factor $\beta_{n} = 1$. The Rayleigh Quotient Fixed Point (Anderson(0)) required 22749 iterations to converge the eigenvalue/eigenvector to an $\ell_{2}$ residual of $10^{-8}$. As before, the tolerance of the Anderson acceleration calculations was set to $10^{-12}$ to prevent false convergence. Unlike Sood Criticality Benchmark Problem 68, it was found that all Anderson acceleration variants converged to the correct eigenvalue. As the number of residual vectors increased, the number of iterations decreased except in the case of five residual vectors. For this number of residual vectors, it was found that the linear system was poorly conditioned.
 
-Figure~\ref{fig:AASoodProb73} shows the convergence behavior of the different Anderson acceleration variants ($\beta_{n} = 1$, zero initial fixed-point iterations) and the Rayleigh Quotient Fixed Point method. The Anderson acceleration variants oscillate substantially until converging to the fixed point. While Anderson(1) only reduced the number of iterations required by a factor of 20\%, Anderson(3) and Anderson(4) reduced iteration number by up to factor of 10. Using relaxation parameter $\beta_{n} = 0.5$, the number of iterations increased. We see a shift toward the right of the convergence behavior in Figure~\ref{fig:AASoodProb73Half}. For this particular problem, the relaxation parameter is not necessary since all Anderson acceleration variants converge onto the right fixed point.
-
 Increasing the number of initial fixed-point iterations before acceleration only reduces the number of total iterations in some cases. As the number of initial fixed-point iterations increases, it was seen that the number of iterations either remained the same or increased (Table~\ref{table:Sood73AA}). By allowing for more initial iterations, it is possible that the vector iterates ended up much further from the fixed point. If instead the acceleration were turned on sooner, the iterates would instead end up in the region of convergence much sooner.
 
-For this particular problem, Anderson acceleration provided substantial reductions in iterations. However, for certain combinations of residual vector number, relaxation parameters, and initial fixed-point iterations, it was found that the acceleration method would not perform as well. Similar to the previous problem, using three or four residual vectors with five or ten initial fixed-point iterations was found to give the best results. This problem, however, shows that the various parameters of Anderson acceleration require experimentation in order to find the best results.
+Figure~\ref{fig:AASoodProb73} shows the convergence behavior of the different Anderson acceleration variants ($\beta_{n} = 1$, zero initial fixed-point iterations) and the Rayleigh Quotient Fixed Point method. The Anderson acceleration variants oscillate substantially until converging to the fixed point. While Anderson(1) only reduced the number of iterations required by a factor of 20\%, Anderson(3) and Anderson(4) reduced iteration number by up to factor of 10. Using relaxation parameter $\beta_{n} = 0.5$, the number of iterations increased. We see a shift toward the right of the convergence behavior in Figure~\ref{fig:AASoodProb73Half}. For this particular problem, the relaxation parameter is not necessary since all Anderson acceleration variants converge onto the right fixed point.
+
+For this particular problem, Anderson acceleration provided substantial reductions in iterations. However, for certain combinations of residual vector number, relaxation parameters, and initial fixed-point iterations, it was found that the acceleration method would not perform as well. Similar to the previous problem, using three or four residual vectors with five or ten initial fixed-point iterations was found to give the best results. This problem, however, shows that the various parameters of Anderson acceleration require optimization.
 
 \begin{table}[!htbp]
 	\caption{Two-Group U-D$_{2}$O Problem Cross Sections (cm$^{-1}$)}
@@ -306,12 +320,12 @@ For this particular problem, Anderson acceleration provided substantial reductio
 	\begin{tabular}{@{}ccc@{}}\toprule
 	Anderson($m_{n}$) & Calculated $\alpha$ [s$^{-1}$] & Iterations \\
 	\midrule
-	Anderson(0) & $-1.221913 \times 10^{-5}$ & 22749 \\
-	Anderson(1) & $-1.221913 \times 10^{-5}$ & 17620 \\
-	Anderson(2) & $-1.221913 \times 10^{-5}$ & 4814  \\
-	Anderson(3) & $-1.221913 \times 10^{-5}$ & 2777  \\
-	Anderson(4) & $-1.221913 \times 10^{-5}$ & 1854  \\
-	Anderson(5) & $-1.221913 \times 10^{-5}$ & 6008  \\
+	Anderson(0) & $-1.221913 \times 10^{-5}$ & 22,749 \\
+	Anderson(1) & $-1.221913 \times 10^{-5}$ & 17,620 \\
+	Anderson(2) & $-1.221913 \times 10^{-5}$ & 4,814  \\
+	Anderson(3) & $-1.221913 \times 10^{-5}$ & 2,777  \\
+	Anderson(4) & $-1.221913 \times 10^{-5}$ & 1,854  \\
+	Anderson(5) & $-1.221913 \times 10^{-5}$ & 6,008  \\
 	\bottomrule
 	Initial Fixed-Point Iterations = 0
 	\end{tabular}
@@ -322,11 +336,11 @@ For this particular problem, Anderson acceleration provided substantial reductio
 	\begin{tabular}{@{}ccc@{}}\toprule
 	Anderson($m_{n}$) & Calculated $\alpha$ [s$^{-1}$] & Iterations \\
 	\midrule
-	Anderson(1) & $-1.221913 \times 10^{-5}$ & 17775 \\
-	Anderson(2) & $-1.221913 \times 10^{-5}$ & 9204 \\
-	Anderson(3) & $-1.221913 \times 10^{-5}$ & 2583 \\
-	Anderson(4) & $-1.221913 \times 10^{-5}$ & 1407 \\
-	Anderson(5) & $-1.221913 \times 10^{-5}$ & 6172 \\
+	Anderson(1) & $-1.221913 \times 10^{-5}$ & 17,775 \\
+	Anderson(2) & $-1.221913 \times 10^{-5}$ & 9,204 \\
+	Anderson(3) & $-1.221913 \times 10^{-5}$ & 2,583 \\
+	Anderson(4) & $-1.221913 \times 10^{-5}$ & 1,407 \\
+	Anderson(5) & $-1.221913 \times 10^{-5}$ & 6,172 \\
 	\bottomrule
 	Initial Fixed-Point Iterations = 5
 	\end{tabular}
@@ -337,11 +351,11 @@ For this particular problem, Anderson acceleration provided substantial reductio
 	\begin{tabular}{@{}ccc@{}}\toprule
 	Anderson($m_{n}$) & Calculated $\alpha$ [s$^{-1}$] & Iterations \\
 	\midrule
-	Anderson(1) & $-1.221913 \times 10^{-5}$ & 12186 \\
-	Anderson(2) & $-1.221913 \times 10^{-5}$ & 11382 \\
-	Anderson(3) & $-1.221913 \times 10^{-5}$ & 4809 \\
-	Anderson(4) & $-1.221913 \times 10^{-5}$ & 2626 \\
-	Anderson(5) & $-1.221913 \times 10^{-5}$ & 3603 \\
+	Anderson(1) & $-1.221913 \times 10^{-5}$ & 12,186 \\
+	Anderson(2) & $-1.221913 \times 10^{-5}$ & 11,382 \\
+	Anderson(3) & $-1.221913 \times 10^{-5}$ & 4,809 \\
+	Anderson(4) & $-1.221913 \times 10^{-5}$ & 2,626 \\
+	Anderson(5) & $-1.221913 \times 10^{-5}$ & 3,603 \\
 	\bottomrule
 	Initial Fixed-Point Iterations = 10
 	\end{tabular}
@@ -354,11 +368,11 @@ For this particular problem, Anderson acceleration provided substantial reductio
 	\begin{tabular}{@{}ccc@{}}\toprule
 	Anderson($m_{n}$) & Calculated $\alpha$ [s$^{-1}$] & Iterations \\
 	\midrule
-	Anderson(1) & $-1.221913 \times 10^{-5}$ & 12241 \\
-	Anderson(2) & $-1.221913 \times 10^{-5}$ & 3604  \\
-	Anderson(3) & $-1.221913 \times 10^{-5}$ & 6713  \\
-	Anderson(4) & $-1.221913 \times 10^{-5}$ & 5430  \\
-	Anderson(5) & $-1.221913 \times 10^{-5}$ & 2925  \\
+	Anderson(1) & $-1.221913 \times 10^{-5}$ & 12,241 \\
+	Anderson(2) & $-1.221913 \times 10^{-5}$ & 3,604  \\
+	Anderson(3) & $-1.221913 \times 10^{-5}$ & 6,713  \\
+	Anderson(4) & $-1.221913 \times 10^{-5}$ & 5,430  \\
+	Anderson(5) & $-1.221913 \times 10^{-5}$ & 2,925  \\
 	\bottomrule
 	Initial Fixed-Point Iterations = 20
 	\end{tabular}
@@ -369,11 +383,11 @@ For this particular problem, Anderson acceleration provided substantial reductio
 	\begin{tabular}{@{}ccc@{}}\toprule
 	Anderson($m_{n}$) & Calculated $\alpha$ [s$^{-1}$] & Iterations \\
 	\midrule
-	Anderson(1) & $-1.221913 \times 10^{-5}$ & 17166 \\
-	Anderson(2) & $-1.221913 \times 10^{-5}$ & 7363 \\
-	Anderson(3) & $-1.221913 \times 10^{-5}$ & 4205 \\
-	Anderson(4) & $-1.221913 \times 10^{-5}$ & 1729 \\
-	Anderson(5) & $-1.221913 \times 10^{-5}$ & 2253 \\
+	Anderson(1) & $-1.221913 \times 10^{-5}$ & 17,166 \\
+	Anderson(2) & $-1.221913 \times 10^{-5}$ & 7,363 \\
+	Anderson(3) & $-1.221913 \times 10^{-5}$ & 4,205 \\
+	Anderson(4) & $-1.221913 \times 10^{-5}$ & 1,729 \\
+	Anderson(5) & $-1.221913 \times 10^{-5}$ & 2,253 \\
 	\bottomrule
 	Initial Fixed-Point Iterations = 50
 	\end{tabular}
@@ -384,11 +398,11 @@ For this particular problem, Anderson acceleration provided substantial reductio
 	\begin{tabular}{@{}ccc@{}}\toprule
 	Anderson($m_{n}$) & Calculated $\alpha$ [s$^{-1}$] & Iterations \\
 	\midrule
-	Anderson(1) & $-1.221913 \times 10^{-5}$ & 17313 \\
-	Anderson(2) & $-1.221913 \times 10^{-5}$ & 14811 \\
-	Anderson(3) & $-1.221913 \times 10^{-5}$ & 10654 \\
-	Anderson(4) & $-1.221913 \times 10^{-5}$ & 3923 \\
-	Anderson(5) & $-1.221913 \times 10^{-5}$ & 3657 \\
+	Anderson(1) & $-1.221913 \times 10^{-5}$ & 17,313 \\
+	Anderson(2) & $-1.221913 \times 10^{-5}$ & 14,811 \\
+	Anderson(3) & $-1.221913 \times 10^{-5}$ & 10,654 \\
+	Anderson(4) & $-1.221913 \times 10^{-5}$ & 3,923 \\
+	Anderson(5) & $-1.221913 \times 10^{-5}$ & 3,657 \\
 	\bottomrule
 	Initial Fixed-Point Iterations = 100
 	\end{tabular}
@@ -399,9 +413,9 @@ For this particular problem, Anderson acceleration provided substantial reductio
 \centering
 \begin{subfigure}{\textwidth}
   \centering
-  \includegraphics[width=.75\linewidth]{Figures/AndersonAcceleration/SoodProb73}
+  \includegraphics[width=.73\linewidth]{Figures/AndersonAcceleration/SoodProb73}
 \end{subfigure}
-\caption{Anderson Acceleration Convergence for Sood Criticality Problem 73 ($\beta_{n} = 1$)}
+\caption{Anderson Acceleration Convergence for Sood Criticality Problem 73 ($\beta_{n} = 1$), No Initial Fixed-Point Iterations}
 \label{fig:AASoodProb73}
 \end{figure}
 
@@ -409,9 +423,9 @@ For this particular problem, Anderson acceleration provided substantial reductio
 \centering
 \begin{subfigure}{\textwidth}
   \centering
-  \includegraphics[width=.75\linewidth]{Figures/AndersonAcceleration/SoodProb73_FPI1_HalfBeta}
+  \includegraphics[width=.73\linewidth]{Figures/AndersonAcceleration/SoodProb73_FPI1_HalfBeta}
 \end{subfigure}
-\caption{Anderson Acceleration Convergence for Sood Criticality Problem 73 ($\beta_{n} = 0.5$)}
+\caption{Anderson Acceleration Convergence for Sood Criticality Problem 73 ($\beta_{n} = 0.5$), No Initial Fixed-Point Iterations}
 \label{fig:AASoodProb73Half}
 \end{figure}
 
@@ -419,4 +433,4 @@ For this particular problem, Anderson acceleration provided substantial reductio
 
 \section{Conclusion}
 
-Anderson acceleration was applied to the Rayleigh Quotient Fixed Point method for alpha-eigenvalue problems. Anderson acceleration and its constrained and unconstrained formulations were presented. The unconstrained formulation of Anderson acceleration was implemented in MATLAB and applied to the RQFP method. Two slowly converging one-dimensional slab geometry problems were considered and the number of iterations compared for various variants of the acceleration scheme. The effects of different numbers of residual vectors and initial fixed-point iterations before acceleration were considered and their effects on the ability of the method to converge to the fundamental eigenvector and eigenvalue were discussed. It was found that while larger numbers of residual vectors produced faster convergence, memory limitations quickly became apparently. Instead it was found that by using a combination of initial fixed-point iterations and a lesser number of residual vectors produced substantial speedups. In particular, the initial fixed-point iterations were found to help the method to converge to the correct eigenpair by allowing the vector iterate to enter the region of convergence for the fixed point.
+Anderson acceleration was applied to the Rayleigh Quotient Fixed Point method for alpha-eigenvalue problems. Anderson acceleration and its constrained and unconstrained formulations were presented. The unconstrained formulation of Anderson acceleration was implemented in MATLAB and applied to the RQFP method. Two slowly converging one-dimensional slab geometry problems were considered and the number of iterations compared for various variants of the acceleration scheme. The effects of different numbers of residual vectors, relaxation parameters, and initial fixed-point iterations before acceleration were considered and their effects on the ability of the method to converge to the fundamental eigenvector and eigenvalue were discussed. It was found that while larger numbers of residual vectors produced faster convergence, the memory required quickly increased. Instead it was found that using a combination of initial fixed-point iterations and a lesser number of residual vectors produced substantial speedups. In particular, the initial fixed-point iterations were found to help the method to converge to the correct eigenpair by allowing the vector iterate to enter the region of convergence for the fixed point. Using a relaxation parameter also improves the ability of the method to converge by reducing step lengths when the vector iterate is not near the fixed-point solution. Despite the fact Anderson acceleration required tighter tolerance to prevent false convergence, the reduction in iterations required for convergence is substantial and should be considered for slowly converging problems. 
