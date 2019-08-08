@@ -2,11 +2,11 @@
 
 \label{Discrete1D}
 
-In Appendix~\ref{Discrete1D}, we describe the discretization of the alpha-eigenvalue problem for one-dimensional slab geometry using a matrix formalism similar to that of three-dimensional Cartesian geometry. In one dimension, the discretization of the continuous eigenvalue equation is substantially simpler and may be helpful to reader to study this case before analyzing the three-dimensional problem.
+In Appendix~\ref{Discrete1D}, we describe the discretization of the alpha-eigenvalue problem for one-dimensional slab geometry using a matrix formalism similar to that of three-dimensional Cartesian geometry. In one dimension, the discretization of the continuous eigenvalue equation is substantially simpler and it may be helpful to the reader to study this case before analyzing the three-dimensional problem.
 
-We begin with the alpha-eigenvalue transport equation in one-dimensional slab geometry with isotropic scattering. The spatial domain is the interval $[a,b]$ in $x$, $\mu$ is the angle cosine in $[-1,1]$, the energy variable is $E \in [0, \infty)$, and the equations for the angular flux $\psi(x, \mu, E)$ are given by
+We begin with the alpha-eigenvalue neutron transport equation in one-dimensional slab geometry with isotropic scattering. The spatial domain is the interval $[a,b]$ in $x$, $\mu$ is the angle cosine in $[-1,1]$, the energy variable is $E \in [0, \infty)$, and the equations for the angular flux $\psi(x, \mu, E)$ are given by
 \begin{multline}
-\bigg [ \mu \frac{\partial}{\partial x} + \frac{\alpha}{v(E)} + \sigma(x,E) \bigg ] \psi(x,\mu,E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,E') \int_{-1}^{1} \diff \mu' \psi(x,\mu',E) \\ + \frac{1}{2} \int_{0}^{\infty} \diff E' \sigma_{s}(x, E' \rightarrow E) \int_{-1}^{1} \diff \mu' \psi(x,\mu',E).
+\bigg [ \mu \frac{\partial}{\partial x} + \frac{\alpha}{v(E)} + \sigma(x,E) \bigg ] \psi(x,\mu,E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,E') \int_{-1}^{1} \diff \mu' \psi(x,\mu',E) \\ + \frac{1}{2} \int_{0}^{\infty} \diff E' \sigma_{s}(x, E' \rightarrow E) \int_{-1}^{1} \diff \mu' \psi(x,\mu',E').
 \label{eq:1DAlpha}
 \end{multline}
 We assume vacuum Dirichlet conditions
@@ -14,7 +14,7 @@ We assume vacuum Dirichlet conditions
 	\psi(a, \mu, E) &=0, \quad 0 < \mu \leq 1, \\
         \psi(b, \mu, E) &=0, \quad -1 \leq \mu < 0.
 \end{align}
-The discretization of Eqn~\ref{eq:1DAlpha} is done using diamond differencing in space, multigroup in energy, and discrete ordinates collocation in angle.
+The discretization of Eqn~\ref{eq:1DAlpha} is done using diamond differencing in space, multigroup-in-energy, and discrete ordinates collocation in angle.
 
 \section{Discretization of the One-Dimensional Slab Geometry Problem}
 
@@ -30,7 +30,7 @@ and let
 \begin{equation}
 \Delta x_{i} = x_{i} - x_{i-1}.
 \end{equation} 
-We refer to the $x_{i}$ as nodes and function values at the nodes are called nodal values. We assume that $\sigma_{g}$ and $\sigma_{s,g,g'}$, the total and scattering cross sections for energy group $g$, are constant on the zone $x_{i-1} < x < x_{i}$ and denote these values by $\sigma_{g,i}$ and $\sigma_{s,g,g',i}$. We use a discrete ordinates collocation of Eq.~\ref{eq:1DAlpha} at an even number of Gauss points $\mu_{\ell}$ with
+We refer to the $x_{i}$ as nodes and function values at the nodes are called nodal values. We assume that $\sigma_{g}$, $\sigma_{s,g,g'}$, and $\nu\sigma_{f,g}$, the total, scattering, and fission cross sections for energy group $g$, are constant on the zone $x_{i-1} < x < x_{i}$ and denote these values by $\sigma_{g,i}$, $\sigma_{s,g,g',i}$ and $\nu\sigma_{f,g,i}$. We use a discrete ordinates collocation of Eq.~\ref{eq:1DAlpha} at an even number of Gauss points $\mu_{\ell}$ with
 \begin{equation}
 	-1 < \mu_{1} < \dots < \mu_{L/2} < 0 < \mu_{L/2+1} < \dots < \mu_{L} < 1, \mu_{L+1-\ell} = - \mu_{\ell}.
 \end{equation}
@@ -40,7 +40,7 @@ The integrals in angle in Eq.~\ref{eq:1DAlpha} are then approximated by
 \end{equation}
 Using diamond differencing in the spatial dimension \cite{lewis_computational_1984}, we obtain the fully discretized set of equations for the eigenvalue problems
 \begin{multline}
-	\mu_{\ell} \frac{ \psi_{g,\ell,i} - \psi_{g, \ell, i-1}}{\Delta x_{i}} + \frac{\alpha}{v_{g}} \frac{\psi_{g,\ell,i} + \psi_{g, \ell, i-1}}{2} + \sigma_{g,i} \frac{\psi_{g,\ell,i} + \psi_{g, \ell, i-1}}{2} \\ = \frac{\chi_{g}}{2} \sum_{g'=1}^{G} \frac{\nu_{g}\sigma_{f,g',i}}{2} \sum_{\ell' = 1}^{L} w_{\ell'} \bigg ( \frac{\psi_{g',\ell',i} + \psi_{g',\ell',i-1} }{2} \bigg ) + \sum_{g'=1}^{G} \frac{\sigma_{s,g,g',i}}{2} \sum_{\ell' = 1}^{L} w_{\ell'} \bigg ( \frac{\psi_{g',\ell',i} + \psi_{g',\ell',i-1} }{2} \bigg ),
+	\mu_{\ell} \frac{ \psi_{g,\ell,i} - \psi_{g, \ell, i-1}}{\Delta x_{i}} + \frac{\alpha}{v_{g}} \frac{\psi_{g,\ell,i} + \psi_{g, \ell, i-1}}{2} + \sigma_{g,i} \frac{\psi_{g,\ell,i} + \psi_{g, \ell, i-1}}{2} \\ = \frac{\chi_{g}}{2} \sum_{g'=1}^{G} \frac{\nu\sigma_{f,g',i}}{2} \sum_{\ell' = 1}^{L} w_{\ell'} \bigg ( \frac{\psi_{g',\ell',i} + \psi_{g',\ell',i-1} }{2} \bigg ) + \sum_{g'=1}^{G} \frac{\sigma_{s,g,g',i}}{2} \sum_{\ell' = 1}^{L} w_{\ell'} \bigg ( \frac{\psi_{g',\ell',i} + \psi_{g',\ell',i-1} }{2} \bigg ),
 \label{eq:AlphaSlab}
 \end{multline}
 for $g = 1, \dots, G$, $i = 1, \dots, M$, and $\ell = 1, \dots, L$. The discretized boundary conditions are given by
@@ -48,6 +48,8 @@ for $g = 1, \dots, G$, $i = 1, \dots, M$, and $\ell = 1, \dots, L$. The discreti
 \psi_{g,\ell,M} &= 0 \text{ for } \ell = 1, \dots, L/2,  \\
 \psi_{g,\ell,0} &= 0 \text{ for } \ell = L/2+1, \dots, L.
 \end{align}
+
+
 Using cell-centered flux values, it follows that Eq.~\ref{eq:AlphaSlab} is a system of $GL(M+1)$ equations for $GL(M+1)$ unknowns. 
 
 %\subsection{The Diamond Difference Operator Matrix Form}
@@ -125,7 +127,7 @@ where
 \begin{equation}
 	H_{g,\ell} + \alpha V^{-1}_{g,\ell} \equiv Z(\mu_{\ell}\Delta x^{-1}D + \Sigma_{g}S_{\ell}) + Z_{b}B_{\ell} + \alpha ZV_{g}^{-1}S_{\ell}.
 \end{equation}
-It can be shown that $H_{g} + \alpha V^{-1}_{g}$ is nonsingular for the diamond difference method if $\alpha$ is not too negative.
+It can be shown that $H_{g} + \alpha V^{-1}_{g}$ is nonsingular for the diamond difference method if $\alpha$ is not too negative \cite{greenbaum_iterative_1997}.
 
 We now define discretized representations of angular flux moment operators. The matrices operate on zone-centered vectors and are in $\mathbb{R}^{M \times LM}$. We define the matrix
 \begin{equation}
@@ -271,13 +273,8 @@ For the nodal-centered angular flux $\mathbf{\Psi}$, we have from Lemma~\ref{lem
 \end{equation}
 Substituting Eq.~\ref{eq:PsiPsiz1D} into Eq.~\ref{eq:AlphaMG1D} and \ref{eq:kMG1D} and multiplying on the left by $\mathbf{Z}^{T}$ gives
 \begin{equation}
-	\big ( \alpha \mathbf{V}_\mathbf{z}^{-1} + \mathbf{H_{z}} \big ) \mathbf{\Psi_{z}} = \mathbf{L}^{+}( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}}) \mathbf{L} \mathbf{\Psi_{z}},
+	\boxed{\big ( \alpha \mathbf{V}_\mathbf{z}^{-1} + \mathbf{H_{z}} \big ) \mathbf{\Psi_{z}} = \mathbf{L}^{+}( \mathbf{\Sigma_{s}} + \mathbf{\Sigma_{f}}) \mathbf{L} \mathbf{\Psi_{z}},}
 	\label{eq:AlphaZ1D}
-\end{equation}
-and
-\begin{equation}
-	\mathbf{H_{z}} \mathbf{\Psi_{z}} = \mathbf{L}^{+} \bigg ( \mathbf{\Sigma_{s}} + \frac{1}{k}\mathbf{\Sigma_{f}} \bigg ) \mathbf{L} \mathbf{\Psi_{z}},
-	\label{eq:kZ1D}
 \end{equation}
 where
 \begin{equation}
@@ -287,4 +284,11 @@ and
 \begin{equation}
 	\mathbf{V}_{\mathbf{z}}^{-1} \equiv \mathbf{V}^{-1} \mathbf{S} (\mathbf{ZS} + \mathbf{Z_{B}B})^{-1}\mathbf{Z}.
 \end{equation}
+
+Following the same procedure for the $k$-effective eigenvalue neutron transport equation yields the discretized equation:
+\begin{equation}
+	\boxed{\mathbf{H_{z}} \mathbf{\Psi_{z}} = \mathbf{L}^{+} \bigg ( \mathbf{\Sigma_{s}} + \frac{1}{k}\mathbf{\Sigma_{f}} \bigg ) \mathbf{L} \mathbf{\Psi_{z}}.}
+	\label{eq:kZ1D}
+\end{equation}
+
 Equations~\ref{eq:AlphaZ1D} and \ref{eq:kZ1D} are the cell-centered eigenvalue equations for one-dimensional slab geometry.
