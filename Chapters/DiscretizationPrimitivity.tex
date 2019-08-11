@@ -1,8 +1,8 @@
-\chapter[Discretization and Primitivity of the Neutron Transport Criticality \\ Eigenvalue Problems][Discretization and Primitivity]{Discretization and Primitivity of the Neutron Transport Criticality Eigenvalue Problems}
+\chapter[Discretization and Primitivity of the Neutron Transport Criticality\\ Eigenvalue Problems][Discretization and Primitivity]{Discretization and Primitivity of the Neutron Transport Criticality Eigenvalue Problems}
 %\chaptermark{Discretization and Primitivity of the Neutron Transport Criticality Eigenvalue Problems}
 \label{Discrete}
 
-In this section we describe the discretization of the neutron transport criticality eigenvalue equations for three-dimensional Cartesian geometry. The discretization follows a similar approach to that of Brown \cite{brown_linear_1995} \cite{brown_POI_2008} \cite{brown_POI_2012}. First, we derive semi-discretized forms of the eigenvalue equations by applying the \textit{multigroup} in energy approximation and a spherical harmonics expansion for the scattering integral. We then discretize the spatial and angular variables using step differencing and the discrete ordinates approach. Finally, we write down the discretized matrix forms of the criticality eigenvalue equations for three-dimensional Cartesian geometry. For the one-dimensional slab geometry discretized alpha-eigenvalue problem, we prove that the discretize transport equation matrix is primitive. A similar result can be shown for the two-dimensional and three-dimensional Cartesian discretized eigenvalue equations.
+In this section we describe the discretization of the neutron transport criticality eigenvalue equations for three-dimensional Cartesian geometry. The discretization follows a similar approach to that of Brown \cite{brown_linear_1995} \cite{brown_POI_2008} \cite{brown_POI_2012}. First, we derive semi-discretized forms of the eigenvalue equations by applying the \textit{multigroup}-in-energy approximation and a spherical harmonics expansion for the scattering integral. We then discretize the spatial and angular variables using step differencing and the discrete ordinates approach. Finally, we write down the discretized matrix forms of the criticality eigenvalue equations for three-dimensional Cartesian geometry. For the one-dimensional slab geometry discretized alpha-eigenvalue problem, we prove that the discretize transport equation matrix is primitive. A similar result can be shown for the two-dimensional and three-dimensional Cartesian discretized eigenvalue equations.
 
 We begin with the linear alpha-eigenvalue neutron transport equation in a three-dimen\-sional box geometry. For a description of the discretization process for the one-dimensional slab neutron transport eigenvalue equations see Appendix~\ref{Discrete1D}. The spatial domain is the box $\mathcal{D} \equiv \{\vec{r} = (x, y, z) \, \vert \, a_{x} \leq x \leq b_{x}, a_{y} \leq y \leq b_{y}, \text{ and } a_{z} \leq z \leq b_{z} \},$ the direction variable is $\hat{\Omega} \in \mathcal{S}^{2}$, the unit sphere in $\mathbb{R}^{3}$, the energy variable is $E \in (0, \infty)$, and the equation for the angular flux $\psi(\vec{r}, \hat{\Omega}, E)$ is given by
 
@@ -28,11 +28,11 @@ where $\vec{n}(\vec{r})$ is the outward pointing unit normal at $\vec{r} \in \pa
 
 \section{Discretization of the Alpha-Eigenvalue and $k$-Effective Eigenvalue Equations}
 
-In this section, we discuss the discretization of the alpha- and $k$-effective eigenvalue neutron transport equations. We begin by approximating the energy dependence of the neutron transport equations using the multigroup in energy approximation. We then discretize the angular flux and scattering cross sections using a surface harmonics expansion. Finally, the spatial and angular dependences of the eigenvalue equations are then approximated using step differencing in space and the discrete ordinates approach in angle.
+In this section, we discuss the discretization of the alpha- and $k$-effective eigenvalue neutron transport equations. We begin by approximating the energy dependence of the neutron transport equations using the multigroup-in-energy approximation. We then discretize the angular flux and scattering cross sections using a surface harmonics expansion. Finally, the spatial and angular dependences of the eigenvalue equations are then approximated using step differencing in space and the discrete ordinates approach in angle.
 
-\subsection{The Multigroup in Energy Discretization and Surface Harmonics Expansion of the Angular Flux}
+\subsection{The Multigroup-in-Energy Discretization and Surface Harmonics Expansion of the Angular Flux}
 
-\subsubsection{The Multigroup in Energy Approximation}
+\subsubsection{The Multigroup-in-Energy Approximation}
 
 We begin by discretizing Eq.~\ref{eq:Alpha3DNeutronTransport} in energy using the \textit{multigroup} approximation \cite{duderstadt_nuclear_1976}. We restrict the energy $E$ to a finite interval and partition the interval into groups:
 \begin{equation*}
@@ -758,7 +758,7 @@ for all $g, g' = 1, 2, \dots, G$ and $\ell, \ell' = -L/2, -L/2+1, \dots, L/2$ (s
 \begin{figure}[!htbp]
 	\centering
 	\resizebox{0.75\textwidth}{!}{\input{Figures/DiscretizationPrimitivity/iHF.tex}}
-	\caption{Structure of $\mathbf{H}_{\mathbf{z}}^{-1}\mathbf{\Sigma_{f}}$ For Two Energy Group Example}\label{fig:iHF}
+	\caption{Structure of $\mathbf{H}_{\mathbf{z}}^{-1}\mathbf{\Sigma_{f}}$ for Two Energy Group Example}\label{fig:iHF}
 \end{figure}
 
 With these facts, we prove the following lemma:

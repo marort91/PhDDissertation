@@ -107,8 +107,8 @@ Solving the neutron transport equation with appropriate initial conditions and b
 
 The ability to fission certain nuclei with neutrons to produce additional neutrons leads to the criticality problem. Given a system with a certain material composition and geometry, is it possible to have a self-sustaining chain reaction? If a system is capable of a self-sustaining chain reaction, we call this system critical, where the loss and production of neutrons are perfectly in balance, allowing the neutron population to be constant in time. If the system is unable to sustain a chain reaction, the system to said to be subcritical. If the neutron population in the system grows without bound, the system is said to be supercritical \cite{bell_nuclear_1970}. It is rare to immediately find a system geometry or material composition that is critical. Instead, some parameter is introducted into the transport equation that forces the system to be critical. Given the sign or magnitude of this parameter, we can judge how far a system is from critical and whether or not the system is subcritical or supercritical. This parameter is the eigenvalue for which we solve numerically. There is no unique way to form an eigenvalue problem \cite{ronen_comparison_1976}, and depending on the application, one eigenvalue formulation may be more useful than others \cite{cacuci_eigenvalue-dependent_1982}. In this dissertation we focus on the $\alpha$- and $k$-eigenvalue problems due to their widespread use in nuclear engineering applications.
 
-\subsection{The $\alpha$-Eigenvalue Problem}
-If we are interested in the time asymptotic behavior of neutron flux in a system, the $\alpha$-eigenvalue problem gives the exponential time-dependent flux behavior and criticality eigenpair of the system \cite{bell_nuclear_1970}. The time asymptotic behavior of the neutron flux is given by the sign of the eigenvalue, which determines whether or not the neutron flux decays to zero, remains constant in time, or grows without bound. We derive the alpha-eigenvalue problem by attempting to solve Eq.~\ref{eq:NeutronTransport} for some initial condition $\psi_{0}(\vec{r},E,\hat{\Omega},t=0)$ and vacuum boundary conditions \cite{lewis_computational_1984}. Defining the operator $A$ as
+\subsection{The Alpha-Eigenvalue Problem}
+If we are interested in the time asymptotic behavior of neutron flux in a system, the alpha-eigenvalue problem gives the exponential time-dependent flux behavior and criticality eigenpair of the system \cite{bell_nuclear_1970}. The time asymptotic behavior of the neutron flux is given by the sign of the eigenvalue, which determines whether or not the neutron flux decays to zero, remains constant in time, or grows without bound. We derive the alpha-eigenvalue problem by attempting to solve Eq.~\ref{eq:NeutronTransport} for some initial condition $\psi_{0}(\vec{r},E,\hat{\Omega},t=0)$ and vacuum boundary conditions \cite{lewis_computational_1984}. Defining the operator $A$ as
 \begin{multline}
 A \equiv v(E) \bigg [ \frac{\chi(E)}{4\pi} \int_{4\pi} \diff \hat{\Omega}' \, \int_{0}^{\infty} \diff E' \, \nu(E) \sigma_{f}(\vec{r},E',t) \\ +\int_{4\pi} \diff \hat{\Omega}' \, \int_{0}^{\infty} \diff E' \sigma_{s}(\vec{r},E'\rightarrow E, \hat{\Omega}' \rightarrow \hat{\Omega},t) - \hat{\Omega} \cdot \nabla - \sigma(\vec{r},E,t) \bigg ],
 \end{multline}
@@ -224,7 +224,7 @@ since $\mathcal{T}$ is real and linear.
 \end{proof}
 In addition, given the entire set of eigenvalue and eigenvectors for this eigenvalue problem, any initial condition angular flux can be expressed as a combination of the eigenvectors and eigenvalues. These eigenvalues $\alpha$ exist for systems without fissile material and have units of inverse time as they give a characteristic time of the slowest neutron to leak or be absorbed in the system. In the literature, these eigenvalues are also know as natural, time \cite{hill_efficient_1983}, or $\lambda$ \cite{duderstadt_nuclear_1976} eigenvalues. For simple problems such as one-speed slabs and multigroup-in-energy slab and spherical problems, various features of the $\alpha$-eigenvalue spectrum have been identified. We discuss these results in Section~\ref{sec:AlphaSpec}. It must be noted that the existence of a fundamental eigenvalue is not guaranteed for all problems. In particular, optically thin slabs have been shown to have no fundamental eigenvalue \cite{kornreich_timeeigenvalue_2005}. In contrast to incredibly subcritical problems, for incredibly supercritical systems, two real, positive eigenvalues have been observed \cite{kornreich_timeeigenvalue_2005}. In general, the existence of a sole dominant eigenvalue has also yet to be proven for all cases of interest.
 
-\subsubsection{The $\alpha$-Eigenvalue Spectrum}
+\subsubsection{The Alpha-Eigenvalue Spectrum}
 \label{sec:AlphaSpec}
 
 In this section we examine previous work on the $\alpha$-eigenvalue spectrum. Initial examination of the spectrum by Lehner and Wing \cite{lehner_spectrum_1955} for the linear transport operator $\mathcal{T}$ assumed the one-speed, slab geometry form
@@ -275,7 +275,7 @@ Studies suggest that the case where the minimum neutron velocity is bounded away
 	\label{fig:AlphaEigSpectrum}
 \end{figure}
 
-\subsubsection{Applications of the $\alpha$-Eigenvalue}
+\subsubsection{Applications of the Alpha-Eigenvalue}
 
 The alpha-eigenvalue and its corresponding eigenvector give the time-dependence of the neutron flux in a nuclear system of interest. For subcritical problems, given some external source, the alpha-eigenvalue measures the length of time necessary for all neutrons to leave the system. One type of system of interest is accelerator-driven subcritical (ADS) systems. ADS systems are subcritical configurations containing multiplying material that are pulsed with a large number of neutrons. These neutrons are generated by an accelerator colliding protons or ions onto a spallation target creating large amounts of neutrons \cite{abderrahim2001myrrha}. ADS systems have received renewed interest because of their ability to address nuclear reactor waste disposal concerns. These systems are able to transmute radioactive isotopes to stable or shorter half-life isotopes by fissioning the radioactive nuclei of concern using high-energy spallation neutrons. The transmutation of long-lived actinides and fission products provide an alternative to geological disposal. Also, the fissioning of nuclei in the system can provide enough power to supply the accelerator, making ADS systems self-sustainable.
 
@@ -315,7 +315,7 @@ Relating $\alpha_{\infty}$ to the reactor period $T$ ($e$-folding time), we see 
 \end{equation}
 We also note that Eq.~\ref{eq:alphamax} gives the maximum time eigenvalue for a homogeneous system \cite{kornreich_timeeigenvalue_2005}. Higher alpha-eigenvalues are used in reactor kinetics to determine neutron flux responses to reactivity insertions and feedback mechanisms \cite{modak_scheme_2007}. We only focus on the dominant eigenvalue in this dissertation, however, since we are interested in the criticality of nuclear systems.
 
-\subsubsection{Calculating the $\alpha$-Eigenvalue}
+\subsubsection{Calculating the Alpha-Eigenvalue}
 \label{sec:CalcAlpha}
 
 In this section we describe various numerical methods use to determine the alpha-eigenvalue and eigenvector in discrete ordinates neutron transport codes. 
@@ -419,7 +419,7 @@ Using standard eigenvalue solvers, the method gives $NM$ eigenpairs. Given the d
 	\label{fig:NMSpec}
 \end{figure}
 
-\subsection{The $k$-Eigenvalue}
+\subsection{The $k$-Effective Eigenvalue}
 \label{subsec:k}
 
 In the $k$-effective eigenvalue problem, the time-dependence of the problem is eliminated and it is assumed there is no external source present \cite{bell_nuclear_1970}. Instead, a time-independent solution is obtained by weighting $\nu$ by a parameter $k$, which expresses the deviation from critical. Substituting $\nu/k$ for $\nu$ yields the k-eigenvalue problem: 
