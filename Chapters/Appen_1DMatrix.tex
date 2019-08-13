@@ -6,7 +6,7 @@ In Appendix~\ref{Discrete1D}, we describe the discretization of the alpha-eigenv
 
 We begin with the alpha-eigenvalue neutron transport equation in one-dimensional slab geometry with isotropic scattering. The spatial domain is the interval $[a,b]$ in $x$, $\mu$ is the angle cosine in $[-1,1]$, the energy variable is $E \in [0, \infty)$, and the equations for the angular flux $\psi(x, \mu, E)$ are given by
 \begin{multline}
-\bigg [ \mu \frac{\partial}{\partial x} + \frac{\alpha}{v(E)} + \sigma(x,E) \bigg ] \psi(x,\mu,E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,E') \int_{-1}^{1} \diff \mu' \psi(x,\mu',E) \\ + \frac{1}{2} \int_{0}^{\infty} \diff E' \sigma_{s}(x, E' \rightarrow E) \int_{-1}^{1} \diff \mu' \psi(x,\mu',E').
+\bigg [ \mu \frac{\partial}{\partial x} + \frac{\alpha}{v(E)} + \sigma(x,E) \bigg ] \psi(x,\mu,E) \\ = \chi(E) \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,E') \int_{-1}^{1} \diff \mu' \psi(x,\mu',E) \\ + \int_{0}^{\infty} \diff E' \sigma_{s}(x, E' \rightarrow E) \int_{-1}^{1} \diff \mu' \psi(x,\mu',E').
 \label{eq:1DAlpha}
 \end{multline}
 We assume vacuum Dirichlet conditions
@@ -14,7 +14,7 @@ We assume vacuum Dirichlet conditions
 	\psi(a, \mu, E) &=0, \quad 0 < \mu \leq 1, \\
         \psi(b, \mu, E) &=0, \quad -1 \leq \mu < 0.
 \end{align}
-The discretization of Eqn~\ref{eq:1DAlpha} is done using diamond differencing in space, multigroup-in-energy, and discrete ordinates collocation in angle.
+The discretization of Eq.~\ref{eq:1DAlpha} is done using diamond differencing in space, multigroup-in-energy, and discrete ordinates collocation in angle.
 
 \section{Discretization of the One-Dimensional Slab Geometry Problem}
 
