@@ -2,12 +2,12 @@
 %\chaptermark{Discretization and Primitivity of the Neutron Transport Criticality Eigenvalue Problems}
 \label{Discrete}
 
-In this section we describe the discretization of the neutron transport criticality eigenvalue equations for three-dimensional Cartesian geometry. The discretization follows a similar approach to that of Brown \cite{brown_linear_1995} \cite{brown_POI_2008} \cite{brown_POI_2012}. First, we derive semi-discretized forms of the eigenvalue equations by applying the \textit{multigroup}-in-energy approximation and a spherical harmonics expansion for the scattering integral. We then discretize the spatial and angular variables using step differencing and the discrete ordinates approach. Finally, we write down the discretized matrix forms of the criticality eigenvalue equations for three-dimensional Cartesian geometry. For the one-dimensional slab geometry discretized alpha-eigenvalue problem, we prove that the discretize transport equation matrix is primitive. A similar result can be shown for the two-dimensional and three-dimensional Cartesian discretized eigenvalue equations.
+In this section we describe the discretization of the neutron transport criticality eigenvalue equations for three-dimensional Cartesian geometry. The discretization follows a similar approach to that of Brown \cite{brown_linear_1995} \cite{brown_POI_2008} \cite{brown_POI_2012}. First, we derive semi-discretized forms of the eigenvalue equations by applying the \textit{multigroup}-in-energy approximation and a spherical harmonics expansion for the scattering integral. We then discretize the spatial and angular variables using step differencing and the discrete ordinates approach. Finally, we write down the discretized matrix forms of the criticality eigenvalue equations for three-dimensional Cartesian geometry. For the one-dimensional slab geometry discretized alpha-eigenvalue problem, we prove that the discretized transport equation matrix is primitive. A similar result can be shown for the two-dimensional and three-dimensional Cartesian discretized eigenvalue equations.
 
 We begin with the linear alpha-eigenvalue neutron transport equation in a three-dimen\-sional box geometry. For a description of the discretization process for the one-dimensional slab neutron transport eigenvalue equations see Appendix~\ref{Discrete1D}. The spatial domain is the box $\mathcal{D} \equiv \{\vec{r} = (x, y, z) \, \vert \, a_{x} \leq x \leq b_{x}, a_{y} \leq y \leq b_{y}, \text{ and } a_{z} \leq z \leq b_{z} \},$ the direction variable is $\hat{\Omega} \in \mathcal{S}^{2}$, the unit sphere in $\mathbb{R}^{3}$, the energy variable is $E \in (0, \infty)$, and the equation for the angular flux $\psi(\vec{r}, \hat{\Omega}, E)$ is given by
 
 \begin{multline}
-	\bigg [ \frac{\alpha}{v(E)} + \hat{\Omega} \cdot \nabla + \sigma(\vec{r},E) \bigg ] \psi(\vec{r},\hat{\Omega},E) \\ = \int_{0}^{\infty} \diff E' \, \int_{4\pi} \diff \hat{\Omega} \, \sigma_{s}(\vec{r},E'\rightarrow E,\hat{\Omega}' \cdot \hat{\Omega}) \psi(\vec{r},\hat{\Omega}',E') \\ + \int_{0}^{\infty} \diff E' \, \nu(E') \chi(E'\rightarrow E) \sigma_{f}(\vec{r},E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(\vec{r},\hat{\Omega}',E'), 
+	\bigg [ \frac{\alpha}{v(E)} + \hat{\Omega} \cdot \nabla + \sigma(\vec{r},E) \bigg ] \psi(\vec{r},\hat{\Omega},E) \\ = \int_{0}^{\infty} \diff E' \, \int_{4\pi} \diff \hat{\Omega}' \, \sigma_{s}(\vec{r},E'\rightarrow E,\hat{\Omega}' \cdot \hat{\Omega}) \psi(\vec{r},\hat{\Omega}',E') \\ + \int_{0}^{\infty} \diff E' \, \nu(E') \chi(E'\rightarrow E) \sigma_{f}(\vec{r},E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(\vec{r},\hat{\Omega}',E'), 
 	\label{eq:Alpha3DNeutronTransport}
 \end{multline}
 where
@@ -17,6 +17,11 @@ where
 and
 \begin{equation}
 	 \int_{4\pi} \diff \hat{\Omega} = 1.
+\end{equation}
+In the discretization of Eq.~\ref{eq:Alpha3DNeutronTransport} it is assumed that $\chi(E' \rightarrow E)$ is not a function of the incident neutron energy $E'$. Therefore, we have 
+
+\begin{equation}
+\chi(E' \rightarrow E) = \chi(E).
 \end{equation}
 
 Boundary conditions must be specified to make Eq.~\ref{eq:Alpha3DNeutronTransport} well-posed. Various boundary conditions can be specified such as a reflecting condition on a face or a Dirichlet condition where an incident flux is specified on a face. We consider vacuum boundary conditions in this dissertation, a special case of the Dirichlet boundary condition where no incident flux is imposed:
@@ -38,7 +43,7 @@ We begin by discretizing Eq.~\ref{eq:Alpha3DNeutronTransport} in energy using th
 \begin{equation*}
 	E_{max} = E_{0} > E_{1} > \dots > E_{G} = E_{min}.
 \end{equation*}
-The eigenvalue equation is then integrated over each group $E_{g} < E < E_{g-1}$ and the cross sections are approximated by a flux-weighted average over each energy group to yield the following semi-discretization of Eq.~\ref{eq:Alpha3DNeutronTransport}:
+The eigenvalue equation is then integrated over each group $E_{g} < E < E_{g-1}$ and the cross sections are approximated by a flat-flux weighting over each energy group to yield the following semi-discretization of Eq.~\ref{eq:Alpha3DNeutronTransport}:
 \begin{multline}
 	\bigg [ \frac{\alpha}{v_{g}} + \hat{\Omega} \cdot \nabla + \sigma_{g}(\vec{r}) \bigg ] \psi_{g}(\vec{r},\hat{\Omega}) = \sum_{g'=1}^{G} \int_{4\pi} \diff \hat{\Omega'} \, \sigma_{s,g,g'}(\vec{r},\hat{\Omega}' \cdot \hat{\Omega}) \psi_{g'}(\vec{r},\hat{\Omega}') \\ + \chi_{g} \sum_{g'=1}^{G} \, \nu\sigma_{f,g'}(\vec{r}) \int_{4\pi} \diff \hat{\Omega}' \, \psi_{g'}(\vec{r},\hat{\Omega}'), 
 	\label{eq:Alpha3DMG}
@@ -106,25 +111,25 @@ From the properties of the surface harmonics, we have
 \end{equation}
 The scattering integral can be then be written in the form
 \begin{equation}
-	\int_{4\pi} \diff \hat{\Omega} \, \sigma_{s,g,g'}(\vec{r},\hat{\Omega}' \cdot \hat{\Omega}) \psi_{g'}(\vec{r},\hat{\Omega}') = \sum_{n=0}^{\infty} \sigma_{s,g,g',n}(\vec{r}) \sum_{m=-n}^{n} \phi_{g',n,m}(\vec{r})Y_{n}^{m}(\hat{\Omega}),
+	\int_{4\pi} \diff \hat{\Omega}' \, \sigma_{s,g,g'}(\vec{r},\hat{\Omega}' \cdot \hat{\Omega}) \psi_{g'}(\vec{r},\hat{\Omega}') = \sum_{n=0}^{\infty} \sigma_{s,g,g',n}(\vec{r}) \sum_{m=-n}^{n} \phi_{g',n,m}(\vec{r})Y_{n}^{m}(\hat{\Omega}),
 	\label{eq:ScattInt}
 \end{equation}
 where
 \begin{equation}
 	\sigma_{s,g,g',n}(\vec{r}) \equiv \frac{1}{2} \int_{-1}^{1} \diff \mu_{0} \, \sigma_{s,g,g'}(\vec{r},\mu_{0}) P_{n}(\mu_{0}),
 \end{equation}
-and $\mu_{0}$ is the cosine of the scattering angle. The infinite series in Eq.~\ref{eq:ScattInt} is truncated to a finite number of terms $N_{s}$, where $N_{s}$ is the maximum value for $n$. The fission integral can be written similarly with the infinite series truncated after $N_{f}$ terms. The multigroup equations can then be written as
+and $\mu_{0}$ is the cosine of the scattering angle. The infinite series in Eq.~\ref{eq:ScattInt} is truncated to a finite number of terms $N_{s}$, where $N_{s}$ is the maximum value for $n$. If fission is not assumed to be isotropic the fission integral can be written similarly with the infinite series truncated after $N_{f}$ terms. If fission is isotropic, the expansion simplifies to only a function of the neutron scalar flux. The multigroup equations can then be written as
 \begin{multline}
 	\bigg [ \frac{\alpha}{v_{g}} + \hat{\Omega} \cdot \nabla + \sigma_{g}(\vec{r}) \bigg ] \psi_{g}(\vec{r},\hat{\Omega}) = \sum_{g'=1}^{G} \sum_{n=0}^{N_{s}} \sigma_{s,g,g',n}(\vec{r}) \sum_{m=-n}^{n} \phi_{g',n,m}(\vec{r}) Y_{n}^{m}(\hat{\Omega}) \\ + \chi_{g} \sum_{g'=1}^{G} \sum_{n=0}^{N_{f}} \nu\sigma_{f,g',n}(\vec{r}) \sum_{m=-n}^{n} \phi_{g',n,m}(\vec{r}) Y_{n}^{m}(\hat{\Omega}), 
 	\label{eq:Alpha3DMGSPH}
 \end{multline}
 for $g = 1, \dots, G$.
 
-\subsection{Step Differencing and Discrete Ordinates in Angle}
+\subsection{Step Differencing in Space and Discrete Ordinates in Angle}
 
 \subsubsection{Step Differencing}
 
-We continue the discretization of Eq.~\ref{eq:Alpha3DMGSPH} by using a Step differencing method \cite{lewis_computational_1984} for the spatial variable $\vec{r}$. We start with the three-dimensional mono-energetic alpha-eigenvalue equation for group $g$ with scattering and fission source $f$:
+We continue the discretization of Eq.~\ref{eq:Alpha3DMGSPH} by using a Step finite differencing method \cite{lewis_computational_1984} for the spatial variable $\vec{r}$. We start with the three-dimensional mono-energetic alpha-eigenvalue equation for group $g$ with scattering and fission source $f$:
 
 \begin{equation}
 \begin{cases}
@@ -432,7 +437,7 @@ along with the matrix $V^{-1}_{g}$
 \begin{equation}
 	V^{-1}_{g} \equiv \text{diag}(V^{-1}_{g,1}, V^{-1}_{g,2}, \dots, V^{-1}_{g,L}) = \bar{Z} \bar{V}^{-1} \bar{S}.
 \end{equation}
-The matrices $\bar{Z}$ and $\bar{Z}_{B}$ are necessary since $H_{g}$ operates on nodal vectors while the matrices $\Sigma_{s,g,g',n}$ and $\Sigma_{f,g,g',n}$ operate on zone-centered vectors. Assuming only $N_{s} + 1$ terms in the scattering operator, then the complete discretization of Eq.~\ref{eq:ContG} can be written as
+The matrices $\bar{Z}$ and $\bar{Z}_{B}$ are necessary since $H_{g}$ operates on nodal vectors while the matrices $\Sigma_{s,g,g',n}$ and $\Sigma_{f,g,g',n}$ operate on zone-centered vectors. Assuming only $N_{s} + 1$ terms in the scattering and fission operators, then the complete discretization of Eq.~\ref{eq:ContG} can be written as
 \begin{multline}
 \big ( \alpha V^{-1}_{g} + H_{g} \big ) \Psi_{g} = \bar{Z} \sum_{g'=1}^{G} \sum_{n=0}^{N_{s}} L_{n}^{+} \Sigma_{s,g,g',n} L_{n} \bar{S} \Psi_{g'} \\ + \bar{Z}\sum_{g'=1}^{G} \sum_{n=0}^{N_{s}} L_{n}^{+} \Sigma_{f,g,g',n} L_{n} \bar{S} \Psi_{g'}, g = 1, \dots, G.
 \end{multline}

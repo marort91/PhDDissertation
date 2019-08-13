@@ -3,25 +3,25 @@
 In this chapter we verify the correctness and examine the performance of the Rayleigh Quotient Fixed Point methods for higher-dimensional problems. We consider realistic two- and three-dimensional problems involving fuel rods and fuel assemblies. For higher dimensions, the phase space of the neutron transport equation is a function of two $(x, y)$ or three $(x, y, z)$ spatial variables and two $\hat{\Omega} = (\mu, \eta)$ or three $\hat{\Omega} =  (\mu, \eta, \xi)$ angular variables defined as the $x$-, $y$-, and $z$-direction cosines. For higher-dimensional Cartesian geometry, the two-dimensional and three-dimensional alpha-eigenvalue neutron transport equations are given by Eq.~\ref{eq:2DAlpha} and Eq.~\ref{eq:3DAlpha}, respectively:
 
 \begin{multline}
-\bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \frac{\alpha}{v(E)} + \sigma(x,y,E) \bigg ] \psi(x,y,\hat{\Omega},E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,E') \int_{2\pi} \diff \hat{\Omega}' \, \psi(x,y, \hat{\Omega}', E') \\ + \frac{1}{2\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(x, y, E' \rightarrow E) \int_{2\pi} \diff \hat{\Omega}' \, \psi(x,y, \hat{\Omega}',E'),
+\bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \frac{\alpha}{v(E)} + \sigma(x,y,E) \bigg ] \psi(x,y,\hat{\Omega},E) \\ = \chi(E) \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,E') \int_{2\pi} \diff \hat{\Omega}' \, \psi(x,y, \hat{\Omega}', E') \\ + \int_{0}^{\infty} \diff E' \sigma_{s}(x, y, E' \rightarrow E) \int_{2\pi} \diff \hat{\Omega}' \, \psi(x,y, \hat{\Omega}',E'),
 \label{eq:2DAlpha}
 \end{multline}
 
 \begin{multline}
-\bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \xi \frac{\partial}{\partial z} + \frac{\alpha}{v(E)} + \sigma(x,y,z,E) \bigg ] \psi(x,y,z,\hat{\Omega}, E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,z,E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E') \\ + \frac{1}{4\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(x, y, z, E' \rightarrow E) \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E').
+\bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \xi \frac{\partial}{\partial z} + \frac{\alpha}{v(E)} + \sigma(x,y,z,E) \bigg ] \psi(x,y,z,\hat{\Omega}, E) \\ = \chi(E) \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,z,E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E') \\ + \int_{0}^{\infty} \diff E' \sigma_{s}(x, y, z, E' \rightarrow E) \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E').
 \label{eq:3DAlpha}
 \end{multline}
 The three-dimensional $k$-effective eigenvalue neutron transport equation is given by \ref{eq:3Dk}:
 
 \begin{multline}
-\bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \xi \frac{\partial}{\partial z} + \sigma(x,y,z,E) \bigg ] \psi(x,y,z,\hat{\Omega}, E) \\ = \frac{1}{k}\frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,z,E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E') \\ + \frac{1}{4\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(x, y, z, E' \rightarrow E) \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E').
+\bigg [ \mu \frac{\partial}{\partial x} + \eta \frac{\partial}{\partial y} + \xi \frac{\partial}{\partial z} + \sigma(x,y,z,E) \bigg ] \psi(x,y,z,\hat{\Omega}, E) \\ = \frac{\chi(E)}{k} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(x,y,z,E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E') \\ + \int_{0}^{\infty} \diff E' \sigma_{s}(x, y, z, E' \rightarrow E) \int_{4\pi} \diff \hat{\Omega}' \, \psi(x,y,z, \hat{\Omega}',E').
 \label{eq:3Dk}
 \end{multline}
 
 We also consider two-dimensional cylindrical geometry problems. For cylindrical geometry problems, the complexity is increased due to the fact that for one spatial dimension, two angular variables are required to describe the angular flux. For two-dimensional cylindrical problems, the alpha-eigenvalue neutron transport equation is given by 
 
 \begin{multline}
-\frac{\mu}{\rho} \frac{\partial}{\partial \rho} (\rho \psi) + \xi \frac{\partial \psi}{\partial z} - \frac{1}{\rho} \frac{\partial}{\partial \omega} (\eta \psi) + \frac{\alpha}{v(E)} \psi(\rho,\hat{\Omega},E) + \sigma(\rho,E) \psi(\rho,\hat{\Omega}E) \\ = \frac{\chi(E)}{2} \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(\rho,E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(\rho, \hat{\Omega}',E) \\ + \frac{1}{4\pi} \int_{0}^{\infty} \diff E' \sigma_{s}(\rho, E' \rightarrow E) \int_{4\pi} \diff \hat{\Omega}' \, \psi(\rho, \hat{\Omega}',E'),
+\frac{\mu}{\rho} \frac{\partial}{\partial \rho} (\rho \psi) + \xi \frac{\partial \psi}{\partial z} - \frac{1}{\rho} \frac{\partial}{\partial \omega} (\eta \psi) + \frac{\alpha}{v(E)} \psi(\rho,\hat{\Omega},E) + \sigma(\rho,E) \psi(\rho,\hat{\Omega}E) \\ = \chi(E) \int_{0}^{\infty} \diff E' \nu(E') \sigma_{f}(\rho,E') \int_{4\pi} \diff \hat{\Omega}' \, \psi(\rho, \hat{\Omega}',E) \\ + \int_{0}^{\infty} \diff E' \sigma_{s}(\rho, E' \rightarrow E) \int_{4\pi} \diff \hat{\Omega}' \, \psi(\rho, \hat{\Omega}',E'),
 \label{eq:2DCylAlpha}
 \end{multline}
 where $\rho$ is the radial distance from the origin and $\mu = (1-\xi^{2})^{1/2} \cos \omega$ and $\eta = (1-\xi^{2})^{1/2}\sin \omega$ (Figure \ref{fig:Cyl2D}).
