@@ -108,13 +108,13 @@ Solving the neutron transport equation with appropriate initial conditions and b
 The ability to fission certain nuclei with neutrons to produce additional neutrons leads to the criticality problem. Given a system with a certain material composition and geometry, is it possible to have a self-sustaining chain reaction? If a system is capable of a self-sustaining chain reaction, we call this system critical, where the loss and production of neutrons are perfectly in balance, allowing the neutron population to be constant in time. If the system is unable to sustain a chain reaction, the system to said to be subcritical. If the neutron population in the system grows without bound, the system is said to be supercritical \cite{bell_nuclear_1970}. It is rare to immediately find a system geometry or material composition that is critical. Instead, some parameter is introduced into the transport equation that forces the system to be critical. Given the sign or magnitude of this parameter, we can judge how far a system is from critical and whether or not the system is subcritical or supercritical. This parameter is the eigenvalue for which we solve numerically. There is no unique way to form an eigenvalue problem \cite{ronen_comparison_1976}, and depending on the application, one eigenvalue formulation may be more useful than others \cite{cacuci_eigenvalue-dependent_1982}. In this dissertation we focus on the $\alpha$- and $k$-eigenvalue problems due to their widespread use in nuclear engineering applications.
 
 \subsection{The Alpha-Eigenvalue Problem}
-If we are interested in the time asymptotic behavior of neutron flux in a system, the alpha-eigenvalue problem gives the exponential time-dependent flux behavior and criticality eigenpair of the system \cite{bell_nuclear_1970}. The time asymptotic behavior of the neutron flux is given by the sign of the eigenvalue, which determines whether or not the neutron flux decays to zero, remains constant in time, or grows without bound. We derive the alpha-eigenvalue problem by attempting to solve Eq.~\ref{eq:NeutronTransport} for some initial condition $\psi_{0}(\vec{r},E,\hat{\Omega},t=0)$ and vacuum boundary conditions \cite{lewis_computational_1984}. Defining the operator $A$ as
+If we are interested in the time asymptotic behavior of neutron flux in a system, the alpha-eigenvalue problem gives the exponential time-dependent flux behavior and criticality eigenpair of the system \cite{bell_nuclear_1970}. The time asymptotic behavior of the neutron flux is given by the sign of the eigenvalue, which determines whether or not the neutron flux decays to zero, remains constant in time, or grows without bound. We derive the alpha-eigenvalue problem by attempting to solve Eq.~\ref{eq:NeutronTransport} for some initial condition $\psi_{0}(\vec{r},E,\hat{\Omega},t=0)$ and vacuum boundary conditions \cite{lewis_computational_1984}. Defining the operator $\mathcal{A}$ as
 \begin{multline}
-A \equiv v(E) \bigg [ \int_{4\pi} \diff \hat{\Omega}' \, \int_{0}^{\infty} \diff E' \, \nu(E') \chi(E'\rightarrow E) \sigma_{f}(\vec{r},E') \\ +\int_{4\pi} \diff \hat{\Omega}' \, \int_{0}^{\infty} \diff E' \sigma_{s}(\vec{r},E'\rightarrow E, \hat{\Omega}' \cdot \hat{\Omega}) - \hat{\Omega} \cdot \nabla - \sigma(\vec{r},E) \bigg ],
+\mathcal{A} \equiv v(E) \bigg [ \int_{4\pi} \diff \hat{\Omega}' \, \int_{0}^{\infty} \diff E' \, \nu(E') \chi(E'\rightarrow E) \sigma_{f}(\vec{r},E') \\ +\int_{4\pi} \diff \hat{\Omega}' \, \int_{0}^{\infty} \diff E' \sigma_{s}(\vec{r},E'\rightarrow E, \hat{\Omega}' \cdot \hat{\Omega}) - \hat{\Omega} \cdot \nabla - \sigma(\vec{r},E) \bigg ],
 \end{multline}
 we can write the initial value problem as 
 \begin{equation}
-\frac{\partial \psi}{\partial t} = A \psi.
+\frac{\partial \psi}{\partial t} = \mathcal{A} \psi.
 \label{eq:ivp}
 \end{equation}
 We expect the previous equation to have solutions in the form of
@@ -123,23 +123,23 @@ We expect the previous equation to have solutions in the form of
 \end{equation}
 where we obtain the eigenvalues $\alpha$ from the equation
 \begin{equation}
-\alpha \psi = A \psi.
+\alpha \psi = \mathcal{A} \psi.
 \label{eq:ivp_A}
 	\end{equation}
-Obtaining the solution of the time-dependent neutron transport equation becomes a matter of determining the eigenvalues (spectrum) of $A$ \cite{bell_nuclear_1970}. Taking the Laplace transform of Eq.~\ref{eq:ivp}, we define
+Obtaining the solution of the time-dependent neutron transport equation becomes a matter of determining the eigenvalues (spectrum) of $\mathcal{A}$ \cite{bell_nuclear_1970}. Taking the Laplace transform of Eq.~\ref{eq:ivp}, we define
 \begin{equation}
 	\psi_{\alpha} \equiv \int_{0}^{\infty} \diff t \, e^{\alpha t} \psi(\vec{r},E,\hat{\Omega},t), 
 \end{equation}
 and obtain
 \begin{equation}
-	\alpha \psi_{\alpha} - \psi_{0} = A \psi_{\alpha} \rightarrow (\alpha - A) \psi_{\alpha} = \psi_{0}.	\end{equation}
+	\alpha \psi_{\alpha} - \psi_{0} = \mathcal{A} \psi_{\alpha} \rightarrow (\alpha - \mathcal{A}) \psi_{\alpha} = \psi_{0}.	\end{equation}
 To solve this equation we invert the left-hand side of the previous equation (resolvent operator) and obtain
 \begin{equation}
-	\psi_{\alpha} = (\alpha - A)^{-1}\psi_{0}.
+	\psi_{\alpha} = (\alpha - \mathcal{A})^{-1}\psi_{0}.
 \end{equation}
 Applying the inverse Laplace transform, we obtain the solution to the initial value problem
 \begin{equation}
-	\psi = \frac{1}{2\pi i} \int_{b - i\infty}^{b + i\infty} \diff \alpha \, (\alpha - A)^{-1}\psi_{0} e^{\alpha t}.
+	\psi = \frac{1}{2\pi i} \int_{b - i\infty}^{b + i\infty} \diff \alpha \, (\alpha - \mathcal{A})^{-1}\psi_{0} e^{\alpha t}.
 	\label{eq:IVPSoln}
 \end{equation}
 Equation \ref{eq:IVPSoln} is the formal solution of Eq.~\ref{eq:ivp}. However, this solution still requires that we perform a complex contour integral. To integrate the solution, we must know where the singularities of the integrand operator are located. Assume the operator has a discrete number of poles, then the integral can be performed by extending and closing the contour path to pick up all residue contributions as can be seen in Figure~\ref{fig:Contour}.
@@ -148,24 +148,24 @@ Equation \ref{eq:IVPSoln} is the formal solution of Eq.~\ref{eq:ivp}. However, t
 \centering
 \resizebox{0.5\textwidth}{!}{
 \input{Figures/Background/ContourIntegralComplex.tex}}
-\caption{Contour Integration in Complex Plane of the Operator $A$}
+\caption{Contour Integration in Complex Plane of the Operator $\mathcal{A}$}
 \label{fig:Contour}
 \end{figure}
 
 Defining
 \begin{equation}
-f(\alpha) = (\alpha - A)^{-1}\psi_{0} e^{\alpha t},
+f(\alpha) = (\alpha - \mathcal{A})^{-1}\psi_{0} e^{\alpha t},
 \end{equation}
 the solution to the initial value problem can be expressed as
 \begin{equation}
 	\psi = \frac{1}{2\pi i} \int_{b - i\infty}^{b + i\infty} \diff \alpha \, f(\alpha) = \oint_{C} \diff \alpha \, f(\alpha) = 2 \pi i \sum_{k=1}^{n} \text{Res}(f(\alpha),\alpha_{k}).
 	\label{eq:IVPsol}
 \end{equation}
-where $\alpha_{k}$ are the eigenvalues from Eqn.~\ref{eq:ivp_A}. While Eq.~\ref{eq:IVPsol} is the general solution for the initial value problem, usually we are only interested in the asymptotic time solution since at long times it is expected that only the dominant eigenvalue and fundamental mode will remain. Rather than taking the Laplace Transform of Eq.~\ref{eq:ivp}, the $\alpha$-eigenvalue problem is formed by assuming the angular flux solution is separable in time, giving the asymptotic solution
+where $\alpha_{k}$ are the eigenvalues from Eq.~\ref{eq:ivp_A}. While Eq.~\ref{eq:IVPsol} is the general solution for the initial value problem, usually we are only interested in the asymptotic time solution since at long times it is expected that only the dominant eigenvalue and fundamental mode will remain. Rather than taking the Laplace Transform of Eq.~\ref{eq:ivp}, the $\alpha$-eigenvalue problem is formed by assuming the angular flux solution is separable in time, giving the asymptotic solution
 \begin{equation}
 	\psi(\vec{r},\hat{\Omega},E,t) = \psi(\vec{r},\hat{\Omega},E) \exp(\alpha t).
 \end{equation}
-Substituting the asymptotic solution into the neutron transport equation (Equation \ref{eq:NeutronTransport}) yields the $\alpha$-eigenvalue neutron transport equation:
+Substituting the asymptotic solution into the neutron transport equation (Eq.~\ref{eq:NeutronTransport}) yields the $\alpha$-eigenvalue neutron transport equation:
 \begin{multline}
 	\bigg [ \frac{\alpha}{v(E)} + \hat{\Omega} \cdot \nabla + \sigma(\vec{r},E) \bigg ] \psi(\vec{r},\hat{\Omega},E) \\ = \int \diff E' \, \int \diff \hat{\Omega}' \, \sigma_{s}(\vec{r},E'\rightarrow E,\hat{\Omega}' \cdot \hat{\Omega}) \psi(\vec{r},\hat{\Omega}',E') \\ + \int \diff E' \, \nu(E') \chi(E'\rightarrow E) \sigma_{f}(\vec{r},E') \int \diff \hat{\Omega}' \, \psi(\vec{r},\hat{\Omega}',E').
 	\label{eq:AlphaEigEqn}
@@ -185,7 +185,7 @@ where the operators are continuous and given by
 	\end{split}
 \end{equation}
 
-In general, there will be a spectrum of eigenvalues for which there are solutions to Equation \ref{eq:AlphaEigEqn} but at long times, only a unique, positive eigenvector, $\psi_{0}$,  corresponding to the algebraically largest eigenvalue, $\alpha_{0}$, remains. The asymptotic solution can be written as \cite{nelkin_asymptotic_1963}
+In general, there will be a spectrum of eigenvalues for which there are solutions to Eq.~\ref{eq:AlphaEigEqn} but at long times, only a unique, positive eigenvector, $\psi_{0}$,  corresponding to the algebraically largest eigenvalue, $\alpha_{0}$, remains. The asymptotic solution can be written as \cite{nelkin_asymptotic_1963}
 \begin{equation}
 	\psi_{\text{asym}}(\vec{r},\hat{\Omega},E,t) \propto \psi_{0}(\vec{r},\hat{\Omega},E) \exp(\alpha_{0} t).
 \end{equation}
@@ -202,7 +202,7 @@ Let $\mathcal{T}$ be the transport operator defined as
 \begin{equation}
 	\mathcal{T} = \mathcal{V}(\mathcal{S}+\mathcal{F} - \mathcal{H}),
 \end{equation}
-then it follows that the eigenvalue problem can be written as
+then it follows that the alpha-eigenvalue problem can be written as
 \begin{equation}
 	\alpha \psi = \mathcal{T} \psi.
 \end{equation}
@@ -216,7 +216,7 @@ If there exists a complex eigenvalue in the spectrum, then its complex conjugate
 		\mathcal{T} v = \lambda v.
 		\label{eq:ComConj}
 	\end{equation}
-Taking the complex conjugate of Equation \ref{eq:ComConj} yields
+Taking the complex conjugate of Eq.~\ref{eq:ComConj} yields
 \begin{equation}
 	\overline{\mathcal{T}}\overline{v} = \mathcal{T} \overline{v} = \overline{\lambda}\overline{v},
 	\end{equation}
@@ -255,7 +255,7 @@ where $\bar{\nu}$ is the average number of neutrons emitted in fission and $k_{\
 	\frac{\alpha_{\infty}}{v\sigma} = (k_{\infty}-1) \bigg ( 1 - \frac{\sigma_{s}}{\sigma} \bigg ).
 \label{eq:kinfalpha}
 \end{equation}
-The minimum possible $\alpha$-eigenvalue occurs when there is no fissile material ($k_{\infty} = 0$) or scattering ($\sigma_{s} = 0$) present. Substitution of these values into Equation \ref{eq:kinfalpha} yields
+The minimum possible $\alpha$-eigenvalue occurs when there is no fissile material ($k_{\infty} = 0$) or scattering ($\sigma_{s} = 0$) present. Substitution of these values into Eq.~\ref{eq:kinfalpha} yields
 \begin{equation}
 	\alpha_{\infty} = - v \sigma = -\lambda^{*},
 \end{equation}
